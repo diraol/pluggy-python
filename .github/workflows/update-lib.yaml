@@ -1,0 +1,66 @@
+---
+name: Build Python SDK
+
+on:  # yamllint disable-line rule:truthy
+  schedule:
+  - cron:  '0 0 * * 6'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  URL: https://api.pluggy.ai/oas3.json
+
+jobs:
+  GenerateSDK:
+    name: Generate Updated SDK
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Required for checking out repository.
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Download OAS
+      id: new-oas
+      run: |
+        sha256sum pluggy-oas3.json
+        wget "${URL}" -O pluggy-oas3.json
+        sha256sum pluggy-oas3.json
+        echo "git status --short"
+        echo "version=$(jq '.info.version' pluggy-oas3.json)" >> "${GITHUB_OUTPUT}"
+        echo "Version: $(jq '.info.version' pluggy-oas3.json)"
+
+    - name: Check diff
+      id: has-diff
+      run: |
+        CHANGED_FILES=$(git status --short | grep pluggy-oas3.json | wc -l)
+        echo "changed-files=${CHANGED_FILES}" >> "${GITHUB_OUTPUT}"
+        echo "Changed Files: ${CHANGED_FILES}"
+        echo "git status --short"
+
+    - name: Commit new Spec
+      if: ${{ steps.has-diff.outputs.changed-files}} == 1
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "Update OAS Spec ${{ steps.new-oas.outputs.version }}"
+        file_pattern: 'pluggy-oas3.json'
+
+    - name: Generate OpenAPI Python Client
+      if: ${{ steps.has-diff.outputs.changed-files}} == 1
+      uses: openapi-generators/openapitools-generator-action@v1
+      with:
+        command-args: --output=lib
+        generator: python
+        openapi-file: pluggy-oas3.json
+
+    - name: Commit new SDK
+      if: ${{ steps.has-diff.outputs.changed-files}} == 1
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "Commit new SDK ${{ steps.new-oas.outputs.version }}"
+        file_pattern: 'lib/*'
