@@ -1,10 +1,9 @@
 ---
-name: Build and Publish Package
+name: Update Spec/SDK
 
 on:  # yamllint disable-line rule:truthy
-  push:
-    tags:
-      - '*'
+  schedule:
+  - cron:  '0 0 * * 6'
   workflow_dispatch:
 
 concurrency:
@@ -13,22 +12,65 @@ concurrency:
 
 env:
   GITHUB_TOKEN: ${{ secrets.PAT }}
+  URL: https://api.pluggy.ai/oas3.json
 
 jobs:
-  GenerateSDKDist:
+  GenerateSDK:
     name: Generate Updated SDK
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Required for commiting to the repository.
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Set Version
+    - name: Download OAS
+      id: new-oas
       run: |
-        VERSION=$(jq -r '.info.version' pluggy-oas3.json)
-        echo "version=${VERSION}" >> "${GITHUB_OUTPUT}"
-        echo "Version=${VERSION}" >> "${GITHUB_ENV}"
-        echo "Version: ${VERSION}"
+        echo "InitialVersion=$(jq -r '.info.version' pluggy-oas3.json)" >> "${GITHUB_ENV}"
+        echo "initial-version=$(jq -r '.info.version' pluggy-oas3.json)" >> "${GITHUB_OUTPUT}"
+        echo "InitialVersion: $(jq -r '.info.version' pluggy-oas3.json)"
+        wget "${URL}" -O pluggy-oas3.json
+        echo "git status --short"
+        echo "new-version=$(jq -r '.info.version' pluggy-oas3.json)" >> "${GITHUB_OUTPUT}"
+        echo "NewVersion=$(jq -r '.info.version' pluggy-oas3.json)" >> "${GITHUB_ENV}"
+        echo "NewVersion: $(jq -r '.info.version' pluggy-oas3.json)"
+
+    - name: Check diff
+      id: has-diff
+      run: |
+        CHANGED_FILES=$(git status --short | grep pluggy-oas3.json | wc -l)
+        echo "changed-files=${CHANGED_FILES}" >> "${GITHUB_OUTPUT}"
+        echo "Changed Files: ${CHANGED_FILES}"
+        echo "git status --short"
+
+    - name: Commit new Spec
+      if: steps.has-diff.outputs.changed-files == 1
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_author: "Diego Rabatone Oliveira <diraol@diraol.eng.br>"
+        commit_message: "Update OAS Spec ${{ steps.new-oas.outputs.new-version }}"
+        file_pattern: 'pluggy-oas3.json'
+
+    - name: Generate OpenAPI Python Client
+      if: steps.has-diff.outputs.changed-files == 1
+      uses: openapi-generators/openapitools-generator-action@v1
+      with:
+        command-args: "--output=lib --additional-properties=packageName=pluggy_sdk,packageUrl=https://github.com/diraol/pluggy-python,packageVersion=${{ steps.new-oas.outputs.new-version }},projectName=pluggy-sdk"
+        generator: python
+        openapi-file: pluggy-oas3.json
+
+    - name: Commit new SDK
+      if: steps.has-diff.outputs.changed-files == 1
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_author: "Diego Rabatone Oliveira <diraol@diraol.eng.br>"
+        commit_message: "Commit new SDK ${{ steps.new-oas.outputs.new-version }}"
+        file_pattern: 'lib/*'
+        push_options: '--force'
+        tagging_message: v${{ steps.new-oas.outputs.new-version }}
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -56,7 +98,7 @@ jobs:
   publish-to-pypi:
     name: Publish Python 🐍 distribution 📦 to PyPI
     if: startsWith(github.ref, 'refs/tags/')
-    needs: GenerateSDKDist
+    needs: GenerateSDK
     runs-on: ubuntu-latest
     environment:
       name: pypi
@@ -115,3 +157,4 @@ jobs:
         gh release upload
         '${{ github.ref_name }}' dist/**
         --repo '${{ github.repository }}'
+
