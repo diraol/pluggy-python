@@ -1,9 +1,10 @@
 ---
-name: Build Python SDK
+name: Build and Publish Package
 
 on:  # yamllint disable-line rule:truthy
-  schedule:
-  - cron:  '0 0 * * 6'
+  push:
+    tags:
+      - '*'
   workflow_dispatch:
 
 concurrency:
@@ -11,56 +12,106 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  URL: https://api.pluggy.ai/oas3.json
+  GITHUB_TOKEN: ${{ secrets.PAT }}
 
 jobs:
-  GenerateSDK:
+  GenerateSDKDist:
     name: Generate Updated SDK
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write  # Required for checking out repository.
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Download OAS
-      id: new-oas
+    - name: Set Version
       run: |
-        sha256sum pluggy-oas3.json
-        wget "${URL}" -O pluggy-oas3.json
-        sha256sum pluggy-oas3.json
-        echo "git status --short"
-        echo "version=$(jq '.info.version' pluggy-oas3.json)" >> "${GITHUB_OUTPUT}"
-        echo "Version: $(jq '.info.version' pluggy-oas3.json)"
+        VERSION=$(jq -r '.info.version' pluggy-oas3.json)
+        echo "version=${VERSION}" >> "${GITHUB_OUTPUT}"
+        echo "Version=${VERSION}" >> "${GITHUB_ENV}"
+        echo "Version: ${VERSION}"
 
-    - name: Check diff
-      id: has-diff
-      run: |
-        CHANGED_FILES=$(git status --short | grep pluggy-oas3.json | wc -l)
-        echo "changed-files=${CHANGED_FILES}" >> "${GITHUB_OUTPUT}"
-        echo "Changed Files: ${CHANGED_FILES}"
-        echo "git status --short"
-
-    - name: Commit new Spec
-      if: ${{ steps.has-diff.outputs.changed-files}} == 1
-      uses: stefanzweifel/git-auto-commit-action@v5
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        commit_message: "Update OAS Spec ${{ steps.new-oas.outputs.version }}"
-        file_pattern: 'pluggy-oas3.json'
+        python-version: "3.x"
 
-    - name: Generate OpenAPI Python Client
-      if: ${{ steps.has-diff.outputs.changed-files}} == 1
-      uses: openapi-generators/openapitools-generator-action@v1
-      with:
-        command-args: --output=lib
-        generator: python
-        openapi-file: pluggy-oas3.json
+    - name: Install pypa/build
+      run: >-
+        python3 -m
+        pip install
+        build
+        --user
 
-    - name: Commit new SDK
-      if: ${{ steps.has-diff.outputs.changed-files}} == 1
-      uses: stefanzweifel/git-auto-commit-action@v5
+    - name: Build a binary wheel and a source tarball
+      id: build
+      run: python3 -m build
+      working-directory: ./lib
+
+    - name: Store the distribution packages
+      uses: actions/upload-artifact@v4
       with:
-        commit_message: "Commit new SDK ${{ steps.new-oas.outputs.version }}"
-        file_pattern: 'lib/*'
+        name: python-package-distributions
+        path: lib/dist/
+
+  publish-to-pypi:
+    name: Publish Python 🐍 distribution 📦 to PyPI
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: GenerateSDKDist
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/python_sdk
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+
+    - name: Publish distribution 📦 to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+
+  github-release:
+    name: >-
+      Sign the Python 🐍 distribution 📦 with Sigstore
+      and upload them to GitHub Release
+    needs:
+    - publish-to-pypi
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # IMPORTANT: mandatory for making GitHub Releases
+      id-token: write  # IMPORTANT: mandatory for sigstore
+
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v3
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Sign the dists with Sigstore
+      uses: sigstore/gh-action-sigstore-python@v1.2.3
+      with:
+        inputs: >-
+          ./dist/*.tar.gz
+          ./dist/*.whl
+    - name: Create GitHub Release
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: >-
+        gh release create
+        '${{ github.ref_name }}'
+        --repo '${{ github.repository }}'
+        --notes ""
+    - name: Upload artifact signatures to GitHub Release
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      # Upload to GitHub Release using the `gh` CLI.
+      # `dist/` contains the built packages, and the
+      # sigstore-produced signatures and certificates.
+      run: >-
+        gh release upload
+        '${{ github.ref_name }}' dist/**
+        --repo '${{ github.repository }}'
