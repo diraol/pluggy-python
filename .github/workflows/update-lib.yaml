@@ -46,19 +46,39 @@ jobs:
         echo "Changed Files: ${CHANGED_FILES}"
         echo "git status --short"
 
+    - name: Update version
+      id: version-set
+      run: |
+        BASE_VERSION="${InitialVersion//.post*}"
+
+        if [[ "${BASE_VERSION}" == "${NewVersion}" ]]; then
+
+          if [[ "${InitialVersion}" =~ ^.*\.post.*$ ]]; then
+            SUFFIX_VERSION="$(echo "${InitialVersion} | sed 's/.*\.post\(\d\+\)/\1/g'")"
+            SUFFIX_VERSION="post$(expr $SUFFIX_VERSION + 1)"
+          else
+            SUFFIX_VERSION="post1"
+          fi
+
+          NEW_VERSION="${NewVersion}.${SUFFIX_VERSION}"
+        fi
+
+        echo "NewVersion=${NEW_VERSION}" >> "${GITHUB_ENV}"
+        echo "new-version=${NEW_VERSION}" >> "${GITHUB_OUTPUT}"
+
     - name: Commit new Spec
       if: steps.has-diff.outputs.changed-files == 1
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_author: "Diego Rabatone Oliveira <diraol@diraol.eng.br>"
-        commit_message: "Update OAS Spec ${{ steps.new-oas.outputs.new-version }}"
+        commit_message: "[ci] Update OAS Spec ${{ steps.version-set.outputs.new-version }}"
         file_pattern: 'pluggy-oas3.json'
 
     - name: Generate OpenAPI Python Client
       if: steps.has-diff.outputs.changed-files == 1
       uses: openapi-generators/openapitools-generator-action@v1
       with:
-        command-args: "--output=lib --additional-properties=packageName=pluggy_sdk,packageUrl=https://github.com/diraol/pluggy-python,packageVersion=${{ steps.new-oas.outputs.new-version }},projectName=pluggy-sdk"
+        command-args: "--output=lib --additional-properties=packageName=pluggy_sdk,packageUrl=https://github.com/diraol/pluggy-python,packageVersion=${{ steps.version-set.outputs.new-version }},projectName=pluggy-sdk"
         generator: python
         openapi-file: pluggy-oas3.json
 
@@ -67,10 +87,10 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_author: "Diego Rabatone Oliveira <diraol@diraol.eng.br>"
-        commit_message: "Commit new SDK ${{ steps.new-oas.outputs.new-version }}"
+        commit_message: "[ci] Commit new SDK ${{ steps.version-set.outputs.new-version }}"
         file_pattern: 'lib/*'
         push_options: '--force'
-        tagging_message: v${{ steps.new-oas.outputs.new-version }}
+        tagging_message: v${{ steps.version-set.outputs.new-version }}
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -106,7 +126,6 @@ jobs:
 
   publish-to-pypi:
     name: Publish Python 🐍 distribution 📦 to PyPI
-    if: startsWith(github.ref, 'refs/tags/')
     needs: GenerateSDK
     runs-on: ubuntu-latest
     environment:
