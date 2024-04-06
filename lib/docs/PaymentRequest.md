@@ -1,0 +1,39 @@
+# PaymentRequest
+
+Response with information related to a payment request
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **str** | Primary identifier | 
+**amount** | **float** | Requested amount | 
+**description** | **str** | Payment description | [optional] 
+**status** | **str** | Payment request status | 
+**client_payment_id** | **str** | Client payment identifier | [optional] 
+**created_at** | **datetime** | Date when the payment request was created | 
+**updated_at** | **datetime** | Date when the payment request was updated | 
+**callback_urls** | [**PaymentRequestCallbackUrls**](PaymentRequestCallbackUrls.md) |  | [optional] 
+**recipient_id** | **str** | Payment receiver identifier | [optional] 
+**payment_url** | **str** | URL to begin the payment intent creation flow for this payment request | 
+
+## Example
+
+```python
+from pluggy_sdk.models.payment_request import PaymentRequest
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of PaymentRequest from a JSON string
+payment_request_instance = PaymentRequest.from_json(json)
+# print the JSON string representation of the object
+print(PaymentRequest.to_json())
+
+# convert the object into a dict
+payment_request_dict = payment_request_instance.to_dict()
+# create an instance of PaymentRequest from a dict
+payment_request_form_dict = payment_request.from_dict(payment_request_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
