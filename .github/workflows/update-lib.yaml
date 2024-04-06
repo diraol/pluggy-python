@@ -29,6 +29,8 @@ jobs:
     - name: Download OAS
       id: new-oas
       run: |
+        set -x
+
         if [[ -f lib/setup.py ]]; then
           INITIAL_VERSION=$(grep 'VERSION = ' lib/setup.py | grep -E -o '[0-9][^"]*')
         else
