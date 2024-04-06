@@ -84,6 +84,15 @@ jobs:
         build
         --user
 
+    - name: Patch Setup.py
+      run: |
+        # Replace multiline long_description with a hold marker
+        sed -i -e '/long_description=/,/"""/d' -e '/long_description_content_type/a --HOLD--' lib/setup.py
+        # Replace the hold marker with our new long_description definition
+        sed -i 's/^--HOLD--$/    long_description=long_description,/g' lib/setup.py
+        # Add code lines that read the README.md file
+        sed -i -e '/setup(/r .github/files/setup_py_patch' -e //N lib/setup.py
+
     - name: Build a binary wheel and a source tarball
       id: build
       run: python3 -m build
