@@ -10326,6 +10326,19 @@
           "referenceId": {
             "type": "string",
             "description": "Pix id related to the payment intent"
+          },
+          "paymentMethod": {
+            "type": "string",
+            "enum": [
+              "PIS",
+              "PIX"
+            ],
+            "description": "Payment method can be PIS (Payment Initiation) or PIX",
+            "default": "PIS"
+          },
+          "pixData": {
+            "$ref": "#/components/schemas/PixData",
+            "description": "Pix data related to the payment intent (only applies for PIX payment method)"
           }
         },
         "type": "object",
@@ -11402,6 +11415,24 @@
         "type": "object",
         "required": [
           "city"
+        ]
+      },
+      "PixData": {
+        "description": "Payment Intent PIX data",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "PIX QR raw value"
+          },
+          "qr": {
+            "type": "string",
+            "description": "PIX QR image in base64 format"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "qr"
         ]
       }
     },
