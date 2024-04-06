@@ -19,7 +19,7 @@ import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, Dict, List, Optional
 from pydantic import StrictStr, Field
-from typing import Union, List, Optional, Dict
+from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
 CREATEITEMPARAMETERS_ONE_OF_SCHEMAS = ["object", "str"]
@@ -33,7 +33,7 @@ class CreateItemParameters(BaseModel):
     # data type: str
     oneof_schema_2_validator: Optional[StrictStr] = None
     actual_instance: Optional[Union[object, str]] = None
-    one_of_schemas: List[str] = Field(default=Literal["object", "str"])
+    one_of_schemas: Set[str] = { "object", "str" }
 
     model_config = ConfigDict(
         validate_assignment=True,
