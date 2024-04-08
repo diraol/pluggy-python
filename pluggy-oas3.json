@@ -11,7 +11,7 @@
       "name": "Pluggy",
       "url": "https://pluggy.ai"
     },
-    "version": "1.0.0-wrong"
+    "version": "1.0.0"
   },
   "paths": {
     "/auth": {
