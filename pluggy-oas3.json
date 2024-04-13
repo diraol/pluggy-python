@@ -4980,6 +4980,236 @@
         }
       }
     },
+    "/payments/requests/{id}/receipts": {
+      "post": {
+        "tags": [
+          "Payment Request"
+        ],
+        "operationId": "payment-request-receipt-create",
+        "summary": "Create",
+        "description": "Creates the payment receipt resource",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {}  
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success creating payment receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentReceipt"
+                },
+                "examples": {
+                  "response": {  
+                    "value": {  
+                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "amount": 100.5,
+                      "description": "Transferência",
+                      "paymentRequestId": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125",
+                      "receiptUrl": "https://pay.pluggy.ai/receipt/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "creditor": {
+                        "name": "Juan Gonzalez",
+                        "taxNumber": "12345678900",
+                        "bankAccount": {
+                          "agency": "0001",
+                          "account": "12345678-9",
+                          "name": "Itaú"
+                        },
+                        "creditor": {
+                          "name": "Juan Gonzalez",
+                          "taxNumber": "12345678900",
+                          "bankAccount": {
+                            "agency": "0001",
+                            "account": "12345678-9",
+                            "name": "Itaú"
+                          }
+                        },
+                        "referenceId": "12345678900",
+                        "expiresAt": "2023-11-06T13:03:45.689Z",
+                        "date": "2023-11-06T13:03:45.689Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Payment Request"
+        ],
+        "operationId": "payment-request-receipt-list",
+        "summary": "List",
+        "description": "Recovers all created payment receipts for the payment request provided",
+        "responses": {
+          "200": {
+            "description": "Retrieve a list of all payment receipts for the payment request provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "total": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "totalPages": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PaymentReceipt"
+                      },
+                      "description": "List of payment receipts"
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "page": 1,
+                      "total": 1,
+                      "totalPages": 1,
+                      "results": [
+                        {
+                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "amount": 100.5,
+                          "description": "Transferência",
+                          "paymentRequestId": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125",
+                          "receiptUrl": "https://pay.pluggy.ai/receipt/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "creditor": {
+                            "name": "Juan Gonzalez",
+                            "taxNumber": "12345678900",
+                            "bankAccount": {
+                              "agency": "0001",
+                              "account": "12345678-9",
+                              "name": "Itaú"
+                            },
+                            "creditor": {
+                              "name": "Juan Gonzalez",
+                              "taxNumber": "12345678900",
+                              "bankAccount": {
+                                "agency": "0001",
+                                "account": "12345678-9",
+                                "name" : "Itaú"
+                              }
+                            },
+                            "referenceId": "12345678900",
+                            "expiresAt": "2023-11-06T13:03:45.689Z",
+                            "date": "2023-11-06T13:03:45.689Z"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "description": "Payment request primary identifier",
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+        }
+      ]
+    },
+    "/payments/requests/{payment-request-id}/receipts/{payment-receipt-id}": {
+      "get": {
+        "tags": [
+          "Payment Request"
+        ],
+        "operationId": "payment-request-receipt-retrieve",
+        "summary": "Retrieve",
+        "description": "Recovers the payment receipt resource by its id",
+        "responses": {
+          "200": {
+            "description": "Retrieve a payment receipt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentReceipt"
+                },
+                "examples": {
+                  "response": { 
+                    "value": {  
+                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "amount": 100.5,
+                          "description": "Transferência",
+                          "paymentRequestId": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125",
+                          "receiptUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "creditor": {
+                            "name": "Juan Gonzalez",
+                            "taxNumber": "12345678900",
+                            "bankAccount": {
+                              "agency": "0001",
+                              "account": "12345678-9",
+                              "name": "Itaú"
+                            },
+                            "creditor": {
+                              "name": "Juan Gonzalez",
+                              "taxNumber": "12345678900",
+                              "bankAccount": {
+                                "agency": "0001",
+                                "account": "12345678-9",
+                                "name": "Itaú"
+                              }
+                            },
+                            "referenceId": "12345678900",
+                            "expiresAt": "2023-11-06T13:03:45.689Z",
+                            "date": "2023-11-06T13:03:45.689Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "payment-request-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "payment-receipt-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+    ,
     "/payments/intents": {
       "get": {
         "operationId": "payment-intents-list",
@@ -10052,6 +10282,138 @@
         },
         "type": "object",
         "example": {}
+      },
+      "PaymentReceipt": {
+        "description": "Response with information related to a payment receipt",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Primary identifier"
+          },
+          "paymentRequestId": {
+            "type": "string",
+            "description": "Payment request identifier"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the payment receipt expires"
+          },
+          "receiptUrl": {
+            "type": "string",
+            "description": "URL to download the payment receipt"
+          },
+          "creditor": {
+            "$ref": "#/components/schemas/PaymentReceiptPerson", 
+            "description": "Creditor bank account information"
+          },
+          "debtor": {
+            "$ref": "#/components/schemas/PaymentReceiptPerson",
+            "description": "Debtor bank account information"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Payment amount"
+          },
+          "description": {
+            "type": "string",
+            "description": "Payment description"
+          },
+          "referenceId": {
+            "type": "string",
+            "description": "Payment reference identifier"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the payment was made"
+          }
+        },
+        "type": "object", 
+        "required": [
+          "id",
+          "paymentRequestId",
+          "expiresAt",
+          "receiptUrl",
+          "creditor",
+          "debtor",
+          "amount",
+          "referenceId"
+        ],
+        "example": {
+          "amount": 100.0,
+          "creditor": {
+            "bankAccount": {
+              "branch": "0001",
+              "number": "123456",
+              "type": "CHECKING_ACCOUNT"
+            },
+            "name": "Creditor Name",
+            "taxNumber": "12345678901"
+          },
+          "date": "2020-04-21T15:00:00.000Z",
+          "debtor": {
+            "bankAccount": {
+              "branch": "0001",
+              "number": "123456",
+              "type": "CHECKING_ACCOUNT"
+            },
+            "name": "Debtor Name",
+            "taxNumber": "12345678901"
+          },
+          "description": "Payment description",
+          "expiresAt": "2020-04-21T15:00:00.000Z",
+          "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
+          "paymentRequestId": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
+          "receiptUrl": "https://example.com/receipt",
+          "referenceId": "123456"
+        }
+      },
+      "PaymentReceiptPerson": {
+        "description": "Debtor or creditor information",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Person name"
+          },
+          "taxNumber": {
+            "type": "string",
+            "description": "Person tax number"
+          },
+          "bankAccount": {
+            "$ref": "#/components/schemas/PaymentReceiptBankAccount",
+            "description": "Person bank account information"
+          }
+        }
+      },
+      "PaymentReceiptBankAccount": {
+        "description": "Payment bank account information",
+        "properties": {
+          "agency": {
+            "type": "string",
+            "description": "Bank account branch (agency)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Bank account number"
+          },
+          "account": {
+            "type": "string",
+            "description":"Bank account number",
+            "example": "123456"
+          }
+        },
+        "type": "object",
+        "example": {
+          "agency": "0001",
+          "name": "Itaú",
+          "account": "123456"
+        },
+        "required": [
+          "branch",
+          "number",
+          "type"
+        ]
       },
       "PaymentInstitution": {
         "description": "Response with information related to a payment institution",
