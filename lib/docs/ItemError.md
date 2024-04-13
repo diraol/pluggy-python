@@ -26,7 +26,7 @@ print(ItemError.to_json())
 # convert the object into a dict
 item_error_dict = item_error_instance.to_dict()
 # create an instance of ItemError from a dict
-item_error_form_dict = item_error.from_dict(item_error_dict)
+item_error_from_dict = ItemError.from_dict(item_error_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

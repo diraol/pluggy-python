@@ -32,7 +32,7 @@ print(ConnectorCredential.to_json())
 # convert the object into a dict
 connector_credential_dict = connector_credential_instance.to_dict()
 # create an instance of ConnectorCredential from a dict
-connector_credential_form_dict = connector_credential.from_dict(connector_credential_dict)
+connector_credential_from_dict = ConnectorCredential.from_dict(connector_credential_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

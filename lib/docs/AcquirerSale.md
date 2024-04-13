@@ -40,7 +40,7 @@ print(AcquirerSale.to_json())
 # convert the object into a dict
 acquirer_sale_dict = acquirer_sale_instance.to_dict()
 # create an instance of AcquirerSale from a dict
-acquirer_sale_form_dict = acquirer_sale.from_dict(acquirer_sale_dict)
+acquirer_sale_from_dict = AcquirerSale.from_dict(acquirer_sale_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

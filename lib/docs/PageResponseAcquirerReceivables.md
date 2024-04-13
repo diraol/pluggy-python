@@ -26,7 +26,7 @@ print(PageResponseAcquirerReceivables.to_json())
 # convert the object into a dict
 page_response_acquirer_receivables_dict = page_response_acquirer_receivables_instance.to_dict()
 # create an instance of PageResponseAcquirerReceivables from a dict
-page_response_acquirer_receivables_form_dict = page_response_acquirer_receivables.from_dict(page_response_acquirer_receivables_dict)
+page_response_acquirer_receivables_from_dict = PageResponseAcquirerReceivables.from_dict(page_response_acquirer_receivables_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

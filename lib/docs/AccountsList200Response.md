@@ -25,7 +25,7 @@ print(AccountsList200Response.to_json())
 # convert the object into a dict
 accounts_list200_response_dict = accounts_list200_response_instance.to_dict()
 # create an instance of AccountsList200Response from a dict
-accounts_list200_response_form_dict = accounts_list200_response.from_dict(accounts_list200_response_dict)
+accounts_list200_response_from_dict = AccountsList200Response.from_dict(accounts_list200_response_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

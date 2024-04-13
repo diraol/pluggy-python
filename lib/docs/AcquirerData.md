@@ -26,7 +26,7 @@ print(AcquirerData.to_json())
 # convert the object into a dict
 acquirer_data_dict = acquirer_data_instance.to_dict()
 # create an instance of AcquirerData from a dict
-acquirer_data_form_dict = acquirer_data.from_dict(acquirer_data_dict)
+acquirer_data_from_dict = AcquirerData.from_dict(acquirer_data_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

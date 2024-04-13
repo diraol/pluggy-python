@@ -31,7 +31,7 @@ print(BulkPayment.to_json())
 # convert the object into a dict
 bulk_payment_dict = bulk_payment_instance.to_dict()
 # create an instance of BulkPayment from a dict
-bulk_payment_form_dict = bulk_payment.from_dict(bulk_payment_dict)
+bulk_payment_from_dict = BulkPayment.from_dict(bulk_payment_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

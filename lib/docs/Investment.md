@@ -55,7 +55,7 @@ print(Investment.to_json())
 # convert the object into a dict
 investment_dict = investment_instance.to_dict()
 # create an instance of Investment from a dict
-investment_form_dict = investment.from_dict(investment_dict)
+investment_from_dict = Investment.from_dict(investment_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

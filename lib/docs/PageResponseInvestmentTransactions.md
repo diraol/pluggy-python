@@ -26,7 +26,7 @@ print(PageResponseInvestmentTransactions.to_json())
 # convert the object into a dict
 page_response_investment_transactions_dict = page_response_investment_transactions_instance.to_dict()
 # create an instance of PageResponseInvestmentTransactions from a dict
-page_response_investment_transactions_form_dict = page_response_investment_transactions.from_dict(page_response_investment_transactions_dict)
+page_response_investment_transactions_from_dict = PageResponseInvestmentTransactions.from_dict(page_response_investment_transactions_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -27,7 +27,7 @@ print(CreatePaymentRecipient.to_json())
 # convert the object into a dict
 create_payment_recipient_dict = create_payment_recipient_instance.to_dict()
 # create an instance of CreatePaymentRecipient from a dict
-create_payment_recipient_form_dict = create_payment_recipient.from_dict(create_payment_recipient_dict)
+create_payment_recipient_from_dict = CreatePaymentRecipient.from_dict(create_payment_recipient_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

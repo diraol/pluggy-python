@@ -32,7 +32,7 @@ print(LoanInterestRate.to_json())
 # convert the object into a dict
 loan_interest_rate_dict = loan_interest_rate_instance.to_dict()
 # create an instance of LoanInterestRate from a dict
-loan_interest_rate_form_dict = loan_interest_rate.from_dict(loan_interest_rate_dict)
+loan_interest_rate_from_dict = LoanInterestRate.from_dict(loan_interest_rate_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

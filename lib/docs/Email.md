@@ -24,7 +24,7 @@ print(Email.to_json())
 # convert the object into a dict
 email_dict = email_instance.to_dict()
 # create an instance of Email from a dict
-email_form_dict = email.from_dict(email_dict)
+email_from_dict = Email.from_dict(email_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

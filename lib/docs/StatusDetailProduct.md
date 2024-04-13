@@ -25,7 +25,7 @@ print(StatusDetailProduct.to_json())
 # convert the object into a dict
 status_detail_product_dict = status_detail_product_instance.to_dict()
 # create an instance of StatusDetailProduct from a dict
-status_detail_product_form_dict = status_detail_product.from_dict(status_detail_product_dict)
+status_detail_product_from_dict = StatusDetailProduct.from_dict(status_detail_product_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

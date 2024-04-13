@@ -24,7 +24,7 @@ print(Document.to_json())
 # convert the object into a dict
 document_dict = document_instance.to_dict()
 # create an instance of Document from a dict
-document_form_dict = document.from_dict(document_dict)
+document_from_dict = Document.from_dict(document_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

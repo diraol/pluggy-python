@@ -26,7 +26,7 @@ print(ClientCategoryRule.to_json())
 # convert the object into a dict
 client_category_rule_dict = client_category_rule_instance.to_dict()
 # create an instance of ClientCategoryRule from a dict
-client_category_rule_form_dict = client_category_rule.from_dict(client_category_rule_dict)
+client_category_rule_from_dict = ClientCategoryRule.from_dict(client_category_rule_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -24,7 +24,7 @@ print(PercentageOverIndex.to_json())
 # convert the object into a dict
 percentage_over_index_dict = percentage_over_index_instance.to_dict()
 # create an instance of PercentageOverIndex from a dict
-percentage_over_index_form_dict = percentage_over_index.from_dict(percentage_over_index_dict)
+percentage_over_index_from_dict = PercentageOverIndex.from_dict(percentage_over_index_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -25,7 +25,7 @@ print(InvestmentsList200Response.to_json())
 # convert the object into a dict
 investments_list200_response_dict = investments_list200_response_instance.to_dict()
 # create an instance of InvestmentsList200Response from a dict
-investments_list200_response_form_dict = investments_list200_response.from_dict(investments_list200_response_dict)
+investments_list200_response_from_dict = InvestmentsList200Response.from_dict(investments_list200_response_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

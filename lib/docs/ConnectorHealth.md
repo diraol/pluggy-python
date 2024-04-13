@@ -25,7 +25,7 @@ print(ConnectorHealth.to_json())
 # convert the object into a dict
 connector_health_dict = connector_health_instance.to_dict()
 # create an instance of ConnectorHealth from a dict
-connector_health_form_dict = connector_health.from_dict(connector_health_dict)
+connector_health_from_dict = ConnectorHealth.from_dict(connector_health_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -34,7 +34,7 @@ print(AcquirerSaleData.to_json())
 # convert the object into a dict
 acquirer_sale_data_dict = acquirer_sale_data_instance.to_dict()
 # create an instance of AcquirerSaleData from a dict
-acquirer_sale_data_form_dict = acquirer_sale_data.from_dict(acquirer_sale_data_dict)
+acquirer_sale_data_from_dict = AcquirerSaleData.from_dict(acquirer_sale_data_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

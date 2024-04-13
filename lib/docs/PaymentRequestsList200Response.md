@@ -25,7 +25,7 @@ print(PaymentRequestsList200Response.to_json())
 # convert the object into a dict
 payment_requests_list200_response_dict = payment_requests_list200_response_instance.to_dict()
 # create an instance of PaymentRequestsList200Response from a dict
-payment_requests_list200_response_form_dict = payment_requests_list200_response.from_dict(payment_requests_list200_response_dict)
+payment_requests_list200_response_from_dict = PaymentRequestsList200Response.from_dict(payment_requests_list200_response_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

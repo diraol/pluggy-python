@@ -25,7 +25,7 @@ print(ParameterValidationError.to_json())
 # convert the object into a dict
 parameter_validation_error_dict = parameter_validation_error_instance.to_dict()
 # create an instance of ParameterValidationError from a dict
-parameter_validation_error_form_dict = parameter_validation_error.from_dict(parameter_validation_error_dict)
+parameter_validation_error_from_dict = ParameterValidationError.from_dict(parameter_validation_error_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

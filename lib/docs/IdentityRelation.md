@@ -25,7 +25,7 @@ print(IdentityRelation.to_json())
 # convert the object into a dict
 identity_relation_dict = identity_relation_instance.to_dict()
 # create an instance of IdentityRelation from a dict
-identity_relation_form_dict = identity_relation.from_dict(identity_relation_dict)
+identity_relation_from_dict = IdentityRelation.from_dict(identity_relation_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

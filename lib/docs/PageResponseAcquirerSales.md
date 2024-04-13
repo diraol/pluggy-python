@@ -26,7 +26,7 @@ print(PageResponseAcquirerSales.to_json())
 # convert the object into a dict
 page_response_acquirer_sales_dict = page_response_acquirer_sales_instance.to_dict()
 # create an instance of PageResponseAcquirerSales from a dict
-page_response_acquirer_sales_form_dict = page_response_acquirer_sales.from_dict(page_response_acquirer_sales_dict)
+page_response_acquirer_sales_from_dict = PageResponseAcquirerSales.from_dict(page_response_acquirer_sales_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

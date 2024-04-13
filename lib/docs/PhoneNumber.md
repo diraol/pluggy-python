@@ -24,7 +24,7 @@ print(PhoneNumber.to_json())
 # convert the object into a dict
 phone_number_dict = phone_number_instance.to_dict()
 # create an instance of PhoneNumber from a dict
-phone_number_form_dict = phone_number.from_dict(phone_number_dict)
+phone_number_from_dict = PhoneNumber.from_dict(phone_number_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

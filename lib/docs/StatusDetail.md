@@ -33,7 +33,7 @@ print(StatusDetail.to_json())
 # convert the object into a dict
 status_detail_dict = status_detail_instance.to_dict()
 # create an instance of StatusDetail from a dict
-status_detail_form_dict = status_detail.from_dict(status_detail_dict)
+status_detail_from_dict = StatusDetail.from_dict(status_detail_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

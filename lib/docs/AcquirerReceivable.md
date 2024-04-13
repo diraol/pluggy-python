@@ -34,7 +34,7 @@ print(AcquirerReceivable.to_json())
 # convert the object into a dict
 acquirer_receivable_dict = acquirer_receivable_instance.to_dict()
 # create an instance of AcquirerReceivable from a dict
-acquirer_receivable_form_dict = acquirer_receivable.from_dict(acquirer_receivable_dict)
+acquirer_receivable_from_dict = AcquirerReceivable.from_dict(acquirer_receivable_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

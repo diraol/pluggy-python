@@ -23,7 +23,7 @@ print(ConnectTokenResponse.to_json())
 # convert the object into a dict
 connect_token_response_dict = connect_token_response_instance.to_dict()
 # create an instance of ConnectTokenResponse from a dict
-connect_token_response_form_dict = connect_token_response.from_dict(connect_token_response_dict)
+connect_token_response_from_dict = ConnectTokenResponse.from_dict(connect_token_response_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

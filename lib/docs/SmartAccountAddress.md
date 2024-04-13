@@ -30,7 +30,7 @@ print(SmartAccountAddress.to_json())
 # convert the object into a dict
 smart_account_address_dict = smart_account_address_instance.to_dict()
 # create an instance of SmartAccountAddress from a dict
-smart_account_address_form_dict = smart_account_address.from_dict(smart_account_address_dict)
+smart_account_address_from_dict = SmartAccountAddress.from_dict(smart_account_address_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

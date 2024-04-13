@@ -26,7 +26,7 @@ print(PageResponseAcquirerAnticipations.to_json())
 # convert the object into a dict
 page_response_acquirer_anticipations_dict = page_response_acquirer_anticipations_instance.to_dict()
 # create an instance of PageResponseAcquirerAnticipations from a dict
-page_response_acquirer_anticipations_form_dict = page_response_acquirer_anticipations.from_dict(page_response_acquirer_anticipations_dict)
+page_response_acquirer_anticipations_from_dict = PageResponseAcquirerAnticipations.from_dict(page_response_acquirer_anticipations_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

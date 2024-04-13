@@ -26,7 +26,7 @@ print(AcquirerReceivableDataEstablishment.to_json())
 # convert the object into a dict
 acquirer_receivable_data_establishment_dict = acquirer_receivable_data_establishment_instance.to_dict()
 # create an instance of AcquirerReceivableDataEstablishment from a dict
-acquirer_receivable_data_establishment_form_dict = acquirer_receivable_data_establishment.from_dict(acquirer_receivable_data_establishment_dict)
+acquirer_receivable_data_establishment_from_dict = AcquirerReceivableDataEstablishment.from_dict(acquirer_receivable_data_establishment_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

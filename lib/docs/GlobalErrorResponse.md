@@ -25,7 +25,7 @@ print(GlobalErrorResponse.to_json())
 # convert the object into a dict
 global_error_response_dict = global_error_response_instance.to_dict()
 # create an instance of GlobalErrorResponse from a dict
-global_error_response_form_dict = global_error_response.from_dict(global_error_response_dict)
+global_error_response_from_dict = GlobalErrorResponse.from_dict(global_error_response_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

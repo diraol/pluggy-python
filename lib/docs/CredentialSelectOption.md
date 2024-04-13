@@ -24,7 +24,7 @@ print(CredentialSelectOption.to_json())
 # convert the object into a dict
 credential_select_option_dict = credential_select_option_instance.to_dict()
 # create an instance of CredentialSelectOption from a dict
-credential_select_option_form_dict = credential_select_option.from_dict(credential_select_option_dict)
+credential_select_option_from_dict = CredentialSelectOption.from_dict(credential_select_option_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

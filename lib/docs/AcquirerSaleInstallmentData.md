@@ -26,7 +26,7 @@ print(AcquirerSaleInstallmentData.to_json())
 # convert the object into a dict
 acquirer_sale_installment_data_dict = acquirer_sale_installment_data_instance.to_dict()
 # create an instance of AcquirerSaleInstallmentData from a dict
-acquirer_sale_installment_data_form_dict = acquirer_sale_installment_data.from_dict(acquirer_sale_installment_data_dict)
+acquirer_sale_installment_data_from_dict = AcquirerSaleInstallmentData.from_dict(acquirer_sale_installment_data_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

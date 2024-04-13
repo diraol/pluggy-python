@@ -29,7 +29,7 @@ print(PaymentInstitution.to_json())
 # convert the object into a dict
 payment_institution_dict = payment_institution_instance.to_dict()
 # create an instance of PaymentInstitution from a dict
-payment_institution_form_dict = payment_institution.from_dict(payment_institution_dict)
+payment_institution_from_dict = PaymentInstitution.from_dict(payment_institution_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

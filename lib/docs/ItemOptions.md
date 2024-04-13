@@ -24,7 +24,7 @@ print(ItemOptions.to_json())
 # convert the object into a dict
 item_options_dict = item_options_instance.to_dict()
 # create an instance of ItemOptions from a dict
-item_options_form_dict = item_options.from_dict(item_options_dict)
+item_options_from_dict = ItemOptions.from_dict(item_options_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

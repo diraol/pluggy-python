@@ -25,7 +25,7 @@ print(AcquirerReceivableDestinationAccount.to_json())
 # convert the object into a dict
 acquirer_receivable_destination_account_dict = acquirer_receivable_destination_account_instance.to_dict()
 # create an instance of AcquirerReceivableDestinationAccount from a dict
-acquirer_receivable_destination_account_form_dict = acquirer_receivable_destination_account.from_dict(acquirer_receivable_destination_account_dict)
+acquirer_receivable_destination_account_from_dict = AcquirerReceivableDestinationAccount.from_dict(acquirer_receivable_destination_account_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -24,7 +24,7 @@ print(LoanPaymentReleaseOverParcelCharge.to_json())
 # convert the object into a dict
 loan_payment_release_over_parcel_charge_dict = loan_payment_release_over_parcel_charge_instance.to_dict()
 # create an instance of LoanPaymentReleaseOverParcelCharge from a dict
-loan_payment_release_over_parcel_charge_form_dict = loan_payment_release_over_parcel_charge.from_dict(loan_payment_release_over_parcel_charge_dict)
+loan_payment_release_over_parcel_charge_from_dict = LoanPaymentReleaseOverParcelCharge.from_dict(loan_payment_release_over_parcel_charge_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

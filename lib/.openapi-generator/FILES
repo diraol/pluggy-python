@@ -121,6 +121,9 @@ docs/PaymentInstitution.md
 docs/PaymentIntent.md
 docs/PaymentIntentApi.md
 docs/PaymentIntentsList200Response.md
+docs/PaymentReceipt.md
+docs/PaymentReceiptBankAccount.md
+docs/PaymentReceiptPerson.md
 docs/PaymentRecipient.md
 docs/PaymentRecipientAccount.md
 docs/PaymentRecipientApi.md
@@ -129,6 +132,7 @@ docs/PaymentRecipientsList200Response.md
 docs/PaymentRequest.md
 docs/PaymentRequestApi.md
 docs/PaymentRequestCallbackUrls.md
+docs/PaymentRequestReceiptList200Response.md
 docs/PaymentRequestsList200Response.md
 docs/PercentageOverIndex.md
 docs/PhoneNumber.md
@@ -285,12 +289,16 @@ pluggy_sdk/models/payment_data_participant.py
 pluggy_sdk/models/payment_institution.py
 pluggy_sdk/models/payment_intent.py
 pluggy_sdk/models/payment_intents_list200_response.py
+pluggy_sdk/models/payment_receipt.py
+pluggy_sdk/models/payment_receipt_bank_account.py
+pluggy_sdk/models/payment_receipt_person.py
 pluggy_sdk/models/payment_recipient.py
 pluggy_sdk/models/payment_recipient_account.py
 pluggy_sdk/models/payment_recipients_institution_list200_response.py
 pluggy_sdk/models/payment_recipients_list200_response.py
 pluggy_sdk/models/payment_request.py
 pluggy_sdk/models/payment_request_callback_urls.py
+pluggy_sdk/models/payment_request_receipt_list200_response.py
 pluggy_sdk/models/payment_requests_list200_response.py
 pluggy_sdk/models/percentage_over_index.py
 pluggy_sdk/models/phone_number.py
@@ -319,4 +327,8 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_payment_receipt.py
+test/test_payment_receipt_bank_account.py
+test/test_payment_receipt_person.py
+test/test_payment_request_receipt_list200_response.py
 tox.ini

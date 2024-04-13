@@ -37,7 +37,7 @@ print(IdentityResponse.to_json())
 # convert the object into a dict
 identity_response_dict = identity_response_instance.to_dict()
 # create an instance of IdentityResponse from a dict
-identity_response_form_dict = identity_response.from_dict(identity_response_dict)
+identity_response_from_dict = IdentityResponse.from_dict(identity_response_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

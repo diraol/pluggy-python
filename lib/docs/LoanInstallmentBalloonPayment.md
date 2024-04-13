@@ -23,7 +23,7 @@ print(LoanInstallmentBalloonPayment.to_json())
 # convert the object into a dict
 loan_installment_balloon_payment_dict = loan_installment_balloon_payment_instance.to_dict()
 # create an instance of LoanInstallmentBalloonPayment from a dict
-loan_installment_balloon_payment_form_dict = loan_installment_balloon_payment.from_dict(loan_installment_balloon_payment_dict)
+loan_installment_balloon_payment_from_dict = LoanInstallmentBalloonPayment.from_dict(loan_installment_balloon_payment_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

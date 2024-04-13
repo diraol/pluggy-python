@@ -25,7 +25,7 @@ print(CreateWebhook.to_json())
 # convert the object into a dict
 create_webhook_dict = create_webhook_instance.to_dict()
 # create an instance of CreateWebhook from a dict
-create_webhook_form_dict = create_webhook.from_dict(create_webhook_dict)
+create_webhook_from_dict = CreateWebhook.from_dict(create_webhook_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

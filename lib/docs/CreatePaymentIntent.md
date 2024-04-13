@@ -26,7 +26,7 @@ print(CreatePaymentIntent.to_json())
 # convert the object into a dict
 create_payment_intent_dict = create_payment_intent_instance.to_dict()
 # create an instance of CreatePaymentIntent from a dict
-create_payment_intent_form_dict = create_payment_intent.from_dict(create_payment_intent_dict)
+create_payment_intent_from_dict = CreatePaymentIntent.from_dict(create_payment_intent_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

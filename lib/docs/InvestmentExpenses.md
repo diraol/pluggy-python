@@ -33,7 +33,7 @@ print(InvestmentExpenses.to_json())
 # convert the object into a dict
 investment_expenses_dict = investment_expenses_instance.to_dict()
 # create an instance of InvestmentExpenses from a dict
-investment_expenses_form_dict = investment_expenses.from_dict(investment_expenses_dict)
+investment_expenses_from_dict = InvestmentExpenses.from_dict(investment_expenses_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

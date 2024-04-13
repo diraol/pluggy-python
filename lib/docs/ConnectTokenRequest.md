@@ -24,7 +24,7 @@ print(ConnectTokenRequest.to_json())
 # convert the object into a dict
 connect_token_request_dict = connect_token_request_instance.to_dict()
 # create an instance of ConnectTokenRequest from a dict
-connect_token_request_form_dict = connect_token_request.from_dict(connect_token_request_dict)
+connect_token_request_from_dict = ConnectTokenRequest.from_dict(connect_token_request_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

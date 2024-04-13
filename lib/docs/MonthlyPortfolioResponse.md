@@ -26,7 +26,7 @@ print(MonthlyPortfolioResponse.to_json())
 # convert the object into a dict
 monthly_portfolio_response_dict = monthly_portfolio_response_instance.to_dict()
 # create an instance of MonthlyPortfolioResponse from a dict
-monthly_portfolio_response_form_dict = monthly_portfolio_response.from_dict(monthly_portfolio_response_dict)
+monthly_portfolio_response_from_dict = MonthlyPortfolioResponse.from_dict(monthly_portfolio_response_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

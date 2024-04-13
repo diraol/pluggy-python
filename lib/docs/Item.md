@@ -37,7 +37,7 @@ print(Item.to_json())
 # convert the object into a dict
 item_dict = item_instance.to_dict()
 # create an instance of Item from a dict
-item_form_dict = item.from_dict(item_dict)
+item_from_dict = Item.from_dict(item_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

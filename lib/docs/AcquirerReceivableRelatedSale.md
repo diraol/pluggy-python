@@ -28,7 +28,7 @@ print(AcquirerReceivableRelatedSale.to_json())
 # convert the object into a dict
 acquirer_receivable_related_sale_dict = acquirer_receivable_related_sale_instance.to_dict()
 # create an instance of AcquirerReceivableRelatedSale from a dict
-acquirer_receivable_related_sale_form_dict = acquirer_receivable_related_sale.from_dict(acquirer_receivable_related_sale_dict)
+acquirer_receivable_related_sale_from_dict = AcquirerReceivableRelatedSale.from_dict(acquirer_receivable_related_sale_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

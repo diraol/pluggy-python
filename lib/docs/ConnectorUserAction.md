@@ -25,7 +25,7 @@ print(ConnectorUserAction.to_json())
 # convert the object into a dict
 connector_user_action_dict = connector_user_action_instance.to_dict()
 # create an instance of ConnectorUserAction from a dict
-connector_user_action_form_dict = connector_user_action.from_dict(connector_user_action_dict)
+connector_user_action_from_dict = ConnectorUserAction.from_dict(connector_user_action_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

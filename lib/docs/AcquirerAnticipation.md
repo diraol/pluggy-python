@@ -32,7 +32,7 @@ print(AcquirerAnticipation.to_json())
 # convert the object into a dict
 acquirer_anticipation_dict = acquirer_anticipation_instance.to_dict()
 # create an instance of AcquirerAnticipation from a dict
-acquirer_anticipation_form_dict = acquirer_anticipation.from_dict(acquirer_anticipation_dict)
+acquirer_anticipation_from_dict = AcquirerAnticipation.from_dict(acquirer_anticipation_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

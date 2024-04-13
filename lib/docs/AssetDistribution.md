@@ -23,7 +23,7 @@ print(AssetDistribution.to_json())
 # convert the object into a dict
 asset_distribution_dict = asset_distribution_instance.to_dict()
 # create an instance of AssetDistribution from a dict
-asset_distribution_form_dict = asset_distribution.from_dict(asset_distribution_dict)
+asset_distribution_from_dict = AssetDistribution.from_dict(asset_distribution_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

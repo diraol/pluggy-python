@@ -22,7 +22,7 @@ print(CreateItemParameters.to_json())
 # convert the object into a dict
 create_item_parameters_dict = create_item_parameters_instance.to_dict()
 # create an instance of CreateItemParameters from a dict
-create_item_parameters_form_dict = create_item_parameters.from_dict(create_item_parameters_dict)
+create_item_parameters_from_dict = CreateItemParameters.from_dict(create_item_parameters_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

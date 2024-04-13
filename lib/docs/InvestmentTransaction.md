@@ -30,7 +30,7 @@ print(InvestmentTransaction.to_json())
 # convert the object into a dict
 investment_transaction_dict = investment_transaction_instance.to_dict()
 # create an instance of InvestmentTransaction from a dict
-investment_transaction_form_dict = investment_transaction.from_dict(investment_transaction_dict)
+investment_transaction_from_dict = InvestmentTransaction.from_dict(investment_transaction_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

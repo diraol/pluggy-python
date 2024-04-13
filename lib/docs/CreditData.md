@@ -32,7 +32,7 @@ print(CreditData.to_json())
 # convert the object into a dict
 credit_data_dict = credit_data_instance.to_dict()
 # create an instance of CreditData from a dict
-credit_data_form_dict = credit_data.from_dict(credit_data_dict)
+credit_data_from_dict = CreditData.from_dict(credit_data_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

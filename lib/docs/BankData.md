@@ -25,7 +25,7 @@ print(BankData.to_json())
 # convert the object into a dict
 bank_data_dict = bank_data_instance.to_dict()
 # create an instance of BankData from a dict
-bank_data_form_dict = bank_data.from_dict(bank_data_dict)
+bank_data_from_dict = BankData.from_dict(bank_data_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

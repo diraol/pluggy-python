@@ -26,7 +26,7 @@ print(SmartAccountBalance.to_json())
 # convert the object into a dict
 smart_account_balance_dict = smart_account_balance_instance.to_dict()
 # create an instance of SmartAccountBalance from a dict
-smart_account_balance_form_dict = smart_account_balance.from_dict(smart_account_balance_dict)
+smart_account_balance_from_dict = SmartAccountBalance.from_dict(smart_account_balance_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

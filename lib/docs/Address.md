@@ -29,7 +29,7 @@ print(Address.to_json())
 # convert the object into a dict
 address_dict = address_instance.to_dict()
 # create an instance of Address from a dict
-address_form_dict = address.from_dict(address_dict)
+address_from_dict = Address.from_dict(address_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -28,7 +28,7 @@ print(PaymentDataParticipant.to_json())
 # convert the object into a dict
 payment_data_participant_dict = payment_data_participant_instance.to_dict()
 # create an instance of PaymentDataParticipant from a dict
-payment_data_participant_form_dict = payment_data_participant.from_dict(payment_data_participant_dict)
+payment_data_participant_from_dict = PaymentDataParticipant.from_dict(payment_data_participant_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

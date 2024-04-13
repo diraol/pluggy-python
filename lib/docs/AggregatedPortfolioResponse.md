@@ -26,7 +26,7 @@ print(AggregatedPortfolioResponse.to_json())
 # convert the object into a dict
 aggregated_portfolio_response_dict = aggregated_portfolio_response_instance.to_dict()
 # create an instance of AggregatedPortfolioResponse from a dict
-aggregated_portfolio_response_form_dict = aggregated_portfolio_response.from_dict(aggregated_portfolio_response_dict)
+aggregated_portfolio_response_from_dict = AggregatedPortfolioResponse.from_dict(aggregated_portfolio_response_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

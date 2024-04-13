@@ -29,7 +29,7 @@ print(Bill.to_json())
 # convert the object into a dict
 bill_dict = bill_instance.to_dict()
 # create an instance of Bill from a dict
-bill_form_dict = bill.from_dict(bill_dict)
+bill_from_dict = Bill.from_dict(bill_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

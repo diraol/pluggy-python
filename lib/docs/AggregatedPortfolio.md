@@ -30,7 +30,7 @@ print(AggregatedPortfolio.to_json())
 # convert the object into a dict
 aggregated_portfolio_dict = aggregated_portfolio_instance.to_dict()
 # create an instance of AggregatedPortfolio from a dict
-aggregated_portfolio_form_dict = aggregated_portfolio.from_dict(aggregated_portfolio_dict)
+aggregated_portfolio_from_dict = AggregatedPortfolio.from_dict(aggregated_portfolio_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

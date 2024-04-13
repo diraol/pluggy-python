@@ -27,7 +27,7 @@ print(InvestmentMetadata.to_json())
 # convert the object into a dict
 investment_metadata_dict = investment_metadata_instance.to_dict()
 # create an instance of InvestmentMetadata from a dict
-investment_metadata_form_dict = investment_metadata.from_dict(investment_metadata_dict)
+investment_metadata_from_dict = InvestmentMetadata.from_dict(investment_metadata_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -23,7 +23,7 @@ print(UpdateTransaction.to_json())
 # convert the object into a dict
 update_transaction_dict = update_transaction_instance.to_dict()
 # create an instance of UpdateTransaction from a dict
-update_transaction_form_dict = update_transaction.from_dict(update_transaction_dict)
+update_transaction_from_dict = UpdateTransaction.from_dict(update_transaction_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

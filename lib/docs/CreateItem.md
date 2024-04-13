@@ -27,7 +27,7 @@ print(CreateItem.to_json())
 # convert the object into a dict
 create_item_dict = create_item_instance.to_dict()
 # create an instance of CreateItem from a dict
-create_item_form_dict = create_item.from_dict(create_item_dict)
+create_item_from_dict = CreateItem.from_dict(create_item_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -38,7 +38,7 @@ print(Connector.to_json())
 # convert the object into a dict
 connector_dict = connector_instance.to_dict()
 # create an instance of Connector from a dict
-connector_form_dict = connector.from_dict(connector_dict)
+connector_from_dict = Connector.from_dict(connector_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
