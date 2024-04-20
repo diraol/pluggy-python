@@ -327,8 +327,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_payment_receipt.py
-test/test_payment_receipt_bank_account.py
-test/test_payment_receipt_person.py
-test/test_payment_request_receipt_list200_response.py
 tox.ini

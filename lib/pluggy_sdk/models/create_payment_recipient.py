@@ -28,12 +28,13 @@ class CreatePaymentRecipient(BaseModel):
     """
     Request with information to create a payment recipient
     """ # noqa: E501
-    tax_number: StrictStr = Field(description="Account owner tax number. Can be CPF or CNPJ (only numbers)", alias="taxNumber")
-    name: StrictStr = Field(description="Account owner name")
-    payment_institution_id: StrictStr = Field(description="Primary identifier of the institution associated to the payment recipient", alias="paymentInstitutionId")
+    tax_number: StrictStr = Field(description="Account owner tax number. Can be CPF or CNPJ (only numbers). Send only when the pixKey is not sent.", alias="taxNumber")
+    name: StrictStr = Field(description="Account owner name. Send only this when the pixKey is not sent.")
+    payment_institution_id: StrictStr = Field(description="Primary identifier of the institution associated to the payment recipient. Send only when the pixKey is not sent.", alias="paymentInstitutionId")
     account: PaymentRecipientAccount
     is_default: Optional[StrictBool] = Field(default=None, description="Indicates if the recipient is the default one", alias="isDefault")
-    __properties: ClassVar[List[str]] = ["taxNumber", "name", "paymentInstitutionId", "account", "isDefault"]
+    pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient", alias="pixKey")
+    __properties: ClassVar[List[str]] = ["taxNumber", "name", "paymentInstitutionId", "account", "isDefault", "pixKey"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -93,7 +94,8 @@ class CreatePaymentRecipient(BaseModel):
             "name": obj.get("name"),
             "paymentInstitutionId": obj.get("paymentInstitutionId"),
             "account": PaymentRecipientAccount.from_dict(obj["account"]) if obj.get("account") is not None else None,
-            "isDefault": obj.get("isDefault")
+            "isDefault": obj.get("isDefault"),
+            "pixKey": obj.get("pixKey")
         })
         return _obj
 

@@ -6,11 +6,12 @@ Request with information to create a payment recipient
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tax_number** | **str** | Account owner tax number. Can be CPF or CNPJ (only numbers) | 
-**name** | **str** | Account owner name | 
-**payment_institution_id** | **str** | Primary identifier of the institution associated to the payment recipient | 
+**tax_number** | **str** | Account owner tax number. Can be CPF or CNPJ (only numbers). Send only when the pixKey is not sent. | 
+**name** | **str** | Account owner name. Send only this when the pixKey is not sent. | 
+**payment_institution_id** | **str** | Primary identifier of the institution associated to the payment recipient. Send only when the pixKey is not sent. | 
 **account** | [**PaymentRecipientAccount**](PaymentRecipientAccount.md) |  | 
 **is_default** | **bool** | Indicates if the recipient is the default one | [optional] 
+**pix_key** | **str** | Pix key associated with the payment recipient | [optional] 
 
 ## Example
 

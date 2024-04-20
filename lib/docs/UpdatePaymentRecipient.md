@@ -6,11 +6,12 @@ Request with information to update a payment recipient
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tax_number** | **str** | Account owner tax number. Can be CPF or CNPJ (only numbers) | [optional] 
-**name** | **str** | Account owner name | [optional] 
-**payment_institution_id** | **str** | Primary identifier of the institution associated to the payment recipient | [optional] 
+**tax_number** | **str** | Account owner tax number. Can be CPF or CNPJ (only numbers). Send only if the recipient doesn&#39;t have a pixKey. | [optional] 
+**name** | **str** | Account owner name. Send only if the recipient doesn&#39;t have a pixKey. | [optional] 
+**payment_institution_id** | **str** | Primary identifier of the institution associated to the payment recipient. Send only if the recipient doesn&#39;t have a pixKey. | [optional] 
 **account** | [**PaymentRecipientAccount**](PaymentRecipientAccount.md) |  | [optional] 
 **is_default** | **bool** | Indicates if the recipient is the default one | [optional] 
+**pix_key** | **str** | Pix key associated with the payment recipient | [optional] 
 
 ## Example
 

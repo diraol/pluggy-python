@@ -30,12 +30,13 @@ class PaymentRecipient(BaseModel):
     Response with information related to a payment recipient
     """ # noqa: E501
     id: StrictStr = Field(description="Primary identifier")
-    tax_number: StrictStr = Field(description="Account owner tax number. Can be CPF or CNPJ (only numbers)", alias="taxNumber")
-    name: StrictStr = Field(description="Account owner name")
-    payment_institution: Optional[PaymentInstitution] = Field(default=None, alias="paymentInstitution")
-    is_default: Optional[StrictBool] = Field(default=None, description="Indicates if the recipient is the default one", alias="isDefault")
+    tax_number: StrictStr = Field(description="Account owner tax number. Can be CPF or CNPJ (only numbers).", alias="taxNumber")
+    name: StrictStr = Field(description="Account owner name.")
+    payment_institution: PaymentInstitution = Field(alias="paymentInstitution")
+    is_default: StrictBool = Field(description="Indicates if the recipient is the default one", alias="isDefault")
     account: PaymentRecipientAccount
-    __properties: ClassVar[List[str]] = ["id", "taxNumber", "name", "paymentInstitution", "isDefault", "account"]
+    pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient", alias="pixKey")
+    __properties: ClassVar[List[str]] = ["id", "taxNumber", "name", "paymentInstitution", "isDefault", "account", "pixKey"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -99,7 +100,8 @@ class PaymentRecipient(BaseModel):
             "name": obj.get("name"),
             "paymentInstitution": PaymentInstitution.from_dict(obj["paymentInstitution"]) if obj.get("paymentInstitution") is not None else None,
             "isDefault": obj.get("isDefault"),
-            "account": PaymentRecipientAccount.from_dict(obj["account"]) if obj.get("account") is not None else None
+            "account": PaymentRecipientAccount.from_dict(obj["account"]) if obj.get("account") is not None else None,
+            "pixKey": obj.get("pixKey")
         })
         return _obj
 
