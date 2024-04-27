@@ -120,6 +120,7 @@ docs/PaymentDataParticipant.md
 docs/PaymentInstitution.md
 docs/PaymentIntent.md
 docs/PaymentIntentApi.md
+docs/PaymentIntentParameter.md
 docs/PaymentIntentsList200Response.md
 docs/PaymentReceipt.md
 docs/PaymentReceiptBankAccount.md
@@ -288,6 +289,7 @@ pluggy_sdk/models/payment_data.py
 pluggy_sdk/models/payment_data_participant.py
 pluggy_sdk/models/payment_institution.py
 pluggy_sdk/models/payment_intent.py
+pluggy_sdk/models/payment_intent_parameter.py
 pluggy_sdk/models/payment_intents_list200_response.py
 pluggy_sdk/models/payment_receipt.py
 pluggy_sdk/models/payment_receipt_bank_account.py
@@ -327,4 +329,5 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_payment_intent_parameter.py
 tox.ini

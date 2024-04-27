@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,9 +29,20 @@ class CreatePaymentIntent(BaseModel):
     """ # noqa: E501
     payment_request_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the payment request associated to the payment intent", alias="paymentRequestId")
     bulk_payment_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the bulk payment associated to the payment intent", alias="bulkPaymentId")
-    connector_id: Union[StrictFloat, StrictInt] = Field(description="Primary identifier of the connector associated to the payment intent", alias="connectorId")
-    parameters: Dict[str, StrictStr] = Field(description="Key-Value credentials neccesary to create an item")
-    __properties: ClassVar[List[str]] = ["paymentRequestId", "bulkPaymentId", "connectorId", "parameters"]
+    parameters: Optional[Dict[str, Any]] = None
+    connector_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Primary identifier of the connector associated to the payment intent", alias="connectorId")
+    payment_method: Optional[StrictStr] = Field(default=None, description="Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected only `bulkPaymentId` is required, if PIS selected only `paymentRequestId` or `bulkPaymentId` are required with `connectorId`, `parameters` and `paymentMethod`", alias="paymentMethod")
+    __properties: ClassVar[List[str]] = ["paymentRequestId", "bulkPaymentId", "parameters", "connectorId", "paymentMethod"]
+
+    @field_validator('payment_method')
+    def payment_method_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['PIS', 'PIX']):
+            raise ValueError("must be one of enum values ('PIS', 'PIX')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,6 +83,9 @@ class CreatePaymentIntent(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of parameters
+        if self.parameters:
+            _dict['parameters'] = self.parameters.to_dict()
         return _dict
 
     @classmethod
@@ -86,8 +100,9 @@ class CreatePaymentIntent(BaseModel):
         _obj = cls.model_validate({
             "paymentRequestId": obj.get("paymentRequestId"),
             "bulkPaymentId": obj.get("bulkPaymentId"),
+            "parameters": PaymentIntentParameter.from_dict(obj["parameters"]) if obj.get("parameters") is not None else None,
             "connectorId": obj.get("connectorId"),
-            "parameters": obj.get("parameters")
+            "paymentMethod": obj.get("paymentMethod")
         })
         return _obj
 

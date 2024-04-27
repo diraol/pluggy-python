@@ -8,8 +8,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **payment_request_id** | **str** | Primary identifier of the payment request associated to the payment intent | [optional] 
 **bulk_payment_id** | **str** | Primary identifier of the bulk payment associated to the payment intent | [optional] 
-**connector_id** | **float** | Primary identifier of the connector associated to the payment intent | 
-**parameters** | **Dict[str, str]** | Key-Value credentials neccesary to create an item | 
+**parameters** | [**PaymentIntentParameter**](.md) |  | [optional] 
+**connector_id** | **float** | Primary identifier of the connector associated to the payment intent | [optional] 
+**payment_method** | **str** | Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected only &#x60;bulkPaymentId&#x60; is required, if PIS selected only &#x60;paymentRequestId&#x60; or &#x60;bulkPaymentId&#x60; are required with &#x60;connectorId&#x60;, &#x60;parameters&#x60; and &#x60;paymentMethod&#x60; | [optional] 
 
 ## Example
 

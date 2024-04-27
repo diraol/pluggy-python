@@ -18,23 +18,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pluggy_sdk.models.payment_recipient_account import PaymentRecipientAccount
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CreatePaymentRecipient(BaseModel):
+class PaymentIntentParameter(BaseModel):
     """
-    Request with information to create a payment recipient, there is two form to create a payment recipient, one with pixKey and other with taxNumber, name, paymentInstitutionId and account
+    Credentials neccesary to create a payment intent
     """ # noqa: E501
-    tax_number: Optional[StrictStr] = Field(default=None, description="Account owner tax number. Can be CPF or CNPJ (only numbers). Send only when the pixKey is not sent.", alias="taxNumber")
-    name: Optional[StrictStr] = Field(default=None, description="Account owner name. Send only this when the pixKey is not sent.")
-    payment_institution_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the institution associated to the payment recipient. Send only when the pixKey is not sent.", alias="paymentInstitutionId")
-    account: Optional[PaymentRecipientAccount] = None
-    is_default: Optional[StrictBool] = Field(default=None, description="Indicates if the recipient is the default one", alias="isDefault")
-    pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient", alias="pixKey")
-    __properties: ClassVar[List[str]] = ["taxNumber", "name", "paymentInstitutionId", "account", "isDefault", "pixKey"]
+    cpf: StrictStr = Field(description="CPF of the payer")
+    cnpj: Optional[StrictStr] = Field(default=None, description="CNPJ of the payer")
+    __properties: ClassVar[List[str]] = ["cpf", "cnpj"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -54,7 +49,7 @@ class CreatePaymentRecipient(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CreatePaymentRecipient from a JSON string"""
+        """Create an instance of PaymentIntentParameter from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,14 +70,11 @@ class CreatePaymentRecipient(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of account
-        if self.account:
-            _dict['account'] = self.account.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CreatePaymentRecipient from a dict"""
+        """Create an instance of PaymentIntentParameter from a dict"""
         if obj is None:
             return None
 
@@ -90,12 +82,8 @@ class CreatePaymentRecipient(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "taxNumber": obj.get("taxNumber"),
-            "name": obj.get("name"),
-            "paymentInstitutionId": obj.get("paymentInstitutionId"),
-            "account": PaymentRecipientAccount.from_dict(obj["account"]) if obj.get("account") is not None else None,
-            "isDefault": obj.get("isDefault"),
-            "pixKey": obj.get("pixKey")
+            "cpf": obj.get("cpf"),
+            "cnpj": obj.get("cnpj")
         })
         return _obj
 

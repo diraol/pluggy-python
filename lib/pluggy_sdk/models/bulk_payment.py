@@ -45,8 +45,8 @@ class BulkPayment(BaseModel):
     @field_validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['CREATED', 'PAYMENT_IN_PROGRESS', 'TOP_UP_IN_PROGRESS', 'COMPLETED', 'ERROR']):
-            raise ValueError("must be one of enum values ('CREATED', 'PAYMENT_IN_PROGRESS', 'TOP_UP_IN_PROGRESS', 'COMPLETED', 'ERROR')")
+        if value not in set(['CREATED', 'PAYMENT_IN_PROGRESS', 'TOP_UP_IN_PROGRESS', 'COMPLETED', 'PARTIALLY_COMPLETED', 'ERROR']):
+            raise ValueError("must be one of enum values ('CREATED', 'PAYMENT_IN_PROGRESS', 'TOP_UP_IN_PROGRESS', 'COMPLETED', 'PARTIALLY_COMPLETED', 'ERROR')")
         return value
 
     model_config = ConfigDict(
