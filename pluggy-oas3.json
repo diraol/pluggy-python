@@ -7889,6 +7889,27 @@
           "password": "my-password"
         }
       },
+      "PaymentIntentParameter": {
+        "description": "Credentials neccesary to create a payment intent",
+        "properties": {
+          "cpf": {
+            "type": "string",
+            "description": "CPF of the payer"
+          },
+          "cnpj": {
+            "type": "string",
+            "description": "CNPJ of the payer"
+          }
+        },
+        "type": "object",
+        "example": {
+          "cpf": "416.799.495-00",
+          "cnpj": "41.679.495/0001-00"
+        },
+        "required": [
+          "cpf"
+        ]
+      },
       "ParameterValidationResponse": {
         "description": "Response to parameter's validations",
         "properties": {
@@ -10555,6 +10576,7 @@
               "PAYMENT_IN_PROGRESS",
               "TOP_UP_IN_PROGRESS",
               "COMPLETED",
+              "PARTIALLY_COMPLETED",
               "ERROR"
             ],
             "type": "string",
@@ -10779,20 +10801,25 @@
             "type": "string",
             "description": "Primary identifier of the bulk payment associated to the payment intent"
           },
+          "parameters": {
+            "type": "object",
+            "$ref": "#/components/schemas/PaymentIntentParameter",
+            "description": "Credentials to create a payment intent"
+          },
           "connectorId": {
             "type": "number",
             "description": "Primary identifier of the connector associated to the payment intent"
-          },
-          "parameters": {
-            "$ref": "#/components/schemas/ItemParameter",
-            "description": "Credentials to create a payment intent"
+          }, 
+          "paymentMethod": {
+            "type": "string",
+            "enum": [
+              "PIS",
+              "PIX"
+            ],
+            "description": "Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected only `bulkPaymentId` is required, if PIS selected only `paymentRequestId` or `bulkPaymentId` are required with `connectorId`, `parameters` and `paymentMethod`"
           }
         },
         "type": "object",
-        "required": [
-          "connectorId",
-          "parameters"
-        ],
         "example": {}
       },
       "PaymentCustomer": {
@@ -10996,7 +11023,7 @@
         }
       },
       "CreatePaymentRecipient": {
-        "description": "Request with information to create a payment recipient",
+        "description": "Request with information to create a payment recipient, there is two form to create a payment recipient, one with pixKey and other with taxNumber, name, paymentInstitutionId and account",
         "properties": {
           "taxNumber": {
             "type": "string",
@@ -11025,12 +11052,6 @@
           }
         },
         "type": "object",
-        "required": [
-          "taxNumber",
-          "name",
-          "paymentInstitutionId",
-          "account"
-        ],
         "example": {
           "taxNumber": "123456789-00",
           "name": "Conta empresa",
