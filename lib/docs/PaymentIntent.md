@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **status** | **str** | Payment intent status | [optional] 
 **created_at** | **datetime** | Date when the payment intent was created | [optional] 
 **updated_at** | **datetime** | Date when the payment intent was updated | [optional] 
-**payment_request** | [**PaymentRequest**](PaymentRequest.md) |  | [optional] 
-**bulk_payment** | [**BulkPayment**](BulkPayment.md) |  | [optional] 
-**connector** | [**Connector**](Connector.md) |  | [optional] 
+**payment_request** | [**PaymentRequest**](PaymentRequest.md) | Payment request associated to the payment intent | [optional] 
+**bulk_payment** | [**BulkPayment**](BulkPayment.md) | Bulk Payment associated to the payment intent | [optional] 
+**connector** | [**Connector**](Connector.md) | Connector associated to the payment intent | [optional] 
 **consent_url** | **str** | Url to authorize the payment intent | [optional] 
 **reference_id** | **str** | Pix id related to the payment intent | [optional] 
 **payment_method** | **str** | Payment method can be PIS (Payment Initiation) or PIX | [optional] [default to 'PIS']
-**pix_data** | [**PixData**](PixData.md) |  | [optional] 
+**pix_data** | [**PixData**](PixData.md) | Pix data related to the payment intent (only applies for PIX payment method) | [optional] 
 
 ## Example
 

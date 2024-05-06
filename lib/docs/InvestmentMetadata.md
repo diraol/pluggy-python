@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **proposal_number** | **str** | Previdencial proposal number | [optional] 
 **process_number** | **str** | Number of the process of a previdencia | [optional] 
 **fund_name** | **str** | Name of the fund associated with the previdencia. | [optional] 
-**insurer** | [**Company**](.md) |  | [optional] 
+**insurer** | [**Company**](Company.md) | Insurer of the Security Investment | [optional] 
 
 ## Example
 

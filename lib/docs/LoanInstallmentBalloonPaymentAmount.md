@@ -1,5 +1,6 @@
 # LoanInstallmentBalloonPaymentAmount
 
+Monetary value of the non-regular installment due
 
 ## Properties
 

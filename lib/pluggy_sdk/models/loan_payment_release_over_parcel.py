@@ -27,7 +27,7 @@ from typing_extensions import Self
 
 class LoanPaymentReleaseOverParcel(BaseModel):
     """
-    LoanPaymentReleaseOverParcel
+    Object of fees and charges that were paid outside the installment
     """ # noqa: E501
     fees: Optional[List[LoanPaymentReleaseOverParcelFee]] = Field(default=None, description="List of fees that were paid outside the installment, only for single payment")
     charges: Optional[List[LoanPaymentReleaseOverParcelCharge]] = Field(default=None, description="List of charges that were paid out of installment")

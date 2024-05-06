@@ -59,7 +59,7 @@ class Loan(BaseModel):
     contracted_finance_charges: Optional[List[LoanContractedFinanceCharge]] = Field(default=None, description="List that brings the charges agreed in the contract", alias="contractedFinanceCharges")
     warranties: Optional[List[LoanWarranty]] = None
     installments: Optional[LoanInstallments] = None
-    payments: Optional[LoanPayments] = None
+    payments: Optional[LoanPayments] = Field(default=None, description="Loan contract payment data")
     __properties: ClassVar[List[str]] = ["id", "itemId", "contractNumber", "ipocCode", "productName", "type", "date", "contractDate", "disbursementDates", "settlementDate", "contractAmount", "currencyCode", "dueDate", "installmentPeriodicity", "installmentPeriodicityAdditionalInfo", "firstInstallmentDueDate", "CET", "amortizationScheduled", "amortizationScheduledAdditionalInfo", "cnpjConsignee", "interestRates", "contractedFees", "contractedFinanceCharges", "warranties", "installments", "payments"]
 
     @field_validator('installment_periodicity')

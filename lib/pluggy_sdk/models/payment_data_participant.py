@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from pluggy_sdk.models.document import Document
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +28,7 @@ class PaymentDataParticipant(BaseModel):
     """
     Participant of the payment data
     """ # noqa: E501
-    document_number: Optional[StrictStr] = Field(default=None, alias="documentNumber")
+    document_number: Optional[Document] = Field(default=None, alias="documentNumber")
     name: Optional[StrictStr] = Field(default=None, description="Fullname of the participant")
     account_number: Optional[StrictStr] = Field(default=None, description="Account number on the branch", alias="accountNumber")
     branch_number: Optional[StrictStr] = Field(default=None, description="Agency number", alias="branchNumber")

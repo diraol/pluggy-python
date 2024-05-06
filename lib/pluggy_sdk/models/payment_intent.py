@@ -36,13 +36,13 @@ class PaymentIntent(BaseModel):
     status: Optional[StrictStr] = Field(default=None, description="Payment intent status")
     created_at: Optional[datetime] = Field(default=None, description="Date when the payment intent was created", alias="createdAt")
     updated_at: Optional[datetime] = Field(default=None, description="Date when the payment intent was updated", alias="updatedAt")
-    payment_request: Optional[PaymentRequest] = Field(default=None, alias="paymentRequest")
-    bulk_payment: Optional[BulkPayment] = Field(default=None, alias="bulkPayment")
-    connector: Optional[Connector] = None
+    payment_request: Optional[PaymentRequest] = Field(default=None, description="Payment request associated to the payment intent", alias="paymentRequest")
+    bulk_payment: Optional[BulkPayment] = Field(default=None, description="Bulk Payment associated to the payment intent", alias="bulkPayment")
+    connector: Optional[Connector] = Field(default=None, description="Connector associated to the payment intent")
     consent_url: Optional[StrictStr] = Field(default=None, description="Url to authorize the payment intent", alias="consentUrl")
     reference_id: Optional[StrictStr] = Field(default=None, description="Pix id related to the payment intent", alias="referenceId")
     payment_method: Optional[StrictStr] = Field(default='PIS', description="Payment method can be PIS (Payment Initiation) or PIX", alias="paymentMethod")
-    pix_data: Optional[PixData] = Field(default=None, alias="pixData")
+    pix_data: Optional[PixData] = Field(default=None, description="Pix data related to the payment intent (only applies for PIX payment method)", alias="pixData")
     __properties: ClassVar[List[str]] = ["id", "status", "createdAt", "updatedAt", "paymentRequest", "bulkPayment", "connector", "consentUrl", "referenceId", "paymentMethod", "pixData"]
 
     @field_validator('status')

@@ -30,7 +30,7 @@ class LoanInstallments(BaseModel):
     """ # noqa: E501
     type_number_of_installments: Optional[StrictStr] = Field(default=None, description="Type of total term of the contract referring to the type of credit informed", alias="typeNumberOfInstallments")
     total_number_of_installments: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total term according to the type referring to the type of credit informed", alias="totalNumberOfInstallments")
-    type_contract_remaining: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Type of remaining term of the contract referring to the type of credit informed", alias="typeContractRemaining")
+    type_contract_remaining: Optional[StrictStr] = Field(default=None, description="Type of remaining term of the contract referring to the type of credit informed", alias="typeContractRemaining")
     contract_remaining_number: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Remaining term according to the type referring to the credit type informed", alias="contractRemainingNumber")
     paid_installments: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Number of paid installments", alias="paidInstallments")
     due_installments: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Number of due installments", alias="dueInstallments")
@@ -54,8 +54,8 @@ class LoanInstallments(BaseModel):
         if value is None:
             return value
 
-        if value not in set([null, null, null, null, null, null]):
-            raise ValueError("must be one of enum values (null, null, null, null, null, null)")
+        if value not in set(['DAY', 'WEEK', 'MONTH', 'YEAR', 'WITHOUT_TOTAL_PERIOD', 'WITHOUT_REMAINING_PERIOD']):
+            raise ValueError("must be one of enum values ('DAY', 'WEEK', 'MONTH', 'YEAR', 'WITHOUT_TOTAL_PERIOD', 'WITHOUT_REMAINING_PERIOD')")
         return value
 
     model_config = ConfigDict(

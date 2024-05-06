@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from pluggy_sdk.models.payment_intent_parameter import PaymentIntentParameter
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,7 +30,7 @@ class CreatePaymentIntent(BaseModel):
     """ # noqa: E501
     payment_request_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the payment request associated to the payment intent", alias="paymentRequestId")
     bulk_payment_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the bulk payment associated to the payment intent", alias="bulkPaymentId")
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[PaymentIntentParameter] = None
     connector_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Primary identifier of the connector associated to the payment intent", alias="connectorId")
     payment_method: Optional[StrictStr] = Field(default=None, description="Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected only `bulkPaymentId` is required, if PIS selected only `paymentRequestId` or `bulkPaymentId` are required with `connectorId`, `parameters` and `paymentMethod`", alias="paymentMethod")
     __properties: ClassVar[List[str]] = ["paymentRequestId", "bulkPaymentId", "parameters", "connectorId", "paymentMethod"]

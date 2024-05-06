@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type_number_of_installments** | **str** | Type of total term of the contract referring to the type of credit informed | [optional] 
 **total_number_of_installments** | **float** | Total term according to the type referring to the type of credit informed | [optional] 
-**type_contract_remaining** | **float** | Type of remaining term of the contract referring to the type of credit informed | [optional] 
+**type_contract_remaining** | **str** | Type of remaining term of the contract referring to the type of credit informed | [optional] 
 **contract_remaining_number** | **float** | Remaining term according to the type referring to the credit type informed | [optional] 
 **paid_installments** | **float** | Number of paid installments | [optional] 
 **due_installments** | **float** | Number of due installments | [optional] 

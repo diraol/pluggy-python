@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **callback_urls** | [**PaymentRequestCallbackUrls**](PaymentRequestCallbackUrls.md) |  | [optional] 
 **payment_url** | **str** | URL to begin the payment intent creation flow for this payment request | 
 **payment_requests** | [**List[PaymentRequest]**](PaymentRequest.md) | List of payment requests associated with the bulk payment | 
-**smart_account** | [**SmartAccount**](SmartAccount.md) |  | 
+**smart_account** | [**SmartAccount**](SmartAccount.md) | Smart account associated with the bulk payment | 
 
 ## Example
 

@@ -33,8 +33,8 @@ class PaymentReceipt(BaseModel):
     payment_request_id: StrictStr = Field(description="Payment request identifier", alias="paymentRequestId")
     expires_at: datetime = Field(description="Date when the payment receipt expires", alias="expiresAt")
     receipt_url: StrictStr = Field(description="URL to download the payment receipt", alias="receiptUrl")
-    creditor: PaymentReceiptPerson
-    debtor: PaymentReceiptPerson
+    creditor: PaymentReceiptPerson = Field(description="Creditor bank account information")
+    debtor: PaymentReceiptPerson = Field(description="Debtor bank account information")
     amount: Union[StrictFloat, StrictInt] = Field(description="Payment amount")
     description: Optional[StrictStr] = Field(default=None, description="Payment description")
     reference_id: StrictStr = Field(description="Payment reference identifier", alias="referenceId")

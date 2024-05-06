@@ -32,7 +32,7 @@ class PaymentRecipient(BaseModel):
     id: StrictStr = Field(description="Primary identifier")
     tax_number: StrictStr = Field(description="Account owner tax number. Can be CPF or CNPJ (only numbers).", alias="taxNumber")
     name: StrictStr = Field(description="Account owner name.")
-    payment_institution: PaymentInstitution = Field(alias="paymentInstitution")
+    payment_institution: PaymentInstitution = Field(description="Recipient's bank account destination.", alias="paymentInstitution")
     is_default: StrictBool = Field(description="Indicates if the recipient is the default one", alias="isDefault")
     account: PaymentRecipientAccount
     pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient", alias="pixKey")

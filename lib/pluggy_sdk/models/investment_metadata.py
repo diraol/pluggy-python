@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from pluggy_sdk.models.company import Company
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -31,7 +32,7 @@ class InvestmentMetadata(BaseModel):
     proposal_number: Optional[StrictStr] = Field(default=None, description="Previdencial proposal number", alias="proposalNumber")
     process_number: Optional[StrictStr] = Field(default=None, description="Number of the process of a previdencia", alias="processNumber")
     fund_name: Optional[StrictStr] = Field(default=None, description="Name of the fund associated with the previdencia.", alias="fundName")
-    insurer: Optional[Dict[str, Any]] = None
+    insurer: Optional[Company] = Field(default=None, description="Insurer of the Security Investment")
     __properties: ClassVar[List[str]] = ["taxRegime", "proposalNumber", "processNumber", "fundName", "insurer"]
 
     model_config = ConfigDict(

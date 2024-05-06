@@ -31,7 +31,7 @@ Name | Type | Description | Notes
 **contracted_finance_charges** | [**List[LoanContractedFinanceCharge]**](LoanContractedFinanceCharge.md) | List that brings the charges agreed in the contract | [optional] 
 **warranties** | [**List[LoanWarranty]**](LoanWarranty.md) |  | [optional] 
 **installments** | [**LoanInstallments**](LoanInstallments.md) |  | [optional] 
-**payments** | [**LoanPayments**](LoanPayments.md) |  | [optional] 
+**payments** | [**LoanPayments**](LoanPayments.md) | Loan contract payment data | [optional] 
 
 ## Example
 

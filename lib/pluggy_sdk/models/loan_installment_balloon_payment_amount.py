@@ -25,7 +25,7 @@ from typing_extensions import Self
 
 class LoanInstallmentBalloonPaymentAmount(BaseModel):
     """
-    LoanInstallmentBalloonPaymentAmount
+    Monetary value of the non-regular installment due
     """ # noqa: E501
     value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Monetary value of the non-regular installment due")
     currency_code: Optional[StrictStr] = Field(default=None, description="Code referencing the currency of the installment", alias="currencyCode")

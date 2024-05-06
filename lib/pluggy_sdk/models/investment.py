@@ -53,7 +53,7 @@ class Investment(BaseModel):
     amount_profit: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Profit/Loss to date over the investment", alias="amountProfit")
     amount_withdrawal: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The amount available to withdraw", alias="amountWithdrawal")
     amount_original: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount originally invested", alias="amountOriginal")
-    metadata: Optional[InvestmentMetadata] = None
+    metadata: Optional[InvestmentMetadata] = Field(default=None, description="Security Portability details")
     transactions: Optional[List[InvestmentTransaction]] = Field(default=None, description="(DEPRECATED: this field will be removed for new applications created from 21st March 2023 onward. Use the paginated `GET /investment/{id}/transactions` endpoint instead.) Transactions made on the investment (Buy, Sell, Transfer, Tax)")
     due_date: Optional[datetime] = Field(default=None, description="Expiration Date", alias="dueDate")
     issuer: Optional[StrictStr] = Field(default=None, description="The entity that issued the investment")

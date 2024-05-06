@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **payment_request_id** | **str** | Payment request identifier | 
 **expires_at** | **datetime** | Date when the payment receipt expires | 
 **receipt_url** | **str** | URL to download the payment receipt | 
-**creditor** | [**PaymentReceiptPerson**](PaymentReceiptPerson.md) |  | 
-**debtor** | [**PaymentReceiptPerson**](PaymentReceiptPerson.md) |  | 
+**creditor** | [**PaymentReceiptPerson**](PaymentReceiptPerson.md) | Creditor bank account information | 
+**debtor** | [**PaymentReceiptPerson**](PaymentReceiptPerson.md) | Debtor bank account information | 
 **amount** | **float** | Payment amount | 
 **description** | **str** | Payment description | [optional] 
 **reference_id** | **str** | Payment reference identifier | 

@@ -39,7 +39,7 @@ class BulkPayment(BaseModel):
     callback_urls: Optional[PaymentRequestCallbackUrls] = Field(default=None, alias="callbackUrls")
     payment_url: StrictStr = Field(description="URL to begin the payment intent creation flow for this payment request", alias="paymentUrl")
     payment_requests: List[PaymentRequest] = Field(description="List of payment requests associated with the bulk payment", alias="paymentRequests")
-    smart_account: SmartAccount = Field(alias="smartAccount")
+    smart_account: SmartAccount = Field(description="Smart account associated with the bulk payment", alias="smartAccount")
     __properties: ClassVar[List[str]] = ["id", "totalAmount", "status", "createdAt", "updatedAt", "callbackUrls", "paymentUrl", "paymentRequests", "smartAccount"]
 
     @field_validator('status')

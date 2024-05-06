@@ -1,5 +1,6 @@
 # LoanPaymentReleaseOverParcel
 
+Object of fees and charges that were paid outside the installment
 
 ## Properties
 

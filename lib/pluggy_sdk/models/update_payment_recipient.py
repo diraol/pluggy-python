@@ -31,7 +31,7 @@ class UpdatePaymentRecipient(BaseModel):
     tax_number: Optional[StrictStr] = Field(default=None, description="Account owner tax number. Can be CPF or CNPJ (only numbers). Send only if the recipient doesn't have a pixKey.", alias="taxNumber")
     name: Optional[StrictStr] = Field(default=None, description="Account owner name. Send only if the recipient doesn't have a pixKey.")
     payment_institution_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the institution associated to the payment recipient. Send only if the recipient doesn't have a pixKey.", alias="paymentInstitutionId")
-    account: Optional[PaymentRecipientAccount] = None
+    account: Optional[PaymentRecipientAccount] = Field(default=None, description="Recipient's bank account destination. Send only if the recipient doesn't have a pixKey.")
     is_default: Optional[StrictBool] = Field(default=None, description="Indicates if the recipient is the default one", alias="isDefault")
     pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient", alias="pixKey")
     __properties: ClassVar[List[str]] = ["taxNumber", "name", "paymentInstitutionId", "account", "isDefault", "pixKey"]

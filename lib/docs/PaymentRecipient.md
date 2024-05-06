@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **id** | **str** | Primary identifier | 
 **tax_number** | **str** | Account owner tax number. Can be CPF or CNPJ (only numbers). | 
 **name** | **str** | Account owner name. | 
-**payment_institution** | [**PaymentInstitution**](PaymentInstitution.md) |  | 
+**payment_institution** | [**PaymentInstitution**](PaymentInstitution.md) | Recipient&#39;s bank account destination. | 
 **is_default** | **bool** | Indicates if the recipient is the default one | 
 **account** | [**PaymentRecipientAccount**](PaymentRecipientAccount.md) |  | 
 **pix_key** | **str** | Pix key associated with the payment recipient | [optional] 
