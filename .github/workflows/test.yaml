@@ -5,7 +5,14 @@
 
 name: Run tests for pluggy_sdk Python package
 
-on: [push, pull_request]
+on: 
+  push:
+    branches:
+      - main
+      - "!gh-pages"
+  pull_request:
+    branches:
+      - main
 
 defaults:
   run:

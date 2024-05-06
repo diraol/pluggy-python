@@ -6,6 +6,7 @@ on:  # yamllint disable-line rule:truthy
   push:
     branches:
       - main
+      - "!gh-pages"
   workflow_dispatch:
 
 concurrency:
