@@ -7966,7 +7966,6 @@
         "description": "Participant of the payment data",
         "properties": {
           "documentNumber": {
-            "type": "string",
             "$ref": "#/components/schemas/Document"
           },
           "name": {
@@ -8655,8 +8654,7 @@
             "description": "Date when the transaction was confirmed"
           },
           "expenses": {
-            "$ref": "#/components/schemas/InvestmentExpenses",
-            "description": "Taxes and fees that applied to the transaction"
+            "$ref": "#/components/schemas/InvestmentExpenses"
           }
         },
         "type": "object",
@@ -8753,9 +8751,12 @@
             "description": "Name of the fund associated with the previdencia."
           },
           "insurer": {
-            "type": "object",
-            "description": "Insurer of the Security Investment",
-            "$ref": "#/components/schemas/Company"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Company"
+              }
+            ],
+            "description": "Insurer of the Security Investment"
           }
         },
         "type": "object"
@@ -8922,7 +8923,11 @@
             "description": "Amount originally invested"
           },
           "metadata": {
-            "$ref": "#/components/schemas/InvestmentMetadata",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InvestmentMetadata"
+              }
+            ],
             "description": "Security Portability details"
           },
           "transactions": {
@@ -9714,11 +9719,14 @@
             }
           },
           "installments": {
-            "$ref": "#/components/schemas/LoanInstallments",
-            "description": "Set of information regarding the remaining term and the installments of a loan credit operation"
+            "$ref": "#/components/schemas/LoanInstallments"
           },
           "payments": {
-            "$ref": "#/components/schemas/LoanPayments",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LoanPayments"
+              }
+            ],
             "description": "Loan contract payment data"
           }
         },
@@ -9882,7 +9890,7 @@
             "description": "Total term according to the type referring to the type of credit informed"
           },
           "typeContractRemaining": {
-            "type": "number",
+            "type": "string",
             "description": "Type of remaining term of the contract referring to the type of credit informed",
             "enum": [
               "DAY",
@@ -9926,12 +9934,12 @@
             "description": "Expiration date of the non-regular installment to expire from the contract of the consulted credit modality"
           },
           "amount": {
-            "description": "Monetary value of the non-regular installment due",
             "$ref": "#/components/schemas/LoanInstallmentBalloonPaymentAmount"
           }
         }
       },
       "LoanInstallmentBalloonPaymentAmount": {
+        "description": "Monetary value of the non-regular installment due",
         "properties": {
           "value": {
             "type": "number",
@@ -9984,12 +9992,12 @@
             "description": "Payment amount referring to the contract of the credit modality consulted"
           },
           "overParcel": {
-            "description": "Object of fees and charges that were paid outside the installment",
             "$ref": "#/components/schemas/LoanPaymentReleaseOverParcel"
           }
         }
       },
       "LoanPaymentReleaseOverParcel": {
+        "description": "Object of fees and charges that were paid outside the installment",
         "properties": {
           "fees": {
             "type": "array",
@@ -10169,8 +10177,7 @@
             "description": "Date when the payment request was updated"
           },
           "callbackUrls": {
-            "$ref": "#/components/schemas/PaymentRequestCallbackUrls",
-            "description": "Redirect urls after the payment was completed or ended in error status"
+            "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
           },
           "recipientId": {
             "type": "string",
@@ -10209,8 +10216,7 @@
             "description": "Payment description"
           },
           "callbackUrls": {
-            "$ref": "#/components/schemas/PaymentRequestCallbackUrls",
-            "description": "Redirect urls after the payment was completed or ended in error status"
+            "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
           },
           "recipientId": {
             "type": "string",
@@ -10241,8 +10247,7 @@
             "description": "Pix QR code"
           },
           "callbackUrls": {
-            "$ref": "#/components/schemas/PaymentRequestCallbackUrls",
-            "description": "Redirect urls after the payment was completed or ended in error status"
+            "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
           },
           "customerId": {
             "type": "string",
@@ -10268,8 +10273,7 @@
             "description": "Payment description"
           },
           "callbackUrls": {
-            "$ref": "#/components/schemas/PaymentRequestCallbackUrls",
-            "description": "Redirect urls after the payment was completed or ended in error status"
+            "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
           },
           "recipientId": {
             "type": "string",
@@ -10329,11 +10333,19 @@
             "description": "URL to download the payment receipt"
           },
           "creditor": {
-            "$ref": "#/components/schemas/PaymentReceiptPerson",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentReceiptPerson"
+              }
+            ],
             "description": "Creditor bank account information"
           },
           "debtor": {
-            "$ref": "#/components/schemas/PaymentReceiptPerson",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentReceiptPerson"
+              }
+            ],
             "description": "Debtor bank account information"
           },
           "amount": {
@@ -10406,8 +10418,7 @@
             "description": "Person tax number"
           },
           "bankAccount": {
-            "$ref": "#/components/schemas/PaymentReceiptBankAccount",
-            "description": "Person bank account information"
+            "$ref": "#/components/schemas/PaymentReceiptBankAccount"
           }
         }
       },
@@ -10533,8 +10544,7 @@
             "description": "List of payment request identifiers to be associated with the bulk payment"
           },
           "callbackUrls": {
-            "$ref": "#/components/schemas/PaymentRequestCallbackUrls",
-            "description": "Redirect urls after the payment was completed or ended in error status"
+            "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
           },
           "smartAccountId": {
             "type": "string",
@@ -10593,8 +10603,7 @@
             "description": "Date when the payment request was updated"
           },
           "callbackUrls": {
-            "$ref": "#/components/schemas/PaymentRequestCallbackUrls",
-            "description": "Redirect urls after the payment was completed or ended in error status"
+            "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
           },
           "paymentUrl": {
             "type": "string",
@@ -10608,7 +10617,11 @@
             "description": "List of payment requests associated with the bulk payment"
           },
           "smartAccount": {
-            "$ref": "#/components/schemas/SmartAccount",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SmartAccount"
+              }
+            ],
             "description": "Smart account associated with the bulk payment"
           }
         },
@@ -10696,15 +10709,27 @@
             "description": "Date when the payment intent was updated"
           },
           "paymentRequest": {
-            "$ref": "#/components/schemas/PaymentRequest",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentRequest"
+              }
+            ],
             "description": "Payment request associated to the payment intent"
           },
           "bulkPayment": {
-            "$ref": "#/components/schemas/BulkPayment",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BulkPayment"
+              }
+            ],
             "description": "Bulk Payment associated to the payment intent"
           },
           "connector": {
-            "$ref": "#/components/schemas/Connector",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Connector"
+              }
+            ],
             "description": "Connector associated to the payment intent"
           },
           "consentUrl": {
@@ -10725,7 +10750,11 @@
             "default": "PIS"
           },
           "pixData": {
-            "$ref": "#/components/schemas/PixData",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PixData"
+              }
+            ],
             "description": "Pix data related to the payment intent (only applies for PIX payment method)"
           }
         },
@@ -10802,9 +10831,7 @@
             "description": "Primary identifier of the bulk payment associated to the payment intent"
           },
           "parameters": {
-            "type": "object",
-            "$ref": "#/components/schemas/PaymentIntentParameter",
-            "description": "Credentials to create a payment intent"
+            "$ref": "#/components/schemas/PaymentIntentParameter"
           },
           "connectorId": {
             "type": "number",
@@ -10975,7 +11002,11 @@
             "description": "Account owner name."
           },
           "paymentInstitution": {
-            "$ref": "#/components/schemas/PaymentInstitution",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentInstitution"
+              }
+            ],
             "description": "Recipient's bank account destination."
           },
           "isDefault": {
@@ -10983,8 +11014,7 @@
             "description": "Indicates if the recipient is the default one"
           },
           "account": {
-            "$ref": "#/components/schemas/PaymentRecipientAccount",
-            "description": "Recipient's bank account destination. Send only if the pixKey is not sent."
+            "$ref": "#/components/schemas/PaymentRecipientAccount"
           },
           "pixKey": {
             "type": "string",
@@ -11039,7 +11069,11 @@
             "description": "Primary identifier of the institution associated to the payment recipient. Send only when the pixKey is not sent."
           },
           "account": {
-            "$ref": "#/components/schemas/PaymentRecipientAccount",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentRecipientAccount"
+              }
+            ],
             "description": "Recipient's bank account destination. Send only if the pixKey is not sent."
           },
           "isDefault": {
@@ -11081,7 +11115,11 @@
             "description": "Primary identifier of the institution associated to the payment recipient. Send only if the recipient doesn't have a pixKey."
           },
           "account": {
-            "$ref": "#/components/schemas/PaymentRecipientAccount",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentRecipientAccount"
+              }
+            ],
             "description": "Recipient's bank account destination. Send only if the recipient doesn't have a pixKey."
           },
           "isDefault": {
