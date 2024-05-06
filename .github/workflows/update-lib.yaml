@@ -208,4 +208,3 @@ jobs:
         gh release upload
         '${{ needs.publish-to-pypi.outputs.NEW_VERSION }}' dist/**
         --repo '${{ github.repository }}'
-
