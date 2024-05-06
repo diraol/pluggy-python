@@ -24,6 +24,7 @@ jobs:
 
     outputs:
       new_version: ${{ steps.new-oas.outputs.NEW_VERSION }}
+      has_diff: ${{ steps.has-diff.outputs.changed-files }}
 
     steps:
     - name: Checkout
@@ -101,6 +102,7 @@ jobs:
         tagging_message: v${{ steps.new-oas.outputs.NEW_VERSION}}
 
     - name: Set up Python
+      if: steps.has-diff.outputs.changed-files == 1
       uses: actions/setup-python@v5
       with:
         python-version: "3.x"
@@ -113,6 +115,7 @@ jobs:
         --user
 
     - name: Patch Setup.py
+      if: steps.has-diff.outputs.changed-files == 1
       run: |
         # Replace multiline long_description with a hold marker
         sed -i -e '/long_description=/,/"""/d' -e '/long_description_content_type/a --HOLD--' lib/setup.py
@@ -122,11 +125,13 @@ jobs:
         sed -i -e '/setup(/r .github/files/setup_py_patch' -e //N lib/setup.py
 
     - name: Build a binary wheel and a source tarball
+      if: steps.has-diff.outputs.changed-files == 1
       id: build
       run: python3 -m build
       working-directory: ./lib
 
     - name: Store the distribution packages
+      if: steps.has-diff.outputs.changed-files == 1
       uses: actions/upload-artifact@v4
       with:
         name: python-package-distributions
@@ -135,6 +140,7 @@ jobs:
   publish-to-pypi:
     name: Publish Python 🐍 distribution 📦 to PyPI
     needs: GenerateSDK
+    if: ${{ needs.GenerateSDK.outputs.has_diff }} == 1
     runs-on: ubuntu-latest
     environment:
       name: pypi
@@ -165,8 +171,8 @@ jobs:
     name: >-
       Sign the Python 🐍 distribution 📦 with Sigstore
       and upload them to GitHub Release
-    needs:
-    - publish-to-pypi
+    needs: publish-to-pypi
+    if: ${{ needs.GenerateSDK.outputs.has_diff }} == 1
     runs-on: ubuntu-latest
     permissions:
       contents: write  # IMPORTANT: mandatory for making GitHub Releases
