@@ -1,0 +1,1314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>pluggy_sdk.api.webhook_api.WebhookApi</title>
+    <meta name="generator" content="pydoctor 23.9.1"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="readthedocstheme.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default mainnavbar">
+      
+  
+  <div class="container-fluid">
+
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          <a href="https://github.com/diraol/pluggy-python" class="projecthome">pluggy-sdk</a> <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <div id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
+            <span class="input-group-btn">
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+    
+        <!-- Side navigation -->
+      <div class="sidebarcontainer">
+        <nav class="sidebar">
+  
+
+  <div>
+
+      <div class="thingTitle">
+        <span>Class</span>
+        <code class="thisobject"><a href="pluggy_sdk.api.webhook_api.WebhookApi.html" class="internal-link" title="This class"><wbr></wbr>Webhook<wbr></wbr>Api</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Methods</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__init__" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.__init__">__init__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_create" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_create">webhooks<wbr></wbr>_create</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_create_with_http_info" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_create_with_http_info">webhooks<wbr></wbr>_create<wbr></wbr>_with<wbr></wbr>_http<wbr></wbr>_info</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_create_without_preload_content" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_create_without_preload_content">webhooks<wbr></wbr>_create<wbr></wbr>_without<wbr></wbr>_preload<wbr></wbr>_content</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_delete" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_delete">webhooks<wbr></wbr>_delete</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_delete_with_http_info" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_delete_with_http_info">webhooks<wbr></wbr>_delete<wbr></wbr>_with<wbr></wbr>_http<wbr></wbr>_info</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_delete_without_preload_content" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_delete_without_preload_content">webhooks<wbr></wbr>_delete<wbr></wbr>_without<wbr></wbr>_preload<wbr></wbr>_content</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_list" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_list">webhooks<wbr></wbr>_list</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_list_with_http_info" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_list_with_http_info">webhooks<wbr></wbr>_list<wbr></wbr>_with<wbr></wbr>_http<wbr></wbr>_info</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_list_without_preload_content" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_list_without_preload_content">webhooks<wbr></wbr>_list<wbr></wbr>_without<wbr></wbr>_preload<wbr></wbr>_content</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_retrieve" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_retrieve">webhooks<wbr></wbr>_retrieve</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_retrieve_with_http_info" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_retrieve_with_http_info">webhooks<wbr></wbr>_retrieve<wbr></wbr>_with<wbr></wbr>_http<wbr></wbr>_info</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_retrieve_without_preload_content" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_retrieve_without_preload_content">webhooks<wbr></wbr>_retrieve<wbr></wbr>_without<wbr></wbr>_preload<wbr></wbr>_content</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_update" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_update">webhooks<wbr></wbr>_update</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_update_with_http_info" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_update_with_http_info">webhooks<wbr></wbr>_update<wbr></wbr>_with<wbr></wbr>_http<wbr></wbr>_info</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#webhooks_update_without_preload_content" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_update_without_preload_content">webhooks<wbr></wbr>_update<wbr></wbr>_without<wbr></wbr>_preload<wbr></wbr>_content</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_webhooks_create_serialize" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_create_serialize">_webhooks<wbr></wbr>_create<wbr></wbr>_serialize</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_webhooks_delete_serialize" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_delete_serialize">_webhooks<wbr></wbr>_delete<wbr></wbr>_serialize</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_webhooks_list_serialize" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_list_serialize">_webhooks<wbr></wbr>_list<wbr></wbr>_serialize</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_webhooks_retrieve_serialize" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_retrieve_serialize">_webhooks<wbr></wbr>_retrieve<wbr></wbr>_serialize</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_webhooks_update_serialize" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_update_serialize">_webhooks<wbr></wbr>_update<wbr></wbr>_serialize</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Attributes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#api_client" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.api_client">api<wbr></wbr>_client</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
+        <span>Module</span>
+        <code><a href="pluggy_sdk.api.webhook_api.html" class="internal-link" title="The parent of this class">webhook<wbr></wbr>_api</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        <div class="childrenKindTitle">Classes</div>
+        <ul>
+    
+    <li class=" thisobject">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pluggy_sdk.api.webhook_api.WebhookApi.html" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi"><wbr></wbr>Webhook<wbr></wbr>Api</a></code>
+            </div>
+        
+
+    </li>
+</ul>
+
+        
+         
+
+        
+         
+
+        
+         
+
+        
+         
+        
+      </div>
+  </div>
+
+</nav>
+        <!-- No sidebar toggle for read the docs theme, the sidebar is always
+          visible when the screen is width enough.
+        -->
+      </div>
+
+    </nav>
+    
+    <div class="container-fluid">
+
+      <div id="main" class="">
+        
+
+        
+
+        <div id="search-results-container" style="display: none;">
+        
+          <div id="search-buttons">
+            <span class="label label-default" id="search-docstrings-button">
+            <label class="checkbox-inline">
+              <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+                search in docstrings
+              </input>
+            </label>
+            </span>
+            
+          </div>
+          
+          <noscript>
+              <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+          </noscript>
+  
+          <div class="hint" id="search-help-box">
+            <p class="rst-last">
+        
+              Search bar offers the following options:
+              <ul>   
+                  <li>
+                    <strong>Term presence.</strong> The below example searches for documents that 
+                      must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
+                  </li> 
+  
+                  <li>
+                    <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
+                  </li> 
+  
+                  <li>
+                    <strong>Search in specific fields.</strong> The following search matches all objects 
+                    in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
+  
+                    <p>
+                      Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                      Last two fields are only applicable if "search in docstrings" is enabled.
+                    </p>
+                  </li>
+  
+                  <li>
+                    <strong>Fuzzy matches.</strong> The following search matches all documents 
+                    that have a word within 1 edit distance of “foo”: <code>foo~1</code>
+                  </li>
+              </ul>
+  
+            </p>
+          </div>
+  
+          <div id="search-status"> </div>
+  
+          <div class="warning" id="search-warn-box" style="display: none;">
+            <p class="rst-last"><span id="search-warn"></span></p>
+          </div>
+  
+          <table id="search-results">
+            <!-- Filled dynamically by JS -->
+          </table>
+          
+          <div style="margin-top: 8px;">
+            <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+          </div>
+        </div>
+
+        <div class="page-header">
+          <h1 class="class"><code><code><a href="index.html" class="internal-link">pluggy_sdk</a></code><wbr></wbr>.<code><a href="pluggy_sdk.api.html" class="internal-link" title="pluggy_sdk.api">api</a></code><wbr></wbr>.<code><a href="pluggy_sdk.api.webhook_api.html" class="internal-link" title="pluggy_sdk.api.webhook_api">webhook_api</a></code><wbr></wbr>.<code><a href="pluggy_sdk.api.webhook_api.WebhookApi.html" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi">WebhookApi</a></code></code></h1>
+          <div id="showPrivate">
+            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+          </div>
+        </div>
+
+        <div class="categoryHeader">
+          class documentation
+        </div>
+
+        <div class="extrasDocstring">
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">WebhookApi</span>:</code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.__init__">WebhookApi(api_client)</a></code></p>
+          <p><a href="classIndex.html#pluggy_sdk.api.webhook_api.WebhookApi">View In Hierarchy</a></p>
+        </div>
+
+        <div class="moduleDocstring">
+          <div><p>NOTE: This class is auto generated by OpenAPI Generator
+Ref: <a class="rst-reference rst-external" href="https://openapi-generator.tech" target="_top">https://openapi-generator.tech</a></p>
+<p>Do not edit the class manually.</p>
+</div>
+        </div>
+
+        <div id="splitTables">
+          <table class="children sortable" id="id47">
+  
+  
+  <tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__init__" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.__init__">__init__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_create" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_create">webhooks<wbr></wbr>_create</a></code></td>
+    <td>Create</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_create_with_http_info" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_create_with_http_info">webhooks<wbr></wbr>_create<wbr></wbr>_with<wbr></wbr>_http<wbr></wbr>_info</a></code></td>
+    <td>Create</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_create_without_preload_content" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_create_without_preload_content">webhooks<wbr></wbr>_create<wbr></wbr>_without<wbr></wbr>_preload<wbr></wbr>_content</a></code></td>
+    <td>Create</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_delete" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_delete">webhooks<wbr></wbr>_delete</a></code></td>
+    <td>Delete</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_delete_with_http_info" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_delete_with_http_info">webhooks<wbr></wbr>_delete<wbr></wbr>_with<wbr></wbr>_http<wbr></wbr>_info</a></code></td>
+    <td>Delete</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_delete_without_preload_content" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_delete_without_preload_content">webhooks<wbr></wbr>_delete<wbr></wbr>_without<wbr></wbr>_preload<wbr></wbr>_content</a></code></td>
+    <td>Delete</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_list" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_list">webhooks<wbr></wbr>_list</a></code></td>
+    <td>List</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_list_with_http_info" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_list_with_http_info">webhooks<wbr></wbr>_list<wbr></wbr>_with<wbr></wbr>_http<wbr></wbr>_info</a></code></td>
+    <td>List</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_list_without_preload_content" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_list_without_preload_content">webhooks<wbr></wbr>_list<wbr></wbr>_without<wbr></wbr>_preload<wbr></wbr>_content</a></code></td>
+    <td>List</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_retrieve" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_retrieve">webhooks<wbr></wbr>_retrieve</a></code></td>
+    <td>Retrieve</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_retrieve_with_http_info" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_retrieve_with_http_info">webhooks<wbr></wbr>_retrieve<wbr></wbr>_with<wbr></wbr>_http<wbr></wbr>_info</a></code></td>
+    <td>Retrieve</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_retrieve_without_preload_content" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_retrieve_without_preload_content">webhooks<wbr></wbr>_retrieve<wbr></wbr>_without<wbr></wbr>_preload<wbr></wbr>_content</a></code></td>
+    <td>Retrieve</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_update" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_update">webhooks<wbr></wbr>_update</a></code></td>
+    <td>Update</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_update_with_http_info" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_update_with_http_info">webhooks<wbr></wbr>_update<wbr></wbr>_with<wbr></wbr>_http<wbr></wbr>_info</a></code></td>
+    <td>Update</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#webhooks_update_without_preload_content" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_update_without_preload_content">webhooks<wbr></wbr>_update<wbr></wbr>_without<wbr></wbr>_preload<wbr></wbr>_content</a></code></td>
+    <td>Update</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#api_client" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi.api_client">api<wbr></wbr>_client</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_webhooks_create_serialize" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_create_serialize">_webhooks<wbr></wbr>_create<wbr></wbr>_serialize</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_webhooks_delete_serialize" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_delete_serialize">_webhooks<wbr></wbr>_delete<wbr></wbr>_serialize</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_webhooks_list_serialize" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_list_serialize">_webhooks<wbr></wbr>_list<wbr></wbr>_serialize</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_webhooks_retrieve_serialize" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_retrieve_serialize">_webhooks<wbr></wbr>_retrieve<wbr></wbr>_serialize</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_webhooks_update_serialize" class="internal-link" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_update_serialize">_webhooks<wbr></wbr>_update<wbr></wbr>_serialize</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+
+            
+        </div>
+
+        <div id="childList">
+          <div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, api_client=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
+    
+    <a class="headerLink" href="#__init__" title="pluggy_sdk.api.webhook_api.WebhookApi.__init__">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_create">
+    
+  </a>
+  <a name="webhooks_create">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_create</span><span class="function-signature">(self, create_webhook: <code>Annotated[<wbr></wbr><a href="pluggy_sdk.models.create_webhook.CreateWebhook.html" class="internal-link" title="pluggy_sdk.models.create_webhook.CreateWebhook">CreateWebhook</a>, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.</span><span class="rst-variable-quote">'</span>)]</code>, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code><a href="pluggy_sdk.models.webhook.Webhook.html" class="internal-link" title="pluggy_sdk.models.webhook.Webhook">Webhook</a></code></span>:
+    
+    <a class="headerLink" href="#webhooks_create" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_create">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Create</p>
+<p>Creates a webhook attached to the specific event and provides the notification url</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">create<wbr></wbr>_webhook:</span>CreateWebhook</td><td class="fieldArgDesc">Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pluggy_sdk.models.webhook.Webhook.html" class="internal-link" title="pluggy_sdk.models.webhook.Webhook">Webhook</a></code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_create_with_http_info">
+    
+  </a>
+  <a name="webhooks_create_with_http_info">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_create_with_http_info</span><span class="function-signature">(self, create_webhook: <code>Annotated[<wbr></wbr><a href="pluggy_sdk.models.create_webhook.CreateWebhook.html" class="internal-link" title="pluggy_sdk.models.create_webhook.CreateWebhook">CreateWebhook</a>, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.</span><span class="rst-variable-quote">'</span>)]</code>, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code><a href="pluggy_sdk.api_response.ApiResponse.html" class="internal-link" title="pluggy_sdk.api_response.ApiResponse">ApiResponse</a>[<wbr></wbr><a href="pluggy_sdk.models.webhook.Webhook.html" class="internal-link" title="pluggy_sdk.models.webhook.Webhook">Webhook</a>]</code></span>:
+    
+    <a class="headerLink" href="#webhooks_create_with_http_info" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_create_with_http_info">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Create</p>
+<p>Creates a webhook attached to the specific event and provides the notification url</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">create<wbr></wbr>_webhook:</span>CreateWebhook</td><td class="fieldArgDesc">Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pluggy_sdk.api_response.ApiResponse.html" class="internal-link" title="pluggy_sdk.api_response.ApiResponse">ApiResponse</a>[<wbr></wbr><a href="pluggy_sdk.models.webhook.Webhook.html" class="internal-link" title="pluggy_sdk.models.webhook.Webhook">Webhook</a>]</code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_create_without_preload_content">
+    
+  </a>
+  <a name="webhooks_create_without_preload_content">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_create_without_preload_content</span><span class="function-signature">(self, create_webhook: <code>Annotated[<wbr></wbr><a href="pluggy_sdk.models.create_webhook.CreateWebhook.html" class="internal-link" title="pluggy_sdk.models.create_webhook.CreateWebhook">CreateWebhook</a>, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.</span><span class="rst-variable-quote">'</span>)]</code>, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code>RESTResponseType</code></span>:
+    
+    <a class="headerLink" href="#webhooks_create_without_preload_content" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_create_without_preload_content">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Create</p>
+<p>Creates a webhook attached to the specific event and provides the notification url</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">create<wbr></wbr>_webhook:</span>CreateWebhook</td><td class="fieldArgDesc">Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>RESTResponseType</code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_delete">
+    
+  </a>
+  <a name="webhooks_delete">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_delete</span><span class="function-signature">(self, id: <code>Annotated[<wbr></wbr>StrictStr, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">webhook primary identifier</span><span class="rst-variable-quote">'</span>)]</code>, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code><a href="pluggy_sdk.models.i_count_response.ICountResponse.html" class="internal-link" title="pluggy_sdk.models.i_count_response.ICountResponse">ICountResponse</a></code></span>:
+    
+    <a class="headerLink" href="#webhooks_delete" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_delete">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Delete</p>
+<p>Deletes a webhook listener by its id</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">id:</span>str</td><td class="fieldArgDesc">webhook primary identifier (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pluggy_sdk.models.i_count_response.ICountResponse.html" class="internal-link" title="pluggy_sdk.models.i_count_response.ICountResponse">ICountResponse</a></code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_delete_with_http_info">
+    
+  </a>
+  <a name="webhooks_delete_with_http_info">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_delete_with_http_info</span><span class="function-signature">(self, id: <code>Annotated[<wbr></wbr>StrictStr, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">webhook primary identifier</span><span class="rst-variable-quote">'</span>)]</code>, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code><a href="pluggy_sdk.api_response.ApiResponse.html" class="internal-link" title="pluggy_sdk.api_response.ApiResponse">ApiResponse</a>[<wbr></wbr><a href="pluggy_sdk.models.i_count_response.ICountResponse.html" class="internal-link" title="pluggy_sdk.models.i_count_response.ICountResponse">ICountResponse</a>]</code></span>:
+    
+    <a class="headerLink" href="#webhooks_delete_with_http_info" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_delete_with_http_info">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Delete</p>
+<p>Deletes a webhook listener by its id</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">id:</span>str</td><td class="fieldArgDesc">webhook primary identifier (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pluggy_sdk.api_response.ApiResponse.html" class="internal-link" title="pluggy_sdk.api_response.ApiResponse">ApiResponse</a>[<wbr></wbr><a href="pluggy_sdk.models.i_count_response.ICountResponse.html" class="internal-link" title="pluggy_sdk.models.i_count_response.ICountResponse">ICountResponse</a>]</code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_delete_without_preload_content">
+    
+  </a>
+  <a name="webhooks_delete_without_preload_content">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_delete_without_preload_content</span><span class="function-signature">(self, id: <code>Annotated[<wbr></wbr>StrictStr, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">webhook primary identifier</span><span class="rst-variable-quote">'</span>)]</code>, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code>RESTResponseType</code></span>:
+    
+    <a class="headerLink" href="#webhooks_delete_without_preload_content" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_delete_without_preload_content">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Delete</p>
+<p>Deletes a webhook listener by its id</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">id:</span>str</td><td class="fieldArgDesc">webhook primary identifier (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>RESTResponseType</code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_list">
+    
+  </a>
+  <a name="webhooks_list">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_list</span><span class="function-signature">(self, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code><a href="pluggy_sdk.models.webhooks_list200_response.WebhooksList200Response.html" class="internal-link" title="pluggy_sdk.models.webhooks_list200_response.WebhooksList200Response">WebhooksList200Response</a></code></span>:
+    
+    <a class="headerLink" href="#webhooks_list" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_list">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>List</p>
+<p>Retrieves all Webhooks associated with your application</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pluggy_sdk.models.webhooks_list200_response.WebhooksList200Response.html" class="internal-link" title="pluggy_sdk.models.webhooks_list200_response.WebhooksList200Response">WebhooksList200Response</a></code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_list_with_http_info">
+    
+  </a>
+  <a name="webhooks_list_with_http_info">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_list_with_http_info</span><span class="function-signature">(self, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code><a href="pluggy_sdk.api_response.ApiResponse.html" class="internal-link" title="pluggy_sdk.api_response.ApiResponse">ApiResponse</a>[<wbr></wbr><a href="pluggy_sdk.models.webhooks_list200_response.WebhooksList200Response.html" class="internal-link" title="pluggy_sdk.models.webhooks_list200_response.WebhooksList200Response">WebhooksList200Response</a>]</code></span>:
+    
+    <a class="headerLink" href="#webhooks_list_with_http_info" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_list_with_http_info">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>List</p>
+<p>Retrieves all Webhooks associated with your application</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pluggy_sdk.api_response.ApiResponse.html" class="internal-link" title="pluggy_sdk.api_response.ApiResponse">ApiResponse</a>[<wbr></wbr><a href="pluggy_sdk.models.webhooks_list200_response.WebhooksList200Response.html" class="internal-link" title="pluggy_sdk.models.webhooks_list200_response.WebhooksList200Response">WebhooksList200Response</a>]</code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_list_without_preload_content">
+    
+  </a>
+  <a name="webhooks_list_without_preload_content">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_list_without_preload_content</span><span class="function-signature">(self, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code>RESTResponseType</code></span>:
+    
+    <a class="headerLink" href="#webhooks_list_without_preload_content" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_list_without_preload_content">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>List</p>
+<p>Retrieves all Webhooks associated with your application</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>RESTResponseType</code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_retrieve">
+    
+  </a>
+  <a name="webhooks_retrieve">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_retrieve</span><span class="function-signature">(self, id: <code>Annotated[<wbr></wbr>StrictStr, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">webhook primary identifier</span><span class="rst-variable-quote">'</span>)]</code>, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code><a href="pluggy_sdk.models.webhook.Webhook.html" class="internal-link" title="pluggy_sdk.models.webhook.Webhook">Webhook</a></code></span>:
+    
+    <a class="headerLink" href="#webhooks_retrieve" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_retrieve">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Retrieve</p>
+<p>Retrieves a specific webhook</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">id:</span>str</td><td class="fieldArgDesc">webhook primary identifier (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pluggy_sdk.models.webhook.Webhook.html" class="internal-link" title="pluggy_sdk.models.webhook.Webhook">Webhook</a></code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_retrieve_with_http_info">
+    
+  </a>
+  <a name="webhooks_retrieve_with_http_info">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_retrieve_with_http_info</span><span class="function-signature">(self, id: <code>Annotated[<wbr></wbr>StrictStr, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">webhook primary identifier</span><span class="rst-variable-quote">'</span>)]</code>, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code><a href="pluggy_sdk.api_response.ApiResponse.html" class="internal-link" title="pluggy_sdk.api_response.ApiResponse">ApiResponse</a>[<wbr></wbr><a href="pluggy_sdk.models.webhook.Webhook.html" class="internal-link" title="pluggy_sdk.models.webhook.Webhook">Webhook</a>]</code></span>:
+    
+    <a class="headerLink" href="#webhooks_retrieve_with_http_info" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_retrieve_with_http_info">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Retrieve</p>
+<p>Retrieves a specific webhook</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">id:</span>str</td><td class="fieldArgDesc">webhook primary identifier (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pluggy_sdk.api_response.ApiResponse.html" class="internal-link" title="pluggy_sdk.api_response.ApiResponse">ApiResponse</a>[<wbr></wbr><a href="pluggy_sdk.models.webhook.Webhook.html" class="internal-link" title="pluggy_sdk.models.webhook.Webhook">Webhook</a>]</code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_retrieve_without_preload_content">
+    
+  </a>
+  <a name="webhooks_retrieve_without_preload_content">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_retrieve_without_preload_content</span><span class="function-signature">(self, id: <code>Annotated[<wbr></wbr>StrictStr, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">webhook primary identifier</span><span class="rst-variable-quote">'</span>)]</code>, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code>RESTResponseType</code></span>:
+    
+    <a class="headerLink" href="#webhooks_retrieve_without_preload_content" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_retrieve_without_preload_content">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Retrieve</p>
+<p>Retrieves a specific webhook</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">id:</span>str</td><td class="fieldArgDesc">webhook primary identifier (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>RESTResponseType</code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_update">
+    
+  </a>
+  <a name="webhooks_update">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_update</span><span class="function-signature">(self, id: <code>Annotated[<wbr></wbr>StrictStr, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">webhook primary identifier</span><span class="rst-variable-quote">'</span>)]</code>, create_webhook: <code>Annotated[<wbr></wbr><a href="pluggy_sdk.models.create_webhook.CreateWebhook.html" class="internal-link" title="pluggy_sdk.models.create_webhook.CreateWebhook">CreateWebhook</a>, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.</span><span class="rst-variable-quote">'</span>)]</code>, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code><a href="pluggy_sdk.models.webhook.Webhook.html" class="internal-link" title="pluggy_sdk.models.webhook.Webhook">Webhook</a></code></span>:
+    
+    <a class="headerLink" href="#webhooks_update" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_update">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Update</p>
+<p>Updates a webhook event and/or url listener. Once updated all events that are triggered will replicate the updated logic</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">id:</span>str</td><td class="fieldArgDesc">webhook primary identifier (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">create<wbr></wbr>_webhook:</span>CreateWebhook</td><td class="fieldArgDesc">Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pluggy_sdk.models.webhook.Webhook.html" class="internal-link" title="pluggy_sdk.models.webhook.Webhook">Webhook</a></code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_update_with_http_info">
+    
+  </a>
+  <a name="webhooks_update_with_http_info">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_update_with_http_info</span><span class="function-signature">(self, id: <code>Annotated[<wbr></wbr>StrictStr, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">webhook primary identifier</span><span class="rst-variable-quote">'</span>)]</code>, create_webhook: <code>Annotated[<wbr></wbr><a href="pluggy_sdk.models.create_webhook.CreateWebhook.html" class="internal-link" title="pluggy_sdk.models.create_webhook.CreateWebhook">CreateWebhook</a>, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.</span><span class="rst-variable-quote">'</span>)]</code>, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code><a href="pluggy_sdk.api_response.ApiResponse.html" class="internal-link" title="pluggy_sdk.api_response.ApiResponse">ApiResponse</a>[<wbr></wbr><a href="pluggy_sdk.models.webhook.Webhook.html" class="internal-link" title="pluggy_sdk.models.webhook.Webhook">Webhook</a>]</code></span>:
+    
+    <a class="headerLink" href="#webhooks_update_with_http_info" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_update_with_http_info">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Update</p>
+<p>Updates a webhook event and/or url listener. Once updated all events that are triggered will replicate the updated logic</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">id:</span>str</td><td class="fieldArgDesc">webhook primary identifier (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">create<wbr></wbr>_webhook:</span>CreateWebhook</td><td class="fieldArgDesc">Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pluggy_sdk.api_response.ApiResponse.html" class="internal-link" title="pluggy_sdk.api_response.ApiResponse">ApiResponse</a>[<wbr></wbr><a href="pluggy_sdk.models.webhook.Webhook.html" class="internal-link" title="pluggy_sdk.models.webhook.Webhook">Webhook</a>]</code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_update_without_preload_content">
+    
+  </a>
+  <a name="webhooks_update_without_preload_content">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @validate_call<br />
+    <span class="py-keyword">def</span> <span class="py-defname">webhooks_update_without_preload_content</span><span class="function-signature">(self, id: <code>Annotated[<wbr></wbr>StrictStr, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">webhook primary identifier</span><span class="rst-variable-quote">'</span>)]</code>, create_webhook: <code>Annotated[<wbr></wbr><a href="pluggy_sdk.models.create_webhook.CreateWebhook.html" class="internal-link" title="pluggy_sdk.models.create_webhook.CreateWebhook">CreateWebhook</a>, <wbr></wbr>Field(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.</span><span class="rst-variable-quote">'</span>)]</code>, _request_timeout: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)], <wbr></wbr>Annotated[<wbr></wbr>StrictFloat, <wbr></wbr>Field(<wbr></wbr>gt=0)]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _content_type: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr>StrictStr]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _headers: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr>StrictStr, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host_index: <code>Annotated[<wbr></wbr>StrictInt, <wbr></wbr>Field(<wbr></wbr>ge=0, <wbr></wbr>le=0)]</code> = 0) -&gt; <code>RESTResponseType</code></span>:
+    
+    <a class="headerLink" href="#webhooks_update_without_preload_content" title="pluggy_sdk.api.webhook_api.WebhookApi.webhooks_update_without_preload_content">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Update</p>
+<p>Updates a webhook event and/or url listener. Once updated all events that are triggered will replicate the updated logic</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">id:</span>str</td><td class="fieldArgDesc">webhook primary identifier (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">create<wbr></wbr>_webhook:</span>CreateWebhook</td><td class="fieldArgDesc">Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout:</span>int, tuple(int, int), optional</td><td class="fieldArgDesc">timeout setting for this request. If one
+number provided, it will be total request
+timeout. It can also be a pair (tuple) of
+(connection, read) timeouts.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth:</span>dict, optional</td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the
+authentication in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_content<wbr></wbr>_type:</span>str, Optional</td><td class="fieldArgDesc">force content-type for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_headers:</span>dict, optional</td><td class="fieldArgDesc">set to override the headers for a single
+request; this effectively ignores the headers
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host<wbr></wbr>_index:</span>int, optional</td><td class="fieldArgDesc">set to override the host_index for a single
+request; this effectively ignores the host_index
+in the spec for a single request.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code>RESTResponseType</code></td><td class="fieldArgDesc">Returns the result object.</td></tr></table></div>
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi.api_client">
+    
+  </a>
+  <a name="api_client">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">api_client</span> =
+    
+    <a class="headerLink" href="#api_client" title="pluggy_sdk.api.webhook_api.WebhookApi.api_client">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_create_serialize">
+    
+  </a>
+  <a name="_webhooks_create_serialize">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_webhooks_create_serialize</span><span class="function-signature">(self, create_webhook, _request_auth, _content_type, _headers, _host_index) -&gt; <code><a href="pluggy_sdk.api_client.html#RequestSerialized" class="internal-link" title="pluggy_sdk.api_client.RequestSerialized">RequestSerialized</a></code></span>:
+    
+    <a class="headerLink" href="#_webhooks_create_serialize" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_create_serialize">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_delete_serialize">
+    
+  </a>
+  <a name="_webhooks_delete_serialize">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_webhooks_delete_serialize</span><span class="function-signature">(self, id, _request_auth, _content_type, _headers, _host_index) -&gt; <code><a href="pluggy_sdk.api_client.html#RequestSerialized" class="internal-link" title="pluggy_sdk.api_client.RequestSerialized">RequestSerialized</a></code></span>:
+    
+    <a class="headerLink" href="#_webhooks_delete_serialize" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_delete_serialize">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_list_serialize">
+    
+  </a>
+  <a name="_webhooks_list_serialize">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_webhooks_list_serialize</span><span class="function-signature">(self, _request_auth, _content_type, _headers, _host_index) -&gt; <code><a href="pluggy_sdk.api_client.html#RequestSerialized" class="internal-link" title="pluggy_sdk.api_client.RequestSerialized">RequestSerialized</a></code></span>:
+    
+    <a class="headerLink" href="#_webhooks_list_serialize" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_list_serialize">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_retrieve_serialize">
+    
+  </a>
+  <a name="_webhooks_retrieve_serialize">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_webhooks_retrieve_serialize</span><span class="function-signature">(self, id, _request_auth, _content_type, _headers, _host_index) -&gt; <code><a href="pluggy_sdk.api_client.html#RequestSerialized" class="internal-link" title="pluggy_sdk.api_client.RequestSerialized">RequestSerialized</a></code></span>:
+    
+    <a class="headerLink" href="#_webhooks_retrieve_serialize" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_retrieve_serialize">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_update_serialize">
+    
+  </a>
+  <a name="_webhooks_update_serialize">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_webhooks_update_serialize</span><span class="function-signature">(self, id, create_webhook, _request_auth, _content_type, _headers, _host_index) -&gt; <code><a href="pluggy_sdk.api_client.html#RequestSerialized" class="internal-link" title="pluggy_sdk.api_client.RequestSerialized">RequestSerialized</a></code></span>:
+    
+    <a class="headerLink" href="#_webhooks_update_serialize" title="pluggy_sdk.api.webhook_api.WebhookApi._webhooks_update_serialize">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div>
+        </div>
+      
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+    <hr />
+    
+    
+    <div class="container">
+      <a href="index.html">API Documentation</a> for <a href="https://github.com/diraol/pluggy-python" class="projecthome">pluggy-sdk</a>,
+    generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+      23.9.1 at 2024-05-06 04:52:18.
+    </div>
+    
+    <script src="ajax.js" type="text/javascript"></script>
+    <script src="searchlib.js" type="text/javascript"></script>
+    <script src="search.js" type="text/javascript"></script>
+  
+  </footer>
+  
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>

@@ -1,0 +1,1814 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>pluggy_sdk.api_client.ApiClient</title>
+    <meta name="generator" content="pydoctor 23.9.1"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="readthedocstheme.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default mainnavbar">
+      
+  
+  <div class="container-fluid">
+
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          <a href="https://github.com/diraol/pluggy-python" class="projecthome">pluggy-sdk</a> <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <div id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
+            <span class="input-group-btn">
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+    
+        <!-- Side navigation -->
+      <div class="sidebarcontainer">
+        <nav class="sidebar">
+  
+
+  <div>
+
+      <div class="thingTitle">
+        <span>Class</span>
+        <code class="thisobject"><a href="pluggy_sdk.api_client.ApiClient.html" class="internal-link" title="This class"><wbr></wbr>Api<wbr></wbr>Client</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Methods</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#get_default" class="internal-link" title="pluggy_sdk.api_client.ApiClient.get_default">get<wbr></wbr>_default</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#set_default" class="internal-link" title="pluggy_sdk.api_client.ApiClient.set_default">set<wbr></wbr>_default</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__enter__" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__enter__">__enter__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__exit__" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__exit__">__exit__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__init__" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__init__">__init__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#call_api" class="internal-link" title="pluggy_sdk.api_client.ApiClient.call_api">call<wbr></wbr>_api</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#deserialize" class="internal-link" title="pluggy_sdk.api_client.ApiClient.deserialize">deserialize</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#files_parameters" class="internal-link" title="pluggy_sdk.api_client.ApiClient.files_parameters">files<wbr></wbr>_parameters</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#param_serialize" class="internal-link" title="pluggy_sdk.api_client.ApiClient.param_serialize">param<wbr></wbr>_serialize</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#parameters_to_tuples" class="internal-link" title="pluggy_sdk.api_client.ApiClient.parameters_to_tuples">parameters<wbr></wbr>_to<wbr></wbr>_tuples</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#parameters_to_url_query" class="internal-link" title="pluggy_sdk.api_client.ApiClient.parameters_to_url_query">parameters<wbr></wbr>_to<wbr></wbr>_url<wbr></wbr>_query</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#response_deserialize" class="internal-link" title="pluggy_sdk.api_client.ApiClient.response_deserialize">response<wbr></wbr>_deserialize</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#sanitize_for_serialization" class="internal-link" title="pluggy_sdk.api_client.ApiClient.sanitize_for_serialization">sanitize<wbr></wbr>_for<wbr></wbr>_serialization</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#select_header_accept" class="internal-link" title="pluggy_sdk.api_client.ApiClient.select_header_accept">select<wbr></wbr>_header<wbr></wbr>_accept</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#select_header_content_type" class="internal-link" title="pluggy_sdk.api_client.ApiClient.select_header_content_type">select<wbr></wbr>_header<wbr></wbr>_content<wbr></wbr>_type</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#set_default_header" class="internal-link" title="pluggy_sdk.api_client.ApiClient.set_default_header">set<wbr></wbr>_default<wbr></wbr>_header</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#update_params_for_auth" class="internal-link" title="pluggy_sdk.api_client.ApiClient.update_params_for_auth">update<wbr></wbr>_params<wbr></wbr>_for<wbr></wbr>_auth</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#user_agent.setter" class="internal-link" title="pluggy_sdk.api_client.ApiClient.user_agent.setter">user<wbr></wbr>_agent<wbr></wbr>.setter</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__deserialize" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize">__deserialize</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__deserialize_date" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_date">__deserialize<wbr></wbr>_date</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__deserialize_datetime" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_datetime">__deserialize<wbr></wbr>_datetime</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__deserialize_enum" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_enum">__deserialize<wbr></wbr>_enum</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__deserialize_file" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_file">__deserialize<wbr></wbr>_file</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__deserialize_model" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_model">__deserialize<wbr></wbr>_model</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__deserialize_object" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_object">__deserialize<wbr></wbr>_object</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__deserialize_primitive" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_primitive">__deserialize<wbr></wbr>_primitive</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_apply_auth_params" class="internal-link" title="pluggy_sdk.api_client.ApiClient._apply_auth_params">_apply<wbr></wbr>_auth<wbr></wbr>_params</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Attributes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#NATIVE_TYPES_MAPPING" class="internal-link" title="pluggy_sdk.api_client.ApiClient.NATIVE_TYPES_MAPPING">NATIVE<wbr></wbr>_TYPES<wbr></wbr>_MAPPING</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#PRIMITIVE_TYPES" class="internal-link" title="pluggy_sdk.api_client.ApiClient.PRIMITIVE_TYPES">PRIMITIVE<wbr></wbr>_TYPES</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#client_side_validation" class="internal-link" title="pluggy_sdk.api_client.ApiClient.client_side_validation">client<wbr></wbr>_side<wbr></wbr>_validation</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#configuration" class="internal-link" title="pluggy_sdk.api_client.ApiClient.configuration">configuration</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#cookie" class="internal-link" title="pluggy_sdk.api_client.ApiClient.cookie">cookie</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#default_headers" class="internal-link" title="pluggy_sdk.api_client.ApiClient.default_headers">default<wbr></wbr>_headers</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#rest_client" class="internal-link" title="pluggy_sdk.api_client.ApiClient.rest_client">rest<wbr></wbr>_client</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#user_agent" class="internal-link" title="pluggy_sdk.api_client.ApiClient.user_agent">user<wbr></wbr>_agent</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_default" class="internal-link" title="pluggy_sdk.api_client.ApiClient._default">_default</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_pool" class="internal-link" title="pluggy_sdk.api_client.ApiClient._pool">_pool</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
+        <span>Module</span>
+        <code><a href="pluggy_sdk.api_client.html" class="internal-link" title="The parent of this class">api<wbr></wbr>_client</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        <div class="childrenKindTitle">Classes</div>
+        <ul>
+    
+    <li class=" thisobject">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pluggy_sdk.api_client.ApiClient.html" class="internal-link" title="pluggy_sdk.api_client.ApiClient"><wbr></wbr>Api<wbr></wbr>Client</a></code>
+            </div>
+        
+
+    </li>
+</ul>
+
+        
+         
+
+        
+         
+
+        <div class="childrenKindTitle">Variables</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="pluggy_sdk.api_client.html#RequestSerialized" class="internal-link" title="pluggy_sdk.api_client.RequestSerialized"><wbr></wbr>Request<wbr></wbr>Serialized</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div>
+
+</nav>
+        <!-- No sidebar toggle for read the docs theme, the sidebar is always
+          visible when the screen is width enough.
+        -->
+      </div>
+
+    </nav>
+    
+    <div class="container-fluid">
+
+      <div id="main" class="">
+        
+
+        
+
+        <div id="search-results-container" style="display: none;">
+        
+          <div id="search-buttons">
+            <span class="label label-default" id="search-docstrings-button">
+            <label class="checkbox-inline">
+              <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+                search in docstrings
+              </input>
+            </label>
+            </span>
+            
+          </div>
+          
+          <noscript>
+              <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+          </noscript>
+  
+          <div class="hint" id="search-help-box">
+            <p class="rst-last">
+        
+              Search bar offers the following options:
+              <ul>   
+                  <li>
+                    <strong>Term presence.</strong> The below example searches for documents that 
+                      must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
+                  </li> 
+  
+                  <li>
+                    <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
+                  </li> 
+  
+                  <li>
+                    <strong>Search in specific fields.</strong> The following search matches all objects 
+                    in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
+  
+                    <p>
+                      Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                      Last two fields are only applicable if "search in docstrings" is enabled.
+                    </p>
+                  </li>
+  
+                  <li>
+                    <strong>Fuzzy matches.</strong> The following search matches all documents 
+                    that have a word within 1 edit distance of “foo”: <code>foo~1</code>
+                  </li>
+              </ul>
+  
+            </p>
+          </div>
+  
+          <div id="search-status"> </div>
+  
+          <div class="warning" id="search-warn-box" style="display: none;">
+            <p class="rst-last"><span id="search-warn"></span></p>
+          </div>
+  
+          <table id="search-results">
+            <!-- Filled dynamically by JS -->
+          </table>
+          
+          <div style="margin-top: 8px;">
+            <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+          </div>
+        </div>
+
+        <div class="page-header">
+          <h1 class="class"><code><code><a href="index.html" class="internal-link">pluggy_sdk</a></code><wbr></wbr>.<code><a href="pluggy_sdk.api_client.html" class="internal-link" title="pluggy_sdk.api_client">api_client</a></code><wbr></wbr>.<code><a href="pluggy_sdk.api_client.ApiClient.html" class="internal-link" title="pluggy_sdk.api_client.ApiClient">ApiClient</a></code></code></h1>
+          <div id="showPrivate">
+            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+          </div>
+        </div>
+
+        <div class="categoryHeader">
+          class documentation
+        </div>
+
+        <div class="extrasDocstring">
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">ApiClient</span>:</code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__init__">ApiClient(configuration, header_name, header_value, cookie)</a></code></p>
+          <p><a href="classIndex.html#pluggy_sdk.api_client.ApiClient">View In Hierarchy</a></p>
+        </div>
+
+        <div class="moduleDocstring">
+          <div><p>Generic API client for OpenAPI client library builds.</p>
+<p>OpenAPI generic API client. This client handles the client-
+server communication, and is invariant across implementations. Specifics of
+the methods and models for each application are generated from the OpenAPI
+templates.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">configuration</span></td><td class="fieldArgDesc">.Configuration object for this client</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">header<wbr></wbr>_name</span></td><td class="fieldArgDesc">a header to pass when making calls to the API.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">header<wbr></wbr>_value</span></td><td class="fieldArgDesc">a header value to pass when making calls to
+the API.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">cookie</span></td><td class="fieldArgDesc">a cookie to include in the header when making calls
+to the API</td></tr></table></div>
+        </div>
+
+        <div id="splitTables">
+          <table class="children sortable" id="id49">
+  
+  
+  <tr class="classmethod">
+    
+    <td>Class Method</td>
+    <td><code><a href="#get_default" class="internal-link" title="pluggy_sdk.api_client.ApiClient.get_default">get<wbr></wbr>_default</a></code></td>
+    <td>Return new instance of ApiClient.</td>
+  </tr><tr class="classmethod">
+    
+    <td>Class Method</td>
+    <td><code><a href="#set_default" class="internal-link" title="pluggy_sdk.api_client.ApiClient.set_default">set<wbr></wbr>_default</a></code></td>
+    <td>Set default instance of ApiClient.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__enter__" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__enter__">__enter__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__exit__" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__exit__">__exit__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__init__" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__init__">__init__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#call_api" class="internal-link" title="pluggy_sdk.api_client.ApiClient.call_api">call<wbr></wbr>_api</a></code></td>
+    <td>Makes the HTTP request (synchronous) :param method: Method to call. :param url: Path to method endpoint. :param header_params: Header parameters to be</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#deserialize" class="internal-link" title="pluggy_sdk.api_client.ApiClient.deserialize">deserialize</a></code></td>
+    <td>Deserializes response into an object.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#files_parameters" class="internal-link" title="pluggy_sdk.api_client.ApiClient.files_parameters">files<wbr></wbr>_parameters</a></code></td>
+    <td>Builds form parameters.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#param_serialize" class="internal-link" title="pluggy_sdk.api_client.ApiClient.param_serialize">param<wbr></wbr>_serialize</a></code></td>
+    <td>Builds the HTTP request params needed by the request. :param method: Method to call. :param resource_path: Path to method endpoint. :param path_params: Path parameters in the url. :param query_params: Query parameters in the url...</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#parameters_to_tuples" class="internal-link" title="pluggy_sdk.api_client.ApiClient.parameters_to_tuples">parameters<wbr></wbr>_to<wbr></wbr>_tuples</a></code></td>
+    <td>Get parameters as list of tuples, formatting collections.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#parameters_to_url_query" class="internal-link" title="pluggy_sdk.api_client.ApiClient.parameters_to_url_query">parameters<wbr></wbr>_to<wbr></wbr>_url<wbr></wbr>_query</a></code></td>
+    <td>Get parameters as list of tuples, formatting collections.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#response_deserialize" class="internal-link" title="pluggy_sdk.api_client.ApiClient.response_deserialize">response<wbr></wbr>_deserialize</a></code></td>
+    <td>Deserializes response into an object. :param response_data: RESTResponse object to be deserialized. :param response_types_map: dict of response types. :return: ApiResponse</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#sanitize_for_serialization" class="internal-link" title="pluggy_sdk.api_client.ApiClient.sanitize_for_serialization">sanitize<wbr></wbr>_for<wbr></wbr>_serialization</a></code></td>
+    <td>Builds a JSON POST object.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#select_header_accept" class="internal-link" title="pluggy_sdk.api_client.ApiClient.select_header_accept">select<wbr></wbr>_header<wbr></wbr>_accept</a></code></td>
+    <td>Returns <code>Accept</code> based on an array of accepts provided.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#select_header_content_type" class="internal-link" title="pluggy_sdk.api_client.ApiClient.select_header_content_type">select<wbr></wbr>_header<wbr></wbr>_content<wbr></wbr>_type</a></code></td>
+    <td>Returns <code>Content-Type</code> based on an array of content_types provided.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#set_default_header" class="internal-link" title="pluggy_sdk.api_client.ApiClient.set_default_header">set<wbr></wbr>_default<wbr></wbr>_header</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#update_params_for_auth" class="internal-link" title="pluggy_sdk.api_client.ApiClient.update_params_for_auth">update<wbr></wbr>_params<wbr></wbr>_for<wbr></wbr>_auth</a></code></td>
+    <td>Updates header and query params based on authentication setting.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#user_agent.setter" class="internal-link" title="pluggy_sdk.api_client.ApiClient.user_agent.setter">user<wbr></wbr>_agent<wbr></wbr>.setter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#NATIVE_TYPES_MAPPING" class="internal-link" title="pluggy_sdk.api_client.ApiClient.NATIVE_TYPES_MAPPING">NATIVE<wbr></wbr>_TYPES<wbr></wbr>_MAPPING</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#PRIMITIVE_TYPES" class="internal-link" title="pluggy_sdk.api_client.ApiClient.PRIMITIVE_TYPES">PRIMITIVE<wbr></wbr>_TYPES</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#client_side_validation" class="internal-link" title="pluggy_sdk.api_client.ApiClient.client_side_validation">client<wbr></wbr>_side<wbr></wbr>_validation</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#configuration" class="internal-link" title="pluggy_sdk.api_client.ApiClient.configuration">configuration</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#cookie" class="internal-link" title="pluggy_sdk.api_client.ApiClient.cookie">cookie</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#default_headers" class="internal-link" title="pluggy_sdk.api_client.ApiClient.default_headers">default<wbr></wbr>_headers</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#rest_client" class="internal-link" title="pluggy_sdk.api_client.ApiClient.rest_client">rest<wbr></wbr>_client</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="property">
+    
+    <td>Property</td>
+    <td><code><a href="#user_agent" class="internal-link" title="pluggy_sdk.api_client.ApiClient.user_agent">user<wbr></wbr>_agent</a></code></td>
+    <td>User agent for this API client</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#__deserialize" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize">__deserialize</a></code></td>
+    <td>Deserializes dict, list, str into an object.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#__deserialize_date" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_date">__deserialize<wbr></wbr>_date</a></code></td>
+    <td>Deserializes string to date.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#__deserialize_datetime" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_datetime">__deserialize<wbr></wbr>_datetime</a></code></td>
+    <td>Deserializes string to datetime.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#__deserialize_enum" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_enum">__deserialize<wbr></wbr>_enum</a></code></td>
+    <td>Deserializes primitive type to enum.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#__deserialize_file" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_file">__deserialize<wbr></wbr>_file</a></code></td>
+    <td>Deserializes body to file</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#__deserialize_model" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_model">__deserialize<wbr></wbr>_model</a></code></td>
+    <td>Deserializes list or dict to model.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#__deserialize_object" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_object">__deserialize<wbr></wbr>_object</a></code></td>
+    <td>Return an original value.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#__deserialize_primitive" class="internal-link" title="pluggy_sdk.api_client.ApiClient.__deserialize_primitive">__deserialize<wbr></wbr>_primitive</a></code></td>
+    <td>Deserializes string to primitive type.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_apply_auth_params" class="internal-link" title="pluggy_sdk.api_client.ApiClient._apply_auth_params">_apply<wbr></wbr>_auth<wbr></wbr>_params</a></code></td>
+    <td>Updates the request parameters based on a single auth_setting</td>
+  </tr><tr class="classvariable private">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#_default" class="internal-link" title="pluggy_sdk.api_client.ApiClient._default">_default</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable private">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#_pool" class="internal-link" title="pluggy_sdk.api_client.ApiClient._pool">_pool</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+
+            
+        </div>
+
+        <div id="childList">
+          <div class="baseclassmethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.get_default">
+    
+  </a>
+  <a name="get_default">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @<a href="https://docs.python.org/3/library/functions.html#classmethod" class="intersphinx-link">classmethod</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">get_default</span><span class="function-signature">(cls)</span>:
+    
+    <a class="headerLink" href="#get_default" title="pluggy_sdk.api_client.ApiClient.get_default">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Return new instance of ApiClient.</p>
+<p>This method returns newly created, based on default constructor,
+object of ApiClient class or returns a copy of default
+ApiClient.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">The ApiClient object.</td></tr></table></div>
+  </div>
+</div><div class="baseclassmethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.set_default">
+    
+  </a>
+  <a name="set_default">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @<a href="https://docs.python.org/3/library/functions.html#classmethod" class="intersphinx-link">classmethod</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">set_default</span><span class="function-signature">(cls, default)</span>:
+    
+    <a class="headerLink" href="#set_default" title="pluggy_sdk.api_client.ApiClient.set_default">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Set default instance of ApiClient.</p>
+<p>It stores default ApiClient.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">default</span></td><td class="fieldArgDesc">object of ApiClient.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.__enter__">
+    
+  </a>
+  <a name="__enter__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__enter__</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#__enter__" title="pluggy_sdk.api_client.ApiClient.__enter__">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.__exit__">
+    
+  </a>
+  <a name="__exit__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__exit__</span><span class="function-signature">(self, exc_type, exc_value, traceback)</span>:
+    
+    <a class="headerLink" href="#__exit__" title="pluggy_sdk.api_client.ApiClient.__exit__">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, configuration=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, header_name=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, header_value=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, cookie=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
+    
+    <a class="headerLink" href="#__init__" title="pluggy_sdk.api_client.ApiClient.__init__">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.call_api">
+    
+  </a>
+  <a name="call_api">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">call_api</span><span class="function-signature">(self, method, url, header_params=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, body=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, post_params=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_timeout=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>) -&gt; <code><a href="pluggy_sdk.rest.RESTResponse.html" class="internal-link" title="pluggy_sdk.rest.RESTResponse">rest.RESTResponse</a></code></span>:
+    
+    <a class="headerLink" href="#call_api" title="pluggy_sdk.api_client.ApiClient.call_api">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Makes the HTTP request (synchronous)
+:param method: Method to call.
+:param url: Path to method endpoint.
+:param header_params: Header parameters to be</p>
+<blockquote>
+placed in the request header.</blockquote>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">method</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">url</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">header<wbr></wbr>_params</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">body</span></td><td class="fieldArgDesc">Request body.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">post<wbr></wbr>_params</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_timeout</span></td><td class="fieldArgDesc">timeout setting for this request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">post<wbr></wbr>_params dict</span></td><td class="fieldArgDesc">Request post form parameters,
+for <code>application/x-www-form-urlencoded</code>, <code>multipart/form-data</code>.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pluggy_sdk.rest.RESTResponse.html" class="internal-link" title="pluggy_sdk.rest.RESTResponse">rest.RESTResponse</a></code></td><td class="fieldArgDesc">RESTResponse</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.deserialize">
+    
+  </a>
+  <a name="deserialize">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">deserialize</span><span class="function-signature">(self, response_text, response_type)</span>:
+    
+    <a class="headerLink" href="#deserialize" title="pluggy_sdk.api_client.ApiClient.deserialize">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Deserializes response into an object.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">response<wbr></wbr>_text</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">response<wbr></wbr>_type</span></td><td class="fieldArgDesc">class literal for
+deserialized object, or string of class name.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">response</span></td><td class="fieldArgDesc">RESTResponse object to be deserialized.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">deserialized object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.files_parameters">
+    
+  </a>
+  <a name="files_parameters">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">files_parameters</span><span class="function-signature">(self, files: <code><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#bytes" class="intersphinx-link">bytes</a>]]</code>)</span>:
+    
+    <a class="headerLink" href="#files_parameters" title="pluggy_sdk.api_client.ApiClient.files_parameters">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Builds form parameters.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">files:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#bytes" class="intersphinx-link">bytes</a>]]</code></td><td class="fieldArgDesc">File parameters.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">Form parameters with files.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.param_serialize">
+    
+  </a>
+  <a name="param_serialize">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">param_serialize</span><span class="function-signature">(self, method, resource_path, path_params=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, query_params=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, header_params=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, body=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, post_params=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, files=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, auth_settings=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, collection_formats=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _host=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, _request_auth=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>) -&gt; <code><a href="pluggy_sdk.api_client.html#RequestSerialized" class="internal-link" title="pluggy_sdk.api_client.RequestSerialized">RequestSerialized</a></code></span>:
+    
+    <a class="headerLink" href="#param_serialize" title="pluggy_sdk.api_client.ApiClient.param_serialize">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Builds the HTTP request params needed by the request.
+:param method: Method to call.
+:param resource_path: Path to method endpoint.
+:param path_params: Path parameters in the url.
+:param query_params: Query parameters in the url.
+:param header_params: Header parameters to be</p>
+<blockquote>
+placed in the request header.</blockquote>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">method</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">resource<wbr></wbr>_path</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">path<wbr></wbr>_params</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">query<wbr></wbr>_params</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">header<wbr></wbr>_params</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">body</span></td><td class="fieldArgDesc">Request body.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">post<wbr></wbr>_params</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">files</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">auth<wbr></wbr>_settings</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">collection<wbr></wbr>_formats</span></td><td class="fieldArgDesc">dict of collection formats for path, query,
+header, and post parameters.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_host</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">_request<wbr></wbr>_auth</span></td><td class="fieldArgDesc">set to override the auth_settings for an a single
+request; this effectively ignores the authentication
+in the spec for a single request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">post<wbr></wbr>_params dict</span></td><td class="fieldArgDesc">Request post form parameters,
+for <code>application/x-www-form-urlencoded</code>, <code>multipart/form-data</code>.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">auth<wbr></wbr>_settings list</span></td><td class="fieldArgDesc">Auth Settings names for the request.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">files dict</span></td><td class="fieldArgDesc">key -&gt; filename, value -&gt; filepath,
+for <code>multipart/form-data</code>.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="pluggy_sdk.api_client.html#RequestSerialized" class="internal-link" title="pluggy_sdk.api_client.RequestSerialized">RequestSerialized</a></code></td><td class="fieldArgDesc">tuple of form (path, http_method, query_params, header_params,
+body, post_params, files)</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.parameters_to_tuples">
+    
+  </a>
+  <a name="parameters_to_tuples">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">parameters_to_tuples</span><span class="function-signature">(self, params, collection_formats)</span>:
+    
+    <a class="headerLink" href="#parameters_to_tuples" title="pluggy_sdk.api_client.ApiClient.parameters_to_tuples">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Get parameters as list of tuples, formatting collections.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">params</span></td><td class="fieldArgDesc">Parameters as dict or list of two-tuples</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">collection<wbr></wbr>_formats</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">dict collection<wbr></wbr>_formats</span></td><td class="fieldArgDesc">Parameter collection formats</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">Parameters as list of tuples, collections formatted</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.parameters_to_url_query">
+    
+  </a>
+  <a name="parameters_to_url_query">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">parameters_to_url_query</span><span class="function-signature">(self, params, collection_formats)</span>:
+    
+    <a class="headerLink" href="#parameters_to_url_query" title="pluggy_sdk.api_client.ApiClient.parameters_to_url_query">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Get parameters as list of tuples, formatting collections.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">params</span></td><td class="fieldArgDesc">Parameters as dict or list of two-tuples</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">collection<wbr></wbr>_formats</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">dict collection<wbr></wbr>_formats</span></td><td class="fieldArgDesc">Parameter collection formats</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">URL query string (e.g. a=Hello%20World&amp;b=123)</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.response_deserialize">
+    
+  </a>
+  <a name="response_deserialize">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">response_deserialize</span><span class="function-signature">(self, response_data: <code><a href="pluggy_sdk.rest.RESTResponse.html" class="internal-link" title="pluggy_sdk.rest.RESTResponse">rest.RESTResponse</a></code>, response_types_map: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Dict" class="intersphinx-link">Dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="pluggy_sdk.api_response.html#T" class="internal-link" title="pluggy_sdk.api_response.T">ApiResponseT</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>) -&gt; <code><a href="pluggy_sdk.api_response.ApiResponse.html" class="internal-link" title="pluggy_sdk.api_response.ApiResponse">ApiResponse</a>[<wbr></wbr><a href="pluggy_sdk.api_response.html#T" class="internal-link" title="pluggy_sdk.api_response.T">ApiResponseT</a>]</code></span>:
+    
+    <a class="headerLink" href="#response_deserialize" title="pluggy_sdk.api_client.ApiClient.response_deserialize">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Deserializes response into an object.
+:param response_data: RESTResponse object to be deserialized.
+:param response_types_map: dict of response types.
+:return: ApiResponse</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.sanitize_for_serialization">
+    
+  </a>
+  <a name="sanitize_for_serialization">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">sanitize_for_serialization</span><span class="function-signature">(self, obj)</span>:
+    
+    <a class="headerLink" href="#sanitize_for_serialization" title="pluggy_sdk.api_client.ApiClient.sanitize_for_serialization">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Builds a JSON POST object.</p>
+<p>If obj is None, return None.
+If obj is SecretStr, return obj.get_secret_value()
+If obj is str, int, long, float, bool, return directly.
+If obj is datetime.datetime, datetime.date</p>
+<blockquote>
+convert to string in iso8601 format.</blockquote>
+<p>If obj is list, sanitize each element in the list.
+If obj is dict, return the dict.
+If obj is OpenAPI model, return the properties dict.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">obj</span></td><td class="fieldArgDesc">The data to serialize.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">The serialized form of data.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.select_header_accept">
+    
+  </a>
+  <a name="select_header_accept">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">select_header_accept</span><span class="function-signature">(self, accepts: <code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code>) -&gt; <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></span>:
+    
+    <a class="headerLink" href="#select_header_accept" title="pluggy_sdk.api_client.ApiClient.select_header_accept">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Returns <code>Accept</code> based on an array of accepts provided.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">accepts:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc">List of headers.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc">Accept (e.g. application/json).</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.select_header_content_type">
+    
+  </a>
+  <a name="select_header_content_type">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">select_header_content_type</span><span class="function-signature">(self, content_types)</span>:
+    
+    <a class="headerLink" href="#select_header_content_type" title="pluggy_sdk.api_client.ApiClient.select_header_content_type">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Returns <code>Content-Type</code> based on an array of content_types provided.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">content<wbr></wbr>_types</span></td><td class="fieldArgDesc">List of content-types.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">Content-Type (e.g. application/json).</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.set_default_header">
+    
+  </a>
+  <a name="set_default_header">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">set_default_header</span><span class="function-signature">(self, header_name, header_value)</span>:
+    
+    <a class="headerLink" href="#set_default_header" title="pluggy_sdk.api_client.ApiClient.set_default_header">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.update_params_for_auth">
+    
+  </a>
+  <a name="update_params_for_auth">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">update_params_for_auth</span><span class="function-signature">(self, headers, queries, auth_settings, resource_path, method, body, request_auth=<a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
+    
+    <a class="headerLink" href="#update_params_for_auth" title="pluggy_sdk.api_client.ApiClient.update_params_for_auth">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Updates header and query params based on authentication setting.</p>
+<p>The object type is the return value of sanitize_for_serialization().
+:param request_auth: if set, the provided settings will</p>
+<blockquote>
+override the token in the configuration.</blockquote>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">headers</span></td><td class="fieldArgDesc">Header parameters dict to be updated.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">queries</span></td><td class="fieldArgDesc">Query parameters tuple list to be updated.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">auth<wbr></wbr>_settings</span></td><td class="fieldArgDesc">Authentication setting identifiers list.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">resource<wbr></wbr>_path</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">method</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">body</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">request<wbr></wbr>_auth</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Unknown Field: resource_path</td></tr><tr><td colspan="2">A string representation of the HTTP request resource path.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Unknown Field: method</td></tr><tr><td colspan="2">A string representation of the HTTP request method.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Unknown Field: body</td></tr><tr><td colspan="2">A object representing the body of the HTTP request.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.user_agent.setter">
+    
+  </a>
+  <a name="user_agent.setter">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @<a href="#user_agent.setter" class="internal-link" title="pluggy_sdk.api_client.ApiClient.user_agent.setter">user_agent.setter</a><br />
+    <span class="py-keyword">def</span> <span class="py-defname">user_agent</span><span class="function-signature">(self, value)</span>:
+    
+    <a class="headerLink" href="#user_agent.setter" title="pluggy_sdk.api_client.ApiClient.user_agent.setter">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.NATIVE_TYPES_MAPPING">
+    
+  </a>
+  <a name="NATIVE_TYPES_MAPPING">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">NATIVE_TYPES_MAPPING</span> =
+    
+    <a class="headerLink" href="#NATIVE_TYPES_MAPPING" title="pluggy_sdk.api_client.ApiClient.NATIVE_TYPES_MAPPING">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">int</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">long</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">float</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">str</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">bool</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">date</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/datetime.html#datetime.date" class="intersphinx-link">datetime.date</a>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">datetime</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/datetime.html#datetime.datetime" class="intersphinx-link">datetime.datetime</a>,
+<span class="rst-variable-ellipsis">...</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.PRIMITIVE_TYPES">
+    
+  </a>
+  <a name="PRIMITIVE_TYPES">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">PRIMITIVE_TYPES</span> =
+    
+    <a class="headerLink" href="#PRIMITIVE_TYPES" title="pluggy_sdk.api_client.ApiClient.PRIMITIVE_TYPES">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>(<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a>, <wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#bytes" class="intersphinx-link">bytes</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.client_side_validation">
+    
+  </a>
+  <a name="client_side_validation">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">client_side_validation</span> =
+    
+    <a class="headerLink" href="#client_side_validation" title="pluggy_sdk.api_client.ApiClient.client_side_validation">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.configuration">
+    
+  </a>
+  <a name="configuration">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">configuration</span> =
+    
+    <a class="headerLink" href="#configuration" title="pluggy_sdk.api_client.ApiClient.configuration">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.cookie">
+    
+  </a>
+  <a name="cookie">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">cookie</span> =
+    
+    <a class="headerLink" href="#cookie" title="pluggy_sdk.api_client.ApiClient.cookie">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.default_headers">
+    
+  </a>
+  <a name="default_headers">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">default_headers</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
+    
+    <a class="headerLink" href="#default_headers" title="pluggy_sdk.api_client.ApiClient.default_headers">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.rest_client">
+    
+  </a>
+  <a name="rest_client">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">rest_client</span> =
+    
+    <a class="headerLink" href="#rest_client" title="pluggy_sdk.api_client.ApiClient.rest_client">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseproperty">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.user_agent">
+    
+  </a>
+  <a name="user_agent">
+    
+  </a>
+  <div class="functionHeader">
+    @<a href="https://docs.python.org/3/library/functions.html#property" class="intersphinx-link">property</a><br />
+    <span class="py-defname">user_agent</span> =
+    
+    <a class="headerLink" href="#user_agent" title="pluggy_sdk.api_client.ApiClient.user_agent">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>User agent for this API client</p></div>
+    
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.__deserialize">
+    
+  </a>
+  <a name="__deserialize">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__deserialize</span><span class="function-signature">(self, data, klass)</span>:
+    
+    <a class="headerLink" href="#__deserialize" title="pluggy_sdk.api_client.ApiClient.__deserialize">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Deserializes dict, list, str into an object.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">data</span></td><td class="fieldArgDesc">dict, list or str.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">klass</span></td><td class="fieldArgDesc">class literal, or string of class name.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.__deserialize_date">
+    
+  </a>
+  <a name="__deserialize_date">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__deserialize_date</span><span class="function-signature">(self, string)</span>:
+    
+    <a class="headerLink" href="#__deserialize_date" title="pluggy_sdk.api_client.ApiClient.__deserialize_date">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Deserializes string to date.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">string</span></td><td class="fieldArgDesc">str.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">date.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.__deserialize_datetime">
+    
+  </a>
+  <a name="__deserialize_datetime">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__deserialize_datetime</span><span class="function-signature">(self, string)</span>:
+    
+    <a class="headerLink" href="#__deserialize_datetime" title="pluggy_sdk.api_client.ApiClient.__deserialize_datetime">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Deserializes string to datetime.</p>
+<p>The string should be in iso8601 datetime format.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">string</span></td><td class="fieldArgDesc">str.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">datetime.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.__deserialize_enum">
+    
+  </a>
+  <a name="__deserialize_enum">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__deserialize_enum</span><span class="function-signature">(self, data, klass)</span>:
+    
+    <a class="headerLink" href="#__deserialize_enum" title="pluggy_sdk.api_client.ApiClient.__deserialize_enum">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Deserializes primitive type to enum.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">data</span></td><td class="fieldArgDesc">primitive type.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">klass</span></td><td class="fieldArgDesc">class literal.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">enum value.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.__deserialize_file">
+    
+  </a>
+  <a name="__deserialize_file">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__deserialize_file</span><span class="function-signature">(self, response)</span>:
+    
+    <a class="headerLink" href="#__deserialize_file" title="pluggy_sdk.api_client.ApiClient.__deserialize_file">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Deserializes body to file</p>
+<p>Saves response body into a file in a temporary folder,
+using the filename from the <code>Content-Disposition</code> header if provided.</p>
+<p>handle file downloading
+save response body into a tmp file and return the instance</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">response</span></td><td class="fieldArgDesc">RESTResponse.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">file path.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.__deserialize_model">
+    
+  </a>
+  <a name="__deserialize_model">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__deserialize_model</span><span class="function-signature">(self, data, klass)</span>:
+    
+    <a class="headerLink" href="#__deserialize_model" title="pluggy_sdk.api_client.ApiClient.__deserialize_model">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Deserializes list or dict to model.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">data</span></td><td class="fieldArgDesc">dict, list.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">klass</span></td><td class="fieldArgDesc">class literal.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">model object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.__deserialize_object">
+    
+  </a>
+  <a name="__deserialize_object">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__deserialize_object</span><span class="function-signature">(self, value)</span>:
+    
+    <a class="headerLink" href="#__deserialize_object" title="pluggy_sdk.api_client.ApiClient.__deserialize_object">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Return an original value.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">object.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient.__deserialize_primitive">
+    
+  </a>
+  <a name="__deserialize_primitive">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__deserialize_primitive</span><span class="function-signature">(self, data, klass)</span>:
+    
+    <a class="headerLink" href="#__deserialize_primitive" title="pluggy_sdk.api_client.ApiClient.__deserialize_primitive">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Deserializes string to primitive type.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">data</span></td><td class="fieldArgDesc">str.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">klass</span></td><td class="fieldArgDesc">class literal.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td colspan="2">int, long, float, str, bool.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient._apply_auth_params">
+    
+  </a>
+  <a name="_apply_auth_params">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_apply_auth_params</span><span class="function-signature">(self, headers, queries, resource_path, method, body, auth_setting)</span>:
+    
+    <a class="headerLink" href="#_apply_auth_params" title="pluggy_sdk.api_client.ApiClient._apply_auth_params">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Updates the request parameters based on a single auth_setting</p>
+<p>The object type is the return value of sanitize_for_serialization().
+:param auth_setting: auth settings for the endpoint</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">headers</span></td><td class="fieldArgDesc">Header parameters dict to be updated.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">queries</span></td><td class="fieldArgDesc">Query parameters tuple list to be updated.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">resource<wbr></wbr>_path</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">method</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">body</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">auth<wbr></wbr>_setting</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Unknown Field: resource_path</td></tr><tr><td colspan="2">A string representation of the HTTP request resource path.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Unknown Field: method</td></tr><tr><td colspan="2">A string representation of the HTTP request method.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Unknown Field: body</td></tr><tr><td colspan="2">A object representing the body of the HTTP request.</td></tr></table></div>
+  </div>
+</div><div class="baseclassvariable private">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient._default">
+    
+  </a>
+  <a name="_default">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_default</span> =
+    
+    <a class="headerLink" href="#_default" title="pluggy_sdk.api_client.ApiClient._default">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseclassvariable private">
+  
+  
+  <a name="pluggy_sdk.api_client.ApiClient._pool">
+    
+  </a>
+  <a name="_pool">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">_pool</span> =
+    
+    <a class="headerLink" href="#_pool" title="pluggy_sdk.api_client.ApiClient._pool">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div>
+        </div>
+      
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+    <hr />
+    
+    
+    <div class="container">
+      <a href="index.html">API Documentation</a> for <a href="https://github.com/diraol/pluggy-python" class="projecthome">pluggy-sdk</a>,
+    generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+      23.9.1 at 2024-05-06 04:52:18.
+    </div>
+    
+    <script src="ajax.js" type="text/javascript"></script>
+    <script src="searchlib.js" type="text/javascript"></script>
+    <script src="search.js" type="text/javascript"></script>
+  
+  </footer>
+  
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>
