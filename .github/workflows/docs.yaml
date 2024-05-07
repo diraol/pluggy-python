@@ -8,6 +8,10 @@ on:  # yamllint disable-line rule:truthy
       - main
       - "!gh-pages"
   workflow_dispatch:
+  workflow_run:
+    workflows: [Update Spec/SDK]
+    types:
+      - completed
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

@@ -5,7 +5,7 @@
 
 name: Run tests for pluggy_sdk Python package
 
-on: 
+on:
   push:
     branches:
       - main
@@ -13,6 +13,11 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+  workflow_run:
+    workflows: [Update Spec/SDK]
+    types:
+      - completed
 
 defaults:
   run:
