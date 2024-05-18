@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **recipient_id** | **str** | Payment receiver identifier | [optional] 
 **customer_id** | **str** | Customer identifier associated to the payment | [optional] 
 **client_payment_id** | **str** | Your payment identifier | [optional] 
+**smart_account_id** | **str** | Smart account identifier associated to the payment, used to be able to use PIX Qr method | [optional] 
 
 ## Example
 

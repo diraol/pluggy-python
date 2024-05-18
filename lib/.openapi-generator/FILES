@@ -33,6 +33,9 @@ docs/Bill.md
 docs/BillApi.md
 docs/BillFinanceCharge.md
 docs/BillsList200Response.md
+docs/Boleto.md
+docs/BoletoPayer.md
+docs/BoletoRecipient.md
 docs/BulkPayment.md
 docs/BulkPaymentApi.md
 docs/BulkPaymentsList200Response.md
@@ -49,6 +52,7 @@ docs/ConnectorHealth.md
 docs/ConnectorHealthDetails.md
 docs/ConnectorListResponse.md
 docs/ConnectorUserAction.md
+docs/CreateBoletoPaymentRequest.md
 docs/CreateBulkPayment.md
 docs/CreateClientCategoryRule.md
 docs/CreateItem.md
@@ -212,6 +216,9 @@ pluggy_sdk/models/bank_data.py
 pluggy_sdk/models/bill.py
 pluggy_sdk/models/bill_finance_charge.py
 pluggy_sdk/models/bills_list200_response.py
+pluggy_sdk/models/boleto.py
+pluggy_sdk/models/boleto_payer.py
+pluggy_sdk/models/boleto_recipient.py
 pluggy_sdk/models/bulk_payment.py
 pluggy_sdk/models/bulk_payments_list200_response.py
 pluggy_sdk/models/category.py
@@ -225,6 +232,7 @@ pluggy_sdk/models/connector_health.py
 pluggy_sdk/models/connector_health_details.py
 pluggy_sdk/models/connector_list_response.py
 pluggy_sdk/models/connector_user_action.py
+pluggy_sdk/models/create_boleto_payment_request.py
 pluggy_sdk/models/create_bulk_payment.py
 pluggy_sdk/models/create_client_category_rule.py
 pluggy_sdk/models/create_item.py
@@ -329,4 +337,8 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_boleto.py
+test/test_boleto_payer.py
+test/test_boleto_recipient.py
+test/test_create_boleto_payment_request.py
 tox.ini

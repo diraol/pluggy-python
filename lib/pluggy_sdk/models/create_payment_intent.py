@@ -32,7 +32,7 @@ class CreatePaymentIntent(BaseModel):
     bulk_payment_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the bulk payment associated to the payment intent", alias="bulkPaymentId")
     parameters: Optional[PaymentIntentParameter] = None
     connector_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Primary identifier of the connector associated to the payment intent", alias="connectorId")
-    payment_method: Optional[StrictStr] = Field(default=None, description="Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected only `bulkPaymentId` is required, if PIS selected only `paymentRequestId` or `bulkPaymentId` are required with `connectorId`, `parameters` and `paymentMethod`", alias="paymentMethod")
+    payment_method: Optional[StrictStr] = Field(default=None, description="Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected `bulkPaymentId` or a `paymentRequest` with smartAccountId attached will be accepted", alias="paymentMethod")
     __properties: ClassVar[List[str]] = ["paymentRequestId", "bulkPaymentId", "parameters", "connectorId", "paymentMethod"]
 
     @field_validator('payment_method')

@@ -34,7 +34,8 @@ class CreatePaymentRequest(BaseModel):
     recipient_id: Optional[StrictStr] = Field(default=None, description="Payment receiver identifier", alias="recipientId")
     customer_id: Optional[StrictStr] = Field(default=None, description="Customer identifier associated to the payment", alias="customerId")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Your payment identifier", alias="clientPaymentId")
-    __properties: ClassVar[List[str]] = ["amount", "description", "callbackUrls", "recipientId", "customerId", "clientPaymentId"]
+    smart_account_id: Optional[StrictStr] = Field(default=None, description="Smart account identifier associated to the payment, used to be able to use PIX Qr method", alias="smartAccountId")
+    __properties: ClassVar[List[str]] = ["amount", "description", "callbackUrls", "recipientId", "customerId", "clientPaymentId", "smartAccountId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -95,7 +96,8 @@ class CreatePaymentRequest(BaseModel):
             "callbackUrls": PaymentRequestCallbackUrls.from_dict(obj["callbackUrls"]) if obj.get("callbackUrls") is not None else None,
             "recipientId": obj.get("recipientId"),
             "customerId": obj.get("customerId"),
-            "clientPaymentId": obj.get("clientPaymentId")
+            "clientPaymentId": obj.get("clientPaymentId"),
+            "smartAccountId": obj.get("smartAccountId")
         })
         return _obj
 

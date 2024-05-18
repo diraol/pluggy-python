@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post8"
+__version__ = "1.0.0.post9"
 
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi
@@ -77,6 +77,9 @@ from pluggy_sdk.models.bank_data import BankData
 from pluggy_sdk.models.bill import Bill
 from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge
 from pluggy_sdk.models.bills_list200_response import BillsList200Response
+from pluggy_sdk.models.boleto import Boleto
+from pluggy_sdk.models.boleto_payer import BoletoPayer
+from pluggy_sdk.models.boleto_recipient import BoletoRecipient
 from pluggy_sdk.models.bulk_payment import BulkPayment
 from pluggy_sdk.models.bulk_payments_list200_response import BulkPaymentsList200Response
 from pluggy_sdk.models.category import Category
@@ -90,6 +93,7 @@ from pluggy_sdk.models.connector_health import ConnectorHealth
 from pluggy_sdk.models.connector_health_details import ConnectorHealthDetails
 from pluggy_sdk.models.connector_list_response import ConnectorListResponse
 from pluggy_sdk.models.connector_user_action import ConnectorUserAction
+from pluggy_sdk.models.create_boleto_payment_request import CreateBoletoPaymentRequest
 from pluggy_sdk.models.create_bulk_payment import CreateBulkPayment
 from pluggy_sdk.models.create_client_category_rule import CreateClientCategoryRule
 from pluggy_sdk.models.create_item import CreateItem

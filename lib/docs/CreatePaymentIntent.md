@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **bulk_payment_id** | **str** | Primary identifier of the bulk payment associated to the payment intent | [optional] 
 **parameters** | [**PaymentIntentParameter**](PaymentIntentParameter.md) |  | [optional] 
 **connector_id** | **float** | Primary identifier of the connector associated to the payment intent | [optional] 
-**payment_method** | **str** | Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected only &#x60;bulkPaymentId&#x60; is required, if PIS selected only &#x60;paymentRequestId&#x60; or &#x60;bulkPaymentId&#x60; are required with &#x60;connectorId&#x60;, &#x60;parameters&#x60; and &#x60;paymentMethod&#x60; | [optional] 
+**payment_method** | **str** | Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected &#x60;bulkPaymentId&#x60; or a &#x60;paymentRequest&#x60; with smartAccountId attached will be accepted | [optional] 
 
 ## Example
 
