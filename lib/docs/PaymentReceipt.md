@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **description** | **str** | Payment description | [optional] 
 **reference_id** | **str** | Payment reference identifier | 
 **var_date** | **datetime** | Date when the payment was made | [optional] 
+**boleto** | [**Boleto**](Boleto.md) |  | [optional] 
 
 ## Example
 

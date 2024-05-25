@@ -337,8 +337,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_boleto.py
-test/test_boleto_payer.py
-test/test_boleto_recipient.py
-test/test_create_boleto_payment_request.py
 tox.ini

@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from pluggy_sdk.models.boleto import Boleto
 from pluggy_sdk.models.payment_receipt_person import PaymentReceiptPerson
 from typing import Optional, Set
 from typing_extensions import Self
@@ -39,7 +40,8 @@ class PaymentReceipt(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="Payment description")
     reference_id: StrictStr = Field(description="Payment reference identifier", alias="referenceId")
     var_date: Optional[datetime] = Field(default=None, description="Date when the payment was made", alias="date")
-    __properties: ClassVar[List[str]] = ["id", "paymentRequestId", "expiresAt", "receiptUrl", "creditor", "debtor", "amount", "description", "referenceId", "date"]
+    boleto: Optional[Boleto] = None
+    __properties: ClassVar[List[str]] = ["id", "paymentRequestId", "expiresAt", "receiptUrl", "creditor", "debtor", "amount", "description", "referenceId", "date", "boleto"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,6 +88,9 @@ class PaymentReceipt(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of debtor
         if self.debtor:
             _dict['debtor'] = self.debtor.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of boleto
+        if self.boleto:
+            _dict['boleto'] = self.boleto.to_dict()
         return _dict
 
     @classmethod
@@ -107,7 +112,8 @@ class PaymentReceipt(BaseModel):
             "amount": obj.get("amount"),
             "description": obj.get("description"),
             "referenceId": obj.get("referenceId"),
-            "date": obj.get("date")
+            "date": obj.get("date"),
+            "boleto": Boleto.from_dict(obj["boleto"]) if obj.get("boleto") is not None else None
         })
         return _obj
 
