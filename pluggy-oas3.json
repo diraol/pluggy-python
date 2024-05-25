@@ -10479,6 +10479,9 @@
             "type": "string",
             "format": "date-time",
             "description": "Date when the payment was made"
+          },
+          "boleto": {
+            "$ref": "#/components/schemas/Boleto"
           }
         },
         "type": "object",
@@ -11134,6 +11137,10 @@
           "pixKey": {
             "type": "string",
             "description": "Pix key associated with the payment recipient"
+          },
+          "smartAccountId": {
+            "type": "string",
+            "description": "Smart account that will receive the money, if you are using a Smart Account to pay and it's the same one, the smart account will keep the money"
           }
         },
         "type": "object",
@@ -11198,6 +11205,11 @@
           "pixKey": {
             "type": "string",
             "description": "Pix key associated with the payment recipient"
+          },
+          "smartAccountId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Smart account identifier associated to the payment recipient, used to be able to use PIX Qr method"
           }
         },
         "type": "object",
