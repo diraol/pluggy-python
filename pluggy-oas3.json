@@ -4865,7 +4865,7 @@
                 "request": {
                   "value": {
                     "description": "Pagamento de boleto",
-                    "digitableLine": "27490.00101.10000.000116.60070.701507.2.970 1 0000002820",
+                    "boletoDigitableLine": "27490.00101.10000.000116.60070.701507.2.970 1 0000002820",
                     "callbackUrls": null
                   }
                 }
@@ -6612,6 +6612,151 @@
             "description": "Smart account primary identifier",
             "in": "path",
             "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
+    },
+    "/payments/smart-accounts/{id}/transfers": {
+      "post": {
+        "operationId": "smart-account-transfer-create",
+        "summary": "Create Transfer",
+        "responses": {
+          "200": {
+            "description": "Create a transfer.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmartAccountTransfer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Smart account transfer is Invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 400,
+                  "message": "taxNumber is required"
+                }
+              }
+            }
+          }
+        },
+        "description": "Creates the smart account transfer resource",
+        "tags": [
+          "Smart account"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Smart account primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSmartAccountTransferRequest"
+              }
+            }
+          },
+          "required": true
+        }
+      }      
+    },
+    "/payments/smart-accounts/{id}/transfers/{transfer_id}": {
+      "get": { 
+        "operationId": "smart-account-transfer",
+        "summary": "Retrieve Transfer",
+        "responses": {
+          "200": {
+            "description": "Retrieve",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmartAccountTransfer"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Smart account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "SMART_ACCOUNT_NOT_FOUND",
+                  "message": "Smart account not found"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Smart account insufficient balance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 400,
+                  "codeDescription": "SMART_ACCOUNT_INSUFFICIENT_BALANCE",
+                  "message": "Smart Account has insufficient balance"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Smart account"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "description": "Get a transfer from the smart account",
+        "parameters": [
+          {
+            "description": "Smart account primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          },
+          {
+            "description": "Transfer primary identifier",
+            "in": "path",
+            "name": "transfer_id",
             "required": true,
             "schema": {
               "type": "string",
@@ -10357,7 +10502,7 @@
             "type": "string",
             "description": "Payment description"
           },
-          "digitableLine": {
+          "boletoDigitableLine": {
             "type": "string",
             "description": "Boleto digitable line"
           },
@@ -10372,7 +10517,7 @@
         },
         "type": "object",
         "required": [
-          "digitableLine"
+          "boletoDigitableLine"
         ],
         "example": {}
       },
@@ -11880,6 +12025,74 @@
           "balance": 100.5,
           "blockedBalance": 0,
           "scheduledBalance": 0
+        }
+      },
+      "CreateSmartAccountTransferRequest": {
+        "description": "Request with information to create a smart account transfer",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Transfer amount"
+          },
+          "recipientId": {
+            "type": "string",
+            "description": "Primary identifier of the recipient associated to the transfer"
+          },
+          "clientPaymentId": {
+            "type": "string",
+            "description": "Primary identifier of the client payment associated to the transfer"
+          }
+        }, 
+        "type": "object",
+        "required": [
+          "amount",
+          "recipientId"
+        ]
+      },
+      "SmartAccountTransfer" : {
+        "description": "Transfer made with money from a smart account",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Primary identifier of the transfer"
+          },
+          "clientId": {
+            "type": "string",
+            "description": "Primary identifier of the client associated to the transfer"
+          },
+          "clientPaymentId": {
+            "type": "string",
+            "description": "Primary identifier of the client payment associated to the transfer"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Transfer amount"
+          },
+          "status": {
+            "type": "string",
+            "description": "Transfer status",
+            "enum": [
+              "IN_PROGRESS",
+              "COMPLETED",
+              "ERROR"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Transfer creation date"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Transfer last update date"
+          },
+          "smartAccount": {
+            "$ref": "#/components/schemas/SmartAccount"
+          },
+          "paymentRecipient": {
+            "$ref": "#/components/schemas/PaymentRecipient"
+          }
         }
       },
       "CreateSmartAccountRequest": {
