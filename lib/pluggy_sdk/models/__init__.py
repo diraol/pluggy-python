@@ -67,6 +67,7 @@ from pluggy_sdk.models.create_payment_recipient import CreatePaymentRecipient
 from pluggy_sdk.models.create_payment_request import CreatePaymentRequest
 from pluggy_sdk.models.create_pix_qr_payment_request import CreatePixQrPaymentRequest
 from pluggy_sdk.models.create_smart_account_request import CreateSmartAccountRequest
+from pluggy_sdk.models.create_smart_account_transfer_request import CreateSmartAccountTransferRequest
 from pluggy_sdk.models.create_webhook import CreateWebhook
 from pluggy_sdk.models.credential_select_option import CredentialSelectOption
 from pluggy_sdk.models.credit_card_metadata import CreditCardMetadata
@@ -139,6 +140,7 @@ from pluggy_sdk.models.pix_data import PixData
 from pluggy_sdk.models.smart_account import SmartAccount
 from pluggy_sdk.models.smart_account_address import SmartAccountAddress
 from pluggy_sdk.models.smart_account_balance import SmartAccountBalance
+from pluggy_sdk.models.smart_account_transfer import SmartAccountTransfer
 from pluggy_sdk.models.smart_accounts_list200_response import SmartAccountsList200Response
 from pluggy_sdk.models.status_detail import StatusDetail
 from pluggy_sdk.models.status_detail_product import StatusDetailProduct

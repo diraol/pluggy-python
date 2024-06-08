@@ -18,21 +18,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CreateBoletoPaymentRequest(BaseModel):
+class CreateSmartAccountTransferRequest(BaseModel):
     """
-    Request with information to create a boleto payment request
+    Request with information to create a smart account transfer
     """ # noqa: E501
-    description: Optional[StrictStr] = Field(default=None, description="Payment description")
-    boleto_digitable_line: StrictStr = Field(description="Boleto digitable line", alias="boletoDigitableLine")
-    callback_urls: Optional[PaymentRequestCallbackUrls] = Field(default=None, alias="callbackUrls")
-    customer_id: Optional[StrictStr] = Field(default=None, description="Customer identifier associated to the payment", alias="customerId")
-    __properties: ClassVar[List[str]] = ["description", "boletoDigitableLine", "callbackUrls", "customerId"]
+    amount: Union[StrictFloat, StrictInt] = Field(description="Transfer amount")
+    recipient_id: StrictStr = Field(description="Primary identifier of the recipient associated to the transfer", alias="recipientId")
+    client_payment_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the client payment associated to the transfer", alias="clientPaymentId")
+    __properties: ClassVar[List[str]] = ["amount", "recipientId", "clientPaymentId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +50,7 @@ class CreateBoletoPaymentRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CreateBoletoPaymentRequest from a JSON string"""
+        """Create an instance of CreateSmartAccountTransferRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,14 +71,11 @@ class CreateBoletoPaymentRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of callback_urls
-        if self.callback_urls:
-            _dict['callbackUrls'] = self.callback_urls.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CreateBoletoPaymentRequest from a dict"""
+        """Create an instance of CreateSmartAccountTransferRequest from a dict"""
         if obj is None:
             return None
 
@@ -88,10 +83,9 @@ class CreateBoletoPaymentRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "description": obj.get("description"),
-            "boletoDigitableLine": obj.get("boletoDigitableLine"),
-            "callbackUrls": PaymentRequestCallbackUrls.from_dict(obj["callbackUrls"]) if obj.get("callbackUrls") is not None else None,
-            "customerId": obj.get("customerId")
+            "amount": obj.get("amount"),
+            "recipientId": obj.get("recipientId"),
+            "clientPaymentId": obj.get("clientPaymentId")
         })
         return _obj
 

@@ -135,7 +135,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRequestApi(api_client)
-    create_boleto_payment_request = {"description":"Pagamento de boleto","digitableLine":"27490.00101.10000.000116.60070.701507.2.970 1 0000002820","callbackUrls":null} # CreateBoletoPaymentRequest | 
+    create_boleto_payment_request = {"description":"Pagamento de boleto","boletoDigitableLine":"27490.00101.10000.000116.60070.701507.2.970 1 0000002820","callbackUrls":null} # CreateBoletoPaymentRequest | 
 
     try:
         # Create boleto payment request

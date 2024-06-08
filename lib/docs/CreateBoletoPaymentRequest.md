@@ -7,7 +7,7 @@ Request with information to create a boleto payment request
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **str** | Payment description | [optional] 
-**digitable_line** | **str** | Boleto digitable line | 
+**boleto_digitable_line** | **str** | Boleto digitable line | 
 **callback_urls** | [**PaymentRequestCallbackUrls**](PaymentRequestCallbackUrls.md) |  | [optional] 
 **customer_id** | **str** | Customer identifier associated to the payment | [optional] 
 
