@@ -18,19 +18,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from datetime import date
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-class PaymentRecipientAccount(BaseModel):
+class ScheduleTypeSingle(BaseModel):
     """
-    Payment receiver bank account information
+    Schedule atribute to generate one payment in the future
     """ # noqa: E501
-    branch: StrictStr = Field(description="Receiver bank account branch (agency)")
-    number: StrictStr = Field(description="Receiver bank account number")
-    type: StrictStr = Field(description="Receiver bank account type, could be: 'CHECKING_ACCOUNT', 'SAVINGS_ACCOUNT' or 'GUARANTEED_ACCOUNT'")
-    __properties: ClassVar[List[str]] = ["branch", "number", "type"]
+    type: StrictStr = Field(description="Scheduled type")
+    var_date: date = Field(alias="date")
+    __properties: ClassVar[List[str]] = ["type", "date"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['SINGLE']):
+            raise ValueError("must be one of enum values ('SINGLE')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +57,7 @@ class PaymentRecipientAccount(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of PaymentRecipientAccount from a JSON string"""
+        """Create an instance of ScheduleTypeSingle from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,7 +82,7 @@ class PaymentRecipientAccount(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of PaymentRecipientAccount from a dict"""
+        """Create an instance of ScheduleTypeSingle from a dict"""
         if obj is None:
             return None
 
@@ -83,9 +90,8 @@ class PaymentRecipientAccount(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "branch": obj.get("branch"),
-            "number": obj.get("number"),
-            "type": obj.get("type")
+            "type": obj.get("type"),
+            "date": obj.get("date")
         })
         return _obj
 

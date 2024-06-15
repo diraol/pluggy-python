@@ -18,19 +18,28 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from datetime import date
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-class PaymentRecipientAccount(BaseModel):
+class SchedulePayment(BaseModel):
     """
-    Payment receiver bank account information
+    Information of a schedule payment
     """ # noqa: E501
-    branch: StrictStr = Field(description="Receiver bank account branch (agency)")
-    number: StrictStr = Field(description="Receiver bank account number")
-    type: StrictStr = Field(description="Receiver bank account type, could be: 'CHECKING_ACCOUNT', 'SAVINGS_ACCOUNT' or 'GUARANTEED_ACCOUNT'")
-    __properties: ClassVar[List[str]] = ["branch", "number", "type"]
+    id: StrictStr
+    description: StrictStr = Field(description="Scheduled payment description")
+    status: StrictStr = Field(description="Scheduled payment status")
+    scheduled_date: date = Field(description="Date when the payment is scheduled", alias="scheduledDate")
+    __properties: ClassVar[List[str]] = ["id", "description", "status", "scheduledDate"]
+
+    @field_validator('status')
+    def status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['SCHEDULED', 'COMPLETED', 'ERROR']):
+            raise ValueError("must be one of enum values ('SCHEDULED', 'COMPLETED', 'ERROR')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +59,7 @@ class PaymentRecipientAccount(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of PaymentRecipientAccount from a JSON string"""
+        """Create an instance of SchedulePayment from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,7 +84,7 @@ class PaymentRecipientAccount(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of PaymentRecipientAccount from a dict"""
+        """Create an instance of SchedulePayment from a dict"""
         if obj is None:
             return None
 
@@ -83,9 +92,10 @@ class PaymentRecipientAccount(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "branch": obj.get("branch"),
-            "number": obj.get("number"),
-            "type": obj.get("type")
+            "id": obj.get("id"),
+            "description": obj.get("description"),
+            "status": obj.get("status"),
+            "scheduledDate": obj.get("scheduledDate")
         })
         return _obj
 

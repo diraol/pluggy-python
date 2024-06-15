@@ -19,18 +19,23 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class PaymentRecipientAccount(BaseModel):
+class PayrollLoanResponseClient(BaseModel):
     """
-    Payment receiver bank account information
+    Client information
     """ # noqa: E501
-    branch: StrictStr = Field(description="Receiver bank account branch (agency)")
-    number: StrictStr = Field(description="Receiver bank account number")
-    type: StrictStr = Field(description="Receiver bank account type, could be: 'CHECKING_ACCOUNT', 'SAVINGS_ACCOUNT' or 'GUARANTEED_ACCOUNT'")
-    __properties: ClassVar[List[str]] = ["branch", "number", "type"]
+    name: Optional[StrictStr] = Field(default=None, description="Client name")
+    document: Optional[StrictStr] = Field(default=None, description="Client CPF")
+    phone: Optional[StrictStr] = Field(default=None, description="Client phone")
+    addres_street: Optional[StrictStr] = Field(default=None, description="Client email", alias="addresStreet")
+    address_number: Optional[StrictStr] = Field(default=None, description="Client address number", alias="addressNumber")
+    address_city: Optional[StrictStr] = Field(default=None, description="Client address city", alias="addressCity")
+    address_zip_code: Optional[StrictStr] = Field(default=None, description="Client address zip code", alias="addressZipCode")
+    address_state: Optional[StrictStr] = Field(default=None, description="Client address state", alias="addressState")
+    __properties: ClassVar[List[str]] = ["name", "document", "phone", "addresStreet", "addressNumber", "addressCity", "addressZipCode", "addressState"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +55,7 @@ class PaymentRecipientAccount(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of PaymentRecipientAccount from a JSON string"""
+        """Create an instance of PayrollLoanResponseClient from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,7 +80,7 @@ class PaymentRecipientAccount(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of PaymentRecipientAccount from a dict"""
+        """Create an instance of PayrollLoanResponseClient from a dict"""
         if obj is None:
             return None
 
@@ -83,9 +88,14 @@ class PaymentRecipientAccount(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "branch": obj.get("branch"),
-            "number": obj.get("number"),
-            "type": obj.get("type")
+            "name": obj.get("name"),
+            "document": obj.get("document"),
+            "phone": obj.get("phone"),
+            "addresStreet": obj.get("addresStreet"),
+            "addressNumber": obj.get("addressNumber"),
+            "addressCity": obj.get("addressCity"),
+            "addressZipCode": obj.get("addressZipCode"),
+            "addressState": obj.get("addressState")
         })
         return _obj
 

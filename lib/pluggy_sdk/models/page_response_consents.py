@@ -18,19 +18,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Union
+from pluggy_sdk.models.consent import Consent
 from typing import Optional, Set
 from typing_extensions import Self
 
-class PaymentRecipientAccount(BaseModel):
+class PageResponseConsents(BaseModel):
     """
-    Payment receiver bank account information
+    
     """ # noqa: E501
-    branch: StrictStr = Field(description="Receiver bank account branch (agency)")
-    number: StrictStr = Field(description="Receiver bank account number")
-    type: StrictStr = Field(description="Receiver bank account type, could be: 'CHECKING_ACCOUNT', 'SAVINGS_ACCOUNT' or 'GUARANTEED_ACCOUNT'")
-    __properties: ClassVar[List[str]] = ["branch", "number", "type"]
+    results: List[Consent]
+    page: Union[StrictFloat, StrictInt]
+    total: Union[StrictFloat, StrictInt]
+    total_pages: Union[StrictFloat, StrictInt] = Field(alias="totalPages")
+    __properties: ClassVar[List[str]] = ["results", "page", "total", "totalPages"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +52,7 @@ class PaymentRecipientAccount(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of PaymentRecipientAccount from a JSON string"""
+        """Create an instance of PageResponseConsents from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,11 +73,18 @@ class PaymentRecipientAccount(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in results (list)
+        _items = []
+        if self.results:
+            for _item in self.results:
+                if _item:
+                    _items.append(_item.to_dict())
+            _dict['results'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of PaymentRecipientAccount from a dict"""
+        """Create an instance of PageResponseConsents from a dict"""
         if obj is None:
             return None
 
@@ -83,9 +92,10 @@ class PaymentRecipientAccount(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "branch": obj.get("branch"),
-            "number": obj.get("number"),
-            "type": obj.get("type")
+            "results": [Consent.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None,
+            "page": obj.get("page"),
+            "total": obj.get("total"),
+            "totalPages": obj.get("totalPages")
         })
         return _obj
 

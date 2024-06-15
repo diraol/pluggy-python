@@ -18,19 +18,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from pluggy_sdk.models.payroll_loan_response import PayrollLoanResponse
 from typing import Optional, Set
 from typing_extensions import Self
 
-class PaymentRecipientAccount(BaseModel):
+class PayrollLoansList200Response(BaseModel):
     """
-    Payment receiver bank account information
+    PayrollLoansList200Response
     """ # noqa: E501
-    branch: StrictStr = Field(description="Receiver bank account branch (agency)")
-    number: StrictStr = Field(description="Receiver bank account number")
-    type: StrictStr = Field(description="Receiver bank account type, could be: 'CHECKING_ACCOUNT', 'SAVINGS_ACCOUNT' or 'GUARANTEED_ACCOUNT'")
-    __properties: ClassVar[List[str]] = ["branch", "number", "type"]
+    page: Optional[Union[StrictFloat, StrictInt]] = None
+    total: Optional[Union[StrictFloat, StrictInt]] = None
+    total_pages: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="totalPages")
+    results: Optional[List[PayrollLoanResponse]] = Field(default=None, description="List of payroll loans")
+    __properties: ClassVar[List[str]] = ["page", "total", "totalPages", "results"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +52,7 @@ class PaymentRecipientAccount(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of PaymentRecipientAccount from a JSON string"""
+        """Create an instance of PayrollLoansList200Response from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,11 +73,18 @@ class PaymentRecipientAccount(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in results (list)
+        _items = []
+        if self.results:
+            for _item in self.results:
+                if _item:
+                    _items.append(_item.to_dict())
+            _dict['results'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of PaymentRecipientAccount from a dict"""
+        """Create an instance of PayrollLoansList200Response from a dict"""
         if obj is None:
             return None
 
@@ -83,9 +92,10 @@ class PaymentRecipientAccount(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "branch": obj.get("branch"),
-            "number": obj.get("number"),
-            "type": obj.get("type")
+            "page": obj.get("page"),
+            "total": obj.get("total"),
+            "totalPages": obj.get("totalPages"),
+            "results": [PayrollLoanResponse.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None
         })
         return _obj
 

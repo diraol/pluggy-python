@@ -18,19 +18,36 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from datetime import date
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Union
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
-class PaymentRecipientAccount(BaseModel):
+class ScheduleTypeWeekly(BaseModel):
     """
-    Payment receiver bank account information
+    Schedule atribute to generate weekly payments
     """ # noqa: E501
-    branch: StrictStr = Field(description="Receiver bank account branch (agency)")
-    number: StrictStr = Field(description="Receiver bank account number")
-    type: StrictStr = Field(description="Receiver bank account type, could be: 'CHECKING_ACCOUNT', 'SAVINGS_ACCOUNT' or 'GUARANTEED_ACCOUNT'")
-    __properties: ClassVar[List[str]] = ["branch", "number", "type"]
+    type: StrictStr = Field(description="Scheduled type")
+    start_date: date = Field(alias="startDate")
+    day_of_week: StrictStr = Field(description="Day of the week to generate the payment", alias="dayOfWeek")
+    quantity: Union[Annotated[float, Field(le=59, strict=True, ge=3)], Annotated[int, Field(le=59, strict=True, ge=3)]]
+    __properties: ClassVar[List[str]] = ["type", "startDate", "dayOfWeek", "quantity"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['WEEKLY']):
+            raise ValueError("must be one of enum values ('WEEKLY')")
+        return value
+
+    @field_validator('day_of_week')
+    def day_of_week_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['SEGUNDA_FEIRA', 'TERCA_FEIRA', 'QUARTA_FEIRA', 'QUINTA_FEIRA', 'SEXTA_FEIRA', 'SABADO', 'DOMINGO']):
+            raise ValueError("must be one of enum values ('SEGUNDA_FEIRA', 'TERCA_FEIRA', 'QUARTA_FEIRA', 'QUINTA_FEIRA', 'SEXTA_FEIRA', 'SABADO', 'DOMINGO')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +67,7 @@ class PaymentRecipientAccount(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of PaymentRecipientAccount from a JSON string"""
+        """Create an instance of ScheduleTypeWeekly from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,7 +92,7 @@ class PaymentRecipientAccount(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of PaymentRecipientAccount from a dict"""
+        """Create an instance of ScheduleTypeWeekly from a dict"""
         if obj is None:
             return None
 
@@ -83,9 +100,10 @@ class PaymentRecipientAccount(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "branch": obj.get("branch"),
-            "number": obj.get("number"),
-            "type": obj.get("type")
+            "type": obj.get("type"),
+            "startDate": obj.get("startDate"),
+            "dayOfWeek": obj.get("dayOfWeek"),
+            "quantity": obj.get("quantity")
         })
         return _obj
 

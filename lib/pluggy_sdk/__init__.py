@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post11"
+__version__ = "1.0.0.post12"
 
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi
@@ -36,6 +36,7 @@ from pluggy_sdk.api.payment_customer_api import PaymentCustomerApi
 from pluggy_sdk.api.payment_intent_api import PaymentIntentApi
 from pluggy_sdk.api.payment_recipient_api import PaymentRecipientApi
 from pluggy_sdk.api.payment_request_api import PaymentRequestApi
+from pluggy_sdk.api.payroll_loan_api import PayrollLoanApi
 from pluggy_sdk.api.portfolio_yield_api import PortfolioYieldApi
 from pluggy_sdk.api.smart_account_api import SmartAccountApi
 from pluggy_sdk.api.transaction_api import TransactionApi
@@ -93,6 +94,7 @@ from pluggy_sdk.models.connector_health import ConnectorHealth
 from pluggy_sdk.models.connector_health_details import ConnectorHealthDetails
 from pluggy_sdk.models.connector_list_response import ConnectorListResponse
 from pluggy_sdk.models.connector_user_action import ConnectorUserAction
+from pluggy_sdk.models.consent import Consent
 from pluggy_sdk.models.create_boleto_payment_request import CreateBoletoPaymentRequest
 from pluggy_sdk.models.create_bulk_payment import CreateBulkPayment
 from pluggy_sdk.models.create_client_category_rule import CreateClientCategoryRule
@@ -149,6 +151,7 @@ from pluggy_sdk.models.page_response_acquirer_anticipations import PageResponseA
 from pluggy_sdk.models.page_response_acquirer_receivables import PageResponseAcquirerReceivables
 from pluggy_sdk.models.page_response_acquirer_sales import PageResponseAcquirerSales
 from pluggy_sdk.models.page_response_category_rules import PageResponseCategoryRules
+from pluggy_sdk.models.page_response_consents import PageResponseConsents
 from pluggy_sdk.models.page_response_investment_transactions import PageResponseInvestmentTransactions
 from pluggy_sdk.models.page_response_transactions import PageResponseTransactions
 from pluggy_sdk.models.parameter_validation_error import ParameterValidationError
@@ -171,10 +174,21 @@ from pluggy_sdk.models.payment_recipients_list200_response import PaymentRecipie
 from pluggy_sdk.models.payment_request import PaymentRequest
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
 from pluggy_sdk.models.payment_request_receipt_list200_response import PaymentRequestReceiptList200Response
+from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule
 from pluggy_sdk.models.payment_requests_list200_response import PaymentRequestsList200Response
+from pluggy_sdk.models.payment_schedules_list200_response import PaymentSchedulesList200Response
+from pluggy_sdk.models.payroll_loan_response import PayrollLoanResponse
+from pluggy_sdk.models.payroll_loan_response_client import PayrollLoanResponseClient
+from pluggy_sdk.models.payroll_loans_list200_response import PayrollLoansList200Response
 from pluggy_sdk.models.percentage_over_index import PercentageOverIndex
 from pluggy_sdk.models.phone_number import PhoneNumber
 from pluggy_sdk.models.pix_data import PixData
+from pluggy_sdk.models.schedule_payment import SchedulePayment
+from pluggy_sdk.models.schedule_type_custom import ScheduleTypeCustom
+from pluggy_sdk.models.schedule_type_daily import ScheduleTypeDaily
+from pluggy_sdk.models.schedule_type_monthly import ScheduleTypeMonthly
+from pluggy_sdk.models.schedule_type_single import ScheduleTypeSingle
+from pluggy_sdk.models.schedule_type_weekly import ScheduleTypeWeekly
 from pluggy_sdk.models.smart_account import SmartAccount
 from pluggy_sdk.models.smart_account_address import SmartAccountAddress
 from pluggy_sdk.models.smart_account_balance import SmartAccountBalance

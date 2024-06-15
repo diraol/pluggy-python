@@ -21,6 +21,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
+from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -35,7 +36,8 @@ class CreatePaymentRequest(BaseModel):
     customer_id: Optional[StrictStr] = Field(default=None, description="Customer identifier associated to the payment", alias="customerId")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Your payment identifier", alias="clientPaymentId")
     smart_account_id: Optional[StrictStr] = Field(default=None, description="Smart account identifier associated to the payment, used to be able to use PIX Qr method", alias="smartAccountId")
-    __properties: ClassVar[List[str]] = ["amount", "description", "callbackUrls", "recipientId", "customerId", "clientPaymentId", "smartAccountId"]
+    schedule: Optional[PaymentRequestSchedule] = None
+    __properties: ClassVar[List[str]] = ["amount", "description", "callbackUrls", "recipientId", "customerId", "clientPaymentId", "smartAccountId", "schedule"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -79,6 +81,9 @@ class CreatePaymentRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of callback_urls
         if self.callback_urls:
             _dict['callbackUrls'] = self.callback_urls.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of schedule
+        if self.schedule:
+            _dict['schedule'] = self.schedule.to_dict()
         return _dict
 
     @classmethod
@@ -97,7 +102,8 @@ class CreatePaymentRequest(BaseModel):
             "recipientId": obj.get("recipientId"),
             "customerId": obj.get("customerId"),
             "clientPaymentId": obj.get("clientPaymentId"),
-            "smartAccountId": obj.get("smartAccountId")
+            "smartAccountId": obj.get("smartAccountId"),
+            "schedule": PaymentRequestSchedule.from_dict(obj["schedule"]) if obj.get("schedule") is not None else None
         })
         return _obj
 

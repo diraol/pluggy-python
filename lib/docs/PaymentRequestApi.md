@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**payment_request_retrieve**](PaymentRequestApi.md#payment_request_retrieve) | **GET** /payments/requests/{id} | Retrieve
 [**payment_request_update**](PaymentRequestApi.md#payment_request_update) | **PATCH** /payments/requests/{id} | Update
 [**payment_requests_list**](PaymentRequestApi.md#payment_requests_list) | **GET** /payments/requests | List
+[**payment_schedules_list**](PaymentRequestApi.md#payment_schedules_list) | **GET** /payments/requests/{id}/schedules | Schedule List
 
 
 # **payment_request_create**
@@ -773,6 +774,85 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Retrieve a list of all payment requests |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **payment_schedules_list**
+> PaymentSchedulesList200Response payment_schedules_list(id)
+
+Schedule List
+
+Recovers all scheduled payments from a payment request
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.models.payment_schedules_list200_response import PaymentSchedulesList200Response
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.PaymentRequestApi(api_client)
+    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
+
+    try:
+        # Schedule List
+        api_response = api_instance.payment_schedules_list(id)
+        print("The response of PaymentRequestApi->payment_schedules_list:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PaymentRequestApi->payment_schedules_list: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| Payment request primary identifier | 
+
+### Return type
+
+[**PaymentSchedulesList200Response**](PaymentSchedulesList200Response.md)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Retrieve a list of all payment schedules |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

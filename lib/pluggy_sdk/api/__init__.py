@@ -19,6 +19,7 @@ from pluggy_sdk.api.payment_customer_api import PaymentCustomerApi
 from pluggy_sdk.api.payment_intent_api import PaymentIntentApi
 from pluggy_sdk.api.payment_recipient_api import PaymentRecipientApi
 from pluggy_sdk.api.payment_request_api import PaymentRequestApi
+from pluggy_sdk.api.payroll_loan_api import PayrollLoanApi
 from pluggy_sdk.api.portfolio_yield_api import PortfolioYieldApi
 from pluggy_sdk.api.smart_account_api import SmartAccountApi
 from pluggy_sdk.api.transaction_api import TransactionApi

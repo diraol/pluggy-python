@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **branch** | **str** | Receiver bank account branch (agency) | 
 **number** | **str** | Receiver bank account number | 
-**type** | **str** | Receiver bank account type | 
+**type** | **str** | Receiver bank account type, could be: &#39;CHECKING_ACCOUNT&#39;, &#39;SAVINGS_ACCOUNT&#39; or &#39;GUARANTEED_ACCOUNT&#39; | 
 
 ## Example
 
