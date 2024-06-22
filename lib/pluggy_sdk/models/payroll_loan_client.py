@@ -18,32 +18,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pluggy_sdk.models.update_item_parameters import UpdateItemParameters
 from typing import Optional, Set
 from typing_extensions import Self
 
-class UpdateItem(BaseModel):
+class PayrollLoanClient(BaseModel):
     """
-    Update Item Request
+    Client information
     """ # noqa: E501
-    parameters: Optional[UpdateItemParameters] = None
-    client_user_id: Optional[StrictStr] = Field(default=None, description="Client's identifier for the user, it can be a ID, UUID or even an email.", alias="clientUserId")
-    webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of item changes", alias="webhookUrl")
-    products: Optional[List[StrictStr]] = Field(default=None, description="Products to be collected in the connection")
-    __properties: ClassVar[List[str]] = ["parameters", "clientUserId", "webhookUrl", "products"]
-
-    @field_validator('products')
-    def products_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        for i in value:
-            if i not in set(['ACCOUNTS', 'CREDIT_CARDS', 'TRANSACTIONS', 'PAYMENT_DATA', 'INVESTMENTS', 'INVESTMENTS_TRANSACTIONS', 'IDENTITY', 'BROKERAGE_NOTE', 'OPPORTUNITIES', 'PORTFOLIO', 'INCOME_REPORTS', 'MOVE_SECURITY', 'LOANS', 'ACQUIRER_OPERATIONS']):
-                raise ValueError("each list item must be one of ('ACCOUNTS', 'CREDIT_CARDS', 'TRANSACTIONS', 'PAYMENT_DATA', 'INVESTMENTS', 'INVESTMENTS_TRANSACTIONS', 'IDENTITY', 'BROKERAGE_NOTE', 'OPPORTUNITIES', 'PORTFOLIO', 'INCOME_REPORTS', 'MOVE_SECURITY', 'LOANS', 'ACQUIRER_OPERATIONS')")
-        return value
+    name: Optional[StrictStr] = Field(default=None, description="Client name")
+    document: Optional[StrictStr] = Field(default=None, description="Client CPF")
+    phone: Optional[StrictStr] = Field(default=None, description="Client phone")
+    addres_street: Optional[StrictStr] = Field(default=None, description="Client email", alias="addresStreet")
+    address_number: Optional[StrictStr] = Field(default=None, description="Client address number", alias="addressNumber")
+    address_city: Optional[StrictStr] = Field(default=None, description="Client address city", alias="addressCity")
+    address_zip_code: Optional[StrictStr] = Field(default=None, description="Client address zip code", alias="addressZipCode")
+    address_state: Optional[StrictStr] = Field(default=None, description="Client address state", alias="addressState")
+    __properties: ClassVar[List[str]] = ["name", "document", "phone", "addresStreet", "addressNumber", "addressCity", "addressZipCode", "addressState"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -63,7 +55,7 @@ class UpdateItem(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of UpdateItem from a JSON string"""
+        """Create an instance of PayrollLoanClient from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -84,14 +76,11 @@ class UpdateItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of parameters
-        if self.parameters:
-            _dict['parameters'] = self.parameters.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of UpdateItem from a dict"""
+        """Create an instance of PayrollLoanClient from a dict"""
         if obj is None:
             return None
 
@@ -99,10 +88,14 @@ class UpdateItem(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "parameters": UpdateItemParameters.from_dict(obj["parameters"]) if obj.get("parameters") is not None else None,
-            "clientUserId": obj.get("clientUserId"),
-            "webhookUrl": obj.get("webhookUrl"),
-            "products": obj.get("products")
+            "name": obj.get("name"),
+            "document": obj.get("document"),
+            "phone": obj.get("phone"),
+            "addresStreet": obj.get("addresStreet"),
+            "addressNumber": obj.get("addressNumber"),
+            "addressCity": obj.get("addressCity"),
+            "addressZipCode": obj.get("addressZipCode"),
+            "addressState": obj.get("addressState")
         })
         return _obj
 

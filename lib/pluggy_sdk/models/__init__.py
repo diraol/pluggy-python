@@ -36,6 +36,9 @@ from pluggy_sdk.models.asset_distribution import AssetDistribution
 from pluggy_sdk.models.auth_request import AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse
 from pluggy_sdk.models.bank_data import BankData
+from pluggy_sdk.models.benefit_response import BenefitResponse
+from pluggy_sdk.models.benefit_response_paying_institution import BenefitResponsePayingInstitution
+from pluggy_sdk.models.benefits_list200_response import BenefitsList200Response
 from pluggy_sdk.models.bill import Bill
 from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge
 from pluggy_sdk.models.bills_list200_response import BillsList200Response
@@ -138,9 +141,8 @@ from pluggy_sdk.models.payment_request_receipt_list200_response import PaymentRe
 from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule
 from pluggy_sdk.models.payment_requests_list200_response import PaymentRequestsList200Response
 from pluggy_sdk.models.payment_schedules_list200_response import PaymentSchedulesList200Response
-from pluggy_sdk.models.payroll_loan_response import PayrollLoanResponse
-from pluggy_sdk.models.payroll_loan_response_client import PayrollLoanResponseClient
-from pluggy_sdk.models.payroll_loans_list200_response import PayrollLoansList200Response
+from pluggy_sdk.models.payroll_loan import PayrollLoan
+from pluggy_sdk.models.payroll_loan_client import PayrollLoanClient
 from pluggy_sdk.models.percentage_over_index import PercentageOverIndex
 from pluggy_sdk.models.phone_number import PhoneNumber
 from pluggy_sdk.models.pix_data import PixData

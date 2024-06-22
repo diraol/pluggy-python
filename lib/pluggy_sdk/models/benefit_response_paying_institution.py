@@ -18,32 +18,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pluggy_sdk.models.update_item_parameters import UpdateItemParameters
 from typing import Optional, Set
 from typing_extensions import Self
 
-class UpdateItem(BaseModel):
+class BenefitResponsePayingInstitution(BaseModel):
     """
-    Update Item Request
+    Paying institution information
     """ # noqa: E501
-    parameters: Optional[UpdateItemParameters] = None
-    client_user_id: Optional[StrictStr] = Field(default=None, description="Client's identifier for the user, it can be a ID, UUID or even an email.", alias="clientUserId")
-    webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of item changes", alias="webhookUrl")
-    products: Optional[List[StrictStr]] = Field(default=None, description="Products to be collected in the connection")
-    __properties: ClassVar[List[str]] = ["parameters", "clientUserId", "webhookUrl", "products"]
-
-    @field_validator('products')
-    def products_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        for i in value:
-            if i not in set(['ACCOUNTS', 'CREDIT_CARDS', 'TRANSACTIONS', 'PAYMENT_DATA', 'INVESTMENTS', 'INVESTMENTS_TRANSACTIONS', 'IDENTITY', 'BROKERAGE_NOTE', 'OPPORTUNITIES', 'PORTFOLIO', 'INCOME_REPORTS', 'MOVE_SECURITY', 'LOANS', 'ACQUIRER_OPERATIONS']):
-                raise ValueError("each list item must be one of ('ACCOUNTS', 'CREDIT_CARDS', 'TRANSACTIONS', 'PAYMENT_DATA', 'INVESTMENTS', 'INVESTMENTS_TRANSACTIONS', 'IDENTITY', 'BROKERAGE_NOTE', 'OPPORTUNITIES', 'PORTFOLIO', 'INCOME_REPORTS', 'MOVE_SECURITY', 'LOANS', 'ACQUIRER_OPERATIONS')")
-        return value
+    code: Optional[StrictStr] = Field(default=None, description="Paying institution code")
+    name: Optional[StrictStr] = Field(default=None, description="Paying institution name")
+    agency: Optional[StrictStr] = Field(default=None, description="Paying institution agency")
+    account: Optional[StrictStr] = Field(default=None, description="Paying institution account")
+    __properties: ClassVar[List[str]] = ["code", "name", "agency", "account"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -63,7 +51,7 @@ class UpdateItem(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of UpdateItem from a JSON string"""
+        """Create an instance of BenefitResponsePayingInstitution from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -84,14 +72,11 @@ class UpdateItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of parameters
-        if self.parameters:
-            _dict['parameters'] = self.parameters.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of UpdateItem from a dict"""
+        """Create an instance of BenefitResponsePayingInstitution from a dict"""
         if obj is None:
             return None
 
@@ -99,10 +84,10 @@ class UpdateItem(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "parameters": UpdateItemParameters.from_dict(obj["parameters"]) if obj.get("parameters") is not None else None,
-            "clientUserId": obj.get("clientUserId"),
-            "webhookUrl": obj.get("webhookUrl"),
-            "products": obj.get("products")
+            "code": obj.get("code"),
+            "name": obj.get("name"),
+            "agency": obj.get("agency"),
+            "account": obj.get("account")
         })
         return _obj
 

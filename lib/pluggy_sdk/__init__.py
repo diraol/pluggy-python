@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post12"
+__version__ = "1.0.0.post13"
 
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi
@@ -23,10 +23,12 @@ from pluggy_sdk.api.acquirer_anticipation_api import AcquirerAnticipationApi
 from pluggy_sdk.api.acquirer_receivable_api import AcquirerReceivableApi
 from pluggy_sdk.api.acquirer_sale_api import AcquirerSaleApi
 from pluggy_sdk.api.auth_api import AuthApi
+from pluggy_sdk.api.benefit_api import BenefitApi
 from pluggy_sdk.api.bill_api import BillApi
 from pluggy_sdk.api.bulk_payment_api import BulkPaymentApi
 from pluggy_sdk.api.category_api import CategoryApi
 from pluggy_sdk.api.connector_api import ConnectorApi
+from pluggy_sdk.api.consent_api import ConsentApi
 from pluggy_sdk.api.identity_api import IdentityApi
 from pluggy_sdk.api.income_report_api import IncomeReportApi
 from pluggy_sdk.api.investment_api import InvestmentApi
@@ -36,7 +38,6 @@ from pluggy_sdk.api.payment_customer_api import PaymentCustomerApi
 from pluggy_sdk.api.payment_intent_api import PaymentIntentApi
 from pluggy_sdk.api.payment_recipient_api import PaymentRecipientApi
 from pluggy_sdk.api.payment_request_api import PaymentRequestApi
-from pluggy_sdk.api.payroll_loan_api import PayrollLoanApi
 from pluggy_sdk.api.portfolio_yield_api import PortfolioYieldApi
 from pluggy_sdk.api.smart_account_api import SmartAccountApi
 from pluggy_sdk.api.transaction_api import TransactionApi
@@ -75,6 +76,9 @@ from pluggy_sdk.models.asset_distribution import AssetDistribution
 from pluggy_sdk.models.auth_request import AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse
 from pluggy_sdk.models.bank_data import BankData
+from pluggy_sdk.models.benefit_response import BenefitResponse
+from pluggy_sdk.models.benefit_response_paying_institution import BenefitResponsePayingInstitution
+from pluggy_sdk.models.benefits_list200_response import BenefitsList200Response
 from pluggy_sdk.models.bill import Bill
 from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge
 from pluggy_sdk.models.bills_list200_response import BillsList200Response
@@ -177,9 +181,8 @@ from pluggy_sdk.models.payment_request_receipt_list200_response import PaymentRe
 from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule
 from pluggy_sdk.models.payment_requests_list200_response import PaymentRequestsList200Response
 from pluggy_sdk.models.payment_schedules_list200_response import PaymentSchedulesList200Response
-from pluggy_sdk.models.payroll_loan_response import PayrollLoanResponse
-from pluggy_sdk.models.payroll_loan_response_client import PayrollLoanResponseClient
-from pluggy_sdk.models.payroll_loans_list200_response import PayrollLoansList200Response
+from pluggy_sdk.models.payroll_loan import PayrollLoan
+from pluggy_sdk.models.payroll_loan_client import PayrollLoanClient
 from pluggy_sdk.models.percentage_over_index import PercentageOverIndex
 from pluggy_sdk.models.phone_number import PhoneNumber
 from pluggy_sdk.models.pix_data import PixData
