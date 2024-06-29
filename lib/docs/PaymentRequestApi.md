@@ -8,9 +8,9 @@ Method | HTTP request | Description
 [**payment_request_create_boleto**](PaymentRequestApi.md#payment_request_create_boleto) | **POST** /payments/requests/boleto | Create boleto payment request
 [**payment_request_create_pix_qr**](PaymentRequestApi.md#payment_request_create_pix_qr) | **POST** /payments/requests/pix-qr | Create PIX QR payment request
 [**payment_request_delete**](PaymentRequestApi.md#payment_request_delete) | **DELETE** /payments/requests/{id} | Delete
-[**payment_request_receipt_create**](PaymentRequestApi.md#payment_request_receipt_create) | **POST** /payments/requests/{id}/receipts | Create
-[**payment_request_receipt_list**](PaymentRequestApi.md#payment_request_receipt_list) | **GET** /payments/requests/{id}/receipts | List
-[**payment_request_receipt_retrieve**](PaymentRequestApi.md#payment_request_receipt_retrieve) | **GET** /payments/requests/{payment-request-id}/receipts/{payment-receipt-id} | Retrieve
+[**payment_request_receipt_create**](PaymentRequestApi.md#payment_request_receipt_create) | **POST** /payments/requests/{id}/receipts | Create Payment Receipt
+[**payment_request_receipt_list**](PaymentRequestApi.md#payment_request_receipt_list) | **GET** /payments/requests/{id}/receipts | List Payment Receipts
+[**payment_request_receipt_retrieve**](PaymentRequestApi.md#payment_request_receipt_retrieve) | **GET** /payments/requests/{payment-request-id}/receipts/{payment-receipt-id} | Retrieve Payment Receipt
 [**payment_request_retrieve**](PaymentRequestApi.md#payment_request_retrieve) | **GET** /payments/requests/{id} | Retrieve
 [**payment_request_update**](PaymentRequestApi.md#payment_request_update) | **PATCH** /payments/requests/{id} | Update
 [**payment_requests_list**](PaymentRequestApi.md#payment_requests_list) | **GET** /payments/requests | List
@@ -337,7 +337,7 @@ void (empty response body)
 # **payment_request_receipt_create**
 > PaymentReceipt payment_request_receipt_create(id)
 
-Create
+Create Payment Receipt
 
 Creates the payment receipt resource
 
@@ -364,7 +364,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
 
     try:
-        # Create
+        # Create Payment Receipt
         api_response = api_instance.payment_request_receipt_create(id)
         print("The response of PaymentRequestApi->payment_request_receipt_create:\n")
         pprint(api_response)
@@ -405,7 +405,7 @@ No authorization required
 # **payment_request_receipt_list**
 > PaymentRequestReceiptList200Response payment_request_receipt_list(id)
 
-List
+List Payment Receipts
 
 Recovers all created payment receipts for the payment request provided
 
@@ -432,7 +432,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
 
     try:
-        # List
+        # List Payment Receipts
         api_response = api_instance.payment_request_receipt_list(id)
         print("The response of PaymentRequestApi->payment_request_receipt_list:\n")
         pprint(api_response)
@@ -473,7 +473,7 @@ No authorization required
 # **payment_request_receipt_retrieve**
 > PaymentReceipt payment_request_receipt_retrieve(payment_request_id, payment_receipt_id)
 
-Retrieve
+Retrieve Payment Receipt
 
 Recovers the payment receipt resource by its id
 
@@ -501,7 +501,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     payment_receipt_id = 'payment_receipt_id_example' # str | 
 
     try:
-        # Retrieve
+        # Retrieve Payment Receipt
         api_response = api_instance.payment_request_receipt_retrieve(payment_request_id, payment_receipt_id)
         print("The response of PaymentRequestApi->payment_request_receipt_retrieve:\n")
         pprint(api_response)

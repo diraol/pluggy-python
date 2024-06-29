@@ -20,8 +20,8 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from pluggy_sdk.models.benefit_loan import BenefitLoan
 from pluggy_sdk.models.benefit_response_paying_institution import BenefitResponsePayingInstitution
-from pluggy_sdk.models.payroll_loan import PayrollLoan
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -34,12 +34,12 @@ class BenefitResponse(BaseModel):
     beneficiary_name: StrictStr = Field(description="Beneficiary name", alias="beneficiaryName")
     available_margin_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Available margin value", alias="availableMarginValue")
     margin_base_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Base margin value", alias="marginBaseValue")
-    payroll_deductible_available_margin_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Payroll deductible available margin value", alias="payrollDeductibleAvailableMarginValue")
+    deductible_available_margin_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Deductible available margin value", alias="deductibleAvailableMarginValue")
     used_margin_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Used margin value", alias="usedMarginValue")
     reserved_margin_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Reserved margin value", alias="reservedMarginValue")
     paying_institution: Optional[BenefitResponsePayingInstitution] = Field(default=None, alias="payingInstitution")
-    payroll_loans: Optional[List[PayrollLoan]] = Field(default=None, description="List of payroll loans", alias="payrollLoans")
-    __properties: ClassVar[List[str]] = ["id", "itemId", "beneficiaryName", "availableMarginValue", "marginBaseValue", "payrollDeductibleAvailableMarginValue", "usedMarginValue", "reservedMarginValue", "payingInstitution", "payrollLoans"]
+    loans: Optional[List[BenefitLoan]] = Field(default=None, description="List of benefit loans")
+    __properties: ClassVar[List[str]] = ["id", "itemId", "beneficiaryName", "availableMarginValue", "marginBaseValue", "deductibleAvailableMarginValue", "usedMarginValue", "reservedMarginValue", "payingInstitution", "loans"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,13 +83,13 @@ class BenefitResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of paying_institution
         if self.paying_institution:
             _dict['payingInstitution'] = self.paying_institution.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in payroll_loans (list)
+        # override the default output from pydantic by calling `to_dict()` of each item in loans (list)
         _items = []
-        if self.payroll_loans:
-            for _item in self.payroll_loans:
+        if self.loans:
+            for _item in self.loans:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict['payrollLoans'] = _items
+            _dict['loans'] = _items
         return _dict
 
     @classmethod
@@ -107,11 +107,11 @@ class BenefitResponse(BaseModel):
             "beneficiaryName": obj.get("beneficiaryName"),
             "availableMarginValue": obj.get("availableMarginValue"),
             "marginBaseValue": obj.get("marginBaseValue"),
-            "payrollDeductibleAvailableMarginValue": obj.get("payrollDeductibleAvailableMarginValue"),
+            "deductibleAvailableMarginValue": obj.get("deductibleAvailableMarginValue"),
             "usedMarginValue": obj.get("usedMarginValue"),
             "reservedMarginValue": obj.get("reservedMarginValue"),
             "payingInstitution": BenefitResponsePayingInstitution.from_dict(obj["payingInstitution"]) if obj.get("payingInstitution") is not None else None,
-            "payrollLoans": [PayrollLoan.from_dict(_item) for _item in obj["payrollLoans"]] if obj.get("payrollLoans") is not None else None
+            "loans": [BenefitLoan.from_dict(_item) for _item in obj["loans"]] if obj.get("loans") is not None else None
         })
         return _obj
 

@@ -1138,7 +1138,7 @@ class PaymentRequestApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> PaymentReceipt:
-        """Create
+        """Create Payment Receipt
 
         Creates the payment receipt resource
 
@@ -1205,7 +1205,7 @@ class PaymentRequestApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[PaymentReceipt]:
-        """Create
+        """Create Payment Receipt
 
         Creates the payment receipt resource
 
@@ -1272,7 +1272,7 @@ class PaymentRequestApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create
+        """Create Payment Receipt
 
         Creates the payment receipt resource
 
@@ -1408,7 +1408,7 @@ class PaymentRequestApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> PaymentRequestReceiptList200Response:
-        """List
+        """List Payment Receipts
 
         Recovers all created payment receipts for the payment request provided
 
@@ -1475,7 +1475,7 @@ class PaymentRequestApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[PaymentRequestReceiptList200Response]:
-        """List
+        """List Payment Receipts
 
         Recovers all created payment receipts for the payment request provided
 
@@ -1542,7 +1542,7 @@ class PaymentRequestApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List
+        """List Payment Receipts
 
         Recovers all created payment receipts for the payment request provided
 
@@ -1666,7 +1666,7 @@ class PaymentRequestApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> PaymentReceipt:
-        """Retrieve
+        """Retrieve Payment Receipt
 
         Recovers the payment receipt resource by its id
 
@@ -1737,7 +1737,7 @@ class PaymentRequestApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[PaymentReceipt]:
-        """Retrieve
+        """Retrieve Payment Receipt
 
         Recovers the payment receipt resource by its id
 
@@ -1808,7 +1808,7 @@ class PaymentRequestApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Retrieve
+        """Retrieve Payment Receipt
 
         Recovers the payment receipt resource by its id
 

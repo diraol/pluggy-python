@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 **type** | **str** | Scheduled type | 
 **var_date** | **date** |  | 
 **start_date** | **date** |  | 
-**quantity** | **float** |  | 
-**day_of_week** | **str** | Day of the week to generate the payment | 
-**day_of_month** | **float** | Day of the mont to generate the payment | 
+**occurrences** | **float** | Under the specified schedule frequency, how many payments will be scheduled to occur. | [optional] 
+**day_of_week** | **str** | Day of the week on which each payment will occur. For instance, if set to &#39;MONDAY&#39;, the first payment will occur on the first monday after the startDate (or the same day, if it is already monday), and every monday after that. | 
+**day_of_month** | **float** | Day of the month on which each payment will occur. For example, if &#39;10&#39;, the first payment will occur on the next 10th day of the month after the start date, or the same day if it is already 10th, and every 10th day after that. | 
 **dates** | **List[date]** |  | 
 **additional_information** | **str** | Additional information about the custom schedule | [optional] 
 

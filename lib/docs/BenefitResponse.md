@@ -11,11 +11,11 @@ Name | Type | Description | Notes
 **beneficiary_name** | **str** | Beneficiary name | 
 **available_margin_value** | **float** | Available margin value | [optional] 
 **margin_base_value** | **float** | Base margin value | [optional] 
-**payroll_deductible_available_margin_value** | **float** | Payroll deductible available margin value | [optional] 
+**deductible_available_margin_value** | **float** | Deductible available margin value | [optional] 
 **used_margin_value** | **float** | Used margin value | [optional] 
 **reserved_margin_value** | **float** | Reserved margin value | [optional] 
 **paying_institution** | [**BenefitResponsePayingInstitution**](BenefitResponsePayingInstitution.md) |  | [optional] 
-**payroll_loans** | [**List[PayrollLoan]**](PayrollLoan.md) | List of payroll loans | [optional] 
+**loans** | [**List[BenefitLoan]**](BenefitLoan.md) | List of benefit loans | [optional] 
 
 ## Example
 

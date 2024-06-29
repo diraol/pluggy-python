@@ -18,33 +18,33 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from pluggy_sdk.models.schedule_type_custom import ScheduleTypeCustom
-from pluggy_sdk.models.schedule_type_daily import ScheduleTypeDaily
-from pluggy_sdk.models.schedule_type_monthly import ScheduleTypeMonthly
-from pluggy_sdk.models.schedule_type_single import ScheduleTypeSingle
-from pluggy_sdk.models.schedule_type_weekly import ScheduleTypeWeekly
+from pluggy_sdk.models.custom import CUSTOM
+from pluggy_sdk.models.daily import DAILY
+from pluggy_sdk.models.monthly import MONTHLY
+from pluggy_sdk.models.single import SINGLE
+from pluggy_sdk.models.weekly import WEEKLY
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-PAYMENTREQUESTSCHEDULE_ONE_OF_SCHEMAS = ["ScheduleTypeCustom", "ScheduleTypeDaily", "ScheduleTypeMonthly", "ScheduleTypeSingle", "ScheduleTypeWeekly"]
+PAYMENTREQUESTSCHEDULE_ONE_OF_SCHEMAS = ["CUSTOM", "DAILY", "MONTHLY", "SINGLE", "WEEKLY"]
 
 class PaymentRequestSchedule(BaseModel):
     """
     PaymentRequestSchedule
     """
-    # data type: ScheduleTypeSingle
-    oneof_schema_1_validator: Optional[ScheduleTypeSingle] = None
-    # data type: ScheduleTypeDaily
-    oneof_schema_2_validator: Optional[ScheduleTypeDaily] = None
-    # data type: ScheduleTypeWeekly
-    oneof_schema_3_validator: Optional[ScheduleTypeWeekly] = None
-    # data type: ScheduleTypeMonthly
-    oneof_schema_4_validator: Optional[ScheduleTypeMonthly] = None
-    # data type: ScheduleTypeCustom
-    oneof_schema_5_validator: Optional[ScheduleTypeCustom] = None
-    actual_instance: Optional[Union[ScheduleTypeCustom, ScheduleTypeDaily, ScheduleTypeMonthly, ScheduleTypeSingle, ScheduleTypeWeekly]] = None
-    one_of_schemas: Set[str] = { "ScheduleTypeCustom", "ScheduleTypeDaily", "ScheduleTypeMonthly", "ScheduleTypeSingle", "ScheduleTypeWeekly" }
+    # data type: SINGLE
+    oneof_schema_1_validator: Optional[SINGLE] = None
+    # data type: DAILY
+    oneof_schema_2_validator: Optional[DAILY] = None
+    # data type: WEEKLY
+    oneof_schema_3_validator: Optional[WEEKLY] = None
+    # data type: MONTHLY
+    oneof_schema_4_validator: Optional[MONTHLY] = None
+    # data type: CUSTOM
+    oneof_schema_5_validator: Optional[CUSTOM] = None
+    actual_instance: Optional[Union[CUSTOM, DAILY, MONTHLY, SINGLE, WEEKLY]] = None
+    one_of_schemas: Set[str] = { "CUSTOM", "DAILY", "MONTHLY", "SINGLE", "WEEKLY" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -70,37 +70,37 @@ class PaymentRequestSchedule(BaseModel):
         instance = PaymentRequestSchedule.model_construct()
         error_messages = []
         match = 0
-        # validate data type: ScheduleTypeSingle
-        if not isinstance(v, ScheduleTypeSingle):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ScheduleTypeSingle`")
+        # validate data type: SINGLE
+        if not isinstance(v, SINGLE):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `SINGLE`")
         else:
             match += 1
-        # validate data type: ScheduleTypeDaily
-        if not isinstance(v, ScheduleTypeDaily):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ScheduleTypeDaily`")
+        # validate data type: DAILY
+        if not isinstance(v, DAILY):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `DAILY`")
         else:
             match += 1
-        # validate data type: ScheduleTypeWeekly
-        if not isinstance(v, ScheduleTypeWeekly):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ScheduleTypeWeekly`")
+        # validate data type: WEEKLY
+        if not isinstance(v, WEEKLY):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `WEEKLY`")
         else:
             match += 1
-        # validate data type: ScheduleTypeMonthly
-        if not isinstance(v, ScheduleTypeMonthly):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ScheduleTypeMonthly`")
+        # validate data type: MONTHLY
+        if not isinstance(v, MONTHLY):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `MONTHLY`")
         else:
             match += 1
-        # validate data type: ScheduleTypeCustom
-        if not isinstance(v, ScheduleTypeCustom):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ScheduleTypeCustom`")
+        # validate data type: CUSTOM
+        if not isinstance(v, CUSTOM):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `CUSTOM`")
         else:
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in PaymentRequestSchedule with oneOf schemas: ScheduleTypeCustom, ScheduleTypeDaily, ScheduleTypeMonthly, ScheduleTypeSingle, ScheduleTypeWeekly. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in PaymentRequestSchedule with oneOf schemas: CUSTOM, DAILY, MONTHLY, SINGLE, WEEKLY. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in PaymentRequestSchedule with oneOf schemas: ScheduleTypeCustom, ScheduleTypeDaily, ScheduleTypeMonthly, ScheduleTypeSingle, ScheduleTypeWeekly. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in PaymentRequestSchedule with oneOf schemas: CUSTOM, DAILY, MONTHLY, SINGLE, WEEKLY. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -115,43 +115,43 @@ class PaymentRequestSchedule(BaseModel):
         error_messages = []
         match = 0
 
-        # deserialize data into ScheduleTypeSingle
+        # deserialize data into SINGLE
         try:
-            instance.actual_instance = ScheduleTypeSingle.from_json(json_str)
+            instance.actual_instance = SINGLE.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into ScheduleTypeDaily
+        # deserialize data into DAILY
         try:
-            instance.actual_instance = ScheduleTypeDaily.from_json(json_str)
+            instance.actual_instance = DAILY.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into ScheduleTypeWeekly
+        # deserialize data into WEEKLY
         try:
-            instance.actual_instance = ScheduleTypeWeekly.from_json(json_str)
+            instance.actual_instance = WEEKLY.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into ScheduleTypeMonthly
+        # deserialize data into MONTHLY
         try:
-            instance.actual_instance = ScheduleTypeMonthly.from_json(json_str)
+            instance.actual_instance = MONTHLY.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into ScheduleTypeCustom
+        # deserialize data into CUSTOM
         try:
-            instance.actual_instance = ScheduleTypeCustom.from_json(json_str)
+            instance.actual_instance = CUSTOM.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into PaymentRequestSchedule with oneOf schemas: ScheduleTypeCustom, ScheduleTypeDaily, ScheduleTypeMonthly, ScheduleTypeSingle, ScheduleTypeWeekly. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into PaymentRequestSchedule with oneOf schemas: CUSTOM, DAILY, MONTHLY, SINGLE, WEEKLY. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into PaymentRequestSchedule with oneOf schemas: ScheduleTypeCustom, ScheduleTypeDaily, ScheduleTypeMonthly, ScheduleTypeSingle, ScheduleTypeWeekly. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into PaymentRequestSchedule with oneOf schemas: CUSTOM, DAILY, MONTHLY, SINGLE, WEEKLY. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -165,7 +165,7 @@ class PaymentRequestSchedule(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], ScheduleTypeCustom, ScheduleTypeDaily, ScheduleTypeMonthly, ScheduleTypeSingle, ScheduleTypeWeekly]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], CUSTOM, DAILY, MONTHLY, SINGLE, WEEKLY]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

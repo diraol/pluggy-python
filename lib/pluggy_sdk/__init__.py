@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post13"
+__version__ = "1.0.0.post14"
 
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi
@@ -76,6 +76,8 @@ from pluggy_sdk.models.asset_distribution import AssetDistribution
 from pluggy_sdk.models.auth_request import AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse
 from pluggy_sdk.models.bank_data import BankData
+from pluggy_sdk.models.benefit_loan import BenefitLoan
+from pluggy_sdk.models.benefit_loan_client import BenefitLoanClient
 from pluggy_sdk.models.benefit_response import BenefitResponse
 from pluggy_sdk.models.benefit_response_paying_institution import BenefitResponsePayingInstitution
 from pluggy_sdk.models.benefits_list200_response import BenefitsList200Response
@@ -87,6 +89,7 @@ from pluggy_sdk.models.boleto_payer import BoletoPayer
 from pluggy_sdk.models.boleto_recipient import BoletoRecipient
 from pluggy_sdk.models.bulk_payment import BulkPayment
 from pluggy_sdk.models.bulk_payments_list200_response import BulkPaymentsList200Response
+from pluggy_sdk.models.custom import CUSTOM
 from pluggy_sdk.models.category import Category
 from pluggy_sdk.models.client_category_rule import ClientCategoryRule
 from pluggy_sdk.models.company import Company
@@ -116,6 +119,7 @@ from pluggy_sdk.models.create_webhook import CreateWebhook
 from pluggy_sdk.models.credential_select_option import CredentialSelectOption
 from pluggy_sdk.models.credit_card_metadata import CreditCardMetadata
 from pluggy_sdk.models.credit_data import CreditData
+from pluggy_sdk.models.daily import DAILY
 from pluggy_sdk.models.document import Document
 from pluggy_sdk.models.email import Email
 from pluggy_sdk.models.global_error_response import GlobalErrorResponse
@@ -147,6 +151,7 @@ from pluggy_sdk.models.loan_payment_release_over_parcel_fee import LoanPaymentRe
 from pluggy_sdk.models.loan_payments import LoanPayments
 from pluggy_sdk.models.loan_warranty import LoanWarranty
 from pluggy_sdk.models.loans_list200_response import LoansList200Response
+from pluggy_sdk.models.monthly import MONTHLY
 from pluggy_sdk.models.merchant import Merchant
 from pluggy_sdk.models.monthly_portfolio import MonthlyPortfolio
 from pluggy_sdk.models.monthly_portfolio_response import MonthlyPortfolioResponse
@@ -181,17 +186,11 @@ from pluggy_sdk.models.payment_request_receipt_list200_response import PaymentRe
 from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule
 from pluggy_sdk.models.payment_requests_list200_response import PaymentRequestsList200Response
 from pluggy_sdk.models.payment_schedules_list200_response import PaymentSchedulesList200Response
-from pluggy_sdk.models.payroll_loan import PayrollLoan
-from pluggy_sdk.models.payroll_loan_client import PayrollLoanClient
 from pluggy_sdk.models.percentage_over_index import PercentageOverIndex
 from pluggy_sdk.models.phone_number import PhoneNumber
 from pluggy_sdk.models.pix_data import PixData
+from pluggy_sdk.models.single import SINGLE
 from pluggy_sdk.models.schedule_payment import SchedulePayment
-from pluggy_sdk.models.schedule_type_custom import ScheduleTypeCustom
-from pluggy_sdk.models.schedule_type_daily import ScheduleTypeDaily
-from pluggy_sdk.models.schedule_type_monthly import ScheduleTypeMonthly
-from pluggy_sdk.models.schedule_type_single import ScheduleTypeSingle
-from pluggy_sdk.models.schedule_type_weekly import ScheduleTypeWeekly
 from pluggy_sdk.models.smart_account import SmartAccount
 from pluggy_sdk.models.smart_account_address import SmartAccountAddress
 from pluggy_sdk.models.smart_account_balance import SmartAccountBalance
@@ -206,6 +205,7 @@ from pluggy_sdk.models.update_item_parameters import UpdateItemParameters
 from pluggy_sdk.models.update_payment_recipient import UpdatePaymentRecipient
 from pluggy_sdk.models.update_payment_request import UpdatePaymentRequest
 from pluggy_sdk.models.update_transaction import UpdateTransaction
+from pluggy_sdk.models.weekly import WEEKLY
 from pluggy_sdk.models.webhook import Webhook
 from pluggy_sdk.models.webhook_creation_error_response import WebhookCreationErrorResponse
 from pluggy_sdk.models.webhooks_list200_response import WebhooksList200Response
