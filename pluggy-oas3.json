@@ -4644,14 +4644,14 @@
                           "availableMarginValue": 1000,
                           "usedMarginValue": 0,
                           "reservedMarginValue": 0,
-                          "payrollDeductibleAvailableMarginValue": 1000,
+                          "deductibleAvailableMarginValue": 1000,
                           "payingInstitution": {
                             "name": "Bank",
                             "code": "001",
                             "agency": "",
                             "account": "123456"
                           },
-                          "payrollLoans": [
+                          "loans": [
                             {
                               "contractCode": "123456",
                               "nominalInterestRate": 3,
@@ -4735,14 +4735,14 @@
                       "availableMarginValue": 1000,
                       "usedMarginValue": 0,
                       "reservedMarginValue": 0,
-                      "payrollDeductibleAvailableMarginValue": 1000,
+                      "deductibleAvailableMarginValue": 1000,
                       "payingInstitution": {
                         "name": "Bank",
                         "code": "001",
                         "agency": "",
                         "account": "123456"
                       },
-                      "payrollLoans": [
+                      "loans": [
                         {
                           "contractCode": "123456",
                           "nominalInterestRate": 3,
@@ -5530,7 +5530,7 @@
           "Payment Request"
         ],
         "operationId": "payment-request-receipt-create",
-        "summary": "Create",
+        "summary": "Create Payment Receipt",
         "description": "Creates the payment receipt resource",
         "requestBody": {
           "content": {
@@ -5589,7 +5589,7 @@
           "Payment Request"
         ],
         "operationId": "payment-request-receipt-list",
-        "summary": "List",
+        "summary": "List Payment Receipts",
         "description": "Recovers all created payment receipts for the payment request provided",
         "responses": {
           "200": {
@@ -5687,7 +5687,7 @@
           "Payment Request"
         ],
         "operationId": "payment-request-receipt-retrieve",
-        "summary": "Retrieve",
+        "summary": "Retrieve Payment Receipt",
         "description": "Recovers the payment receipt resource by its id",
         "responses": {
           "200": {
@@ -10770,9 +10770,9 @@
             "type": "number",
             "description": "Base margin value"
           },
-          "payrollDeductibleAvailableMarginValue": {
+          "deductibleAvailableMarginValue": {
             "type": "number",
-            "description": "Payroll deductible available margin value"
+            "description": "Deductible available margin value"
           },
           "usedMarginValue": {
             "type": "number",
@@ -10804,11 +10804,11 @@
               }
             }
           },
-          "payrollLoans": {
+          "loans": {
             "type": "array",
-            "description": "List of payroll loans",
+            "description": "List of benefit loans",
             "items": {
-              "$ref": "#/components/schemas/PayrollLoan"
+              "$ref": "#/components/schemas/BenefitLoan"
             }
           }
         },
@@ -10821,8 +10821,8 @@
         ],
         "example": {}
       },
-      "PayrollLoan": {
-        "description": "Information related to a payroll loan",
+      "BenefitLoan": {
+        "description": "Information related to a benefit loan",
         "type": "object",
         "properties": {
           "contractCode": {
@@ -11085,19 +11085,19 @@
           "schedule": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ScheduleTypeSingle"
+                "$ref": "#/components/schemas/SINGLE"
               },
               {
-                "$ref": "#/components/schemas/ScheduleTypeDaily"
+                "$ref": "#/components/schemas/DAILY"
               },
               {
-                "$ref": "#/components/schemas/ScheduleTypeWeekly"
+                "$ref": "#/components/schemas/WEEKLY"
               },
               {
-                "$ref": "#/components/schemas/ScheduleTypeMonthly"
+                "$ref": "#/components/schemas/MONTHLY"
               },
               {
-                "$ref": "#/components/schemas/ScheduleTypeCustom"
+                "$ref": "#/components/schemas/CUSTOM"
               }
             ],
             "discriminator": {
@@ -11186,19 +11186,19 @@
           "schedule": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ScheduleTypeSingle"
+                "$ref": "#/components/schemas/SINGLE"
               },
               {
-                "$ref": "#/components/schemas/ScheduleTypeDaily"
+                "$ref": "#/components/schemas/DAILY"
               },
               {
-                "$ref": "#/components/schemas/ScheduleTypeWeekly"
+                "$ref": "#/components/schemas/WEEKLY"
               },
               {
-                "$ref": "#/components/schemas/ScheduleTypeMonthly"
+                "$ref": "#/components/schemas/MONTHLY"
               },
               {
-                "$ref": "#/components/schemas/ScheduleTypeCustom"
+                "$ref": "#/components/schemas/CUSTOM"
               }
             ],
             "discriminator": {
@@ -13056,7 +13056,7 @@
           "name"
         ]
       },
-      "ScheduleTypeSingle": {
+      "SINGLE": {
         "title": "One time option",
         "description": "Schedule atribute to generate one payment in the future",
         "properties": {
@@ -13080,7 +13080,7 @@
           "date"
         ]
       },
-      "ScheduleTypeDaily": {
+      "DAILY": {
         "title": "Daily option",
         "description": "Schedule atribute to generate daily payments",
         "properties": {
@@ -13095,10 +13095,12 @@
           "startDate": {
             "type": "string",
             "format": "date",
+            "description": "The start date of the validity of the scheduled payment authorization.",
             "example": "2024-06-11"
           },
-          "quantity": {
+          "occurrences": {
             "type": "number",
+            "description": "Under the specified schedule frequency, how many payments will be scheduled to occur.",
             "format": "integer",
             "minimum": 3,
             "example": 3,
@@ -13112,7 +13114,7 @@
           "quantity"
         ]
       },
-      "ScheduleTypeWeekly": {
+      "WEEKLY": {
         "title": "Weekly option",
         "description": "Schedule atribute to generate weekly payments",
         "properties": {
@@ -13127,24 +13129,26 @@
           "startDate": {
             "type": "string",
             "format": "date",
+            "description": "The start date of the validity of the scheduled payment authorization.",
             "example": "2024-06-11"
           },
           "dayOfWeek": {
             "type": "string",
-            "description": "Day of the week to generate the payment",
+            "description": "Day of the week on which each payment will occur. For instance, if set to 'MONDAY', the first payment will occur on the first monday after the startDate (or the same day, if it is already monday), and every monday after that.",
             "enum": [
-              "SEGUNDA_FEIRA",
-              "TERCA_FEIRA",
-              "QUARTA_FEIRA",
-              "QUINTA_FEIRA",
-              "SEXTA_FEIRA",
-              "SABADO",
-              "DOMINGO"
+              "MONDAY",
+              "TUESDAY",
+              "WEDNESDAY",
+              "THURDSAY",
+              "FRIDAY",
+              "SATURDAY",
+              "SUNDAY"
             ],
-            "example": "SEGUNDA_FEIRA"
+            "example": "MONDAY"
           },
-          "quantity": {
+          "occurrences": {
             "type": "number",
+            "description": "Under the specified schedule frequency, how many payments will be scheduled to occur.",
             "format": "integer",
             "minimum": 3,
             "example": 3,
@@ -13159,17 +13163,17 @@
           "quantity"
         ]
       },
-      "ScheduleTypeMonthly": {
+      "MONTHLY": {
         "title": "Monthly option",
-        "description": "Schedule atribute to generate weekly payments",
+        "description": "Schedule atribute to generate monthly payments",
         "properties": {
           "type": {
             "type": "string",
             "description": "Scheduled type",
             "enum": [
-              "WEEKLY"
+              "MONTHLY"
             ],
-            "example": "WEEKLY"
+            "example": "MONTHLY"
           },
           "startDate": {
             "type": "string",
@@ -13178,13 +13182,14 @@
           },
           "dayOfMonth": {
             "type": "number",
-            "description": "Day of the mont to generate the payment",
+            "description": "Day of the month on which each payment will occur. For example, if '10', the first payment will occur on the next 10th day of the month after the start date, or the same day if it is already 10th, and every 10th day after that.",
             "minimum": 2,
             "maximum": 30,
             "example": 3
           },
-          "quantity": {
+          "occurrences": {
             "type": "number",
+            "description": "Under the specified schedule frequency, how many payments will be scheduled to occur.",
             "format": "integer",
             "minimum": 3,
             "maximum": 23,
@@ -13199,7 +13204,7 @@
           "quantity"
         ]
       },
-      "ScheduleTypeCustom": {
+      "CUSTOM": {
         "title": "Customized option",
         "description": "Schedule atribute to generate custom payments in the future",
         "properties": {
