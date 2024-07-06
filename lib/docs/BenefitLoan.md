@@ -6,10 +6,10 @@ Information related to a benefit loan
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**contract_code** | **str** | Contract code given by the contracting institution | 
+**contract_code** | **str** | Contract code given by the contracting institution | [optional] 
+**hiscon_contract_code** | **str** | Contract code given in the hiscon file | 
 **cnpj_original_contract_creditor** | **str** | CNPJ of the original creditor of the contract | [optional] 
-**nominal_interest_rate** | **float** | Nominal interest rate | [optional] 
-**efective_interest_rate** | **float** | Effective interest rate | [optional] 
+**effective_interest_rate** | **float** | Effective interest rate | [optional] 
 **cet_annual_rate** | **float** | CET annual rate | [optional] 
 **cet_month_rate** | **float** | CET monthly rate | [optional] 
 **currency_code** | **str** | Code referencing the currency of the loan | [optional] 

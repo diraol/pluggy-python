@@ -375,11 +375,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_benefit_loan.py
-test/test_benefit_loan_client.py
-test/test_custom.py
-test/test_daily.py
-test/test_monthly.py
-test/test_single.py
-test/test_weekly.py
 tox.ini

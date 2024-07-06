@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **name** | **str** | Client name | [optional] 
 **document** | **str** | Client CPF | [optional] 
 **phone** | **str** | Client phone | [optional] 
-**addres_street** | **str** | Client email | [optional] 
+**address_street** | **str** | Client email | [optional] 
 **address_number** | **str** | Client address number | [optional] 
 **address_city** | **str** | Client address city | [optional] 
 **address_zip_code** | **str** | Client address zip code | [optional] 

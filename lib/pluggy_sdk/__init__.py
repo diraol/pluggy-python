@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post14"
+__version__ = "1.0.0.post15"
 
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi

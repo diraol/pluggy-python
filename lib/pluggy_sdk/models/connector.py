@@ -45,7 +45,9 @@ class Connector(BaseModel):
     health: Optional[ConnectorHealth] = None
     is_open_finance: Optional[StrictBool] = Field(default=None, description="Indicates if the connector uses the regulated Open Finance APIs", alias="isOpenFinance")
     supports_payment_initiation: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports the payment initiation API", alias="supportsPaymentInitiation")
-    __properties: ClassVar[List[str]] = ["id", "name", "institutionUrl", "imageUrl", "primaryColor", "type", "country", "credentials", "hasMFA", "products", "oauth", "oauthUrl", "resetPasswordUrl", "health", "isOpenFinance", "supportsPaymentInitiation"]
+    supports_scheduled_payments: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports scheduled payments", alias="supportsScheduledPayments")
+    supports_smart_transfers: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports smart transfers", alias="supportsSmartTransfers")
+    __properties: ClassVar[List[str]] = ["id", "name", "institutionUrl", "imageUrl", "primaryColor", "type", "country", "credentials", "hasMFA", "products", "oauth", "oauthUrl", "resetPasswordUrl", "health", "isOpenFinance", "supportsPaymentInitiation", "supportsScheduledPayments", "supportsSmartTransfers"]
 
     @field_validator('products')
     def products_validate_enum(cls, value):
@@ -134,7 +136,9 @@ class Connector(BaseModel):
             "resetPasswordUrl": obj.get("resetPasswordUrl"),
             "health": ConnectorHealth.from_dict(obj["health"]) if obj.get("health") is not None else None,
             "isOpenFinance": obj.get("isOpenFinance"),
-            "supportsPaymentInitiation": obj.get("supportsPaymentInitiation")
+            "supportsPaymentInitiation": obj.get("supportsPaymentInitiation"),
+            "supportsScheduledPayments": obj.get("supportsScheduledPayments"),
+            "supportsSmartTransfers": obj.get("supportsSmartTransfers")
         })
         return _obj
 

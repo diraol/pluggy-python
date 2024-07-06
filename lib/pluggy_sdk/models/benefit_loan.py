@@ -29,10 +29,10 @@ class BenefitLoan(BaseModel):
     """
     Information related to a benefit loan
     """ # noqa: E501
-    contract_code: StrictStr = Field(description="Contract code given by the contracting institution", alias="contractCode")
+    contract_code: Optional[StrictStr] = Field(default=None, description="Contract code given by the contracting institution", alias="contractCode")
+    hiscon_contract_code: StrictStr = Field(description="Contract code given in the hiscon file", alias="hisconContractCode")
     cnpj_original_contract_creditor: Optional[StrictStr] = Field(default=None, description="CNPJ of the original creditor of the contract", alias="cnpjOriginalContractCreditor")
-    nominal_interest_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Nominal interest rate", alias="nominalInterestRate")
-    efective_interest_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Effective interest rate", alias="efectiveInterestRate")
+    effective_interest_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Effective interest rate", alias="effectiveInterestRate")
     cet_annual_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="CET annual rate", alias="cetAnnualRate")
     cet_month_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="CET monthly rate", alias="cetMonthRate")
     currency_code: Optional[StrictStr] = Field(default=None, description="Code referencing the currency of the loan", alias="currencyCode")
@@ -44,7 +44,7 @@ class BenefitLoan(BaseModel):
     cnpj_correspondent_banking: Optional[StrictStr] = Field(default=None, description="CNPJ of the correspondent banking", alias="cnpjCorrespondentBanking")
     operation_hiring_date: Optional[datetime] = Field(default=None, description="Operation hiring date", alias="operationHiringDate")
     client: BenefitLoanClient
-    __properties: ClassVar[List[str]] = ["contractCode", "cnpjOriginalContractCreditor", "nominalInterestRate", "efectiveInterestRate", "cetAnnualRate", "cetMonthRate", "currencyCode", "amortizationRegime", "installmentsQuantity", "installmentsValue", "dueDateFirstInstallment", "dueDateLastInstallment", "cnpjCorrespondentBanking", "operationHiringDate", "client"]
+    __properties: ClassVar[List[str]] = ["contractCode", "hisconContractCode", "cnpjOriginalContractCreditor", "effectiveInterestRate", "cetAnnualRate", "cetMonthRate", "currencyCode", "amortizationRegime", "installmentsQuantity", "installmentsValue", "dueDateFirstInstallment", "dueDateLastInstallment", "cnpjCorrespondentBanking", "operationHiringDate", "client"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,9 +101,9 @@ class BenefitLoan(BaseModel):
 
         _obj = cls.model_validate({
             "contractCode": obj.get("contractCode"),
+            "hisconContractCode": obj.get("hisconContractCode"),
             "cnpjOriginalContractCreditor": obj.get("cnpjOriginalContractCreditor"),
-            "nominalInterestRate": obj.get("nominalInterestRate"),
-            "efectiveInterestRate": obj.get("efectiveInterestRate"),
+            "effectiveInterestRate": obj.get("effectiveInterestRate"),
             "cetAnnualRate": obj.get("cetAnnualRate"),
             "cetMonthRate": obj.get("cetMonthRate"),
             "currencyCode": obj.get("currencyCode"),

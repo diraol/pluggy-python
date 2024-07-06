@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 **health** | [**ConnectorHealth**](ConnectorHealth.md) |  | [optional] 
 **is_open_finance** | **bool** | Indicates if the connector uses the regulated Open Finance APIs | [optional] 
 **supports_payment_initiation** | **bool** | Indicates if the connector supports the payment initiation API | [optional] 
+**supports_scheduled_payments** | **bool** | Indicates if the connector supports scheduled payments | [optional] 
+**supports_smart_transfers** | **bool** | Indicates if the connector supports smart transfers | [optional] 
 
 ## Example
 

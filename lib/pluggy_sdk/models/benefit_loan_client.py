@@ -30,12 +30,12 @@ class BenefitLoanClient(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="Client name")
     document: Optional[StrictStr] = Field(default=None, description="Client CPF")
     phone: Optional[StrictStr] = Field(default=None, description="Client phone")
-    addres_street: Optional[StrictStr] = Field(default=None, description="Client email", alias="addresStreet")
+    address_street: Optional[StrictStr] = Field(default=None, description="Client email", alias="addressStreet")
     address_number: Optional[StrictStr] = Field(default=None, description="Client address number", alias="addressNumber")
     address_city: Optional[StrictStr] = Field(default=None, description="Client address city", alias="addressCity")
     address_zip_code: Optional[StrictStr] = Field(default=None, description="Client address zip code", alias="addressZipCode")
     address_state: Optional[StrictStr] = Field(default=None, description="Client address state", alias="addressState")
-    __properties: ClassVar[List[str]] = ["name", "document", "phone", "addresStreet", "addressNumber", "addressCity", "addressZipCode", "addressState"]
+    __properties: ClassVar[List[str]] = ["name", "document", "phone", "addressStreet", "addressNumber", "addressCity", "addressZipCode", "addressState"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -91,7 +91,7 @@ class BenefitLoanClient(BaseModel):
             "name": obj.get("name"),
             "document": obj.get("document"),
             "phone": obj.get("phone"),
-            "addresStreet": obj.get("addresStreet"),
+            "addressStreet": obj.get("addressStreet"),
             "addressNumber": obj.get("addressNumber"),
             "addressCity": obj.get("addressCity"),
             "addressZipCode": obj.get("addressZipCode"),
