@@ -4653,9 +4653,9 @@
                           },
                           "loans": [
                             {
-                              "contractCode": "123456",
-                              "nominalInterestRate": 3,
-                              "efectiveInterestRate": 10,
+                              "contractCode": "000011111111111",
+                              "hisconContractCode": "0012345678C",
+                              "effectiveInterestRate": 10,
                               "cetAnnualRate": 12,
                               "cetMonthRate": 2,
                               "currencyCode": "BRL",
@@ -4671,7 +4671,7 @@
                                 "document": "12345678901",
                                 "name": "John Doe",
                                 "phone": "11999999999",
-                                "addresStreet": "Main Street",
+                                "addressStreet": "Main Street",
                                 "addressNumber": "123",
                                 "addressCity": "Sao Paulo",
                                 "addressZipCode": "12345678",
@@ -4744,9 +4744,9 @@
                       },
                       "loans": [
                         {
-                          "contractCode": "123456",
-                          "nominalInterestRate": 3,
-                          "efectiveInterestRate": 10,
+                          "contractCode": "000011111111111",
+                          "hisconContractCode": "0012345678C",
+                          "effectiveInterestRate": 10,
                           "cetAnnualRate": 12,
                           "cetMonthRate": 2,
                           "currencyCode": "BRL",
@@ -4762,7 +4762,7 @@
                             "document": "12345678901",
                             "name": "John Doe",
                             "phone": "11999999999",
-                            "addresStreet": "Main Street",
+                            "addressStreet": "Main Street",
                             "addressNumber": "123",
                             "addressCity": "Sao Paulo",
                             "addressZipCode": "12345678",
@@ -7829,6 +7829,14 @@
           "supportsPaymentInitiation": {
             "type": "boolean",
             "description": "Indicates if the connector supports the payment initiation API"
+          },
+          "supportsScheduledPayments": {
+            "type": "boolean",
+            "description": "Indicates if the connector supports scheduled payments"
+          },
+          "supportsSmartTransfers": {
+            "type": "boolean",
+            "description": "Indicates if the connector supports smart transfers"
           }
         },
         "type": "object",
@@ -10829,15 +10837,15 @@
             "type": "string",
             "description": "Contract code given by the contracting institution"
           },
+          "hisconContractCode": {
+            "type": "string",
+            "description": "Contract code given in the hiscon file"
+          },
           "cnpjOriginalContractCreditor": {
             "type": "string",
             "description": "CNPJ of the original creditor of the contract"
           },
-          "nominalInterestRate": {
-            "type": "number",
-            "description": "Nominal interest rate"
-          },
-          "efectiveInterestRate": {
+          "effectiveInterestRate": {
             "type": "number",
             "description": "Effective interest rate"
           },
@@ -10901,7 +10909,7 @@
                 "type": "string",
                 "description": "Client phone"
               },
-              "addresStreet": {
+              "addressStreet": {
                 "type": "string",
                 "description": "Client email"
               },
@@ -10925,7 +10933,7 @@
           }
         },
         "required": [
-          "contractCode",
+          "hisconContractCode",
           "client"
         ]
       },
