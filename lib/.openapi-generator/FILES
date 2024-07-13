@@ -142,6 +142,7 @@ docs/PaymentIntentsList200Response.md
 docs/PaymentReceipt.md
 docs/PaymentReceiptBankAccount.md
 docs/PaymentReceiptPerson.md
+docs/PaymentReceiptsApi.md
 docs/PaymentRecipient.md
 docs/PaymentRecipientAccount.md
 docs/PaymentRecipientApi.md
@@ -153,6 +154,7 @@ docs/PaymentRequestCallbackUrls.md
 docs/PaymentRequestReceiptList200Response.md
 docs/PaymentRequestSchedule.md
 docs/PaymentRequestsList200Response.md
+docs/PaymentScheduleApi.md
 docs/PaymentSchedulesList200Response.md
 docs/PercentageOverIndex.md
 docs/PhoneNumber.md
@@ -165,6 +167,7 @@ docs/SmartAccountAddress.md
 docs/SmartAccountApi.md
 docs/SmartAccountBalance.md
 docs/SmartAccountTransfer.md
+docs/SmartAccountTransferApi.md
 docs/SmartAccountsList200Response.md
 docs/StatusDetail.md
 docs/StatusDetailProduct.md
@@ -202,10 +205,13 @@ pluggy_sdk/api/items_api.py
 pluggy_sdk/api/loan_api.py
 pluggy_sdk/api/payment_customer_api.py
 pluggy_sdk/api/payment_intent_api.py
+pluggy_sdk/api/payment_receipts_api.py
 pluggy_sdk/api/payment_recipient_api.py
 pluggy_sdk/api/payment_request_api.py
+pluggy_sdk/api/payment_schedule_api.py
 pluggy_sdk/api/portfolio_yield_api.py
 pluggy_sdk/api/smart_account_api.py
+pluggy_sdk/api/smart_account_transfer_api.py
 pluggy_sdk/api/transaction_api.py
 pluggy_sdk/api/webhook_api.py
 pluggy_sdk/api_client.py
@@ -375,4 +381,7 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_payment_receipts_api.py
+test/test_payment_schedule_api.py
+test/test_smart_account_transfer_api.py
 tox.ini

@@ -47,8 +47,9 @@ class Item(BaseModel):
     status_detail: Optional[StatusDetail] = Field(default=None, alias="statusDetail")
     next_auto_sync_at: Optional[datetime] = Field(default=None, description="Date of next auto-sync, or null if auto-sync is disabled for this Item", alias="nextAutoSyncAt")
     consecutive_failed_login_attempts: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Consecutives execution that ends up with a LOGIN_ERROR status", alias="consecutiveFailedLoginAttempts")
+    consent_expires_at: Optional[datetime] = Field(default=None, description="Consent expiration date", alias="consentExpiresAt")
     products: Optional[List[StrictStr]] = Field(default=None, description="Products collected by the item")
-    __properties: ClassVar[List[str]] = ["id", "connector", "status", "executionStatus", "error", "parameter", "userAction", "webhookUrl", "createdAt", "updatedAt", "lastUpdatedAt", "statusDetail", "nextAutoSyncAt", "consecutiveFailedLoginAttempts", "products"]
+    __properties: ClassVar[List[str]] = ["id", "connector", "status", "executionStatus", "error", "parameter", "userAction", "webhookUrl", "createdAt", "updatedAt", "lastUpdatedAt", "statusDetail", "nextAutoSyncAt", "consecutiveFailedLoginAttempts", "consentExpiresAt", "products"]
 
     @field_validator('products')
     def products_validate_enum(cls, value):
@@ -141,6 +142,7 @@ class Item(BaseModel):
             "statusDetail": StatusDetail.from_dict(obj["statusDetail"]) if obj.get("statusDetail") is not None else None,
             "nextAutoSyncAt": obj.get("nextAutoSyncAt"),
             "consecutiveFailedLoginAttempts": obj.get("consecutiveFailedLoginAttempts"),
+            "consentExpiresAt": obj.get("consentExpiresAt"),
             "products": obj.get("products")
         })
         return _obj

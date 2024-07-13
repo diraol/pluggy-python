@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post15"
+__version__ = "1.0.0.post16"
 
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi
@@ -36,9 +36,12 @@ from pluggy_sdk.api.items_api import ItemsApi
 from pluggy_sdk.api.loan_api import LoanApi
 from pluggy_sdk.api.payment_customer_api import PaymentCustomerApi
 from pluggy_sdk.api.payment_intent_api import PaymentIntentApi
+from pluggy_sdk.api.payment_receipts_api import PaymentReceiptsApi
 from pluggy_sdk.api.payment_recipient_api import PaymentRecipientApi
 from pluggy_sdk.api.payment_request_api import PaymentRequestApi
+from pluggy_sdk.api.payment_schedule_api import PaymentScheduleApi
 from pluggy_sdk.api.portfolio_yield_api import PortfolioYieldApi
+from pluggy_sdk.api.smart_account_transfer_api import SmartAccountTransferApi
 from pluggy_sdk.api.smart_account_api import SmartAccountApi
 from pluggy_sdk.api.transaction_api import TransactionApi
 from pluggy_sdk.api.webhook_api import WebhookApi

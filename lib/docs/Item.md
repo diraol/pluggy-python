@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **status_detail** | [**StatusDetail**](StatusDetail.md) |  | [optional] 
 **next_auto_sync_at** | **datetime** | Date of next auto-sync, or null if auto-sync is disabled for this Item | [optional] 
 **consecutive_failed_login_attempts** | **float** | Consecutives execution that ends up with a LOGIN_ERROR status | [optional] 
+**consent_expires_at** | **datetime** | Consent expiration date | [optional] 
 **products** | **List[str]** | Products collected by the item | [optional] 
 
 ## Example
