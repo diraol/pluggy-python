@@ -5117,87 +5117,6 @@
         }
       }
     },
-    "/payments/requests/{id}/schedules": {
-      "get": {
-        "operationId": "payment-schedules-list",
-        "summary": "Schedule List",
-        "description": "Recovers all scheduled payments from a payment request",
-        "responses": {
-          "200": {
-            "description": "Retrieve a list of all payment schedules",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "page": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "total": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "totalPages": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/SchedulePayment"
-                      },
-                      "description": "List of scheduled payments from a payment request"
-                    }
-                  }
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "page": 1,
-                      "total": 1,
-                      "totalPages": 1,
-                      "results": [
-                        {
-                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                          "scheduledDate": "2024-06-04",
-                          "description": "PAGAMENTO AGENDADO 2/20",
-                          "status": "SCHEDULED"
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "description": "Payment request primary identifier",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
-          }
-        ],
-        "tags": [
-          "Payment Request"
-        ],
-        "security": [
-          {
-            "default": []
-          }
-        ]
-      }
-    },
     "/payments/requests/pix-qr": {
       "post": {
         "operationId": "payment-request-create-pix-qr",
@@ -5527,7 +5446,7 @@
     "/payments/requests/{id}/receipts": {
       "post": {
         "tags": [
-          "Payment Request"
+          "Payment Receipts"
         ],
         "operationId": "payment-request-receipt-create",
         "summary": "Create Payment Receipt",
@@ -5586,7 +5505,7 @@
       },
       "get": {
         "tags": [
-          "Payment Request"
+          "Payment Receipts"
         ],
         "operationId": "payment-request-receipt-list",
         "summary": "List Payment Receipts",
@@ -5682,37 +5601,27 @@
       ]
     },
     "/payments/requests/{payment-request-id}/receipts/{payment-receipt-id}": {
-      "get": {
-        "tags": [
-          "Payment Request"
-        ],
-        "operationId": "payment-request-receipt-retrieve",
-        "summary": "Retrieve Payment Receipt",
-        "description": "Recovers the payment receipt resource by its id",
-        "responses": {
-          "200": {
-            "description": "Retrieve a payment receipt.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaymentReceipt"
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "amount": 100.5,
-                      "description": "Transferência",
-                      "paymentRequestId": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125",
-                      "receiptUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "creditor": {
-                        "name": "Juan Gonzalez",
-                        "taxNumber": "12345678900",
-                        "bankAccount": {
-                          "agency": "0001",
-                          "account": "12345678-9",
-                          "name": "Itaú"
-                        },
+        "get": {
+          "tags": ["Payment Receipts"],
+          "operationId": "payment-request-receipt-retrieve",
+          "summary": "Retrieve Payment Receipt",
+          "description": "Recovers the payment receipt resource by its id",
+          "responses": {
+            "200": {
+              "description": "Retrieve a payment receipt.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaymentReceipt"
+                  },
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                        "amount": 100.5,
+                        "description": "Transferência",
+                        "paymentRequestId": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125",
+                        "receiptUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
                         "creditor": {
                           "name": "Juan Gonzalez",
                           "taxNumber": "12345678900",
@@ -5731,27 +5640,178 @@
                 }
               }
             }
-          }
+          },
+          "parameters": [
+            {
+              "name": "payment-request-id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "payment-receipt-id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ]
         }
-      },
-      "parameters": [
-        {
-          "name": "payment-request-id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
+    },
+    "/payments/requests/{id}/schedules": {
+      "get": {
+        "operationId": "payment-schedules-list",
+        "summary": "Schedule List",
+        "description": "Recovers all scheduled payments from a payment request",
+        "responses": {
+          "200": {
+            "description": "Retrieve a list of all scheduled payments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "total": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "totalPages": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SchedulePayment"
+                      },
+                      "description": "List of scheduled payments from a payment request"
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "page": 1,
+                      "total": 1,
+                      "totalPages": 1,
+                      "results": [
+                        {
+                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "scheduledDate": "2024-06-04",
+                          "description": "PAGAMENTO AGENDADO 2/20",
+                          "status": "SCHEDULED"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
           }
         },
-        {
-          "name": "payment-receipt-id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
           }
-        }
-      ]
+        ],
+        "tags": ["Payment Schedule"],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      }
+    },
+    "/payments/requests/{id}/schedules/cancel": {
+      "post": {
+        "operationId": "payment-schedules-cancel",
+        "summary": "Cancel Payment Schedule Authorization",
+        "description": "",
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ],
+        "tags": ["Payment Schedule"],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      }
+    },
+    "/payments/requests/{id}/schedules/{scheduleId}/cancel": {
+      "post": {
+        "operationId": "payment-schedules-cancel-specific",
+        "summary": "Cancel Payment Schedule Authorization",
+        "description": "",
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          },
+          {
+            "description": "Payment schedule primary identifier",
+            "in": "path",
+            "name": "scheduleId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ],
+        "tags": ["Payment Schedule"],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      }
     },
     "/payments/intents": {
       "get": {
@@ -7116,7 +7176,7 @@
         },
         "description": "Creates the smart account transfer resource",
         "tags": [
-          "Smart account"
+          "Smart Account Transfer"
         ],
         "security": [
           {
@@ -7195,7 +7255,7 @@
           }
         },
         "tags": [
-          "Smart account"
+          "Smart Account Transfer"
         ],
         "security": [
           {
@@ -8084,6 +8144,11 @@
             "type": "number",
             "format": "integer",
             "description": "Consecutives execution that ends up with a LOGIN_ERROR status"
+          },
+          "consentExpiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Consent expiration date"
           },
           "products": {
             "type": "array",
