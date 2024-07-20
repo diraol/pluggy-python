@@ -4986,1199 +4986,6 @@
         ]
       }
     },
-    "/payments/requests": {
-      "get": {
-        "operationId": "payment-requests-list",
-        "summary": "List",
-        "description": "Recovers all created payment requests",
-        "responses": {
-          "200": {
-            "description": "Retrieve a list of all payment requests",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "page": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "total": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "totalPages": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/PaymentRequest"
-                      },
-                      "description": "List of payment requests"
-                    }
-                  }
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "page": 1,
-                      "total": 1,
-                      "totalPages": 1,
-                      "results": [
-                        {
-                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                          "amount": 100.5,
-                          "description": "Transferência",
-                          "status": "CREATED",
-                          "createdAt": "2023-11-06T13:03:45.689Z",
-                          "updatedAt": "2023-11-06T13:03:45.689Z",
-                          "callbackUrls": null,
-                          "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                          "recipient": null,
-                          "pixQrCode": null
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Payment Request"
-        ],
-        "security": [
-          {
-            "default": []
-          }
-        ]
-      },
-      "post": {
-        "operationId": "payment-request-create",
-        "summary": "Create",
-        "responses": {
-          "200": {
-            "description": "Success creating payment request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaymentRequest"
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "amount": 100.5,
-                      "description": "Transferência",
-                      "status": "CREATED",
-                      "createdAt": "2023-11-06T13:03:45.689Z",
-                      "updatedAt": "2023-11-06T13:03:45.689Z",
-                      "callbackUrls": null,
-                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "description": "Creates the payment request resource",
-        "tags": [
-          "Payment Request"
-        ],
-        "security": [
-          {
-            "default": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreatePaymentRequest"
-              },
-              "examples": {
-                "Plain parameters": {
-                  "value": {
-                    "amount": 100.5,
-                    "description": "Transferência"
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        }
-      }
-    },
-    "/payments/requests/pix-qr": {
-      "post": {
-        "operationId": "payment-request-create-pix-qr",
-        "summary": "Create PIX QR payment request",
-        "responses": {
-          "200": {
-            "description": "Create a PIX QR payment request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaymentRequest"
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "amount": 100.5,
-                      "description": "Transferência",
-                      "status": "CREATED",
-                      "createdAt": "2023-11-06T13:03:45.689Z",
-                      "updatedAt": "2023-11-06T13:03:45.689Z",
-                      "callbackUrls": null,
-                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "description": "Creates the PIX QR payment request resource",
-        "tags": [
-          "Payment Request"
-        ],
-        "security": [
-          {
-            "default": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreatePixQrPaymentRequest"
-              },
-              "examples": {
-                "request": {
-                  "value": {
-                    "pixQrCode": "00020126490014br.gov.bcb.pix0108dict-key0215additional-info52040000530398654031005802BR5912example-name6006Cidade62090505tx-id63045E20",
-                    "callbackUrls": null
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        }
-      }
-    },
-    "/payments/requests/boleto": {
-      "post": {
-        "operationId": "payment-request-create-boleto",
-        "summary": "Create boleto payment request",
-        "responses": {
-          "200": {
-            "description": "Create a boleto payment request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaymentRequest"
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "amount": 31.12,
-                      "description": "Pagamento de boleto",
-                      "status": "CREATED",
-                      "createdAt": "2023-11-06T13:03:45.689Z",
-                      "updatedAt": "2023-11-06T13:03:45.689Z",
-                      "callbackUrls": null,
-                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "boleto": {
-                        "digitableLine": "27490001011000000011660070701507297010000001111",
-                        "barcode": "27492970100000028200001010000000116007071111",
-                        "payer": {
-                          "taxNumber": "11111111111",
-                          "name": "John Doe"
-                        },
-                        "recipient": {
-                          "taxNumber": "37943755000130",
-                          "name": "PLUGGY BRASIL INSTITUICAO DE PAGAMENTO LTDA"
-                        },
-                        "date": "2024-04-10T10:42:12",
-                        "dueDate": "2024-04-29T00:00:00",
-                        "expirationDate": "2024-12-31T00:00:00",
-                        "baseAmount": 28.2,
-                        "penaltyAmount": 2.82,
-                        "interestAmount": 0.1034,
-                        "discountAmount": 0,
-                        "totalAmount": 31.12,
-                        "updatedAt": "2020-04-21T15:00:00.000Z"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "description": "Creates the boleto payment request resource",
-        "tags": [
-          "Payment Request"
-        ],
-        "security": [
-          {
-            "default": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateBoletoPaymentRequest"
-              },
-              "examples": {
-                "request": {
-                  "value": {
-                    "description": "Pagamento de boleto",
-                    "boletoDigitableLine": "27490.00101.10000.000116.60070.701507.2.970 1 0000002820",
-                    "callbackUrls": null
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        }
-      }
-    },
-    "/payments/requests/{id}": {
-      "get": {
-        "operationId": "payment-request-retrieve",
-        "summary": "Retrieve",
-        "responses": {
-          "200": {
-            "description": "Retrieve a payment request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaymentRequest"
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "amount": 100.5,
-                      "description": "Transferência",
-                      "status": "CREATED",
-                      "createdAt": "2023-11-06T13:03:45.689Z",
-                      "updatedAt": "2023-11-06T13:03:45.689Z",
-                      "callbackUrls": null,
-                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "recipient": null
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Payment Request not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GlobalErrorResponse"
-                },
-                "example": {
-                  "code": 404,
-                  "codeDescription": "PAYMENT_REQUEST_NOT_FOUND",
-                  "message": "Payment request not found"
-                }
-              }
-            }
-          }
-        },
-        "description": "Recovers the payment request resource by its id",
-        "tags": [
-          "Payment Request"
-        ],
-        "security": [
-          {
-            "default": []
-          }
-        ],
-        "parameters": [
-          {
-            "description": "Payment request primary identifier",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
-          }
-        ]
-      },
-      "delete": {
-        "operationId": "payment-request-delete",
-        "summary": "Delete",
-        "responses": {
-          "200": {
-            "description": "Delete a payment request."
-          },
-          "404": {
-            "description": "Payment Request not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GlobalErrorResponse"
-                },
-                "example": {
-                  "code": 404,
-                  "codeDescription": "PAYMENT_REQUEST_NOT_FOUND",
-                  "message": "Payment request not found"
-                }
-              }
-            }
-          }
-        },
-        "description": "Deletes the payment request resource by its id",
-        "tags": [
-          "Payment Request"
-        ],
-        "security": [
-          {
-            "default": []
-          }
-        ],
-        "parameters": [
-          {
-            "description": "Payment request primary identifier",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
-          }
-        ]
-      },
-      "patch": {
-        "operationId": "payment-request-update",
-        "summary": "Update",
-        "responses": {
-          "200": {
-            "description": "Update a payment request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreatePaymentRequest"
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "amount": 100.5,
-                      "description": "Transferência",
-                      "status": "CREATED",
-                      "createdAt": "2023-11-06T13:03:45.689Z",
-                      "updatedAt": "2023-11-06T13:03:45.689Z",
-                      "callbackUrls": null,
-                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "description": "Updates the payment request resource",
-        "tags": [
-          "Payment Request"
-        ],
-        "security": [
-          {
-            "default": []
-          }
-        ],
-        "parameters": [
-          {
-            "description": "Payment request primary identifier",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "d0f8a8c0-e8e3-11e9-b210-d663bd873d93"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdatePaymentRequest"
-              },
-              "examples": {
-                "Plain parameters": {
-                  "value": {
-                    "amount": 100.5,
-                    "description": "Transferência"
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        }
-      }
-    },
-    "/payments/requests/{id}/receipts": {
-      "post": {
-        "tags": [
-          "Payment Receipts"
-        ],
-        "operationId": "payment-request-receipt-create",
-        "summary": "Create Payment Receipt",
-        "description": "Creates the payment receipt resource",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "example": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success creating payment receipt",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaymentReceipt"
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "amount": 100.5,
-                      "description": "Transferência",
-                      "paymentRequestId": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125",
-                      "receiptUrl": "https://pay.pluggy.ai/receipt/05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "creditor": {
-                        "name": "Juan Gonzalez",
-                        "taxNumber": "12345678900",
-                        "bankAccount": {
-                          "agency": "0001",
-                          "account": "12345678-9",
-                          "name": "Itaú"
-                        },
-                        "creditor": {
-                          "name": "Juan Gonzalez",
-                          "taxNumber": "12345678900",
-                          "bankAccount": {
-                            "agency": "0001",
-                            "account": "12345678-9",
-                            "name": "Itaú"
-                          }
-                        },
-                        "referenceId": "12345678900",
-                        "expiresAt": "2023-11-06T13:03:45.689Z",
-                        "date": "2023-11-06T13:03:45.689Z"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Payment Receipts"
-        ],
-        "operationId": "payment-request-receipt-list",
-        "summary": "List Payment Receipts",
-        "description": "Recovers all created payment receipts for the payment request provided",
-        "responses": {
-          "200": {
-            "description": "Retrieve a list of all payment receipts for the payment request provided",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "page": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "total": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "totalPages": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/PaymentReceipt"
-                      },
-                      "description": "List of payment receipts"
-                    }
-                  }
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "page": 1,
-                      "total": 1,
-                      "totalPages": 1,
-                      "results": [
-                        {
-                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                          "amount": 100.5,
-                          "description": "Transferência",
-                          "paymentRequestId": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125",
-                          "receiptUrl": "https://pay.pluggy.ai/receipt/05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                          "creditor": {
-                            "name": "Juan Gonzalez",
-                            "taxNumber": "12345678900",
-                            "bankAccount": {
-                              "agency": "0001",
-                              "account": "12345678-9",
-                              "name": "Itaú"
-                            },
-                            "creditor": {
-                              "name": "Juan Gonzalez",
-                              "taxNumber": "12345678900",
-                              "bankAccount": {
-                                "agency": "0001",
-                                "account": "12345678-9",
-                                "name": "Itaú"
-                              }
-                            },
-                            "referenceId": "12345678900",
-                            "expiresAt": "2023-11-06T13:03:45.689Z",
-                            "date": "2023-11-06T13:03:45.689Z"
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "parameters": [
-        {
-          "description": "Payment request primary identifier",
-          "in": "path",
-          "name": "id",
-          "required": true,
-          "schema": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
-        }
-      ]
-    },
-    "/payments/requests/{payment-request-id}/receipts/{payment-receipt-id}": {
-        "get": {
-          "tags": ["Payment Receipts"],
-          "operationId": "payment-request-receipt-retrieve",
-          "summary": "Retrieve Payment Receipt",
-          "description": "Recovers the payment receipt resource by its id",
-          "responses": {
-            "200": {
-              "description": "Retrieve a payment receipt.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/PaymentReceipt"
-                  },
-                  "examples": {
-                    "response": {
-                      "value": {
-                        "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                        "amount": 100.5,
-                        "description": "Transferência",
-                        "paymentRequestId": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125",
-                        "receiptUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                        "creditor": {
-                          "name": "Juan Gonzalez",
-                          "taxNumber": "12345678900",
-                          "bankAccount": {
-                            "agency": "0001",
-                            "account": "12345678-9",
-                            "name": "Itaú"
-                          }
-                        },
-                        "referenceId": "12345678900",
-                        "expiresAt": "2023-11-06T13:03:45.689Z",
-                        "date": "2023-11-06T13:03:45.689Z"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "parameters": [
-            {
-              "name": "payment-request-id",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "name": "payment-receipt-id",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ]
-        }
-    },
-    "/payments/requests/{id}/schedules": {
-      "get": {
-        "operationId": "payment-schedules-list",
-        "summary": "Schedule List",
-        "description": "Recovers all scheduled payments from a payment request",
-        "responses": {
-          "200": {
-            "description": "Retrieve a list of all scheduled payments",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "page": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "total": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "totalPages": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/SchedulePayment"
-                      },
-                      "description": "List of scheduled payments from a payment request"
-                    }
-                  }
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "page": 1,
-                      "total": 1,
-                      "totalPages": 1,
-                      "results": [
-                        {
-                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                          "scheduledDate": "2024-06-04",
-                          "description": "PAGAMENTO AGENDADO 2/20",
-                          "status": "SCHEDULED"
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "description": "Payment request primary identifier",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
-          }
-        ],
-        "tags": ["Payment Schedule"],
-        "security": [
-          {
-            "default": []
-          }
-        ]
-      }
-    },
-    "/payments/requests/{id}/schedules/cancel": {
-      "post": {
-        "operationId": "payment-schedules-cancel",
-        "summary": "Cancel Payment Schedule Authorization",
-        "description": "",
-        "responses": {
-          "204": {
-            "description": "No content"
-          }
-        },
-        "parameters": [
-          {
-            "description": "Payment request primary identifier",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
-          }
-        ],
-        "tags": ["Payment Schedule"],
-        "security": [
-          {
-            "default": []
-          }
-        ]
-      }
-    },
-    "/payments/requests/{id}/schedules/{scheduleId}/cancel": {
-      "post": {
-        "operationId": "payment-schedules-cancel-specific",
-        "summary": "Cancel Payment Schedule Authorization",
-        "description": "",
-        "responses": {
-          "204": {
-            "description": "No content"
-          }
-        },
-        "parameters": [
-          {
-            "description": "Payment request primary identifier",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
-          },
-          {
-            "description": "Payment schedule primary identifier",
-            "in": "path",
-            "name": "scheduleId",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
-          }
-        ],
-        "tags": ["Payment Schedule"],
-        "security": [
-          {
-            "default": []
-          }
-        ]
-      }
-    },
-    "/payments/intents": {
-      "get": {
-        "operationId": "payment-intents-list",
-        "summary": "List",
-        "description": "Recovers all created payment intents for the payment request provided",
-        "responses": {
-          "200": {
-            "description": "Retrieve a list of all payment intents for the payment request provided",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "page": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "total": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "totalPages": {
-                      "type": "number",
-                      "format": "double",
-                      "description": ""
-                    },
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/PaymentIntent"
-                      },
-                      "description": "List of payment intents"
-                    }
-                  }
-                },
-                "examples": {
-                  "payment request": {
-                    "value": {
-                      "page": 1,
-                      "total": 1,
-                      "totalPages": 1,
-                      "results": [
-                        {
-                          "id": "4cfe1f6d-ae71-4c35-aae0-8f8a535ffbbd",
-                          "status": "CONSENT_AWAITING_AUTHORIZATION",
-                          "createdAt": "2023-11-06T15:38:47.861Z",
-                          "updatedAt": "2023-11-06T15:38:47.861Z",
-                          "paymentRequest": {
-                            "id": "c2a6b7d9-3349-435d-8341-44021449ebbc",
-                            "amount": 100.5,
-                            "description": "Transferência",
-                            "status": "IN_PROGRESS",
-                            "createdAt": "2023-11-06T13:03:45.689Z",
-                            "updatedAt": "2023-11-06T15:38:47.861Z",
-                            "callbackUrls": null,
-                            "recipient": null,
-                            "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
-                          },
-                          "connector": {
-                            "id": 603,
-                            "name": "Bradesco",
-                            "primaryColor": "e5173f",
-                            "institutionUrl": "https://banco.bradesco/open-finance/logo/icones_vetorial-pf.svg",
-                            "country": "BR",
-                            "type": "PERSONAL_BANK",
-                            "credentials": [
-                              {
-                                "validation": "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
-                                "validationMessage": "CPF deve ter 11 números.",
-                                "label": "CPF",
-                                "name": "cpf",
-                                "type": "number",
-                                "placeholder": "",
-                                "optional": false
-                              }
-                            ],
-                            "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/203.svg",
-                            "hasMFA": false,
-                            "oauth": true,
-                            "health": {
-                              "status": "ONLINE",
-                              "stage": null
-                            },
-                            "products": [
-                              "ACCOUNTS",
-                              "TRANSACTIONS",
-                              "IDENTITY",
-                              "CREDIT_CARDS",
-                              "PAYMENT_DATA",
-                              "LOANS",
-                              "INVESTMENTS"
-                            ],
-                            "createdAt": "2023-07-12T20:20:17.253Z",
-                            "isSandbox": false,
-                            "isOpenFinance": true
-                          },
-                          "consentUrl": "https://consenturl.com"
-                        }
-                      ]
-                    }
-                  },
-                  "bulk payment": {
-                    "value": {
-                      "page": 1,
-                      "total": 1,
-                      "totalPages": 1,
-                      "results": [
-                        {
-                          "id": "4cfe1f6d-ae71-4c35-aae0-8f8a535ffbbd",
-                          "status": "CONSENT_AWAITING_AUTHORIZATION",
-                          "createdAt": "2023-11-06T15:38:47.861Z",
-                          "updatedAt": "2023-11-06T15:38:47.861Z",
-                          "bulkPayment": {
-                            "id": "c2a6b7d9-3349-435d-8341-44021449ebbc",
-                            "status": "IN_PROGRESS",
-                            "createdAt": "2023-11-06T13:03:45.689Z",
-                            "updatedAt": "2023-11-06T15:38:47.861Z",
-                            "callbackUrls": null,
-                            "paymentUrl": "https://pay.pluggy.ai/bulk/05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                            "paymentRequests": [
-                              {
-                                "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                                "amount": 100.5,
-                                "description": "Transferência",
-                                "status": "CREATED",
-                                "createdAt": "2023-11-06T13:03:45.689Z",
-                                "updatedAt": "2023-11-06T13:03:45.689Z",
-                                "callbackUrls": null,
-                                "recipient": null
-                              }
-                            ]
-                          },
-                          "connector": {
-                            "id": 603,
-                            "name": "Bradesco",
-                            "primaryColor": "e5173f",
-                            "institutionUrl": "https://banco.bradesco/open-finance/logo/icones_vetorial-pf.svg",
-                            "country": "BR",
-                            "type": "PERSONAL_BANK",
-                            "credentials": [
-                              {
-                                "validation": "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
-                                "validationMessage": "CPF deve ter 11 números.",
-                                "label": "CPF",
-                                "name": "cpf",
-                                "type": "number",
-                                "placeholder": "",
-                                "optional": false
-                              }
-                            ],
-                            "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/203.svg",
-                            "hasMFA": false,
-                            "oauth": true,
-                            "health": {
-                              "status": "ONLINE",
-                              "stage": null
-                            },
-                            "products": [
-                              "ACCOUNTS",
-                              "TRANSACTIONS",
-                              "IDENTITY",
-                              "CREDIT_CARDS",
-                              "PAYMENT_DATA",
-                              "LOANS",
-                              "INVESTMENTS"
-                            ],
-                            "createdAt": "2023-07-12T20:20:17.253Z",
-                            "isSandbox": false,
-                            "isOpenFinance": true
-                          },
-                          "consentUrl": "https://consenturl.com"
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Payment Intent"
-        ],
-        "security": [
-          {
-            "default": []
-          }
-        ],
-        "parameters": [
-          {
-            "description": "Payment request primary identifier",
-            "in": "query",
-            "name": "paymentRequestId",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
-          }
-        ]
-      },
-      "post": {
-        "operationId": "payment-intent-create",
-        "summary": "Create",
-        "responses": {
-          "200": {
-            "description": "Create a payment intent.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaymentIntent"
-                }
-              }
-            }
-          }
-        },
-        "description": "Creates the payment intent resource",
-        "tags": [
-          "Payment Intent"
-        ],
-        "security": [
-          {
-            "default": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreatePaymentIntent"
-              },
-              "examples": {
-                "Plain parameters": {
-                  "value": {
-                    "paymentRequestId": "c2a6b7d9-3349-435d-8341-44021449ebbc",
-                    "connectorId": 603,
-                    "parameters": {
-                      "cpf": "11111111111"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        }
-      }
-    },
-    "/payments/intents/{id}": {
-      "get": {
-        "operationId": "payment-intent-retrieve",
-        "summary": "Retrieve",
-        "responses": {
-          "200": {
-            "description": "Retrieve a payment intent.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaymentIntent"
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "id": "4cfe1f6d-ae71-4c35-aae0-8f8a535ffbbd",
-                      "status": "CONSENT_AWAITING_AUTHORIZATION",
-                      "createdAt": "2023-11-06T15:38:47.861Z",
-                      "updatedAt": "2023-11-06T15:45:19.384Z",
-                      "paymentRequest": {
-                        "id": "c2a6b7d9-3349-435d-8341-44021449ebbc",
-                        "amount": 100.5,
-                        "description": "Transferência",
-                        "status": "IN_PROGRESS",
-                        "createdAt": "2023-11-06T13:03:45.689Z",
-                        "updatedAt": "2023-11-06T15:45:19.401Z",
-                        "callbackUrls": null,
-                        "recipient": null,
-                        "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
-                      },
-                      "connector": {
-                        "id": 603,
-                        "name": "Bradesco",
-                        "primaryColor": "e5173f",
-                        "institutionUrl": "https://banco.bradesco/open-finance/logo/icones_vetorial-pf.svg",
-                        "country": "BR",
-                        "type": "PERSONAL_BANK",
-                        "credentials": [
-                          {
-                            "validation": "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
-                            "validationMessage": "CPF deve ter 11 números.",
-                            "label": "CPF",
-                            "name": "cpf",
-                            "type": "number",
-                            "placeholder": "",
-                            "optional": false
-                          }
-                        ],
-                        "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/203.svg",
-                        "hasMFA": false,
-                        "oauth": true,
-                        "health": {
-                          "status": "ONLINE",
-                          "stage": null
-                        },
-                        "products": [
-                          "ACCOUNTS",
-                          "TRANSACTIONS",
-                          "IDENTITY",
-                          "CREDIT_CARDS",
-                          "PAYMENT_DATA",
-                          "LOANS",
-                          "INVESTMENTS"
-                        ],
-                        "createdAt": "2023-07-12T20:20:17.253Z",
-                        "isSandbox": false,
-                        "isOpenFinance": true
-                      },
-                      "consentUrl": "https://consenturl.com"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Payment Intent not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GlobalErrorResponse"
-                },
-                "example": {
-                  "code": 404,
-                  "codeDescription": "PAYMENT_INTENT_NOT_FOUND",
-                  "message": "Payment intent not found"
-                }
-              }
-            }
-          }
-        },
-        "description": "Recovers the payment intent resource by its id",
-        "tags": [
-          "Payment Intent"
-        ],
-        "security": [
-          {
-            "default": []
-          }
-        ],
-        "parameters": [
-          {
-            "description": "Payment intent primary identifier",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
-          }
-        ]
-      }
-    },
     "/payments/customers": {
       "get": {
         "operationId": "payment-customers-list",
@@ -6892,6 +5699,1207 @@
         ]
       }
     },
+    "/payments/requests": {
+      "get": {
+        "operationId": "payment-requests-list",
+        "summary": "List",
+        "description": "Recovers all created payment requests",
+        "responses": {
+          "200": {
+            "description": "Retrieve a list of all payment requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "total": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "totalPages": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PaymentRequest"
+                      },
+                      "description": "List of payment requests"
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "page": 1,
+                      "total": 1,
+                      "totalPages": 1,
+                      "results": [
+                        {
+                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "amount": 100.5,
+                          "description": "Transferência",
+                          "status": "CREATED",
+                          "createdAt": "2023-11-06T13:03:45.689Z",
+                          "updatedAt": "2023-11-06T13:03:45.689Z",
+                          "callbackUrls": null,
+                          "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "recipient": null,
+                          "pixQrCode": null
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Payment Request"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "payment-request-create",
+        "summary": "Create",
+        "responses": {
+          "200": {
+            "description": "Success creating payment request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentRequest"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "amount": 100.5,
+                      "description": "Transferência",
+                      "status": "CREATED",
+                      "createdAt": "2023-11-06T13:03:45.689Z",
+                      "updatedAt": "2023-11-06T13:03:45.689Z",
+                      "callbackUrls": null,
+                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Creates the payment request resource",
+        "tags": [
+          "Payment Request"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePaymentRequest"
+              },
+              "examples": {
+                "Plain parameters": {
+                  "value": {
+                    "amount": 100.5,
+                    "description": "Transferência"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/payments/requests/pix-qr": {
+      "post": {
+        "operationId": "payment-request-create-pix-qr",
+        "summary": "Create PIX QR payment request",
+        "responses": {
+          "200": {
+            "description": "Create a PIX QR payment request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentRequest"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "amount": 100.5,
+                      "description": "Transferência",
+                      "status": "CREATED",
+                      "createdAt": "2023-11-06T13:03:45.689Z",
+                      "updatedAt": "2023-11-06T13:03:45.689Z",
+                      "callbackUrls": null,
+                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Creates the PIX QR payment request resource",
+        "tags": [
+          "Payment Request"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePixQrPaymentRequest"
+              },
+              "examples": {
+                "request": {
+                  "value": {
+                    "pixQrCode": "00020126490014br.gov.bcb.pix0108dict-key0215additional-info52040000530398654031005802BR5912example-name6006Cidade62090505tx-id63045E20",
+                    "callbackUrls": null
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/payments/requests/boleto": {
+      "post": {
+        "operationId": "payment-request-create-boleto",
+        "summary": "Create boleto payment request",
+        "responses": {
+          "200": {
+            "description": "Create a boleto payment request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentRequest"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "amount": 31.12,
+                      "description": "Pagamento de boleto",
+                      "status": "CREATED",
+                      "createdAt": "2023-11-06T13:03:45.689Z",
+                      "updatedAt": "2023-11-06T13:03:45.689Z",
+                      "callbackUrls": null,
+                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "boleto": {
+                        "digitableLine": "27490001011000000011660070701507297010000001111",
+                        "barcode": "27492970100000028200001010000000116007071111",
+                        "payer": {
+                          "taxNumber": "11111111111",
+                          "name": "John Doe"
+                        },
+                        "recipient": {
+                          "taxNumber": "37943755000130",
+                          "name": "PLUGGY BRASIL INSTITUICAO DE PAGAMENTO LTDA"
+                        },
+                        "date": "2024-04-10T10:42:12",
+                        "dueDate": "2024-04-29T00:00:00",
+                        "expirationDate": "2024-12-31T00:00:00",
+                        "baseAmount": 28.2,
+                        "penaltyAmount": 2.82,
+                        "interestAmount": 0.1034,
+                        "discountAmount": 0,
+                        "totalAmount": 31.12,
+                        "updatedAt": "2020-04-21T15:00:00.000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Creates the boleto payment request resource",
+        "tags": [
+          "Payment Request"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBoletoPaymentRequest"
+              },
+              "examples": {
+                "request": {
+                  "value": {
+                    "description": "Pagamento de boleto",
+                    "boletoDigitableLine": "27490.00101.10000.000116.60070.701507.2.970 1 0000002820",
+                    "callbackUrls": null
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/payments/requests/{id}": {
+      "get": {
+        "operationId": "payment-request-retrieve",
+        "summary": "Retrieve",
+        "responses": {
+          "200": {
+            "description": "Retrieve a payment request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentRequest"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "amount": 100.5,
+                      "description": "Transferência",
+                      "status": "CREATED",
+                      "createdAt": "2023-11-06T13:03:45.689Z",
+                      "updatedAt": "2023-11-06T13:03:45.689Z",
+                      "callbackUrls": null,
+                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "recipient": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Payment Request not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "PAYMENT_REQUEST_NOT_FOUND",
+                  "message": "Payment request not found"
+                }
+              }
+            }
+          }
+        },
+        "description": "Recovers the payment request resource by its id",
+        "tags": [
+          "Payment Request"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "payment-request-delete",
+        "summary": "Delete",
+        "responses": {
+          "200": {
+            "description": "Delete a payment request."
+          },
+          "404": {
+            "description": "Payment Request not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "PAYMENT_REQUEST_NOT_FOUND",
+                  "message": "Payment request not found"
+                }
+              }
+            }
+          }
+        },
+        "description": "Deletes the payment request resource by its id",
+        "tags": [
+          "Payment Request"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "payment-request-update",
+        "summary": "Update",
+        "responses": {
+          "200": {
+            "description": "Update a payment request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePaymentRequest"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "amount": 100.5,
+                      "description": "Transferência",
+                      "status": "CREATED",
+                      "createdAt": "2023-11-06T13:03:45.689Z",
+                      "updatedAt": "2023-11-06T13:03:45.689Z",
+                      "callbackUrls": null,
+                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Updates the payment request resource",
+        "tags": [
+          "Payment Request"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0f8a8c0-e8e3-11e9-b210-d663bd873d93"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePaymentRequest"
+              },
+              "examples": {
+                "Plain parameters": {
+                  "value": {
+                    "amount": 100.5,
+                    "description": "Transferência"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/payments/requests/{id}/receipts": {
+      "post": {
+        "tags": [
+          "Payment Request"
+        ],
+        "operationId": "payment-request-receipt-create",
+        "summary": "Create Payment Receipt",
+        "description": "Creates the payment receipt resource",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success creating payment receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentReceipt"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "amount": 100.5,
+                      "description": "Transferência",
+                      "paymentRequestId": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125",
+                      "receiptUrl": "https://pay.pluggy.ai/receipt/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "creditor": {
+                        "name": "Juan Gonzalez",
+                        "taxNumber": "12345678900",
+                        "bankAccount": {
+                          "agency": "0001",
+                          "account": "12345678-9",
+                          "name": "Itaú"
+                        },
+                        "creditor": {
+                          "name": "Juan Gonzalez",
+                          "taxNumber": "12345678900",
+                          "bankAccount": {
+                            "agency": "0001",
+                            "account": "12345678-9",
+                            "name": "Itaú"
+                          }
+                        },
+                        "referenceId": "12345678900",
+                        "expiresAt": "2023-11-06T13:03:45.689Z",
+                        "date": "2023-11-06T13:03:45.689Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Payment Request"
+        ],
+        "operationId": "payment-request-receipt-list",
+        "summary": "List Payment Receipts",
+        "description": "Recovers all created payment receipts for the payment request provided",
+        "responses": {
+          "200": {
+            "description": "Retrieve a list of all payment receipts for the payment request provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "total": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "totalPages": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PaymentReceipt"
+                      },
+                      "description": "List of payment receipts"
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "page": 1,
+                      "total": 1,
+                      "totalPages": 1,
+                      "results": [
+                        {
+                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "amount": 100.5,
+                          "description": "Transferência",
+                          "paymentRequestId": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125",
+                          "receiptUrl": "https://pay.pluggy.ai/receipt/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "creditor": {
+                            "name": "Juan Gonzalez",
+                            "taxNumber": "12345678900",
+                            "bankAccount": {
+                              "agency": "0001",
+                              "account": "12345678-9",
+                              "name": "Itaú"
+                            },
+                            "creditor": {
+                              "name": "Juan Gonzalez",
+                              "taxNumber": "12345678900",
+                              "bankAccount": {
+                                "agency": "0001",
+                                "account": "12345678-9",
+                                "name": "Itaú"
+                              }
+                            },
+                            "referenceId": "12345678900",
+                            "expiresAt": "2023-11-06T13:03:45.689Z",
+                            "date": "2023-11-06T13:03:45.689Z"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "description": "Payment request primary identifier",
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+        }
+      ]
+    },
+    "/payments/requests/{payment-request-id}/receipts/{payment-receipt-id}": {
+      "get": {
+        "tags": [
+          "Payment Request"
+        ],
+        "operationId": "payment-request-receipt-retrieve",
+        "summary": "Retrieve Payment Receipt",
+        "description": "Recovers the payment receipt resource by its id",
+        "responses": {
+          "200": {
+            "description": "Retrieve a payment receipt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentReceipt"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "amount": 100.5,
+                      "description": "Transferência",
+                      "paymentRequestId": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125",
+                      "receiptUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "creditor": {
+                        "name": "Juan Gonzalez",
+                        "taxNumber": "12345678900",
+                        "bankAccount": {
+                          "agency": "0001",
+                          "account": "12345678-9",
+                          "name": "Itaú"
+                        }
+                      },
+                      "referenceId": "12345678900",
+                      "expiresAt": "2023-11-06T13:03:45.689Z",
+                      "date": "2023-11-06T13:03:45.689Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "payment-request-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "payment-receipt-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/payments/requests/{id}/schedules": {
+      "get": {
+        "operationId": "payment-schedules-list",
+        "summary": "List Schedules",
+        "description": "Recovers all scheduled payments from a payment request",
+        "responses": {
+          "200": {
+            "description": "Retrieve a list of all scheduled payments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "total": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "totalPages": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SchedulePayment"
+                      },
+                      "description": "List of scheduled payments from a payment request"
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "page": 1,
+                      "total": 1,
+                      "totalPages": 1,
+                      "results": [
+                        {
+                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "scheduledDate": "2024-06-04",
+                          "description": "PAGAMENTO AGENDADO 2/20",
+                          "status": "SCHEDULED"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ],
+        "tags": [
+          "Payment Schedule"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      }
+    },
+    "/payments/requests/{id}/schedules/cancel": {
+      "post": {
+        "operationId": "payment-schedules-cancel",
+        "summary": "Cancel Payment Schedule Authorization",
+        "description": "",
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ],
+        "tags": [
+          "Payment Schedule"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      }
+    },
+    "/payments/requests/{id}/schedules/{scheduleId}/cancel": {
+      "post": {
+        "operationId": "payment-schedules-cancel-specific",
+        "summary": "Cancel Payment Schedule Authorization",
+        "description": "",
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          },
+          {
+            "description": "Payment schedule primary identifier",
+            "in": "path",
+            "name": "scheduleId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ],
+        "tags": [
+          "Payment Schedule"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      }
+    },
+    "/payments/intents": {
+      "post": {
+        "operationId": "payment-intent-create",
+        "summary": "Create",
+        "responses": {
+          "200": {
+            "description": "Create a payment intent.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentIntent"
+                }
+              }
+            }
+          }
+        },
+        "description": "Creates the payment intent resource",
+        "tags": [
+          "Payment Intent"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePaymentIntent"
+              },
+              "examples": {
+                "Plain parameters": {
+                  "value": {
+                    "paymentRequestId": "c2a6b7d9-3349-435d-8341-44021449ebbc",
+                    "connectorId": 603,
+                    "parameters": {
+                      "cpf": "11111111111"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "get": {
+        "operationId": "payment-intents-list",
+        "summary": "List",
+        "description": "Recovers all created payment intents for the payment request provided",
+        "responses": {
+          "200": {
+            "description": "Retrieve a list of all payment intents for the payment request provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "total": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "totalPages": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PaymentIntent"
+                      },
+                      "description": "List of payment intents"
+                    }
+                  }
+                },
+                "examples": {
+                  "payment request": {
+                    "value": {
+                      "page": 1,
+                      "total": 1,
+                      "totalPages": 1,
+                      "results": [
+                        {
+                          "id": "4cfe1f6d-ae71-4c35-aae0-8f8a535ffbbd",
+                          "status": "CONSENT_AWAITING_AUTHORIZATION",
+                          "createdAt": "2023-11-06T15:38:47.861Z",
+                          "updatedAt": "2023-11-06T15:38:47.861Z",
+                          "paymentRequest": {
+                            "id": "c2a6b7d9-3349-435d-8341-44021449ebbc",
+                            "amount": 100.5,
+                            "description": "Transferência",
+                            "status": "IN_PROGRESS",
+                            "createdAt": "2023-11-06T13:03:45.689Z",
+                            "updatedAt": "2023-11-06T15:38:47.861Z",
+                            "callbackUrls": null,
+                            "recipient": null,
+                            "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
+                          },
+                          "connector": {
+                            "id": 603,
+                            "name": "Bradesco",
+                            "primaryColor": "e5173f",
+                            "institutionUrl": "https://banco.bradesco/open-finance/logo/icones_vetorial-pf.svg",
+                            "country": "BR",
+                            "type": "PERSONAL_BANK",
+                            "credentials": [
+                              {
+                                "validation": "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
+                                "validationMessage": "CPF deve ter 11 números.",
+                                "label": "CPF",
+                                "name": "cpf",
+                                "type": "number",
+                                "placeholder": "",
+                                "optional": false
+                              }
+                            ],
+                            "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/203.svg",
+                            "hasMFA": false,
+                            "oauth": true,
+                            "health": {
+                              "status": "ONLINE",
+                              "stage": null
+                            },
+                            "products": [
+                              "ACCOUNTS",
+                              "TRANSACTIONS",
+                              "IDENTITY",
+                              "CREDIT_CARDS",
+                              "PAYMENT_DATA",
+                              "LOANS",
+                              "INVESTMENTS"
+                            ],
+                            "createdAt": "2023-07-12T20:20:17.253Z",
+                            "isSandbox": false,
+                            "isOpenFinance": true
+                          },
+                          "consentUrl": "https://consenturl.com"
+                        }
+                      ]
+                    }
+                  },
+                  "bulk payment": {
+                    "value": {
+                      "page": 1,
+                      "total": 1,
+                      "totalPages": 1,
+                      "results": [
+                        {
+                          "id": "4cfe1f6d-ae71-4c35-aae0-8f8a535ffbbd",
+                          "status": "CONSENT_AWAITING_AUTHORIZATION",
+                          "createdAt": "2023-11-06T15:38:47.861Z",
+                          "updatedAt": "2023-11-06T15:38:47.861Z",
+                          "bulkPayment": {
+                            "id": "c2a6b7d9-3349-435d-8341-44021449ebbc",
+                            "status": "IN_PROGRESS",
+                            "createdAt": "2023-11-06T13:03:45.689Z",
+                            "updatedAt": "2023-11-06T15:38:47.861Z",
+                            "callbackUrls": null,
+                            "paymentUrl": "https://pay.pluggy.ai/bulk/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                            "paymentRequests": [
+                              {
+                                "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                                "amount": 100.5,
+                                "description": "Transferência",
+                                "status": "CREATED",
+                                "createdAt": "2023-11-06T13:03:45.689Z",
+                                "updatedAt": "2023-11-06T13:03:45.689Z",
+                                "callbackUrls": null,
+                                "recipient": null
+                              }
+                            ]
+                          },
+                          "connector": {
+                            "id": 603,
+                            "name": "Bradesco",
+                            "primaryColor": "e5173f",
+                            "institutionUrl": "https://banco.bradesco/open-finance/logo/icones_vetorial-pf.svg",
+                            "country": "BR",
+                            "type": "PERSONAL_BANK",
+                            "credentials": [
+                              {
+                                "validation": "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
+                                "validationMessage": "CPF deve ter 11 números.",
+                                "label": "CPF",
+                                "name": "cpf",
+                                "type": "number",
+                                "placeholder": "",
+                                "optional": false
+                              }
+                            ],
+                            "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/203.svg",
+                            "hasMFA": false,
+                            "oauth": true,
+                            "health": {
+                              "status": "ONLINE",
+                              "stage": null
+                            },
+                            "products": [
+                              "ACCOUNTS",
+                              "TRANSACTIONS",
+                              "IDENTITY",
+                              "CREDIT_CARDS",
+                              "PAYMENT_DATA",
+                              "LOANS",
+                              "INVESTMENTS"
+                            ],
+                            "createdAt": "2023-07-12T20:20:17.253Z",
+                            "isSandbox": false,
+                            "isOpenFinance": true
+                          },
+                          "consentUrl": "https://consenturl.com"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Payment Intent"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "query",
+            "name": "paymentRequestId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
+    },
+    "/payments/intents/{id}": {
+      "get": {
+        "operationId": "payment-intent-retrieve",
+        "summary": "Retrieve",
+        "responses": {
+          "200": {
+            "description": "Retrieve a payment intent.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentIntent"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "4cfe1f6d-ae71-4c35-aae0-8f8a535ffbbd",
+                      "status": "CONSENT_AWAITING_AUTHORIZATION",
+                      "createdAt": "2023-11-06T15:38:47.861Z",
+                      "updatedAt": "2023-11-06T15:45:19.384Z",
+                      "paymentRequest": {
+                        "id": "c2a6b7d9-3349-435d-8341-44021449ebbc",
+                        "amount": 100.5,
+                        "description": "Transferência",
+                        "status": "IN_PROGRESS",
+                        "createdAt": "2023-11-06T13:03:45.689Z",
+                        "updatedAt": "2023-11-06T15:45:19.401Z",
+                        "callbackUrls": null,
+                        "recipient": null,
+                        "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
+                      },
+                      "connector": {
+                        "id": 603,
+                        "name": "Bradesco",
+                        "primaryColor": "e5173f",
+                        "institutionUrl": "https://banco.bradesco/open-finance/logo/icones_vetorial-pf.svg",
+                        "country": "BR",
+                        "type": "PERSONAL_BANK",
+                        "credentials": [
+                          {
+                            "validation": "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
+                            "validationMessage": "CPF deve ter 11 números.",
+                            "label": "CPF",
+                            "name": "cpf",
+                            "type": "number",
+                            "placeholder": "",
+                            "optional": false
+                          }
+                        ],
+                        "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/203.svg",
+                        "hasMFA": false,
+                        "oauth": true,
+                        "health": {
+                          "status": "ONLINE",
+                          "stage": null
+                        },
+                        "products": [
+                          "ACCOUNTS",
+                          "TRANSACTIONS",
+                          "IDENTITY",
+                          "CREDIT_CARDS",
+                          "PAYMENT_DATA",
+                          "LOANS",
+                          "INVESTMENTS"
+                        ],
+                        "createdAt": "2023-07-12T20:20:17.253Z",
+                        "isSandbox": false,
+                        "isOpenFinance": true
+                      },
+                      "consentUrl": "https://consenturl.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Payment Intent not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "PAYMENT_INTENT_NOT_FOUND",
+                  "message": "Payment intent not found"
+                }
+              }
+            }
+          }
+        },
+        "description": "Recovers the payment intent resource by its id",
+        "tags": [
+          "Payment Intent"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Payment intent primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
+    },
     "/payments/smart-accounts": {
       "get": {
         "operationId": "smart-accounts-list",
@@ -6952,7 +6960,7 @@
           }
         },
         "tags": [
-          "Smart account"
+          "Smart Account"
         ],
         "security": [
           {
@@ -7015,7 +7023,7 @@
         },
         "description": "Creates the smart account resource",
         "tags": [
-          "Smart account"
+          "Smart Account"
         ],
         "security": [
           {
@@ -7067,7 +7075,7 @@
         },
         "description": "Recovers the smart account resource by its id",
         "tags": [
-          "Smart account"
+          "Smart Account"
         ],
         "security": [
           {
@@ -7122,7 +7130,7 @@
         },
         "description": "Recovers the smart account balance resource by its id",
         "tags": [
-          "Smart account"
+          "Smart Account"
         ],
         "security": [
           {
@@ -7176,7 +7184,7 @@
         },
         "description": "Creates the smart account transfer resource",
         "tags": [
-          "Smart Account Transfer"
+          "Smart Account"
         ],
         "security": [
           {
@@ -7255,7 +7263,7 @@
           }
         },
         "tags": [
-          "Smart Account Transfer"
+          "Smart Account"
         ],
         "security": [
           {
@@ -7904,7 +7912,7 @@
           "id"
         ],
         "example": {
-          "id": 201,
+          "id": 601,
           "name": "Itaú",
           "primaryColor": "EC7000",
           "institutionUrl": "https://www.itau.com.br",
@@ -7912,41 +7920,38 @@
           "type": "PERSONAL_BANK",
           "credentials": [
             {
-              "label": "Agência",
-              "name": "agency",
+              "validation": "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
+              "validationMessage": "CPF deve ter 11 números.",
+              "label": "CPF",
+              "name": "cpf",
               "type": "number",
-              "placeholder": "Agência",
-              "validation": "^\\d{4}$",
-              "validationMessage": "O agencia deve ter 4 dígito"
-            },
-            {
-              "label": "Conta",
-              "name": "account",
-              "type": "number",
-              "placeholder": "Conta",
-              "validation": "^\\d{4,6}$",
-              "validationMessage": "O conta deve ter 6 dígito"
-            },
-            {
-              "label": "Senha",
-              "name": "password",
-              "type": "number",
-              "placeholder": "Senha",
-              "validation": "^\\d{6}$",
-              "validationMessage": "O senha deve ter 6 dígito"
+              "placeholder": "",
+              "optional": false
             }
           ],
-          "imageUrl": "https://res.cloudinary.com/dkr0vihmp/image/upload/v1588853552/connectors-logos/itau_ntodvn.png",
+          "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/201.svg",
           "hasMFA": false,
+          "oauth": true,
+          "health": {
+            "status": "ONLINE",
+            "stage": null
+          },
           "products": [
             "ACCOUNTS",
             "TRANSACTIONS",
-            "CREDIT_CARDS",
-            "INVESTMENTS",
             "IDENTITY",
-            "PAYMENT_DATA"
+            "CREDIT_CARDS",
+            "PAYMENT_DATA",
+            "LOANS",
+            "INVESTMENTS"
           ],
-          "oauthUrl": "https://example-oauth-url.com"
+          "createdAt": "2023-09-01T18:05:09.145Z",
+          "isSandbox": false,
+          "isOpenFinance": true,
+          "updatedAt": "2024-07-16T15:34:08.028Z",
+          "supportsPaymentInitiation": true,
+          "supportsScheduledPayments": true,
+          "supportsSmartTransfers": true
         }
       },
       "ConnectorListResponse": {
@@ -7982,57 +7987,46 @@
           "totalPages": 1,
           "results": [
             {
-              "id": 201,
+              "id": 601,
               "name": "Itaú",
               "primaryColor": "EC7000",
-              "institutionUrl": "https://www.itau.com.br",
+              "institutionUrl": "https://www.itau.com.br/assets/dam/publisher/07_itau_empresas/13_open_banking/logos_regulatorio_bacen/opb_log_reg_bac_itau_img_01.svg",
               "country": "BR",
               "type": "PERSONAL_BANK",
               "credentials": [
                 {
-                  "label": "Agência",
-                  "name": "agency",
+                  "validation": "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
+                  "validationMessage": "CPF deve ter 11 números.",
+                  "label": "CPF",
+                  "name": "cpf",
                   "type": "number",
-                  "placeholder": "Agência",
-                  "validation": "^\\d{4}$",
-                  "validationMessage": "O agencia deve ter 4 dígito"
-                },
-                {
-                  "label": "Conta",
-                  "name": "account",
-                  "type": "number",
-                  "placeholder": "Conta",
-                  "validation": "^\\d{4,6}$",
-                  "validationMessage": "O conta deve ter 6 dígito"
-                },
-                {
-                  "label": "Senha",
-                  "name": "password",
-                  "type": "number",
-                  "placeholder": "Senha",
-                  "validation": "^\\d{6}$",
-                  "validationMessage": "O senha deve ter 6 dígito"
+                  "placeholder": "",
+                  "optional": false
                 }
               ],
-              "imageUrl": "https://res.cloudinary.com/dkr0vihmp/image/upload/v1588853552/connectors-logos/itau_ntodvn.png",
+              "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/201.svg",
               "hasMFA": false,
+              "oauth": true,
+              "health": {
+                "status": "ONLINE",
+                "stage": null
+              },
               "products": [
                 "ACCOUNTS",
                 "TRANSACTIONS",
-                "CREDIT_CARDS",
-                "INVESTMENTS",
                 "IDENTITY",
-                "PAYMENT_DATA"
+                "CREDIT_CARDS",
+                "PAYMENT_DATA",
+                "LOANS",
+                "INVESTMENTS"
               ],
-              "oauthUrl": "https://example-oauth-url.com",
-              "health": {
-                "status": "ONLINE",
-                "stage": null,
-                "details": {
-                  "connectionRateLast6Hours": 94.3,
-                  "connectionsLast6Hours": 53
-                }
-              }
+              "createdAt": "2023-09-01T18:05:09.145Z",
+              "isSandbox": false,
+              "isOpenFinance": true,
+              "updatedAt": "2024-07-16T15:34:08.028Z",
+              "supportsPaymentInitiation": true,
+              "supportsScheduledPayments": true,
+              "supportsSmartTransfers": true
             }
           ]
         }
@@ -8181,106 +8175,46 @@
           "executionStatus"
         ],
         "example": {
-          "id": "a5d1ca6c-24c0-41c7-8b44-9272cc868663",
-          "createdAt": "2021-12-28T21:48:02.863Z",
-          "updatedAt": "2021-12-28T21:48:02.952Z",
-          "connector": {
-            "id": 201,
-            "name": "Itaú",
-            "primaryColor": "EC7000",
-            "institutionUrl": "https://www.itau.com.br",
-            "country": "BR",
-            "type": "PERSONAL_BANK",
-            "credentials": [
-              {
-                "label": "Agência",
-                "name": "agency",
-                "type": "number",
-                "placeholder": "Agência",
-                "validation": "^\\d{4}$",
-                "validationMessage": "O agencia deve ter 4 dígito"
-              },
-              {
-                "label": "Conta",
-                "name": "account",
-                "type": "number",
-                "placeholder": "Conta",
-                "validation": "^\\d{4,6}$",
-                "validationMessage": "O conta deve ter 6 dígito"
-              },
-              {
-                "label": "Senha",
-                "name": "password",
-                "type": "number",
-                "placeholder": "Senha",
-                "validation": "^\\d{6}$",
-                "validationMessage": "O senha deve ter 6 dígito"
-              }
-            ],
-            "imageUrl": "https://res.cloudinary.com/dkr0vihmp/image/upload/v1588853552/connectors-logos/itau_ntodvn.png",
-            "hasMFA": false,
-            "products": [
-              "ACCOUNTS",
-              "TRANSACTIONS",
-              "CREDIT_CARDS",
-              "INVESTMENTS",
-              "IDENTITY",
-              "PAYMENT_DATA"
-            ],
-            "oauthUrl": "https://example-oauth-url.com"
+          "id": 601,
+          "name": "Itaú",
+          "primaryColor": "EC7000",
+          "institutionUrl": "https://www.itau.com.br/assets/dam/publisher/07_itau_empresas/13_open_banking/logos_regulatorio_bacen/opb_log_reg_bac_itau_img_01.svg",
+          "country": "BR",
+          "type": "PERSONAL_BANK",
+          "credentials": [
+            {
+              "validation": "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
+              "validationMessage": "CPF deve ter 11 números.",
+              "label": "CPF",
+              "name": "cpf",
+              "type": "number",
+              "placeholder": "",
+              "optional": false
+            }
+          ],
+          "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/201.svg",
+          "hasMFA": false,
+          "oauth": true,
+          "health": {
+            "status": "ONLINE",
+            "stage": null
           },
-          "status": "UPDATING",
-          "executionStatus": "CREATED",
-          "lastUpdatedAt": null,
-          "webhookUrl": null,
-          "error": null,
-          "clientUserId": "My User App Id",
-          "parameter": null,
-          "userAction": null,
-          "statusDetail": {
-            "accounts": {
-              "isUpdated": true,
-              "lastUpdatedAt": "2022-03-08T22:43:04.796Z",
-              "warnings": []
-            },
-            "identity": {
-              "isUpdated": false,
-              "lastUpdatedAt": null,
-              "warnings": []
-            },
-            "creditCards": {
-              "isUpdated": true,
-              "lastUpdatedAt": "2022-03-08T22:43:04.796Z",
-              "warnings": []
-            },
-            "investments": {
-              "isUpdated": true,
-              "lastUpdatedAt": "2022-03-08T22:43:04.796Z",
-              "warnings": [
-                {
-                  "code": "001",
-                  "message": "You lack permissions to view Investments on this account",
-                  "providerMessage": "Meu perfil não permite visualizar investimentos"
-                }
-              ]
-            },
-            "transactions": {
-              "isUpdated": true,
-              "lastUpdatedAt": "2022-03-08T22:43:04.796Z",
-              "warnings": []
-            },
-            "paymentData": null
-          },
-          "nextAutoSyncAt": null,
-          "consecutiveFailedLoginAttempts": 0,
           "products": [
             "ACCOUNTS",
             "TRANSACTIONS",
-            "CREDIT_CARDS",
-            "INVESTMENTS",
             "IDENTITY",
-            "PAYMENT_DATA"
-          ]
+            "CREDIT_CARDS",
+            "PAYMENT_DATA",
+            "LOANS",
+            "INVESTMENTS"
+          ],
+          "createdAt": "2023-09-01T18:05:09.145Z",
+          "isSandbox": false,
+          "isOpenFinance": true,
+          "updatedAt": "2024-07-16T15:34:08.028Z",
+          "supportsPaymentInitiation": true,
+          "supportsScheduledPayments": true,
+          "supportsSmartTransfers": true
         }
       },
       "CreateItem": {
