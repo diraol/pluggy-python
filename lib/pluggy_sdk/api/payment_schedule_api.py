@@ -575,7 +575,7 @@ class PaymentScheduleApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> PaymentSchedulesList200Response:
-        """Schedule List
+        """List Schedules
 
         Recovers all scheduled payments from a payment request
 
@@ -642,7 +642,7 @@ class PaymentScheduleApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[PaymentSchedulesList200Response]:
-        """Schedule List
+        """List Schedules
 
         Recovers all scheduled payments from a payment request
 
@@ -709,7 +709,7 @@ class PaymentScheduleApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Schedule List
+        """List Schedules
 
         Recovers all scheduled payments from a payment request
 

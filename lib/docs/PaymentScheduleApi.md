@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**payment_schedules_cancel**](PaymentScheduleApi.md#payment_schedules_cancel) | **POST** /payments/requests/{id}/schedules/cancel | Cancel Payment Schedule Authorization
 [**payment_schedules_cancel_specific**](PaymentScheduleApi.md#payment_schedules_cancel_specific) | **POST** /payments/requests/{id}/schedules/{scheduleId}/cancel | Cancel Payment Schedule Authorization
-[**payment_schedules_list**](PaymentScheduleApi.md#payment_schedules_list) | **GET** /payments/requests/{id}/schedules | Schedule List
+[**payment_schedules_list**](PaymentScheduleApi.md#payment_schedules_list) | **GET** /payments/requests/{id}/schedules | List Schedules
 
 
 # **payment_schedules_cancel**
@@ -166,7 +166,7 @@ void (empty response body)
 # **payment_schedules_list**
 > PaymentSchedulesList200Response payment_schedules_list(id)
 
-Schedule List
+List Schedules
 
 Recovers all scheduled payments from a payment request
 
@@ -204,7 +204,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
 
     try:
-        # Schedule List
+        # List Schedules
         api_response = api_instance.payment_schedules_list(id)
         print("The response of PaymentScheduleApi->payment_schedules_list:\n")
         pprint(api_response)
