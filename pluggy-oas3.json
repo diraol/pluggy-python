@@ -7509,6 +7509,377 @@
           }
         ]
       }
+    },
+    "/smart-transfers/preauthorizations": {
+      "get": {
+        "operationId": "smart-tranfers-preauthorizations-list",
+        "summary": "List preauthorizations",
+        "description": "Recovers all created preauthorizations",
+        "responses": {
+          "200": {
+            "description": "Retrieve a list of all preauthorizations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "total": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "totalPages": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SmartTransferPreauthorization"
+                      },
+                      "description": "List of preauthorizations"
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "page": 1,
+                      "total": 1,
+                      "totalPages": 1,
+                      "results": [
+                        {
+                          "id": "db97ad98-5b8f-4027-a248-6e112a73ced8",
+                          "status": "CREATED",
+                          "consentUrl": "https://consenturl.com",
+                          "clientPreauthorizationId": null,
+                          "callbackUrls": null,
+                          "recipients": [
+                            {
+                              "type": "BANK_ACCOUNT",
+                              "id": "7b110544-dfcf-406a-bab7-b14f14e2d0c7",
+                              "name": "John Doe",
+                              "taxNumber": "11111111111",
+                              "isDefault": false,
+                              "paymentInstitution": {
+                                "id": "abfd2a88-bc7b-407f-9fcc-395548ee6840",
+                                "name": "Banco XP S.A.",
+                                "tradeName": "BCO XP S.A.",
+                                "ispb": "33264668",
+                                "compe": "348",
+                                "createdAt": "2023-12-08T17:52:21.001Z",
+                                "updatedAt": "2023-12-08T17:52:21.001Z"
+                              },
+                              "account": {
+                                "type": "CHECKING_ACCOUNT",
+                                "number": "1111111",
+                                "branch": "0001"
+                              },
+                              "pixKey": null,
+                              "createdAt": "2024-07-31T15:55:47.886Z",
+                              "updatedAt": "2024-07-31T15:56:23.123Z"
+                            }
+                          ],
+                          "connector": {
+                            "id": 612,
+                            "name": "Nubank",
+                            "primaryColor": "8a0fbe",
+                            "institutionUrl": "https://nuapp.nubank.com.br/open-banking/logo.svg",
+                            "country": "BR",
+                            "type": "PERSONAL_BANK",
+                            "credentials": [
+                              {
+                                "validation": "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
+                                "validationMessage": "CPF deve ter 11 números.",
+                                "label": "CPF",
+                                "name": "cpf",
+                                "type": "number",
+                                "placeholder": "",
+                                "optional": false
+                              }
+                            ],
+                            "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/212.svg",
+                            "hasMFA": false,
+                            "oauth": true,
+                            "health": {
+                              "status": "ONLINE",
+                              "stage": null
+                            },
+                            "products": [
+                              "ACCOUNTS",
+                              "TRANSACTIONS",
+                              "IDENTITY",
+                              "CREDIT_CARDS",
+                              "PAYMENT_DATA",
+                              "LOANS",
+                              "INVESTMENTS"
+                            ],
+                            "createdAt": "2023-09-01T18:05:09.145Z",
+                            "isSandbox": false,
+                            "isOpenFinance": true,
+                            "updatedAt": "2024-07-31T15:33:57.512Z",
+                            "supportsPaymentInitiation": true,
+                            "supportsScheduledPayments": true,
+                            "supportsSmartTransfers": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Smart Transfer"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Page size for the paging request, default: 20",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "example": "50"
+          },
+          {
+            "description": "Page number for the paging request, default: 1",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "example": "1"
+          }
+        ]
+      },
+      "post": {
+        "operationId": "smart-transfer-preauthorization-create",
+        "summary": "Create preauthorization",
+        "responses": {
+          "200": {
+            "description": "Create a Smart Transfer Preauthorization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmartTransferPreauthorization"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Preauthorization is Invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 400,
+                  "message": "each value in recipientIds must be a UUID"
+                }
+              }
+            }
+          }
+        },
+        "description": "Creates the smart transfer preauthorization resource",
+        "tags": [
+          "Smart Transfer"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSmartTransferPreauthorization"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/smart-transfers/preauthorizations/{id}": {
+      "get": {
+        "operationId": "smart-transfer-preauthorization-retrieve",
+        "summary": "Retrieve preauthorization",
+        "responses": {
+          "200": {
+            "description": "Retrieve a preauthorization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmartTransferPreauthorization"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Smart Transfer Preauthorization not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "SMART_TRANSFER_PREAUTHORIZATION_NOT_FOUND",
+                  "message": "Smart Transfer Preauthorization not found"
+                }
+              }
+            }
+          }
+        },
+        "description": "Recovers the smart transfer preauthorization resource by its id",
+        "tags": [
+          "Smart Transfer"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Preauthorization primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
+    },
+    "/smart-transfers/payments": {
+      "post": {
+        "operationId": "smart-transfer-payment-create",
+        "summary": "Create payment",
+        "responses": {
+          "200": {
+            "description": "Create a Smart Transfer Payment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmartTransferPayment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Payment is Invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 400,
+                  "message": "recipientId must be a UUID"
+                }
+              }
+            }
+          }
+        },
+        "description": "Creates the smart transfer payment resource",
+        "tags": [
+          "Smart Transfer"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSmartTransferPayment"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/smart-transfers/payments/{id}": {
+      "get": {
+        "operationId": "smart-transfer-paymentretrieve",
+        "summary": "Retrieve payment",
+        "responses": {
+          "200": {
+            "description": "Retrieve a payment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmartTransferPayment"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Smart Transfer Payment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "SMART_TRANSFER_PAYMENT_NOT_FOUND",
+                  "message": "Smart Transfer Payment not found"
+                }
+              }
+            }
+          }
+        },
+        "description": "Recovers the smart transfer payment resource by its id",
+        "tags": [
+          "Smart Transfer"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Payment primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
     }
   },
   "servers": [
@@ -10180,7 +10551,8 @@
           "itemId": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
           "options": {
             "webhookUrl": "https://example.com/webhook",
-            "clientUserId": "My App UserId"
+            "clientUserId": "My App UserId",
+            "oauthRedirectUrl": "https://pluggy.ai/demo"
           }
         },
         "type": "object"
@@ -13357,6 +13729,227 @@
           "itemId",
           "products",
           "createdAt"
+        ]
+      },
+      "SmartTransferPreauthorization": {
+        "description": "Smart transfer preauthorization",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Preauthorization primary identifier"
+          },
+          "status": {
+            "type": "string",
+            "description": "Preauthorization status",
+            "enum": [
+              "CREATED",
+              "COMPLETED",
+              "REVOKED",
+              "REJECTED",
+              "ERROR"
+            ],
+            "example": "COMPLETED"
+          },
+          "consentUrl": {
+            "type": "string",
+            "description": "Url to give the consent in the institution"
+          },
+          "clientPreauthorizationId": {
+            "type": "string",
+            "description": "Client preauthorization identifier"
+          },
+          "callbackUrls": {
+            "$ref": "#/components/schemas/SmartTransferCallbackUrls"
+          },
+          "recipients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentRecipient"
+            }
+          },
+          "connector": {
+            "$ref": "#/components/schemas/Connector"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the preauthorization was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the preauthorization was updated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "recipients",
+          "connector",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SmartTransferCallbackUrls": {
+        "description": "Redirect urls after the preauthorization flow was completed or ended in error status",
+        "properties": {
+          "success": {
+            "type": "string",
+            "description": "Url to be redirected after the preauthorization was completed"
+          },
+          "error": {
+            "type": "string",
+            "description": "Url to be redirected after the preauthorization ended in error status"
+          }
+        },
+        "type": "object",
+        "example": {}
+      },
+      "CreateSmartTransferPreauthorization": {
+        "description": "Create smart transfer preauthorization request data",
+        "properties": {
+          "connectorId": {
+            "type": "string",
+            "description": "Primary identifier of the connector"
+          },
+          "parameters": {
+            "$ref": "#/components/schemas/SmartTransferPreauthorizationParameter"
+          },
+          "recipientIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Primary identifier of the payment recipient"
+            }
+          },
+          "callbackUrls": {
+            "$ref": "#/components/schemas/SmartTransferCallbackUrls"
+          },
+          "clientPreauthorizationId": {
+            "type": "string",
+            "description": "Client preauthorization identifier"
+          }
+        },
+        "required": [
+          "connectorId",
+          "parameters",
+          "recipientIds"
+        ]
+      },
+      "SmartTransferPreauthorizationParameter": {
+        "description": "Credentials neccesary to create a smart transfer preauthorization",
+        "properties": {
+          "cpf": {
+            "type": "string",
+            "description": "CPF of the payer"
+          },
+          "cnpj": {
+            "type": "string",
+            "description": "CNPJ of the payer"
+          }
+        },
+        "type": "object",
+        "example": {
+          "cpf": "416.799.495-00",
+          "cnpj": "41.679.495/0001-00"
+        },
+        "required": [
+          "cpf"
+        ]
+      },
+      "SmartTransferPayment": {
+        "description": "Smart transfer payment",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Payment primary identifier"
+          },
+          "preauthorizationId": {
+            "type": "string",
+            "description": "Payment primary identifier"
+          },
+          "status": {
+            "enum": [
+              "PAYMENT_REJECTED",
+              "ERROR",
+              "CANCELED",
+              "CONSENT_REJECTED",
+              "CONSENT_AUTHORIZED",
+              "PAYMENT_PENDING",
+              "PAYMENT_PARTIALLY_ACCEPTED",
+              "PAYMENT_SETTLEMENT_PROCESSING",
+              "PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT",
+              "PAYMENT_COMPLETED"
+            ],
+            "type": "string",
+            "description": "Payment status"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Payment amount"
+          },
+          "description": {
+            "type": "string",
+            "description": "Payment description"
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/PaymentReceipt"
+          },
+          "clientPaymentId": {
+            "type": "string",
+            "description": "Client payment identifier"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the payemnt was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the payment was updated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "preauthorizationId",
+          "status",
+          "amount",
+          "recipient",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CreateSmartTransferPayment": {
+        "description": "Create smart transfer payment request data",
+        "properties": {
+          "preauthorizationId": {
+            "type": "string",
+            "description": "Primary identifier of the preauthorization"
+          },
+          "recipientId": {
+            "type": "string",
+            "description": "Primary identifier of the paymen recipient"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Payment amount"
+          },
+          "description": {
+            "type": "string",
+            "description": "Payment description"
+          },
+          "clientPaymentId": {
+            "type": "string",
+            "description": "Client payment identifier"
+          }
+        },
+        "required": [
+          "preauthorizationId",
+          "recipientId",
+          "amount"
         ]
       }
     },
