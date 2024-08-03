@@ -74,6 +74,8 @@ docs/CreatePaymentRequest.md
 docs/CreatePixQrPaymentRequest.md
 docs/CreateSmartAccountRequest.md
 docs/CreateSmartAccountTransferRequest.md
+docs/CreateSmartTransferPayment.md
+docs/CreateSmartTransferPreauthorization.md
 docs/CreateWebhook.md
 docs/CredentialSelectOption.md
 docs/CreditCardMetadata.md
@@ -167,6 +169,12 @@ docs/SmartAccountApi.md
 docs/SmartAccountBalance.md
 docs/SmartAccountTransfer.md
 docs/SmartAccountsList200Response.md
+docs/SmartTranfersPreauthorizationsList200Response.md
+docs/SmartTransferApi.md
+docs/SmartTransferCallbackUrls.md
+docs/SmartTransferPayment.md
+docs/SmartTransferPreauthorization.md
+docs/SmartTransferPreauthorizationParameter.md
 docs/StatusDetail.md
 docs/StatusDetailProduct.md
 docs/StatusDetailProductWarning.md
@@ -208,6 +216,7 @@ pluggy_sdk/api/payment_request_api.py
 pluggy_sdk/api/payment_schedule_api.py
 pluggy_sdk/api/portfolio_yield_api.py
 pluggy_sdk/api/smart_account_api.py
+pluggy_sdk/api/smart_transfer_api.py
 pluggy_sdk/api/transaction_api.py
 pluggy_sdk/api/webhook_api.py
 pluggy_sdk/api_client.py
@@ -274,6 +283,8 @@ pluggy_sdk/models/create_payment_request.py
 pluggy_sdk/models/create_pix_qr_payment_request.py
 pluggy_sdk/models/create_smart_account_request.py
 pluggy_sdk/models/create_smart_account_transfer_request.py
+pluggy_sdk/models/create_smart_transfer_payment.py
+pluggy_sdk/models/create_smart_transfer_preauthorization.py
 pluggy_sdk/models/create_webhook.py
 pluggy_sdk/models/credential_select_option.py
 pluggy_sdk/models/credit_card_metadata.py
@@ -356,6 +367,11 @@ pluggy_sdk/models/smart_account_address.py
 pluggy_sdk/models/smart_account_balance.py
 pluggy_sdk/models/smart_account_transfer.py
 pluggy_sdk/models/smart_accounts_list200_response.py
+pluggy_sdk/models/smart_tranfers_preauthorizations_list200_response.py
+pluggy_sdk/models/smart_transfer_callback_urls.py
+pluggy_sdk/models/smart_transfer_payment.py
+pluggy_sdk/models/smart_transfer_preauthorization.py
+pluggy_sdk/models/smart_transfer_preauthorization_parameter.py
 pluggy_sdk/models/status_detail.py
 pluggy_sdk/models/status_detail_product.py
 pluggy_sdk/models/status_detail_product_warning.py
@@ -377,4 +393,12 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_create_smart_transfer_payment.py
+test/test_create_smart_transfer_preauthorization.py
+test/test_smart_tranfers_preauthorizations_list200_response.py
+test/test_smart_transfer_api.py
+test/test_smart_transfer_callback_urls.py
+test/test_smart_transfer_payment.py
+test/test_smart_transfer_preauthorization.py
+test/test_smart_transfer_preauthorization_parameter.py
 tox.ini

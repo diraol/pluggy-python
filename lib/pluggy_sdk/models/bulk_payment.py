@@ -94,9 +94,9 @@ class BulkPayment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in payment_requests (list)
         _items = []
         if self.payment_requests:
-            for _item in self.payment_requests:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_payment_requests in self.payment_requests:
+                if _item_payment_requests:
+                    _items.append(_item_payment_requests.to_dict())
             _dict['paymentRequests'] = _items
         # override the default output from pydantic by calling `to_dict()` of smart_account
         if self.smart_account:

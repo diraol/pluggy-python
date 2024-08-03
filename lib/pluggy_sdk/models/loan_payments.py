@@ -74,9 +74,9 @@ class LoanPayments(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in releases (list)
         _items = []
         if self.releases:
-            for _item in self.releases:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_releases in self.releases:
+                if _item_releases:
+                    _items.append(_item_releases.to_dict())
             _dict['releases'] = _items
         return _dict
 

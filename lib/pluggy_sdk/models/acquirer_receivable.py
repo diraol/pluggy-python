@@ -109,9 +109,9 @@ class AcquirerReceivable(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in related_sales (list)
         _items = []
         if self.related_sales:
-            for _item in self.related_sales:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_related_sales in self.related_sales:
+                if _item_related_sales:
+                    _items.append(_item_related_sales.to_dict())
             _dict['relatedSales'] = _items
         return _dict
 

@@ -24,6 +24,7 @@ from pluggy_sdk.api.payment_request_api import PaymentRequestApi
 from pluggy_sdk.api.payment_schedule_api import PaymentScheduleApi
 from pluggy_sdk.api.portfolio_yield_api import PortfolioYieldApi
 from pluggy_sdk.api.smart_account_api import SmartAccountApi
+from pluggy_sdk.api.smart_transfer_api import SmartTransferApi
 from pluggy_sdk.api.transaction_api import TransactionApi
 from pluggy_sdk.api.webhook_api import WebhookApi
 

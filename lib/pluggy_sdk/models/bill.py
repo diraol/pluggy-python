@@ -80,9 +80,9 @@ class Bill(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in finance_charges (list)
         _items = []
         if self.finance_charges:
-            for _item in self.finance_charges:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_finance_charges in self.finance_charges:
+                if _item_finance_charges:
+                    _items.append(_item_finance_charges.to_dict())
             _dict['financeCharges'] = _items
         return _dict
 

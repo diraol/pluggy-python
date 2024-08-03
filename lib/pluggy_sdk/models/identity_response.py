@@ -91,30 +91,30 @@ class IdentityResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in phone_numbers (list)
         _items = []
         if self.phone_numbers:
-            for _item in self.phone_numbers:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_phone_numbers in self.phone_numbers:
+                if _item_phone_numbers:
+                    _items.append(_item_phone_numbers.to_dict())
             _dict['phoneNumbers'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in emails (list)
         _items = []
         if self.emails:
-            for _item in self.emails:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_emails in self.emails:
+                if _item_emails:
+                    _items.append(_item_emails.to_dict())
             _dict['emails'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in addresses (list)
         _items = []
         if self.addresses:
-            for _item in self.addresses:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_addresses in self.addresses:
+                if _item_addresses:
+                    _items.append(_item_addresses.to_dict())
             _dict['addresses'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in relations (list)
         _items = []
         if self.relations:
-            for _item in self.relations:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_relations in self.relations:
+                if _item_relations:
+                    _items.append(_item_relations.to_dict())
             _dict['relations'] = _items
         return _dict
 

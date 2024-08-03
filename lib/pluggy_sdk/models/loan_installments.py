@@ -100,9 +100,9 @@ class LoanInstallments(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in balloon_payments (list)
         _items = []
         if self.balloon_payments:
-            for _item in self.balloon_payments:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_balloon_payments in self.balloon_payments:
+                if _item_balloon_payments:
+                    _items.append(_item_balloon_payments.to_dict())
             _dict['balloonPayments'] = _items
         return _dict
 

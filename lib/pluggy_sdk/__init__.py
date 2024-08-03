@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post17"
+__version__ = "1.0.0.post18"
 
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi
@@ -41,6 +41,7 @@ from pluggy_sdk.api.payment_request_api import PaymentRequestApi
 from pluggy_sdk.api.payment_schedule_api import PaymentScheduleApi
 from pluggy_sdk.api.portfolio_yield_api import PortfolioYieldApi
 from pluggy_sdk.api.smart_account_api import SmartAccountApi
+from pluggy_sdk.api.smart_transfer_api import SmartTransferApi
 from pluggy_sdk.api.transaction_api import TransactionApi
 from pluggy_sdk.api.webhook_api import WebhookApi
 
@@ -116,6 +117,8 @@ from pluggy_sdk.models.create_payment_request import CreatePaymentRequest
 from pluggy_sdk.models.create_pix_qr_payment_request import CreatePixQrPaymentRequest
 from pluggy_sdk.models.create_smart_account_request import CreateSmartAccountRequest
 from pluggy_sdk.models.create_smart_account_transfer_request import CreateSmartAccountTransferRequest
+from pluggy_sdk.models.create_smart_transfer_payment import CreateSmartTransferPayment
+from pluggy_sdk.models.create_smart_transfer_preauthorization import CreateSmartTransferPreauthorization
 from pluggy_sdk.models.create_webhook import CreateWebhook
 from pluggy_sdk.models.credential_select_option import CredentialSelectOption
 from pluggy_sdk.models.credit_card_metadata import CreditCardMetadata
@@ -197,6 +200,11 @@ from pluggy_sdk.models.smart_account_address import SmartAccountAddress
 from pluggy_sdk.models.smart_account_balance import SmartAccountBalance
 from pluggy_sdk.models.smart_account_transfer import SmartAccountTransfer
 from pluggy_sdk.models.smart_accounts_list200_response import SmartAccountsList200Response
+from pluggy_sdk.models.smart_tranfers_preauthorizations_list200_response import SmartTranfersPreauthorizationsList200Response
+from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls
+from pluggy_sdk.models.smart_transfer_payment import SmartTransferPayment
+from pluggy_sdk.models.smart_transfer_preauthorization import SmartTransferPreauthorization
+from pluggy_sdk.models.smart_transfer_preauthorization_parameter import SmartTransferPreauthorizationParameter
 from pluggy_sdk.models.status_detail import StatusDetail
 from pluggy_sdk.models.status_detail_product import StatusDetailProduct
 from pluggy_sdk.models.status_detail_product_warning import StatusDetailProductWarning

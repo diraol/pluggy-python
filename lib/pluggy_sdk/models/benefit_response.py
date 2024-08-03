@@ -86,9 +86,9 @@ class BenefitResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in loans (list)
         _items = []
         if self.loans:
-            for _item in self.loans:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_loans in self.loans:
+                if _item_loans:
+                    _items.append(_item_loans.to_dict())
             _dict['loans'] = _items
         return _dict
 

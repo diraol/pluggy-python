@@ -75,16 +75,16 @@ class LoanPaymentReleaseOverParcel(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in fees (list)
         _items = []
         if self.fees:
-            for _item in self.fees:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_fees in self.fees:
+                if _item_fees:
+                    _items.append(_item_fees.to_dict())
             _dict['fees'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in charges (list)
         _items = []
         if self.charges:
-            for _item in self.charges:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_charges in self.charges:
+                if _item_charges:
+                    _items.append(_item_charges.to_dict())
             _dict['charges'] = _items
         return _dict
 
