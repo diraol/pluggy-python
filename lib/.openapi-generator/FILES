@@ -393,12 +393,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_create_smart_transfer_payment.py
-test/test_create_smart_transfer_preauthorization.py
-test/test_smart_tranfers_preauthorizations_list200_response.py
-test/test_smart_transfer_api.py
-test/test_smart_transfer_callback_urls.py
-test/test_smart_transfer_payment.py
-test/test_smart_transfer_preauthorization.py
-test/test_smart_transfer_preauthorization_parameter.py
 tox.ini

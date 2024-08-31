@@ -32,8 +32,9 @@ class CreateItem(BaseModel):
     parameters: CreateItemParameters
     webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of item changes", alias="webhookUrl")
     client_user_id: Optional[StrictStr] = Field(default=None, description="Client's identifier for the user, it can be a ID, UUID or even an email.", alias="clientUserId")
+    oauth_redirect_uri: Optional[StrictStr] = Field(default=None, description="Redirect URI required for the Oauth flow", alias="oauthRedirectUri")
     products: Optional[List[StrictStr]] = Field(default=None, description="Products to be collected in the connection")
-    __properties: ClassVar[List[str]] = ["connectorId", "parameters", "webhookUrl", "clientUserId", "products"]
+    __properties: ClassVar[List[str]] = ["connectorId", "parameters", "webhookUrl", "clientUserId", "oauthRedirectUri", "products"]
 
     @field_validator('products')
     def products_validate_enum(cls, value):
@@ -104,6 +105,7 @@ class CreateItem(BaseModel):
             "parameters": CreateItemParameters.from_dict(obj["parameters"]) if obj.get("parameters") is not None else None,
             "webhookUrl": obj.get("webhookUrl"),
             "clientUserId": obj.get("clientUserId"),
+            "oauthRedirectUri": obj.get("oauthRedirectUri"),
             "products": obj.get("products")
         })
         return _obj
