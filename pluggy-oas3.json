@@ -8619,6 +8619,11 @@
             "type": "string",
             "description": "Client's identifier for the user, it can be a ID, UUID or even an email."
           },
+          "oauthRedirectUri": {
+            "type": "string",
+            "format": "uri",
+            "description": "Redirect URI required for the Oauth flow"
+          },
           "products": {
             "type": "array",
             "items": {
