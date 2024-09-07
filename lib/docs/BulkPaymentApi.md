@@ -5,6 +5,7 @@ All URIs are relative to *https://api.pluggy.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**bulk_payment_create**](BulkPaymentApi.md#bulk_payment_create) | **POST** /payments/bulk | Create
+[**bulk_payment_delete**](BulkPaymentApi.md#bulk_payment_delete) | **DELETE** /payments/bulk/{id} | Delete
 [**bulk_payment_retrieve**](BulkPaymentApi.md#bulk_payment_retrieve) | **GET** /payments/bulk/{id} | Retrieve
 [**bulk_payments_list**](BulkPaymentApi.md#bulk_payments_list) | **GET** /payments/bulk | List
 
@@ -87,6 +88,83 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Create a Bulk Payment. |  -  |
 **400** | Bulk Payment is Invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulk_payment_delete**
+> bulk_payment_delete(id)
+
+Delete
+
+Deletes the bulk payment resource
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.BulkPaymentApi(api_client)
+    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Bulk payment primary identifier
+
+    try:
+        # Delete
+        api_instance.bulk_payment_delete(id)
+    except Exception as e:
+        print("Exception when calling BulkPaymentApi->bulk_payment_delete: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| Bulk payment primary identifier | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Delete a bulk payment |  -  |
+**404** | Bulk payment not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
