@@ -10340,6 +10340,188 @@
               "$ref": "#/components/schemas/IdentityRelation"
             },
             "description": "List of names related to the account"
+          },
+          "investorProfile": {
+            "enum": [
+              "Conservative",
+              "Moderate",
+              "Aggressive"
+            ],
+            "type": "string",
+            "description": "Is a rating that indicates the investor personality and motivation for investing"
+          },
+          "qualifications": {
+            "type": "object",
+            "description": "Information that allows understanding since when the consulted person has been a client of the institution, as well as an indicator of the products and services they currently consume and their representatives",
+            "required": [
+              "companyCnpj"
+            ],
+            "properties": {
+              "companyCnpj": {
+                "type": "string",
+                "description": "CNPJ of the company"
+              },
+              "occupationCode": {
+                "type": "string",
+                "enum": [
+                  "RECEITA_FEDERAL",
+                  "CBO",
+                  "OUTRO"
+                ],
+                "description": "Occupation code"
+              },
+              "informedIncome": {
+                "type": "object",
+                "description": "Informed income",
+                "required": [
+                  "frequency",
+                  "amount",
+                  "date"
+                ],
+                "properties": {
+                  "frequency": {
+                    "type": "string",
+                    "enum": [
+                      "DIARIA",
+                      "SEMANAL",
+                      "QUINZENAL",
+                      "MENSAL",
+                      "BIMESTRAL",
+                      "TRIMESTRAL",
+                      "SEMESTRAL",
+                      "ANUAL",
+                      "OUTROS"
+                    ],
+                    "description": "Frequency of the informed income"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "description": "Amount of the informed income"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date when the income was informed"
+                  }
+                }
+              },
+              "informedPatrimony": {
+                "type": "object",
+                "description": "Informed patrimony",
+                "required": [
+                  "amount",
+                  "year"
+                ],
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "description": "Amount of the informed patrimony"
+                  },
+                  "year": {
+                    "type": "number",
+                    "description": "Year of the patrimony"
+                  }
+                }
+              }
+            }
+          },
+          "financialRelationships": {
+            "type": "object",
+            "required": [
+              "startDate",
+              "productsServicesType",
+              "procurators"
+            ],
+            "properties": {
+              "startDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Date when the relationship with the institution started"
+              },
+              "productsServicesType": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "List of products and services that the client consumes"
+              },
+              "procurators": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "cpfNumber",
+                    "civilName"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "REPRESENTANTE_LEGAL",
+                        "PROCURADOR"
+                      ],
+                      "description": "Type of relationship with the client"
+                    },
+                    "cpfNumber": {
+                      "type": "string",
+                      "description": "CPF of the procurator"
+                    },
+                    "civilName": {
+                      "type": "string",
+                      "description": "Civil name of the procurator"
+                    },
+                    "socialName": {
+                      "type": "string",
+                      "description": "Social name of the procurator"
+                    }
+                  }
+                },
+                "description": "List of procurators of the client"
+              },
+              "accounts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "compeCode",
+                    "branchCode",
+                    "number",
+                    "checkDigit",
+                    "type",
+                    "subtype"
+                  ],
+                  "properties": {
+                    "compeCode": {
+                      "type": "string",
+                      "description": "COMPE code of the account"
+                    },
+                    "branchCode": {
+                      "type": "string",
+                      "description": "Branch code of the account"
+                    },
+                    "number": {
+                      "type": "string",
+                      "description": "Number of the account"
+                    },
+                    "checkDigit": {
+                      "type": "string",
+                      "description": "Check digit of the account"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Type of the account"
+                    },
+                    "subtype": {
+                      "type": "string",
+                      "description": "Subtype of the account"
+                    }
+                  }
+                },
+                "description": "List of accounts of the client"
+              }
+            },
+            "description": "Information that allows institutions to assess, evaluate, characterize, and classify the client with the purpose of understanding their risk profile and their economic-financial capacity"
           }
         },
         "type": "object",
