@@ -21,6 +21,9 @@ Name | Type | Description | Notes
 **emails** | [**List[Email]**](Email.md) | List of email addresses related to the account | [optional] 
 **addresses** | [**List[Address]**](Address.md) | List of addresses related to the account | [optional] 
 **relations** | [**List[IdentityRelation]**](IdentityRelation.md) | List of names related to the account | [optional] 
+**investor_profile** | **str** | Is a rating that indicates the investor personality and motivation for investing | [optional] 
+**qualifications** | [**IdentityResponseQualifications**](IdentityResponseQualifications.md) |  | [optional] 
+**financial_relationships** | [**IdentityResponseFinancialRelationships**](IdentityResponseFinancialRelationships.md) |  | [optional] 
 
 ## Example
 

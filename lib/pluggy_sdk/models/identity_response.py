@@ -19,11 +19,13 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.address import Address
 from pluggy_sdk.models.email import Email
 from pluggy_sdk.models.identity_relation import IdentityRelation
+from pluggy_sdk.models.identity_response_financial_relationships import IdentityResponseFinancialRelationships
+from pluggy_sdk.models.identity_response_qualifications import IdentityResponseQualifications
 from pluggy_sdk.models.phone_number import PhoneNumber
 from typing import Optional, Set
 from typing_extensions import Self
@@ -47,7 +49,20 @@ class IdentityResponse(BaseModel):
     emails: Optional[List[Email]] = Field(default=None, description="List of email addresses related to the account")
     addresses: Optional[List[Address]] = Field(default=None, description="List of addresses related to the account")
     relations: Optional[List[IdentityRelation]] = Field(default=None, description="List of names related to the account")
-    __properties: ClassVar[List[str]] = ["id", "itemId", "birthDate", "taxNumber", "document", "documentType", "jobTitle", "fullName", "establishmentCode", "establishmentName", "companyName", "phoneNumbers", "emails", "addresses", "relations"]
+    investor_profile: Optional[StrictStr] = Field(default=None, description="Is a rating that indicates the investor personality and motivation for investing", alias="investorProfile")
+    qualifications: Optional[IdentityResponseQualifications] = None
+    financial_relationships: Optional[IdentityResponseFinancialRelationships] = Field(default=None, alias="financialRelationships")
+    __properties: ClassVar[List[str]] = ["id", "itemId", "birthDate", "taxNumber", "document", "documentType", "jobTitle", "fullName", "establishmentCode", "establishmentName", "companyName", "phoneNumbers", "emails", "addresses", "relations", "investorProfile", "qualifications", "financialRelationships"]
+
+    @field_validator('investor_profile')
+    def investor_profile_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['Conservative', 'Moderate', 'Aggressive']):
+            raise ValueError("must be one of enum values ('Conservative', 'Moderate', 'Aggressive')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -116,6 +131,12 @@ class IdentityResponse(BaseModel):
                 if _item_relations:
                     _items.append(_item_relations.to_dict())
             _dict['relations'] = _items
+        # override the default output from pydantic by calling `to_dict()` of qualifications
+        if self.qualifications:
+            _dict['qualifications'] = self.qualifications.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of financial_relationships
+        if self.financial_relationships:
+            _dict['financialRelationships'] = self.financial_relationships.to_dict()
         return _dict
 
     @classmethod
@@ -142,7 +163,10 @@ class IdentityResponse(BaseModel):
             "phoneNumbers": [PhoneNumber.from_dict(_item) for _item in obj["phoneNumbers"]] if obj.get("phoneNumbers") is not None else None,
             "emails": [Email.from_dict(_item) for _item in obj["emails"]] if obj.get("emails") is not None else None,
             "addresses": [Address.from_dict(_item) for _item in obj["addresses"]] if obj.get("addresses") is not None else None,
-            "relations": [IdentityRelation.from_dict(_item) for _item in obj["relations"]] if obj.get("relations") is not None else None
+            "relations": [IdentityRelation.from_dict(_item) for _item in obj["relations"]] if obj.get("relations") is not None else None,
+            "investorProfile": obj.get("investorProfile"),
+            "qualifications": IdentityResponseQualifications.from_dict(obj["qualifications"]) if obj.get("qualifications") is not None else None,
+            "financialRelationships": IdentityResponseFinancialRelationships.from_dict(obj["financialRelationships"]) if obj.get("financialRelationships") is not None else None
         })
         return _obj
 

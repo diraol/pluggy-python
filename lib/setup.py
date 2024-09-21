@@ -22,10 +22,10 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "pluggy-sdk"
-VERSION = "1.0.0.post20"
+VERSION = "1.0.0.post21"
 PYTHON_REQUIRES = ">=3.7"
 REQUIRES = [
-    "urllib3 >= 1.25.3, < 2.1.0",
+    "urllib3 >= 1.25.3, < 3.0.0",
     "python-dateutil",
     "pydantic >= 2",
     "typing-extensions >= 4.7.1",

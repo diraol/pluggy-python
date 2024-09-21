@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post20"
+__version__ = "1.0.0.post21"
 
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi
@@ -130,6 +130,12 @@ from pluggy_sdk.models.global_error_response import GlobalErrorResponse
 from pluggy_sdk.models.i_count_response import ICountResponse
 from pluggy_sdk.models.identity_relation import IdentityRelation
 from pluggy_sdk.models.identity_response import IdentityResponse
+from pluggy_sdk.models.identity_response_financial_relationships import IdentityResponseFinancialRelationships
+from pluggy_sdk.models.identity_response_financial_relationships_accounts_inner import IdentityResponseFinancialRelationshipsAccountsInner
+from pluggy_sdk.models.identity_response_financial_relationships_procurators_inner import IdentityResponseFinancialRelationshipsProcuratorsInner
+from pluggy_sdk.models.identity_response_qualifications import IdentityResponseQualifications
+from pluggy_sdk.models.identity_response_qualifications_informed_income import IdentityResponseQualificationsInformedIncome
+from pluggy_sdk.models.identity_response_qualifications_informed_patrimony import IdentityResponseQualificationsInformedPatrimony
 from pluggy_sdk.models.income_report import IncomeReport
 from pluggy_sdk.models.income_reports_response import IncomeReportsResponse
 from pluggy_sdk.models.investment import Investment

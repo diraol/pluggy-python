@@ -88,6 +88,12 @@ docs/ICountResponse.md
 docs/IdentityApi.md
 docs/IdentityRelation.md
 docs/IdentityResponse.md
+docs/IdentityResponseFinancialRelationships.md
+docs/IdentityResponseFinancialRelationshipsAccountsInner.md
+docs/IdentityResponseFinancialRelationshipsProcuratorsInner.md
+docs/IdentityResponseQualifications.md
+docs/IdentityResponseQualificationsInformedIncome.md
+docs/IdentityResponseQualificationsInformedPatrimony.md
 docs/IncomeReport.md
 docs/IncomeReportApi.md
 docs/IncomeReportsResponse.md
@@ -297,6 +303,12 @@ pluggy_sdk/models/global_error_response.py
 pluggy_sdk/models/i_count_response.py
 pluggy_sdk/models/identity_relation.py
 pluggy_sdk/models/identity_response.py
+pluggy_sdk/models/identity_response_financial_relationships.py
+pluggy_sdk/models/identity_response_financial_relationships_accounts_inner.py
+pluggy_sdk/models/identity_response_financial_relationships_procurators_inner.py
+pluggy_sdk/models/identity_response_qualifications.py
+pluggy_sdk/models/identity_response_qualifications_informed_income.py
+pluggy_sdk/models/identity_response_qualifications_informed_patrimony.py
 pluggy_sdk/models/income_report.py
 pluggy_sdk/models/income_reports_response.py
 pluggy_sdk/models/investment.py
@@ -393,4 +405,10 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_identity_response_financial_relationships.py
+test/test_identity_response_financial_relationships_accounts_inner.py
+test/test_identity_response_financial_relationships_procurators_inner.py
+test/test_identity_response_qualifications.py
+test/test_identity_response_qualifications_informed_income.py
+test/test_identity_response_qualifications_informed_patrimony.py
 tox.ini
