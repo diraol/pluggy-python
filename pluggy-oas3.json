@@ -9638,6 +9638,14 @@
           "clientId": {
             "type": "string",
             "description": "Identifier of the client"
+          },
+          "transactionType": {
+            "type": "string",
+            "description": "Transaction type (DEBIT/CREDIT)"
+          },
+          "accountType": {
+            "type": "string",
+            "description": "Account type (CHECKING_ACCOUNT/CREDIT_CARD)"
           }
         },
         "type": "object",
@@ -9648,7 +9656,10 @@
         "example": {
           "description": "uber payment",
           "category": "Salary/pro-labore",
-          "categoryId": "05000000"
+          "categoryId": "05000000",
+          "clientId": "03cc0eff-4ec5-495c-adb3-1ef9611624fc",
+          "transactionType": "DEBIT",
+          "accountType": "CHECKING_ACCOUNT"
         }
       },
       "CreateClientCategoryRule": {
@@ -9665,6 +9676,14 @@
           "clientId": {
             "type": "string",
             "description": "Identifier of the client"
+          },
+          "transactionType": {
+            "type": "string",
+            "description": "Transaction type (DEBIT/CREDIT)"
+          },
+          "accountType": {
+            "type": "string",
+            "description": "Account type (CHECKING_ACCOUNT/CREDIT_CARD)"
           }
         },
         "type": "object",
@@ -9675,7 +9694,10 @@
         ],
         "example": {
           "description": "uber payment",
-          "categoryId": "05000000"
+          "categoryId": "05000000",
+          "clientId": "03cc0eff-4ec5-495c-adb3-1ef9611624fc",
+          "transactionType": "DEBIT",
+          "accountType": "CHECKING_ACCOUNT"
         }
       },
       "InvestmentExpenses": {
