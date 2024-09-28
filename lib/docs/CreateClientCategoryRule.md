@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **description** | **str** | Description of the transaction rule. | 
 **category_id** | **str** | Identifier of the category | 
 **client_id** | **str** | Identifier of the client | 
+**transaction_type** | **str** | Transaction type (DEBIT/CREDIT) | [optional] 
+**account_type** | **str** | Account type (CHECKING_ACCOUNT/CREDIT_CARD) | [optional] 
 
 ## Example
 

@@ -31,7 +31,9 @@ class ClientCategoryRule(BaseModel):
     category_id: Optional[StrictStr] = Field(default=None, description="Identifier of the category", alias="categoryId")
     category: StrictStr = Field(description="Description of the category")
     client_id: Optional[StrictStr] = Field(default=None, description="Identifier of the client", alias="clientId")
-    __properties: ClassVar[List[str]] = ["description", "categoryId", "category", "clientId"]
+    transaction_type: Optional[StrictStr] = Field(default=None, description="Transaction type (DEBIT/CREDIT)", alias="transactionType")
+    account_type: Optional[StrictStr] = Field(default=None, description="Account type (CHECKING_ACCOUNT/CREDIT_CARD)", alias="accountType")
+    __properties: ClassVar[List[str]] = ["description", "categoryId", "category", "clientId", "transactionType", "accountType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,7 +89,9 @@ class ClientCategoryRule(BaseModel):
             "description": obj.get("description"),
             "categoryId": obj.get("categoryId"),
             "category": obj.get("category"),
-            "clientId": obj.get("clientId")
+            "clientId": obj.get("clientId"),
+            "transactionType": obj.get("transactionType"),
+            "accountType": obj.get("accountType")
         })
         return _obj
 

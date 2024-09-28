@@ -405,10 +405,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_identity_response_financial_relationships.py
-test/test_identity_response_financial_relationships_accounts_inner.py
-test/test_identity_response_financial_relationships_procurators_inner.py
-test/test_identity_response_qualifications.py
-test/test_identity_response_qualifications_informed_income.py
-test/test_identity_response_qualifications_informed_patrimony.py
 tox.ini

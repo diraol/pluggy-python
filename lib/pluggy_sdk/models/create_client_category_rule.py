@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,7 +30,9 @@ class CreateClientCategoryRule(BaseModel):
     description: StrictStr = Field(description="Description of the transaction rule.")
     category_id: StrictStr = Field(description="Identifier of the category", alias="categoryId")
     client_id: StrictStr = Field(description="Identifier of the client", alias="clientId")
-    __properties: ClassVar[List[str]] = ["description", "categoryId", "clientId"]
+    transaction_type: Optional[StrictStr] = Field(default=None, description="Transaction type (DEBIT/CREDIT)", alias="transactionType")
+    account_type: Optional[StrictStr] = Field(default=None, description="Account type (CHECKING_ACCOUNT/CREDIT_CARD)", alias="accountType")
+    __properties: ClassVar[List[str]] = ["description", "categoryId", "clientId", "transactionType", "accountType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,7 +87,9 @@ class CreateClientCategoryRule(BaseModel):
         _obj = cls.model_validate({
             "description": obj.get("description"),
             "categoryId": obj.get("categoryId"),
-            "clientId": obj.get("clientId")
+            "clientId": obj.get("clientId"),
+            "transactionType": obj.get("transactionType"),
+            "accountType": obj.get("accountType")
         })
         return _obj
 

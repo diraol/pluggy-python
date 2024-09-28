@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **category_id** | **str** | Identifier of the category | [optional] 
 **category** | **str** | Description of the category | 
 **client_id** | **str** | Identifier of the client | [optional] 
+**transaction_type** | **str** | Transaction type (DEBIT/CREDIT) | [optional] 
+**account_type** | **str** | Account type (CHECKING_ACCOUNT/CREDIT_CARD) | [optional] 
 
 ## Example
 
