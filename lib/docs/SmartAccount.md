@@ -6,7 +6,7 @@ Smart account product
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Primary identifier of the acquirer anticipation | 
+**id** | **str** | Primary identifier of the Smart account | 
 **ispb** | **str** | Smart account ISP number | 
 **agency** | **str** | Smart account agency number | 
 **number** | **str** | Smart account number | 

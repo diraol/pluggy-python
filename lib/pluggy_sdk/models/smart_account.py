@@ -27,7 +27,7 @@ class SmartAccount(BaseModel):
     """
     Smart account product
     """ # noqa: E501
-    id: StrictStr = Field(description="Primary identifier of the acquirer anticipation")
+    id: StrictStr = Field(description="Primary identifier of the Smart account")
     ispb: StrictStr = Field(description="Smart account ISP number")
     agency: StrictStr = Field(description="Smart account agency number")
     number: StrictStr = Field(description="Smart account number")

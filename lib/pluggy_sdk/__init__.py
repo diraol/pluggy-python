@@ -15,13 +15,10 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post22"
+__version__ = "1.0.0.post23"
 
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi
-from pluggy_sdk.api.acquirer_anticipation_api import AcquirerAnticipationApi
-from pluggy_sdk.api.acquirer_receivable_api import AcquirerReceivableApi
-from pluggy_sdk.api.acquirer_sale_api import AcquirerSaleApi
 from pluggy_sdk.api.auth_api import AuthApi
 from pluggy_sdk.api.benefit_api import BenefitApi
 from pluggy_sdk.api.bill_api import BillApi
@@ -30,7 +27,6 @@ from pluggy_sdk.api.category_api import CategoryApi
 from pluggy_sdk.api.connector_api import ConnectorApi
 from pluggy_sdk.api.consent_api import ConsentApi
 from pluggy_sdk.api.identity_api import IdentityApi
-from pluggy_sdk.api.income_report_api import IncomeReportApi
 from pluggy_sdk.api.investment_api import InvestmentApi
 from pluggy_sdk.api.items_api import ItemsApi
 from pluggy_sdk.api.loan_api import LoanApi
@@ -39,7 +35,6 @@ from pluggy_sdk.api.payment_intent_api import PaymentIntentApi
 from pluggy_sdk.api.payment_recipient_api import PaymentRecipientApi
 from pluggy_sdk.api.payment_request_api import PaymentRequestApi
 from pluggy_sdk.api.payment_schedule_api import PaymentScheduleApi
-from pluggy_sdk.api.portfolio_yield_api import PortfolioYieldApi
 from pluggy_sdk.api.smart_account_api import SmartAccountApi
 from pluggy_sdk.api.smart_transfer_api import SmartTransferApi
 from pluggy_sdk.api.transaction_api import TransactionApi
@@ -59,22 +54,7 @@ from pluggy_sdk.exceptions import ApiException
 # import models into sdk package
 from pluggy_sdk.models.account import Account
 from pluggy_sdk.models.accounts_list200_response import AccountsList200Response
-from pluggy_sdk.models.acquirer_anticipation import AcquirerAnticipation
-from pluggy_sdk.models.acquirer_anticipation_data import AcquirerAnticipationData
-from pluggy_sdk.models.acquirer_data import AcquirerData
-from pluggy_sdk.models.acquirer_receivable import AcquirerReceivable
-from pluggy_sdk.models.acquirer_receivable_data import AcquirerReceivableData
-from pluggy_sdk.models.acquirer_receivable_data_establishment import AcquirerReceivableDataEstablishment
-from pluggy_sdk.models.acquirer_receivable_destination_account import AcquirerReceivableDestinationAccount
-from pluggy_sdk.models.acquirer_receivable_related_sale import AcquirerReceivableRelatedSale
-from pluggy_sdk.models.acquirer_sale import AcquirerSale
-from pluggy_sdk.models.acquirer_sale_data import AcquirerSaleData
-from pluggy_sdk.models.acquirer_sale_installment import AcquirerSaleInstallment
-from pluggy_sdk.models.acquirer_sale_installment_data import AcquirerSaleInstallmentData
 from pluggy_sdk.models.address import Address
-from pluggy_sdk.models.aggregated_portfolio import AggregatedPortfolio
-from pluggy_sdk.models.aggregated_portfolio_response import AggregatedPortfolioResponse
-from pluggy_sdk.models.asset_distribution import AssetDistribution
 from pluggy_sdk.models.auth_request import AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse
 from pluggy_sdk.models.bank_data import BankData
@@ -136,8 +116,6 @@ from pluggy_sdk.models.identity_response_financial_relationships_procurators_inn
 from pluggy_sdk.models.identity_response_qualifications import IdentityResponseQualifications
 from pluggy_sdk.models.identity_response_qualifications_informed_income import IdentityResponseQualificationsInformedIncome
 from pluggy_sdk.models.identity_response_qualifications_informed_patrimony import IdentityResponseQualificationsInformedPatrimony
-from pluggy_sdk.models.income_report import IncomeReport
-from pluggy_sdk.models.income_reports_response import IncomeReportsResponse
 from pluggy_sdk.models.investment import Investment
 from pluggy_sdk.models.investment_expenses import InvestmentExpenses
 from pluggy_sdk.models.investment_metadata import InvestmentMetadata
@@ -163,12 +141,7 @@ from pluggy_sdk.models.loan_warranty import LoanWarranty
 from pluggy_sdk.models.loans_list200_response import LoansList200Response
 from pluggy_sdk.models.monthly import MONTHLY
 from pluggy_sdk.models.merchant import Merchant
-from pluggy_sdk.models.monthly_portfolio import MonthlyPortfolio
-from pluggy_sdk.models.monthly_portfolio_response import MonthlyPortfolioResponse
 from pluggy_sdk.models.not_authenticated_response import NotAuthenticatedResponse
-from pluggy_sdk.models.page_response_acquirer_anticipations import PageResponseAcquirerAnticipations
-from pluggy_sdk.models.page_response_acquirer_receivables import PageResponseAcquirerReceivables
-from pluggy_sdk.models.page_response_acquirer_sales import PageResponseAcquirerSales
 from pluggy_sdk.models.page_response_category_rules import PageResponseCategoryRules
 from pluggy_sdk.models.page_response_consents import PageResponseConsents
 from pluggy_sdk.models.page_response_investment_transactions import PageResponseInvestmentTransactions
@@ -196,7 +169,6 @@ from pluggy_sdk.models.payment_request_receipt_list200_response import PaymentRe
 from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule
 from pluggy_sdk.models.payment_requests_list200_response import PaymentRequestsList200Response
 from pluggy_sdk.models.payment_schedules_list200_response import PaymentSchedulesList200Response
-from pluggy_sdk.models.percentage_over_index import PercentageOverIndex
 from pluggy_sdk.models.phone_number import PhoneNumber
 from pluggy_sdk.models.pix_data import PixData
 from pluggy_sdk.models.single import SINGLE

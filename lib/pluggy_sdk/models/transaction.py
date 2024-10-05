@@ -21,7 +21,6 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
-from pluggy_sdk.models.acquirer_data import AcquirerData
 from pluggy_sdk.models.credit_card_metadata import CreditCardMetadata
 from pluggy_sdk.models.merchant import Merchant
 from pluggy_sdk.models.payment_data import PaymentData
@@ -45,10 +44,10 @@ class Transaction(BaseModel):
     category: Optional[StrictStr] = Field(default=None, description="Category of the transaction (e.g. Restaurants, Education). See the Transaction Categorization section in our guides.")
     category_id: Optional[StrictStr] = Field(default=None, description="Id of the transaction category. Can be used to identify the category in the Categories endpoint", alias="categoryId")
     payment_data: Optional[PaymentData] = Field(default=None, alias="paymentData")
-    acquirer_data: Optional[AcquirerData] = Field(default=None, alias="acquirerData")
     credit_card_metadata: Optional[CreditCardMetadata] = Field(default=None, alias="creditCardMetadata")
     merchant: Optional[Merchant] = None
-    __properties: ClassVar[List[str]] = ["id", "description", "currencyCode", "amount", "amountInAccountCurrency", "date", "type", "balance", "providerCode", "status", "category", "categoryId", "paymentData", "acquirerData", "creditCardMetadata", "merchant"]
+    operation_type: Optional[StrictStr] = Field(default=None, description="Type of operation classified by the institution.", alias="operationType")
+    __properties: ClassVar[List[str]] = ["id", "description", "currencyCode", "amount", "amountInAccountCurrency", "date", "type", "balance", "providerCode", "status", "category", "categoryId", "paymentData", "creditCardMetadata", "merchant", "operationType"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -102,9 +101,6 @@ class Transaction(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of payment_data
         if self.payment_data:
             _dict['paymentData'] = self.payment_data.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of acquirer_data
-        if self.acquirer_data:
-            _dict['acquirerData'] = self.acquirer_data.to_dict()
         # override the default output from pydantic by calling `to_dict()` of credit_card_metadata
         if self.credit_card_metadata:
             _dict['creditCardMetadata'] = self.credit_card_metadata.to_dict()
@@ -136,9 +132,9 @@ class Transaction(BaseModel):
             "category": obj.get("category"),
             "categoryId": obj.get("categoryId"),
             "paymentData": PaymentData.from_dict(obj["paymentData"]) if obj.get("paymentData") is not None else None,
-            "acquirerData": AcquirerData.from_dict(obj["acquirerData"]) if obj.get("acquirerData") is not None else None,
             "creditCardMetadata": CreditCardMetadata.from_dict(obj["creditCardMetadata"]) if obj.get("creditCardMetadata") is not None else None,
-            "merchant": Merchant.from_dict(obj["merchant"]) if obj.get("merchant") is not None else None
+            "merchant": Merchant.from_dict(obj["merchant"]) if obj.get("merchant") is not None else None,
+            "operationType": obj.get("operationType")
         })
         return _obj
 

@@ -35,11 +35,8 @@ class StatusDetail(BaseModel):
     identity: Optional[StatusDetailProduct] = None
     investment_transactions: Optional[StatusDetailProduct] = Field(default=None, alias="investmentTransactions")
     payment_data: Optional[StatusDetailProduct] = Field(default=None, alias="paymentData")
-    income_reports: Optional[StatusDetailProduct] = Field(default=None, alias="incomeReports")
     loans: Optional[StatusDetailProduct] = None
-    portfolio: Optional[StatusDetailProduct] = None
-    opportunities: Optional[StatusDetailProduct] = None
-    __properties: ClassVar[List[str]] = ["accounts", "creditCards", "transactions", "investments", "identity", "investmentTransactions", "paymentData", "incomeReports", "loans", "portfolio", "opportunities"]
+    __properties: ClassVar[List[str]] = ["accounts", "creditCards", "transactions", "investments", "identity", "investmentTransactions", "paymentData", "loans"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,18 +98,9 @@ class StatusDetail(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of payment_data
         if self.payment_data:
             _dict['paymentData'] = self.payment_data.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of income_reports
-        if self.income_reports:
-            _dict['incomeReports'] = self.income_reports.to_dict()
         # override the default output from pydantic by calling `to_dict()` of loans
         if self.loans:
             _dict['loans'] = self.loans.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of portfolio
-        if self.portfolio:
-            _dict['portfolio'] = self.portfolio.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of opportunities
-        if self.opportunities:
-            _dict['opportunities'] = self.opportunities.to_dict()
         return _dict
 
     @classmethod
@@ -132,10 +120,7 @@ class StatusDetail(BaseModel):
             "identity": StatusDetailProduct.from_dict(obj["identity"]) if obj.get("identity") is not None else None,
             "investmentTransactions": StatusDetailProduct.from_dict(obj["investmentTransactions"]) if obj.get("investmentTransactions") is not None else None,
             "paymentData": StatusDetailProduct.from_dict(obj["paymentData"]) if obj.get("paymentData") is not None else None,
-            "incomeReports": StatusDetailProduct.from_dict(obj["incomeReports"]) if obj.get("incomeReports") is not None else None,
-            "loans": StatusDetailProduct.from_dict(obj["loans"]) if obj.get("loans") is not None else None,
-            "portfolio": StatusDetailProduct.from_dict(obj["portfolio"]) if obj.get("portfolio") is not None else None,
-            "opportunities": StatusDetailProduct.from_dict(obj["opportunities"]) if obj.get("opportunities") is not None else None
+            "loans": StatusDetailProduct.from_dict(obj["loans"]) if obj.get("loans") is not None else None
         })
         return _obj
 

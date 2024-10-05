@@ -13,10 +13,7 @@ Name | Type | Description | Notes
 **identity** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
 **investment_transactions** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
 **payment_data** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
-**income_reports** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
 **loans** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
-**portfolio** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
-**opportunities** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
 
 ## Example
 

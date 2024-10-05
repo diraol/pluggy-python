@@ -19,9 +19,9 @@ Name | Type | Description | Notes
 **category** | **str** | Category of the transaction (e.g. Restaurants, Education). See the Transaction Categorization section in our guides. | [optional] 
 **category_id** | **str** | Id of the transaction category. Can be used to identify the category in the Categories endpoint | [optional] 
 **payment_data** | [**PaymentData**](PaymentData.md) |  | [optional] 
-**acquirer_data** | [**AcquirerData**](AcquirerData.md) |  | [optional] 
 **credit_card_metadata** | [**CreditCardMetadata**](CreditCardMetadata.md) |  | [optional] 
 **merchant** | [**Merchant**](Merchant.md) |  | [optional] 
+**operation_type** | **str** | Type of operation classified by the institution. | [optional] 
 
 ## Example
 
