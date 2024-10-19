@@ -7817,7 +7817,7 @@
           "identity": {
             "$ref": "#/components/schemas/StatusDetailProduct"
           },
-          "investmentTransactions": {
+          "investmentsTransactions": {
             "$ref": "#/components/schemas/StatusDetailProduct"
           },
           "paymentData": {
@@ -8161,7 +8161,10 @@
           },
           "paymentMethod": {
             "type": "string",
-            "description": "Type of transfer. TED, DOC, PIX or TEV"
+            "description": "Type of transfer. TED, DOC, PIX, TEV or BOLETO"
+          },
+          "boletoMetadata": {
+            "$ref": "#/components/schemas/PaymentDataBoletoMetadata"
           }
         },
         "type": "object"
@@ -12314,6 +12317,35 @@
           "recipientId",
           "amount"
         ]
+      },
+      "PaymentDataBoletoMetadata": {
+        "description": "Information of the boleto associated with the payment",
+        "properties": {
+          "digitableLine": {
+            "type": "string",
+            "description": "Boleto identifier"
+          },
+          "barcode": {
+            "type": "string",
+            "description": "Boleto barcode number"
+          },
+          "baseAmount": {
+            "type": "number",
+            "description": "Boleto original amount without considering penalties / interests / discounts"
+          },
+          "interestAmount": {
+            "type": "number",
+            "description": "Boleto interest amount"
+          },
+          "penaltyAmount": {
+            "type": "number",
+            "description": "Boleto penalty amount"
+          },
+          "discountAmount": {
+            "type": "number",
+            "description": "Boleto discount amount"
+          }
+        }
       }
     },
     "x-readme": {
