@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from pluggy_sdk.models.payment_data_boleto_metadata import PaymentDataBoletoMetadata
 from pluggy_sdk.models.payment_data_participant import PaymentDataParticipant
 from typing import Optional, Set
 from typing_extensions import Self
@@ -33,8 +34,9 @@ class PaymentData(BaseModel):
     reason: Optional[StrictStr] = Field(default=None, description="User's motive submitted while making the transfer")
     reference_number: Optional[StrictStr] = Field(default=None, description="Reference number for the transfer/payment", alias="referenceNumber")
     receiver_reference_id: Optional[StrictStr] = Field(default=None, description="String submitted by the receiver associated with the payment when generating the payment request.", alias="receiverReferenceId")
-    payment_method: Optional[StrictStr] = Field(default=None, description="Type of transfer. TED, DOC, PIX or TEV", alias="paymentMethod")
-    __properties: ClassVar[List[str]] = ["payer", "receiver", "reason", "referenceNumber", "receiverReferenceId", "paymentMethod"]
+    payment_method: Optional[StrictStr] = Field(default=None, description="Type of transfer. TED, DOC, PIX, TEV or BOLETO", alias="paymentMethod")
+    boleto_metadata: Optional[PaymentDataBoletoMetadata] = Field(default=None, alias="boletoMetadata")
+    __properties: ClassVar[List[str]] = ["payer", "receiver", "reason", "referenceNumber", "receiverReferenceId", "paymentMethod", "boletoMetadata"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -81,6 +83,9 @@ class PaymentData(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of receiver
         if self.receiver:
             _dict['receiver'] = self.receiver.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of boleto_metadata
+        if self.boleto_metadata:
+            _dict['boletoMetadata'] = self.boleto_metadata.to_dict()
         return _dict
 
     @classmethod
@@ -98,7 +103,8 @@ class PaymentData(BaseModel):
             "reason": obj.get("reason"),
             "referenceNumber": obj.get("referenceNumber"),
             "receiverReferenceId": obj.get("receiverReferenceId"),
-            "paymentMethod": obj.get("paymentMethod")
+            "paymentMethod": obj.get("paymentMethod"),
+            "boletoMetadata": PaymentDataBoletoMetadata.from_dict(obj["boletoMetadata"]) if obj.get("boletoMetadata") is not None else None
         })
         return _obj
 

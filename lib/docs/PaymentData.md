@@ -11,7 +11,8 @@ Name | Type | Description | Notes
 **reason** | **str** | User&#39;s motive submitted while making the transfer | [optional] 
 **reference_number** | **str** | Reference number for the transfer/payment | [optional] 
 **receiver_reference_id** | **str** | String submitted by the receiver associated with the payment when generating the payment request. | [optional] 
-**payment_method** | **str** | Type of transfer. TED, DOC, PIX or TEV | [optional] 
+**payment_method** | **str** | Type of transfer. TED, DOC, PIX, TEV or BOLETO | [optional] 
+**boleto_metadata** | [**PaymentDataBoletoMetadata**](PaymentDataBoletoMetadata.md) |  | [optional] 
 
 ## Example
 

@@ -33,10 +33,10 @@ class StatusDetail(BaseModel):
     transactions: Optional[StatusDetailProduct] = None
     investments: Optional[StatusDetailProduct] = None
     identity: Optional[StatusDetailProduct] = None
-    investment_transactions: Optional[StatusDetailProduct] = Field(default=None, alias="investmentTransactions")
+    investments_transactions: Optional[StatusDetailProduct] = Field(default=None, alias="investmentsTransactions")
     payment_data: Optional[StatusDetailProduct] = Field(default=None, alias="paymentData")
     loans: Optional[StatusDetailProduct] = None
-    __properties: ClassVar[List[str]] = ["accounts", "creditCards", "transactions", "investments", "identity", "investmentTransactions", "paymentData", "loans"]
+    __properties: ClassVar[List[str]] = ["accounts", "creditCards", "transactions", "investments", "identity", "investmentsTransactions", "paymentData", "loans"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -92,9 +92,9 @@ class StatusDetail(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of identity
         if self.identity:
             _dict['identity'] = self.identity.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of investment_transactions
-        if self.investment_transactions:
-            _dict['investmentTransactions'] = self.investment_transactions.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of investments_transactions
+        if self.investments_transactions:
+            _dict['investmentsTransactions'] = self.investments_transactions.to_dict()
         # override the default output from pydantic by calling `to_dict()` of payment_data
         if self.payment_data:
             _dict['paymentData'] = self.payment_data.to_dict()
@@ -118,7 +118,7 @@ class StatusDetail(BaseModel):
             "transactions": StatusDetailProduct.from_dict(obj["transactions"]) if obj.get("transactions") is not None else None,
             "investments": StatusDetailProduct.from_dict(obj["investments"]) if obj.get("investments") is not None else None,
             "identity": StatusDetailProduct.from_dict(obj["identity"]) if obj.get("identity") is not None else None,
-            "investmentTransactions": StatusDetailProduct.from_dict(obj["investmentTransactions"]) if obj.get("investmentTransactions") is not None else None,
+            "investmentsTransactions": StatusDetailProduct.from_dict(obj["investmentsTransactions"]) if obj.get("investmentsTransactions") is not None else None,
             "paymentData": StatusDetailProduct.from_dict(obj["paymentData"]) if obj.get("paymentData") is not None else None,
             "loans": StatusDetailProduct.from_dict(obj["loans"]) if obj.get("loans") is not None else None
         })

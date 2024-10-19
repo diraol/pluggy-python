@@ -115,6 +115,7 @@ docs/PaymentCustomer.md
 docs/PaymentCustomerApi.md
 docs/PaymentCustomersList200Response.md
 docs/PaymentData.md
+docs/PaymentDataBoletoMetadata.md
 docs/PaymentDataParticipant.md
 docs/PaymentInstitution.md
 docs/PaymentIntent.md
@@ -296,6 +297,7 @@ pluggy_sdk/models/parameter_validation_response.py
 pluggy_sdk/models/payment_customer.py
 pluggy_sdk/models/payment_customers_list200_response.py
 pluggy_sdk/models/payment_data.py
+pluggy_sdk/models/payment_data_boleto_metadata.py
 pluggy_sdk/models/payment_data_participant.py
 pluggy_sdk/models/payment_institution.py
 pluggy_sdk/models/payment_intent.py
@@ -349,4 +351,5 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_payment_data_boleto_metadata.py
 tox.ini

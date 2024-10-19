@@ -91,7 +91,7 @@ class ApiClient:
             self.default_headers[header_name] = header_value
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = 'OpenAPI-Generator/1.0.0.post23/python'
+        self.user_agent = 'OpenAPI-Generator/1.0.0.post24/python'
         self.client_side_validation = configuration.client_side_validation
 
     def __enter__(self):
@@ -410,7 +410,7 @@ class ApiClient:
                 data = ""
             else:
                 data = json.loads(response_text)
-        elif re.match(r'^text/plain\s*(;|$)', content_type, re.IGNORECASE):
+        elif re.match(r'^text\/[a-z.+-]+\s*(;|$)', content_type, re.IGNORECASE):
             data = response_text
         else:
             raise ApiException(

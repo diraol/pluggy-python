@@ -114,6 +114,7 @@ from pluggy_sdk.models.parameter_validation_response import ParameterValidationR
 from pluggy_sdk.models.payment_customer import PaymentCustomer
 from pluggy_sdk.models.payment_customers_list200_response import PaymentCustomersList200Response
 from pluggy_sdk.models.payment_data import PaymentData
+from pluggy_sdk.models.payment_data_boleto_metadata import PaymentDataBoletoMetadata
 from pluggy_sdk.models.payment_data_participant import PaymentDataParticipant
 from pluggy_sdk.models.payment_institution import PaymentInstitution
 from pluggy_sdk.models.payment_intent import PaymentIntent

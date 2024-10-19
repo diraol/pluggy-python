@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **transactions** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
 **investments** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
 **identity** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
-**investment_transactions** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
+**investments_transactions** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
 **payment_data** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
 **loans** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
 
