@@ -35,8 +35,8 @@ class CreateWebhook(BaseModel):
     @field_validator('event')
     def event_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'transactions/deleted', 'payment_intent/created', 'payment_intent/completed', 'payment_intent/waiting_payer_authorization', 'payment_intent/error']):
-            raise ValueError("must be one of enum values ('all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'transactions/deleted', 'payment_intent/created', 'payment_intent/completed', 'payment_intent/waiting_payer_authorization', 'payment_intent/error')")
+        if value not in set(['all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'transactions/deleted', 'payment_intent/created', 'payment_intent/completed', 'payment_intent/waiting_payer_authorization', 'payment_intent/error', 'scheduled_payment/created', 'scheduled_payment/completed', 'scheduled_payment/error', 'scheduled_payment/canceled', 'scheduled_payment/all_completed']):
+            raise ValueError("must be one of enum values ('all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'transactions/deleted', 'payment_intent/created', 'payment_intent/completed', 'payment_intent/waiting_payer_authorization', 'payment_intent/error', 'scheduled_payment/created', 'scheduled_payment/completed', 'scheduled_payment/error', 'scheduled_payment/canceled', 'scheduled_payment/all_completed')")
         return value
 
     model_config = ConfigDict(
