@@ -7985,7 +7985,12 @@
               "payment_intent/created",
               "payment_intent/completed",
               "payment_intent/waiting_payer_authorization",
-              "payment_intent/error"
+              "payment_intent/error",
+              "scheduled_payment/created",
+              "scheduled_payment/completed",
+              "scheduled_payment/error",
+              "scheduled_payment/canceled",
+              "scheduled_payment/all_completed"
             ],
             "type": "string",
             "description": ""
