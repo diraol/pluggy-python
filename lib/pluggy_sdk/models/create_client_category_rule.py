@@ -32,7 +32,8 @@ class CreateClientCategoryRule(BaseModel):
     client_id: StrictStr = Field(description="Identifier of the client", alias="clientId")
     transaction_type: Optional[StrictStr] = Field(default=None, description="Transaction type (DEBIT/CREDIT)", alias="transactionType")
     account_type: Optional[StrictStr] = Field(default=None, description="Account type (CHECKING_ACCOUNT/CREDIT_CARD)", alias="accountType")
-    __properties: ClassVar[List[str]] = ["description", "categoryId", "clientId", "transactionType", "accountType"]
+    match_type: Optional[StrictStr] = Field(default=None, description="Type of match used to identify the rule (exact/contains/startsWith/endsWith), if not provided, defaults to 'exact'", alias="matchType")
+    __properties: ClassVar[List[str]] = ["description", "categoryId", "clientId", "transactionType", "accountType", "matchType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,7 +90,8 @@ class CreateClientCategoryRule(BaseModel):
             "categoryId": obj.get("categoryId"),
             "clientId": obj.get("clientId"),
             "transactionType": obj.get("transactionType"),
-            "accountType": obj.get("accountType")
+            "accountType": obj.get("accountType"),
+            "matchType": obj.get("matchType")
         })
         return _obj
 

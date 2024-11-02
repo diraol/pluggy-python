@@ -18,8 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls
 from pluggy_sdk.models.smart_transfer_preauthorization_parameter import SmartTransferPreauthorizationParameter
 from typing import Optional, Set
@@ -29,7 +29,7 @@ class CreateSmartTransferPreauthorization(BaseModel):
     """
     Create smart transfer preauthorization request data
     """ # noqa: E501
-    connector_id: StrictStr = Field(description="Primary identifier of the connector", alias="connectorId")
+    connector_id: Union[StrictFloat, StrictInt] = Field(description="Primary identifier of the connector", alias="connectorId")
     parameters: SmartTransferPreauthorizationParameter
     recipient_ids: List[StrictStr] = Field(alias="recipientIds")
     callback_urls: Optional[SmartTransferCallbackUrls] = Field(default=None, alias="callbackUrls")

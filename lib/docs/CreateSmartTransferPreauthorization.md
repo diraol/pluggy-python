@@ -6,7 +6,7 @@ Create smart transfer preauthorization request data
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**connector_id** | **str** | Primary identifier of the connector | 
+**connector_id** | **float** | Primary identifier of the connector | 
 **parameters** | [**SmartTransferPreauthorizationParameter**](SmartTransferPreauthorizationParameter.md) |  | 
 **recipient_ids** | **List[str]** |  | 
 **callback_urls** | [**SmartTransferCallbackUrls**](SmartTransferCallbackUrls.md) |  | [optional] 
