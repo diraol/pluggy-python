@@ -8508,6 +8508,10 @@
           "accountType": {
             "type": "string",
             "description": "Account type (CHECKING_ACCOUNT/CREDIT_CARD)"
+          },
+          "matchType": {
+            "type": "string",
+            "description": "Type of match used to identify the rule (exact/contains/startsWith/endsWith), if not provided, defaults to 'exact'"
           }
         },
         "type": "object",
@@ -12181,7 +12185,7 @@
         "description": "Create smart transfer preauthorization request data",
         "properties": {
           "connectorId": {
-            "type": "string",
+            "type": "number",
             "description": "Primary identifier of the connector"
           },
           "parameters": {
