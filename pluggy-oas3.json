@@ -8599,7 +8599,9 @@
               "BUY",
               "SELL",
               "TAX",
-              "TRANSFER"
+              "TRANSFER",
+              "INTEREST",
+              "AMORTIZATION"
             ]
           },
           "movementType": {
