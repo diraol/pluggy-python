@@ -42,8 +42,8 @@ class InvestmentTransaction(BaseModel):
     @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['BUY', 'SELL', 'TAX', 'TRANSFER']):
-            raise ValueError("must be one of enum values ('BUY', 'SELL', 'TAX', 'TRANSFER')")
+        if value not in set(['BUY', 'SELL', 'TAX', 'TRANSFER', 'INTEREST', 'AMORTIZATION']):
+            raise ValueError("must be one of enum values ('BUY', 'SELL', 'TAX', 'TRANSFER', 'INTEREST', 'AMORTIZATION')")
         return value
 
     @field_validator('movement_type')
