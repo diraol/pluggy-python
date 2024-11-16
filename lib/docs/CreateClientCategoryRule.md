@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **str** | Description of the transaction rule. | 
 **category_id** | **str** | Identifier of the category | 
-**client_id** | **str** | Identifier of the client | 
 **transaction_type** | **str** | Transaction type (DEBIT/CREDIT) | [optional] 
 **account_type** | **str** | Account type (CHECKING_ACCOUNT/CREDIT_CARD) | [optional] 
 **match_type** | **str** | Type of match used to identify the rule (exact/contains/startsWith/endsWith), if not provided, defaults to &#39;exact&#39; | [optional] 
