@@ -8497,10 +8497,6 @@
             "type": "string",
             "description": "Identifier of the category"
           },
-          "clientId": {
-            "type": "string",
-            "description": "Identifier of the client"
-          },
           "transactionType": {
             "type": "string",
             "description": "Transaction type (DEBIT/CREDIT)"
@@ -8517,13 +8513,11 @@
         "type": "object",
         "required": [
           "description",
-          "categoryId",
-          "clientId"
+          "categoryId"
         ],
         "example": {
           "description": "uber payment",
           "categoryId": "05000000",
-          "clientId": "03cc0eff-4ec5-495c-adb3-1ef9611624fc",
           "transactionType": "DEBIT",
           "accountType": "CHECKING_ACCOUNT"
         }
