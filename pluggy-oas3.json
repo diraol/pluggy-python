@@ -7725,6 +7725,10 @@
               ]
             },
             "description": "Products to be collected in the connection"
+          },
+          "avoidDuplicates": {
+            "type": "boolean",
+            "description": "Avoids creating a new item if there is already one with the same credentials"
           }
         },
         "type": "object",
@@ -9448,7 +9452,8 @@
           "options": {
             "webhookUrl": "https://example.com/webhook",
             "clientUserId": "My App UserId",
-            "oauthRedirectUrl": "https://pluggy.ai/demo"
+            "oauthRedirectUrl": "https://pluggy.ai/demo",
+            "avoidDuplicates": true
           }
         },
         "type": "object"
@@ -9463,6 +9468,14 @@
           "webhookUrl": {
             "type": "string",
             "description": "Url to be notified of this specific item changes"
+          },
+          "oauthRedirectUrl": {
+            "type": "string",
+            "description": "Url to redirect the user after the connect flow"
+          },
+          "avoidDuplicates": {
+            "type": "boolean",
+            "description": "Avoid duplicated transactions on the item"
           }
         },
         "type": "object"
