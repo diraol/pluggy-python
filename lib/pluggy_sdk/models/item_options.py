@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +29,9 @@ class ItemOptions(BaseModel):
     """ # noqa: E501
     client_user_id: Optional[StrictStr] = Field(default=None, description="Client's identifier for the user, it can be a ID, UUID or even an email.", alias="clientUserId")
     webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of this specific item changes", alias="webhookUrl")
-    __properties: ClassVar[List[str]] = ["clientUserId", "webhookUrl"]
+    oauth_redirect_url: Optional[StrictStr] = Field(default=None, description="Url to redirect the user after the connect flow", alias="oauthRedirectUrl")
+    avoid_duplicates: Optional[StrictBool] = Field(default=None, description="Avoid duplicated transactions on the item", alias="avoidDuplicates")
+    __properties: ClassVar[List[str]] = ["clientUserId", "webhookUrl", "oauthRedirectUrl", "avoidDuplicates"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +85,9 @@ class ItemOptions(BaseModel):
 
         _obj = cls.model_validate({
             "clientUserId": obj.get("clientUserId"),
-            "webhookUrl": obj.get("webhookUrl")
+            "webhookUrl": obj.get("webhookUrl"),
+            "oauthRedirectUrl": obj.get("oauthRedirectUrl"),
+            "avoidDuplicates": obj.get("avoidDuplicates")
         })
         return _obj
 

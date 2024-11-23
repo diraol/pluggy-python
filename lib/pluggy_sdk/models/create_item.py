@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.create_item_parameters import CreateItemParameters
 from typing import Optional, Set
@@ -34,7 +34,8 @@ class CreateItem(BaseModel):
     client_user_id: Optional[StrictStr] = Field(default=None, description="Client's identifier for the user, it can be a ID, UUID or even an email.", alias="clientUserId")
     oauth_redirect_uri: Optional[StrictStr] = Field(default=None, description="Redirect URI required for the Oauth flow", alias="oauthRedirectUri")
     products: Optional[List[StrictStr]] = Field(default=None, description="Products to be collected in the connection")
-    __properties: ClassVar[List[str]] = ["connectorId", "parameters", "webhookUrl", "clientUserId", "oauthRedirectUri", "products"]
+    avoid_duplicates: Optional[StrictBool] = Field(default=None, description="Avoids creating a new item if there is already one with the same credentials", alias="avoidDuplicates")
+    __properties: ClassVar[List[str]] = ["connectorId", "parameters", "webhookUrl", "clientUserId", "oauthRedirectUri", "products", "avoidDuplicates"]
 
     @field_validator('products')
     def products_validate_enum(cls, value):
@@ -106,7 +107,8 @@ class CreateItem(BaseModel):
             "webhookUrl": obj.get("webhookUrl"),
             "clientUserId": obj.get("clientUserId"),
             "oauthRedirectUri": obj.get("oauthRedirectUri"),
-            "products": obj.get("products")
+            "products": obj.get("products"),
+            "avoidDuplicates": obj.get("avoidDuplicates")
         })
         return _obj
 

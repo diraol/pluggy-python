@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **client_user_id** | **str** | Client&#39;s identifier for the user, it can be a ID, UUID or even an email. | [optional] 
 **webhook_url** | **str** | Url to be notified of this specific item changes | [optional] 
+**oauth_redirect_url** | **str** | Url to redirect the user after the connect flow | [optional] 
+**avoid_duplicates** | **bool** | Avoid duplicated transactions on the item | [optional] 
 
 ## Example
 
