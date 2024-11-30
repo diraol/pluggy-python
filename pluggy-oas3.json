@@ -7629,46 +7629,64 @@
           "executionStatus"
         ],
         "example": {
-          "id": 601,
-          "name": "Itaú",
-          "primaryColor": "EC7000",
-          "institutionUrl": "https://www.itau.com.br/assets/dam/publisher/07_itau_empresas/13_open_banking/logos_regulatorio_bacen/opb_log_reg_bac_itau_img_01.svg",
-          "country": "BR",
-          "type": "PERSONAL_BANK",
-          "credentials": [
-            {
-              "validation": "^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$",
-              "validationMessage": "CPF deve ter 11 números.",
-              "label": "CPF",
-              "name": "cpf",
-              "type": "number",
-              "placeholder": "",
-              "optional": false
-            }
-          ],
-          "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/201.svg",
-          "hasMFA": false,
-          "oauth": true,
-          "health": {
-            "status": "ONLINE",
-            "stage": null
+          "id": "e062ab2b-9006-45e8-b689-defabba53647",
+          "connector": {
+            "id": 200,
+            "name": "MeuPluggy",
+            "primaryColor": "ef294b",
+            "institutionUrl": "https://meu.pluggy.ai/",
+            "country": "BR",
+            "type": "PERSONAL_BANK",
+            "credentials": [],
+            "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/sandbox.svg",
+            "hasMFA": false,
+            "oauth": true,
+            "health": {
+              "status": "ONLINE",
+              "stage": null
+            },
+            "products": [
+              "ACCOUNTS",
+              "TRANSACTIONS",
+              "CREDIT_CARDS",
+              "INVESTMENTS",
+              "INVESTMENTS_TRANSACTIONS",
+              "PAYMENT_DATA",
+              "IDENTITY",
+              "BROKERAGE_NOTE"
+            ],
+            "createdAt": "2023-09-12T16:44:13.900Z",
+            "isSandbox": false,
+            "isOpenFinance": false,
+            "updatedAt": "2024-11-26T13:33:44.296Z",
+            "supportsPaymentInitiation": false,
+            "supportsScheduledPayments": false,
+            "supportsSmartTransfers": false
           },
+          "createdAt": "2024-09-19T13:10:31.212Z",
+          "updatedAt": "2024-09-19T13:11:23.613Z",
+          "status": "UPDATED",
+          "executionStatus": "SUCCESS",
+          "lastUpdatedAt": "2024-09-19T13:11:23.595Z",
+          "webhookUrl": null,
+          "error": null,
+          "clientUserId": "gabriel@pluggy.ai",
+          "consecutiveFailedLoginAttempts": 0,
+          "statusDetail": null,
+          "parameter": null,
+          "userAction": null,
+          "nextAutoSyncAt": null,
+          "consentExpiresAt": null,
           "products": [
             "ACCOUNTS",
-            "TRANSACTIONS",
-            "IDENTITY",
             "CREDIT_CARDS",
-            "PAYMENT_DATA",
-            "LOANS",
-            "INVESTMENTS"
+            "TRANSACTIONS",
+            "INVESTMENTS",
+            "IDENTITY",
+            "INVESTMENTS_TRANSACTIONS",
+            "PAYMENT_DATA"
           ],
-          "createdAt": "2023-09-01T18:05:09.145Z",
-          "isSandbox": false,
-          "isOpenFinance": true,
-          "updatedAt": "2024-07-16T15:34:08.028Z",
-          "supportsPaymentInitiation": true,
-          "supportsScheduledPayments": true,
-          "supportsSmartTransfers": true
+          "oauthRedirectUri": null
         }
       },
       "CreateItem": {
