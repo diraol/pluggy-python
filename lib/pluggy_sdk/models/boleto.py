@@ -35,7 +35,7 @@ class Boleto(BaseModel):
     payer: BoletoPayer
     recipient: BoletoRecipient
     var_date: datetime = Field(description="Boleto issue date", alias="date")
-    due_date: datetime = Field(description="Boleto due date", alias="dueDate")
+    due_date: Optional[datetime] = Field(default=None, description="Boleto due date", alias="dueDate")
     expiration_date: datetime = Field(description="After this date, the boleto cannot be paid", alias="expirationDate")
     base_amount: Union[StrictFloat, StrictInt] = Field(description="Boleto original amount, without interests, penalties and discounts", alias="baseAmount")
     penalty_amount: Union[StrictFloat, StrictInt] = Field(description="Boleto penalty amount. If there is no penalty, it will be returned as zero", alias="penaltyAmount")

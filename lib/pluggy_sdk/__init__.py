@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post30"
+__version__ = "1.0.0.post31"
 
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi
@@ -94,6 +94,7 @@ from pluggy_sdk.models.create_payment_customer_request_body import CreatePayment
 from pluggy_sdk.models.create_payment_intent import CreatePaymentIntent
 from pluggy_sdk.models.create_payment_recipient import CreatePaymentRecipient
 from pluggy_sdk.models.create_payment_request import CreatePaymentRequest
+from pluggy_sdk.models.create_payment_request_schedule import CreatePaymentRequestSchedule
 from pluggy_sdk.models.create_pix_qr_payment_request import CreatePixQrPaymentRequest
 from pluggy_sdk.models.create_smart_account_request import CreateSmartAccountRequest
 from pluggy_sdk.models.create_smart_account_transfer_request import CreateSmartAccountTransferRequest

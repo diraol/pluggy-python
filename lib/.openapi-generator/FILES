@@ -53,6 +53,7 @@ docs/CreatePaymentCustomerRequestBody.md
 docs/CreatePaymentIntent.md
 docs/CreatePaymentRecipient.md
 docs/CreatePaymentRequest.md
+docs/CreatePaymentRequestSchedule.md
 docs/CreatePixQrPaymentRequest.md
 docs/CreateSmartAccountRequest.md
 docs/CreateSmartAccountTransferRequest.md
@@ -239,6 +240,7 @@ pluggy_sdk/models/create_payment_customer_request_body.py
 pluggy_sdk/models/create_payment_intent.py
 pluggy_sdk/models/create_payment_recipient.py
 pluggy_sdk/models/create_payment_request.py
+pluggy_sdk/models/create_payment_request_schedule.py
 pluggy_sdk/models/create_pix_qr_payment_request.py
 pluggy_sdk/models/create_smart_account_request.py
 pluggy_sdk/models/create_smart_account_transfer_request.py
@@ -351,4 +353,5 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_create_payment_request_schedule.py
 tox.ini
