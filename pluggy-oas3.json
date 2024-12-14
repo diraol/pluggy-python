@@ -10507,6 +10507,8 @@
                 "$ref": "#/components/schemas/CUSTOM"
               }
             ],
+            "nullable": true,
+            "default": null,
             "discriminator": {
               "propertyName": "type"
             }
@@ -10516,7 +10518,10 @@
         "required": [
           "amount"
         ],
-        "example": {}
+        "example": {
+          "amount": 100.5,
+          "description": "Transferência"
+        }
       },
       "CreatePixQrPaymentRequest": {
         "description": "Request with information to create a PIX QR payment request",
@@ -11797,7 +11802,6 @@
           "payer",
           "recipient",
           "date",
-          "dueDate",
           "expirationDate",
           "baseAmount",
           "penaltyAmount",
