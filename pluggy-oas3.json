@@ -9470,7 +9470,7 @@
           "options": {
             "webhookUrl": "https://example.com/webhook",
             "clientUserId": "My App UserId",
-            "oauthRedirectUrl": "https://pluggy.ai/demo",
+            "oauthRedirectUri": "https://pluggy.ai/demo",
             "avoidDuplicates": true
           }
         },
@@ -9487,13 +9487,13 @@
             "type": "string",
             "description": "Url to be notified of this specific item changes"
           },
-          "oauthRedirectUrl": {
+          "oauthRedirectUri": {
             "type": "string",
             "description": "Url to redirect the user after the connect flow"
           },
           "avoidDuplicates": {
             "type": "boolean",
-            "description": "Avoid duplicated transactions on the item"
+            "description": "Avoids creating a new item if there is already one with the same credentials"
           }
         },
         "type": "object"
@@ -11622,21 +11622,9 @@
       "CreateSmartAccountRequest": {
         "description": "Create smart account request",
         "properties": {
-          "name": {
+          "itemId": {
             "type": "string",
-            "description": "Account owner fullName"
-          },
-          "taxNumber": {
-            "type": "string",
-            "description": "Account owner tax number (CPF or CNPJ)"
-          },
-          "email": {
-            "type": "string",
-            "description": "Account owner email"
-          },
-          "phoneNumber": {
-            "type": "string",
-            "description": "Account owner phone"
+            "description": "Primary identifier of the item wanted to associate to the account. Mandatory unless is a sandbox account"
           },
           "isSandbox": {
             "type": "boolean",
@@ -11644,13 +11632,27 @@
           },
           "address": {
             "$ref": "#/components/schemas/SmartAccountAddress"
+          },
+          "taxNumber": {
+            "type": "string",
+            "description": "Smart account owner's CNPJ. Just needed if 'isSandbox' is true"
+          },
+          "name": {
+            "type": "string",
+            "description": "Smart account owner's business name. Just needed if 'isSandbox' is true"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email to be associated to the smart account"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number to be associated to the smart account"
           }
         },
         "type": "object",
         "required": [
           "id",
-          "name",
-          "taxNumber",
           "email",
           "phoneNumber",
           "address"
