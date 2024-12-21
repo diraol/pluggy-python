@@ -28,13 +28,14 @@ class CreateSmartAccountRequest(BaseModel):
     """
     Create smart account request
     """ # noqa: E501
-    name: StrictStr = Field(description="Account owner fullName")
-    tax_number: StrictStr = Field(description="Account owner tax number (CPF or CNPJ)", alias="taxNumber")
-    email: StrictStr = Field(description="Account owner email")
-    phone_number: StrictStr = Field(description="Account owner phone", alias="phoneNumber")
+    item_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the item wanted to associate to the account. Mandatory unless is a sandbox account", alias="itemId")
     is_sandbox: Optional[StrictBool] = Field(default=None, description="Indicates if the smart account is a sandbox account", alias="isSandbox")
     address: SmartAccountAddress
-    __properties: ClassVar[List[str]] = ["name", "taxNumber", "email", "phoneNumber", "isSandbox", "address"]
+    tax_number: Optional[StrictStr] = Field(default=None, description="Smart account owner's CNPJ. Just needed if 'isSandbox' is true", alias="taxNumber")
+    name: Optional[StrictStr] = Field(default=None, description="Smart account owner's business name. Just needed if 'isSandbox' is true")
+    email: StrictStr = Field(description="Email to be associated to the smart account")
+    phone: Optional[StrictStr] = Field(default=None, description="Phone number to be associated to the smart account")
+    __properties: ClassVar[List[str]] = ["itemId", "isSandbox", "address", "taxNumber", "name", "email", "phone"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,12 +91,13 @@ class CreateSmartAccountRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "taxNumber": obj.get("taxNumber"),
-            "email": obj.get("email"),
-            "phoneNumber": obj.get("phoneNumber"),
+            "itemId": obj.get("itemId"),
             "isSandbox": obj.get("isSandbox"),
-            "address": SmartAccountAddress.from_dict(obj["address"]) if obj.get("address") is not None else None
+            "address": SmartAccountAddress.from_dict(obj["address"]) if obj.get("address") is not None else None,
+            "taxNumber": obj.get("taxNumber"),
+            "name": obj.get("name"),
+            "email": obj.get("email"),
+            "phone": obj.get("phone")
         })
         return _obj
 

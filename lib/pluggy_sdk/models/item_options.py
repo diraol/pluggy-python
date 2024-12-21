@@ -29,9 +29,9 @@ class ItemOptions(BaseModel):
     """ # noqa: E501
     client_user_id: Optional[StrictStr] = Field(default=None, description="Client's identifier for the user, it can be a ID, UUID or even an email.", alias="clientUserId")
     webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of this specific item changes", alias="webhookUrl")
-    oauth_redirect_url: Optional[StrictStr] = Field(default=None, description="Url to redirect the user after the connect flow", alias="oauthRedirectUrl")
-    avoid_duplicates: Optional[StrictBool] = Field(default=None, description="Avoid duplicated transactions on the item", alias="avoidDuplicates")
-    __properties: ClassVar[List[str]] = ["clientUserId", "webhookUrl", "oauthRedirectUrl", "avoidDuplicates"]
+    oauth_redirect_uri: Optional[StrictStr] = Field(default=None, description="Url to redirect the user after the connect flow", alias="oauthRedirectUri")
+    avoid_duplicates: Optional[StrictBool] = Field(default=None, description="Avoids creating a new item if there is already one with the same credentials", alias="avoidDuplicates")
+    __properties: ClassVar[List[str]] = ["clientUserId", "webhookUrl", "oauthRedirectUri", "avoidDuplicates"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,7 +86,7 @@ class ItemOptions(BaseModel):
         _obj = cls.model_validate({
             "clientUserId": obj.get("clientUserId"),
             "webhookUrl": obj.get("webhookUrl"),
-            "oauthRedirectUrl": obj.get("oauthRedirectUrl"),
+            "oauthRedirectUri": obj.get("oauthRedirectUri"),
             "avoidDuplicates": obj.get("avoidDuplicates")
         })
         return _obj

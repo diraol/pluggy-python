@@ -6,12 +6,13 @@ Create smart account request
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | Account owner fullName | 
-**tax_number** | **str** | Account owner tax number (CPF or CNPJ) | 
-**email** | **str** | Account owner email | 
-**phone_number** | **str** | Account owner phone | 
+**item_id** | **str** | Primary identifier of the item wanted to associate to the account. Mandatory unless is a sandbox account | [optional] 
 **is_sandbox** | **bool** | Indicates if the smart account is a sandbox account | [optional] 
 **address** | [**SmartAccountAddress**](SmartAccountAddress.md) |  | 
+**tax_number** | **str** | Smart account owner&#39;s CNPJ. Just needed if &#39;isSandbox&#39; is true | [optional] 
+**name** | **str** | Smart account owner&#39;s business name. Just needed if &#39;isSandbox&#39; is true | [optional] 
+**email** | **str** | Email to be associated to the smart account | 
+**phone** | **str** | Phone number to be associated to the smart account | [optional] 
 
 ## Example
 
