@@ -34,8 +34,8 @@ class CreateSmartAccountRequest(BaseModel):
     tax_number: Optional[StrictStr] = Field(default=None, description="Smart account owner's CNPJ. Just needed if 'isSandbox' is true", alias="taxNumber")
     name: Optional[StrictStr] = Field(default=None, description="Smart account owner's business name. Just needed if 'isSandbox' is true")
     email: StrictStr = Field(description="Email to be associated to the smart account")
-    phone: Optional[StrictStr] = Field(default=None, description="Phone number to be associated to the smart account")
-    __properties: ClassVar[List[str]] = ["itemId", "isSandbox", "address", "taxNumber", "name", "email", "phone"]
+    phone_number: StrictStr = Field(description="Phone number to be associated to the smart account", alias="phoneNumber")
+    __properties: ClassVar[List[str]] = ["itemId", "isSandbox", "address", "taxNumber", "name", "email", "phoneNumber"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -97,7 +97,7 @@ class CreateSmartAccountRequest(BaseModel):
             "taxNumber": obj.get("taxNumber"),
             "name": obj.get("name"),
             "email": obj.get("email"),
-            "phone": obj.get("phone")
+            "phoneNumber": obj.get("phoneNumber")
         })
         return _obj
 

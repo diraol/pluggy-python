@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **tax_number** | **str** | Smart account owner&#39;s CNPJ. Just needed if &#39;isSandbox&#39; is true | [optional] 
 **name** | **str** | Smart account owner&#39;s business name. Just needed if &#39;isSandbox&#39; is true | [optional] 
 **email** | **str** | Email to be associated to the smart account | 
-**phone** | **str** | Phone number to be associated to the smart account | [optional] 
+**phone_number** | **str** | Phone number to be associated to the smart account | 
 
 ## Example
 
