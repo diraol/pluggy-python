@@ -11645,7 +11645,7 @@
             "type": "string",
             "description": "Email to be associated to the smart account"
           },
-          "phone": {
+          "phoneNumber": {
             "type": "string",
             "description": "Phone number to be associated to the smart account"
           }
