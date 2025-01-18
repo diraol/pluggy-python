@@ -8003,6 +8003,7 @@
               "item/waiting_user_action",
               "item/login_succeeded",
               "connector/status_updated",
+              "transactions/updated",
               "transactions/deleted",
               "payment_intent/created",
               "payment_intent/completed",
@@ -11001,7 +11002,9 @@
               "PAYMENT_PARTIALLY_ACCEPTED",
               "PAYMENT_SETTLEMENT_PROCESSING",
               "PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT",
-              "PAYMENT_COMPLETED"
+              "PAYMENT_COMPLETED",
+              "POSSIBLE_FRAUD",
+              "TOP_UP_CNPJ_MISMATCH"
             ],
             "type": "string",
             "description": "Payment intent status"
@@ -11974,7 +11977,7 @@
           "dayOfMonth": {
             "type": "number",
             "description": "Day of the month on which each payment will occur. For example, if '10', the first payment will occur on the next 10th day of the month after the start date, or the same day if it is already 10th, and every 10th day after that.",
-            "minimum": 2,
+            "minimum": 1,
             "maximum": 30,
             "example": 3
           },
