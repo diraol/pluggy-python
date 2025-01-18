@@ -31,7 +31,7 @@ class MONTHLY(BaseModel):
     """ # noqa: E501
     type: StrictStr = Field(description="Scheduled type")
     start_date: date = Field(alias="startDate")
-    day_of_month: Union[Annotated[float, Field(le=30, strict=True, ge=2)], Annotated[int, Field(le=30, strict=True, ge=2)]] = Field(description="Day of the month on which each payment will occur. For example, if '10', the first payment will occur on the next 10th day of the month after the start date, or the same day if it is already 10th, and every 10th day after that.", alias="dayOfMonth")
+    day_of_month: Union[Annotated[float, Field(le=30, strict=True, ge=1)], Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(description="Day of the month on which each payment will occur. For example, if '10', the first payment will occur on the next 10th day of the month after the start date, or the same day if it is already 10th, and every 10th day after that.", alias="dayOfMonth")
     occurrences: Optional[Union[Annotated[float, Field(le=23, strict=True, ge=3)], Annotated[int, Field(le=23, strict=True, ge=3)]]] = Field(default=None, description="Under the specified schedule frequency, how many payments will be scheduled to occur.")
     __properties: ClassVar[List[str]] = ["type", "startDate", "dayOfMonth", "occurrences"]
 
