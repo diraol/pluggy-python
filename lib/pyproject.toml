@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pluggy_sdk"
-version = "1.0.0.post34"
+version = "1.0.0.post35"
 description = "Pluggy API"
 authors = ["Pluggy <hello@pluggy.ai>"]
 license = "MIT"

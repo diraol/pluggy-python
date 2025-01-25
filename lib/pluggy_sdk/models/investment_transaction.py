@@ -34,10 +34,11 @@ class InvestmentTransaction(BaseModel):
     quantity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Quantity of the transaction")
     value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Value on the transaction's Date")
     amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gross amount of the operation. May be null only if type is TRANSFER")
+    agreed_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Agreed rate for treasury applications", alias="agreedRate")
     var_date: datetime = Field(description="Date when the transaction was made", alias="date")
     trade_date: Optional[datetime] = Field(default=None, description="Date when the transaction was confirmed", alias="tradeDate")
     expenses: Optional[InvestmentExpenses] = None
-    __properties: ClassVar[List[str]] = ["type", "movementType", "quantity", "value", "amount", "date", "tradeDate", "expenses"]
+    __properties: ClassVar[List[str]] = ["type", "movementType", "quantity", "value", "amount", "agreedRate", "date", "tradeDate", "expenses"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -115,6 +116,7 @@ class InvestmentTransaction(BaseModel):
             "quantity": obj.get("quantity"),
             "value": obj.get("value"),
             "amount": obj.get("amount"),
+            "agreedRate": obj.get("agreedRate"),
             "date": obj.get("date"),
             "tradeDate": obj.get("tradeDate"),
             "expenses": InvestmentExpenses.from_dict(obj["expenses"]) if obj.get("expenses") is not None else None

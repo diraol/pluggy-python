@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **barcode** | **str** | Boleto barcode | 
 **payer** | [**BoletoPayer**](BoletoPayer.md) |  | 
 **recipient** | [**BoletoRecipient**](BoletoRecipient.md) |  | 
-**var_date** | **datetime** | Boleto issue date | 
-**due_date** | **datetime** | Boleto due date | [optional] 
-**expiration_date** | **datetime** | After this date, the boleto cannot be paid | 
+**var_date** | **datetime** | Boleto issue date | [optional] 
+**due_date** | **datetime** | Boleto due date | 
+**expiration_date** | **datetime** | After this date, the boleto cannot be paid | [optional] 
 **base_amount** | **float** | Boleto original amount, without interests, penalties and discounts | 
 **penalty_amount** | **float** | Boleto penalty amount. If there is no penalty, it will be returned as zero | 
 **interest_amount** | **float** | Boleto interest amount. If there is no interest, it will be returned as zero | [optional] 

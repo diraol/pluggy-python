@@ -19,7 +19,7 @@ from typing_extensions import Annotated
 
 from datetime import datetime
 from pydantic import Field, StrictFloat, StrictInt, StrictStr
-from typing import Optional, Union
+from typing import List, Optional, Union
 from typing_extensions import Annotated
 from pluggy_sdk.models.page_response_transactions import PageResponseTransactions
 from pluggy_sdk.models.transaction import Transaction
@@ -47,6 +47,7 @@ class TransactionApi:
     def transactions_list(
         self,
         account_id: Annotated[StrictStr, Field(description="Account primary identifier")],
+        ids: Annotated[Optional[List[StrictStr]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
         var_from: Annotated[Optional[datetime], Field(description="Filter greater than date. Format (yyyy-mm-dd)")] = None,
         to: Annotated[Optional[datetime], Field(description="Filter lower than date. Format (yyyy-mm-dd)")] = None,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
@@ -70,6 +71,8 @@ class TransactionApi:
 
         :param account_id: Account primary identifier (required)
         :type account_id: str
+        :param ids: Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded
+        :type ids: List[str]
         :param var_from: Filter greater than date. Format (yyyy-mm-dd)
         :type var_from: datetime
         :param to: Filter lower than date. Format (yyyy-mm-dd)
@@ -102,6 +105,7 @@ class TransactionApi:
 
         _param = self._transactions_list_serialize(
             account_id=account_id,
+            ids=ids,
             var_from=var_from,
             to=to,
             page_size=page_size,
@@ -132,6 +136,7 @@ class TransactionApi:
     def transactions_list_with_http_info(
         self,
         account_id: Annotated[StrictStr, Field(description="Account primary identifier")],
+        ids: Annotated[Optional[List[StrictStr]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
         var_from: Annotated[Optional[datetime], Field(description="Filter greater than date. Format (yyyy-mm-dd)")] = None,
         to: Annotated[Optional[datetime], Field(description="Filter lower than date. Format (yyyy-mm-dd)")] = None,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
@@ -155,6 +160,8 @@ class TransactionApi:
 
         :param account_id: Account primary identifier (required)
         :type account_id: str
+        :param ids: Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded
+        :type ids: List[str]
         :param var_from: Filter greater than date. Format (yyyy-mm-dd)
         :type var_from: datetime
         :param to: Filter lower than date. Format (yyyy-mm-dd)
@@ -187,6 +194,7 @@ class TransactionApi:
 
         _param = self._transactions_list_serialize(
             account_id=account_id,
+            ids=ids,
             var_from=var_from,
             to=to,
             page_size=page_size,
@@ -217,6 +225,7 @@ class TransactionApi:
     def transactions_list_without_preload_content(
         self,
         account_id: Annotated[StrictStr, Field(description="Account primary identifier")],
+        ids: Annotated[Optional[List[StrictStr]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
         var_from: Annotated[Optional[datetime], Field(description="Filter greater than date. Format (yyyy-mm-dd)")] = None,
         to: Annotated[Optional[datetime], Field(description="Filter lower than date. Format (yyyy-mm-dd)")] = None,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
@@ -240,6 +249,8 @@ class TransactionApi:
 
         :param account_id: Account primary identifier (required)
         :type account_id: str
+        :param ids: Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded
+        :type ids: List[str]
         :param var_from: Filter greater than date. Format (yyyy-mm-dd)
         :type var_from: datetime
         :param to: Filter lower than date. Format (yyyy-mm-dd)
@@ -272,6 +283,7 @@ class TransactionApi:
 
         _param = self._transactions_list_serialize(
             account_id=account_id,
+            ids=ids,
             var_from=var_from,
             to=to,
             page_size=page_size,
@@ -297,6 +309,7 @@ class TransactionApi:
     def _transactions_list_serialize(
         self,
         account_id,
+        ids,
         var_from,
         to,
         page_size,
@@ -310,6 +323,7 @@ class TransactionApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'ids': 'multi',
         }
 
         _path_params: Dict[str, str] = {}
@@ -326,6 +340,10 @@ class TransactionApi:
         if account_id is not None:
             
             _query_params.append(('accountId', account_id))
+            
+        if ids is not None:
+            
+            _query_params.append(('ids', ids))
             
         if var_from is not None:
             if isinstance(var_from, datetime):

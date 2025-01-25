@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **id** | **str** | Primary identifier | 
 **type** | **str** | Customer type | 
 **name** | **str** | Customer name | 
-**email** | **str** | Customer email | 
+**email** | **str** | Customer email | [optional] 
 **cpf** | **str** | Customer CPF | [optional] 
 **cnpj** | **str** | Customer CNPJ, if type is &#x60;BUSINESS&#x60; | [optional] 
 

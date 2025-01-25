@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **quantity** | **float** | Quantity of the transaction | [optional] 
 **value** | **float** | Value on the transaction&#39;s Date | [optional] 
 **amount** | **float** | Gross amount of the operation. May be null only if type is TRANSFER | [optional] 
+**agreed_rate** | **float** | Agreed rate for treasury applications | [optional] 
 **var_date** | **datetime** | Date when the transaction was made | 
 **trade_date** | **datetime** | Date when the transaction was confirmed | [optional] 
 **expenses** | [**InvestmentExpenses**](InvestmentExpenses.md) |  | [optional] 
