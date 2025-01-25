@@ -1686,6 +1686,20 @@
             "example": "562b795d-1653-429f-be86-74ead9502813"
           },
           {
+            "description": "Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded",
+            "in": "query",
+            "name": "ids",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "example": "a8534c85-53ce-4f21-94d7-50e9d2ee4957, 05c693bf-c196-47ea-a28c-8251d6bb8a06"
+          },
+          {
             "description": "Filter greater than date. Format (yyyy-mm-dd)",
             "in": "query",
             "name": "from",
@@ -2230,6 +2244,7 @@
                           "type": "SELL",
                           "movementType": "DEBIT",
                           "netAmount": null,
+                          "agreedRate": null,
                           "brokerageNumber": null,
                           "expenses": {}
                         },
@@ -2244,6 +2259,7 @@
                           "type": "BUY",
                           "movementType": "CREDIT",
                           "netAmount": 10000,
+                          "agreedRate": null,
                           "brokerageNumber": "1234",
                           "expenses": {}
                         }
@@ -8644,6 +8660,11 @@
             "format": "double",
             "description": "Gross amount of the operation. May be null only if type is TRANSFER"
           },
+          "agreedRate": {
+            "type": "number",
+            "format": "double",
+            "description": "Agreed rate for treasury applications"
+          },
           "date": {
             "type": "string",
             "format": "date-time",
@@ -11196,8 +11217,7 @@
         "required": [
           "id",
           "type",
-          "name",
-          "email"
+          "name"
         ],
         "example": {
           "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
@@ -11806,8 +11826,7 @@
           "barcode",
           "payer",
           "recipient",
-          "date",
-          "expirationDate",
+          "dueDate",
           "baseAmount",
           "penaltyAmount",
           "discountAmount",
