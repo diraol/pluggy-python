@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **parameters** | [**PaymentIntentParameter**](PaymentIntentParameter.md) |  | [optional] 
 **connector_id** | **float** | Primary identifier of the connector associated to the payment intent | [optional] 
 **payment_method** | **str** | Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected &#x60;bulkPaymentId&#x60; or a &#x60;paymentRequest&#x60; with smartAccountId attached will be accepted | [optional] 
+**is_dynamic_pix** | **bool** | Only for PIX paymentMethod. If true, the generated PIX QR code is dynamic and one-use. This requires the customerId to be present, and the customer must have CPF/CNPJ | [optional] 
 
 ## Example
 

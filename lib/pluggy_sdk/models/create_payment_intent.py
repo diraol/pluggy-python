@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.payment_intent_parameter import PaymentIntentParameter
 from typing import Optional, Set
@@ -33,7 +33,8 @@ class CreatePaymentIntent(BaseModel):
     parameters: Optional[PaymentIntentParameter] = None
     connector_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Primary identifier of the connector associated to the payment intent", alias="connectorId")
     payment_method: Optional[StrictStr] = Field(default=None, description="Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected `bulkPaymentId` or a `paymentRequest` with smartAccountId attached will be accepted", alias="paymentMethod")
-    __properties: ClassVar[List[str]] = ["paymentRequestId", "bulkPaymentId", "parameters", "connectorId", "paymentMethod"]
+    is_dynamic_pix: Optional[StrictBool] = Field(default=None, description="Only for PIX paymentMethod. If true, the generated PIX QR code is dynamic and one-use. This requires the customerId to be present, and the customer must have CPF/CNPJ", alias="isDynamicPix")
+    __properties: ClassVar[List[str]] = ["paymentRequestId", "bulkPaymentId", "parameters", "connectorId", "paymentMethod", "isDynamicPix"]
 
     @field_validator('payment_method')
     def payment_method_validate_enum(cls, value):
@@ -103,7 +104,8 @@ class CreatePaymentIntent(BaseModel):
             "bulkPaymentId": obj.get("bulkPaymentId"),
             "parameters": PaymentIntentParameter.from_dict(obj["parameters"]) if obj.get("parameters") is not None else None,
             "connectorId": obj.get("connectorId"),
-            "paymentMethod": obj.get("paymentMethod")
+            "paymentMethod": obj.get("paymentMethod"),
+            "isDynamicPix": obj.get("isDynamicPix")
         })
         return _obj
 
