@@ -5590,6 +5590,54 @@
         ]
       }
     },
+    "/payments/requests/{id}/refund": {
+      "post": {
+        "operationId": "payment-request-refund",
+        "summary": "Refund Payment Request",
+        "description": "Refund a COMPLETED payment request payed using payment method PIX. Not available for Payment Initiation (PIS)",
+        "tags": [
+          "Payment Request"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0f8a8c0-e8e3-11e9-b210-d663bd873d93"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Refund a payment request"
+          },
+          "404": {
+            "description": "Payment Request not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "PAYMENT_REQUEST_NOT_FOUND",
+                  "message": "Payment request not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/payments/intents": {
       "post": {
         "operationId": "payment-intent-create",
@@ -8029,7 +8077,9 @@
               "scheduled_payment/completed",
               "scheduled_payment/error",
               "scheduled_payment/canceled",
-              "scheduled_payment/all_completed"
+              "scheduled_payment/all_completed",
+              "payment_refund/completed",
+              "payment_refund/error"
             ],
             "type": "string",
             "description": ""
@@ -11176,6 +11226,10 @@
               "PIX"
             ],
             "description": "Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected `bulkPaymentId` or a `paymentRequest` with smartAccountId attached will be accepted"
+          },
+          "isDynamicPix": {
+            "type": "boolean",
+            "description": "Only for PIX paymentMethod. If true, the generated PIX QR code is dynamic and one-use. This requires the customerId to be present, and the customer must have CPF/CNPJ"
           }
         },
         "type": "object",
