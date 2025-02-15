@@ -1728,7 +1728,9 @@
             "required": false,
             "schema": {
               "type": "number",
-              "format": "double"
+              "format": "double",
+              "minimum": 1,
+              "maximum": 500
             },
             "example": "50"
           },
@@ -1742,6 +1744,28 @@
               "format": "double"
             },
             "example": "1"
+          },
+          {
+            "description": "Credit Card Bill's primary identifier, if account is a credit card.",
+            "in": "query",
+            "name": "billId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "abced929-edc4-408c-a959-d51f79ab1123"
+          },
+          {
+            "description": "Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)",
+            "in": "query",
+            "name": "createdAtFrom",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-10-13T03:00:00.000Z"
           }
         ],
         "x-readme": {
@@ -6643,11 +6667,6 @@
         "security": [
           {
             "default": []
-          },
-          {
-            "oauth2": [
-              "payments:bulk:delete"
-            ]
           }
         ],
         "parameters": [
@@ -7032,6 +7051,130 @@
               "format": "uuid"
             },
             "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
+    },
+    "/boleto-connections": {
+      "post": {
+        "operationId": "boleto-connection-create",
+        "summary": "Connect boleto credentials",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBoletoConnection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Boleto connection created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BoletoConnection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Incorrect credentials",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "INVALID_CREDENTIALS",
+                  "code": 400,
+                  "codeDescription": "BOLETO_CONNECTION_CREATION_CREDENTIALS_ERROR",
+                  "errorId": "10aa01fe-4587-404e-8ec3-3ae5f6a63a5d"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Boleto Management"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      }
+    },
+    "/boletos": {
+      "post": {
+        "operationId": "boleto-create",
+        "summary": "Issue Boleto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBoleto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Boleto created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssuedBoleto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Boleto Management"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      }
+    },
+    "/boletos/{id}/cancel": {
+      "post": {
+        "operationId": "boleto-cancel",
+        "summary": "Cancel Boleto",
+        "parameters": [
+          {
+            "description": "Boleto primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "82da0d63-fbc0-4e20-b191-50e6df030875"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Boleto cancelled successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssuedBoleto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Boleto Management"
+        ],
+        "security": [
+          {
+            "default": []
           }
         ]
       }
@@ -7782,7 +7925,7 @@
           },
           "clientUserId": {
             "type": "string",
-            "description": "Client's identifier for the user, it can be a ID, UUID or even an email."
+            "description": "Client's external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use."
           },
           "oauthRedirectUri": {
             "type": "string",
@@ -7847,7 +7990,7 @@
           },
           "clientUserId": {
             "type": "string",
-            "description": "Client's identifier for the user, it can be a ID, UUID or even an email."
+            "description": "Client's external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use."
           },
           "webhookUrl": {
             "type": "string",
@@ -8067,6 +8210,7 @@
               "item/waiting_user_action",
               "item/login_succeeded",
               "connector/status_updated",
+              "transactions/created",
               "transactions/updated",
               "transactions/deleted",
               "payment_intent/created",
@@ -9553,7 +9697,7 @@
         "properties": {
           "clientUserId": {
             "type": "string",
-            "description": "Client's identifier for the user, it can be a ID, UUID or even an email."
+            "description": "Client's external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use."
           },
           "webhookUrl": {
             "type": "string",
@@ -10481,6 +10625,20 @@
             "discriminator": {
               "propertyName": "type"
             }
+          },
+          "errorDetail": {
+            "type": "object",
+            "description": "Error details when payment request fails",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code"
+              },
+              "providerMessage": {
+                "type": "string",
+                "description": "Error message returned by the institution"
+              }
+            }
           }
         },
         "type": "object",
@@ -11138,6 +11296,28 @@
               }
             ],
             "description": "Pix data related to the payment intent (only applies for PIX payment method)"
+          },
+          "errorDetail": {
+            "type": "object",
+            "description": "Error details when payment intent fails",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code"
+              },
+              "providerCode": {
+                "type": "string",
+                "description": "Provider error code"
+              },
+              "providerTitle": {
+                "type": "string",
+                "description": "Provider error title"
+              },
+              "providerDetail": {
+                "type": "string",
+                "description": "Provider detailed error description"
+              }
+            }
           }
         },
         "type": "object",
@@ -12464,6 +12644,283 @@
             "description": "Boleto discount amount"
           }
         }
+      },
+      "CreateBoletoConnection": {
+        "description": "Request with information to create a boleto connection",
+        "type": "object",
+        "required": [
+          "connectorId",
+          "credentials"
+        ],
+        "properties": {
+          "connectorId": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Connector identifier. Check out the list of connectors, and if it has the flag 'supportsBoletoManagement' as true, it means it's possible to create a boleto connection with it."
+          },
+          "credentials": {
+            "type": "object",
+            "description": "Credentials required for the connection. For Inter, they are clientId, clientSecret, certificate and privateKey, follow: https://docs.pluggy.ai/docs/connect-an-account#inter-pj",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "example": {
+          "connectorId": 225,
+          "credentials": {
+            "clientId": "your-client-id",
+            "clientSecret": "your-client-secret",
+            "certificate": "your-certificate-no-newlines",
+            "privateKey": "your-private-key-no-newlines"
+          }
+        }
+      },
+      "BoletoConnection": {
+        "description": "Response with information related to a boleto connection",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Primary identifier"
+          },
+          "connectorId": {
+            "type": "integer",
+            "description": "Primary identifier of the connector associated with this connection"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the connection was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the connection was last updated"
+          }
+        },
+        "required": [
+          "id",
+          "connectorId",
+          "createdAt",
+          "updatedAt"
+        ],
+        "example": {
+          "id": "dc3537ad-13b4-4770-b248-e4578983899c",
+          "connectorId": 225,
+          "createdAt": "2023-01-01T00:00:00.000Z",
+          "updatedAt": "2023-01-01T00:00:00.000Z"
+        }
+      },
+      "CreateBoleto": {
+        "description": "Request with information to create a boleto",
+        "type": "object",
+        "properties": {
+          "boletoConnectionId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Primary identifier of the boleto connection"
+          },
+          "boleto": {
+            "type": "object",
+            "properties": {
+              "seuNumero": {
+                "type": "string",
+                "maxLength": 10,
+                "description": "Your identifier for this boleto"
+              },
+              "amount": {
+                "type": "number",
+                "minimum": 2.5,
+                "description": "Boleto amount"
+              },
+              "dueDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Due date for the boleto. Must be today or in the future."
+              },
+              "payer": {
+                "type": "object",
+                "properties": {
+                  "taxNumber": {
+                    "type": "string",
+                    "description": "Payer tax number (CPF/CNPJ)",
+                    "example": "41.679.495/0001-00"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Payer name",
+                    "example": "NOME LEGAL EMPRESA"
+                  },
+                  "addressStreet": {
+                    "type": "string",
+                    "description": "Payer street address"
+                  },
+                  "addressCity": {
+                    "type": "string",
+                    "description": "Payer city"
+                  },
+                  "addressState": {
+                    "type": "string",
+                    "description": "Payer state"
+                  },
+                  "addressZipCode": {
+                    "type": "string",
+                    "description": "Payer ZIP code"
+                  }
+                },
+                "required": [
+                  "taxNumber",
+                  "name",
+                  "addressState",
+                  "addressZipCode"
+                ]
+              }
+            },
+            "required": [
+              "seuNumero",
+              "amount",
+              "dueDate",
+              "payer"
+            ]
+          }
+        },
+        "required": [
+          "boletoConnectionId",
+          "boleto"
+        ]
+      },
+      "IssuedBoleto": {
+        "description": "Response with information related to an issued boleto",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Primary identifier"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Boleto amount",
+            "minimum": 2.5
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the boleto",
+            "enum": [
+              "OPEN",
+              "PAID",
+              "OVERDUE",
+              "CANCELLED"
+            ]
+          },
+          "seuNumero": {
+            "type": "string",
+            "maxLength": 10,
+            "description": "Your identifier for this boleto"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Due date of the boleto"
+          },
+          "payer": {
+            "type": "object",
+            "properties": {
+              "taxNumber": {
+                "type": "string",
+                "description": "Payer tax number (CPF/CNPJ)"
+              },
+              "personType": {
+                "type": "string",
+                "description": "Type of person (individual or business)"
+              },
+              "name": {
+                "type": "string",
+                "description": "Payer name"
+              },
+              "addressStreet": {
+                "type": "string",
+                "description": "Payer street address"
+              },
+              "addressNumber": {
+                "type": "string",
+                "description": "Payer address number"
+              },
+              "addressComplement": {
+                "type": "string",
+                "description": "Additional address information"
+              },
+              "addressNeighborhood": {
+                "type": "string",
+                "description": "Payer neighborhood"
+              },
+              "addressCity": {
+                "type": "string",
+                "description": "Payer city"
+              },
+              "addressState": {
+                "type": "string",
+                "description": "Payer state"
+              },
+              "addressZipCode": {
+                "type": "string",
+                "description": "Payer ZIP code"
+              },
+              "email": {
+                "type": "string",
+                "description": "Payer email"
+              },
+              "ddd": {
+                "type": "string",
+                "description": "Payer area code"
+              },
+              "phoneNumber": {
+                "type": "string",
+                "description": "Payer phone number"
+              }
+            },
+            "required": [
+              "taxNumber",
+              "name",
+              "addressState",
+              "addressZipCode"
+            ]
+          },
+          "pixQr": {
+            "type": "string",
+            "description": "PIX QR code for payment"
+          },
+          "digitableLine": {
+            "type": "string",
+            "description": "Boleto digitable line"
+          },
+          "nossoNumero": {
+            "type": "string",
+            "description": "Bank's internal identifier for the boleto"
+          },
+          "barcode": {
+            "type": "string",
+            "description": "Boleto barcode"
+          },
+          "boletoConnectionId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the boleto connection used to create this boleto"
+          }
+        },
+        "required": [
+          "id",
+          "providerId",
+          "amount",
+          "status",
+          "seuNumero",
+          "dueDate",
+          "payer",
+          "digitableLine",
+          "barcode",
+          "boletoConnectionId"
+        ]
       }
     },
     "x-readme": {
