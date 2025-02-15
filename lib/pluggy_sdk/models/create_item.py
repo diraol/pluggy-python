@@ -31,7 +31,7 @@ class CreateItem(BaseModel):
     connector_id: Union[StrictFloat, StrictInt] = Field(description="Primary identifier of the connector", alias="connectorId")
     parameters: CreateItemParameters
     webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of item changes", alias="webhookUrl")
-    client_user_id: Optional[StrictStr] = Field(default=None, description="Client's identifier for the user, it can be a ID, UUID or even an email.", alias="clientUserId")
+    client_user_id: Optional[StrictStr] = Field(default=None, description="Client's external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use.", alias="clientUserId")
     oauth_redirect_uri: Optional[StrictStr] = Field(default=None, description="Redirect URI required for the Oauth flow", alias="oauthRedirectUri")
     products: Optional[List[StrictStr]] = Field(default=None, description="Products to be collected in the connection")
     avoid_duplicates: Optional[StrictBool] = Field(default=None, description="Avoids creating a new item if there is already one with the same credentials", alias="avoidDuplicates")

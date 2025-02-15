@@ -18,26 +18,22 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CreateWebhook(BaseModel):
+class CreateBoletoBoletoPayer(BaseModel):
     """
-    
+    CreateBoletoBoletoPayer
     """ # noqa: E501
-    url: StrictStr
-    event: StrictStr
-    headers: Optional[Dict[str, Any]] = Field(default=None, description="HTTP headers that will be included in the webhook notifications (useful for things like authorization)")
-    __properties: ClassVar[List[str]] = ["url", "event", "headers"]
-
-    @field_validator('event')
-    def event_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'transactions/created', 'transactions/updated', 'transactions/deleted', 'payment_intent/created', 'payment_intent/completed', 'payment_intent/waiting_payer_authorization', 'payment_intent/error', 'scheduled_payment/created', 'scheduled_payment/completed', 'scheduled_payment/error', 'scheduled_payment/canceled', 'scheduled_payment/all_completed', 'payment_refund/completed', 'payment_refund/error']):
-            raise ValueError("must be one of enum values ('all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'transactions/created', 'transactions/updated', 'transactions/deleted', 'payment_intent/created', 'payment_intent/completed', 'payment_intent/waiting_payer_authorization', 'payment_intent/error', 'scheduled_payment/created', 'scheduled_payment/completed', 'scheduled_payment/error', 'scheduled_payment/canceled', 'scheduled_payment/all_completed', 'payment_refund/completed', 'payment_refund/error')")
-        return value
+    tax_number: StrictStr = Field(description="Payer tax number (CPF/CNPJ)", alias="taxNumber")
+    name: StrictStr = Field(description="Payer name")
+    address_street: Optional[StrictStr] = Field(default=None, description="Payer street address", alias="addressStreet")
+    address_city: Optional[StrictStr] = Field(default=None, description="Payer city", alias="addressCity")
+    address_state: StrictStr = Field(description="Payer state", alias="addressState")
+    address_zip_code: StrictStr = Field(description="Payer ZIP code", alias="addressZipCode")
+    __properties: ClassVar[List[str]] = ["taxNumber", "name", "addressStreet", "addressCity", "addressState", "addressZipCode"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -57,7 +53,7 @@ class CreateWebhook(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CreateWebhook from a JSON string"""
+        """Create an instance of CreateBoletoBoletoPayer from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -82,7 +78,7 @@ class CreateWebhook(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CreateWebhook from a dict"""
+        """Create an instance of CreateBoletoBoletoPayer from a dict"""
         if obj is None:
             return None
 
@@ -90,9 +86,12 @@ class CreateWebhook(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "url": obj.get("url"),
-            "event": obj.get("event"),
-            "headers": obj.get("headers")
+            "taxNumber": obj.get("taxNumber"),
+            "name": obj.get("name"),
+            "addressStreet": obj.get("addressStreet"),
+            "addressCity": obj.get("addressCity"),
+            "addressState": obj.get("addressState"),
+            "addressZipCode": obj.get("addressZipCode")
         })
         return _obj
 

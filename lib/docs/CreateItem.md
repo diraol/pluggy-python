@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **connector_id** | **float** | Primary identifier of the connector | 
 **parameters** | [**CreateItemParameters**](CreateItemParameters.md) |  | 
 **webhook_url** | **str** | Url to be notified of item changes | [optional] 
-**client_user_id** | **str** | Client&#39;s identifier for the user, it can be a ID, UUID or even an email. | [optional] 
+**client_user_id** | **str** | Client&#39;s external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use. | [optional] 
 **oauth_redirect_uri** | **str** | Redirect URI required for the Oauth flow | [optional] 
 **products** | **List[str]** | Products to be collected in the connection | [optional] 
 **avoid_duplicates** | **bool** | Avoids creating a new item if there is already one with the same credentials | [optional] 

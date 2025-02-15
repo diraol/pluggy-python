@@ -18,20 +18,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ItemOptions(BaseModel):
+class BoletoConnection(BaseModel):
     """
-    Item options available to send through connect tokens
+    Response with information related to a boleto connection
     """ # noqa: E501
-    client_user_id: Optional[StrictStr] = Field(default=None, description="Client's external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use.", alias="clientUserId")
-    webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of this specific item changes", alias="webhookUrl")
-    oauth_redirect_uri: Optional[StrictStr] = Field(default=None, description="Url to redirect the user after the connect flow", alias="oauthRedirectUri")
-    avoid_duplicates: Optional[StrictBool] = Field(default=None, description="Avoids creating a new item if there is already one with the same credentials", alias="avoidDuplicates")
-    __properties: ClassVar[List[str]] = ["clientUserId", "webhookUrl", "oauthRedirectUri", "avoidDuplicates"]
+    id: StrictStr = Field(description="Primary identifier")
+    connector_id: StrictInt = Field(description="Primary identifier of the connector associated with this connection", alias="connectorId")
+    created_at: datetime = Field(description="Date when the connection was created", alias="createdAt")
+    updated_at: datetime = Field(description="Date when the connection was last updated", alias="updatedAt")
+    __properties: ClassVar[List[str]] = ["id", "connectorId", "createdAt", "updatedAt"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +52,7 @@ class ItemOptions(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ItemOptions from a JSON string"""
+        """Create an instance of BoletoConnection from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -76,7 +77,7 @@ class ItemOptions(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ItemOptions from a dict"""
+        """Create an instance of BoletoConnection from a dict"""
         if obj is None:
             return None
 
@@ -84,10 +85,10 @@ class ItemOptions(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "clientUserId": obj.get("clientUserId"),
-            "webhookUrl": obj.get("webhookUrl"),
-            "oauthRedirectUri": obj.get("oauthRedirectUri"),
-            "avoidDuplicates": obj.get("avoidDuplicates")
+            "id": obj.get("id"),
+            "connectorId": obj.get("connectorId"),
+            "createdAt": obj.get("createdAt"),
+            "updatedAt": obj.get("updatedAt")
         })
         return _obj
 

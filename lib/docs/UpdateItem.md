@@ -7,7 +7,7 @@ Update Item Request
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **parameters** | [**UpdateItemParameters**](UpdateItemParameters.md) |  | [optional] 
-**client_user_id** | **str** | Client&#39;s identifier for the user, it can be a ID, UUID or even an email. | [optional] 
+**client_user_id** | **str** | Client&#39;s external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use. | [optional] 
 **webhook_url** | **str** | Url to be notified of item changes | [optional] 
 **products** | **List[str]** | Products to be collected in the connection | [optional] 
 

@@ -6,7 +6,7 @@ Item options available to send through connect tokens
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**client_user_id** | **str** | Client&#39;s identifier for the user, it can be a ID, UUID or even an email. | [optional] 
+**client_user_id** | **str** | Client&#39;s external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use. | [optional] 
 **webhook_url** | **str** | Url to be notified of this specific item changes | [optional] 
 **oauth_redirect_uri** | **str** | Url to redirect the user after the connect flow | [optional] 
 **avoid_duplicates** | **bool** | Avoids creating a new item if there is already one with the same credentials | [optional] 

@@ -18,20 +18,23 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List, Union
+from typing_extensions import Annotated
+from pluggy_sdk.models.create_boleto_boleto_payer import CreateBoletoBoletoPayer
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ItemOptions(BaseModel):
+class CreateBoletoBoleto(BaseModel):
     """
-    Item options available to send through connect tokens
+    CreateBoletoBoleto
     """ # noqa: E501
-    client_user_id: Optional[StrictStr] = Field(default=None, description="Client's external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use.", alias="clientUserId")
-    webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of this specific item changes", alias="webhookUrl")
-    oauth_redirect_uri: Optional[StrictStr] = Field(default=None, description="Url to redirect the user after the connect flow", alias="oauthRedirectUri")
-    avoid_duplicates: Optional[StrictBool] = Field(default=None, description="Avoids creating a new item if there is already one with the same credentials", alias="avoidDuplicates")
-    __properties: ClassVar[List[str]] = ["clientUserId", "webhookUrl", "oauthRedirectUri", "avoidDuplicates"]
+    seu_numero: Annotated[str, Field(strict=True, max_length=10)] = Field(description="Your identifier for this boleto", alias="seuNumero")
+    amount: Union[Annotated[float, Field(strict=True, ge=2.5)], Annotated[int, Field(strict=True, ge=3)]] = Field(description="Boleto amount")
+    due_date: datetime = Field(description="Due date for the boleto. Must be today or in the future.", alias="dueDate")
+    payer: CreateBoletoBoletoPayer
+    __properties: ClassVar[List[str]] = ["seuNumero", "amount", "dueDate", "payer"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +54,7 @@ class ItemOptions(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ItemOptions from a JSON string"""
+        """Create an instance of CreateBoletoBoleto from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,11 +75,14 @@ class ItemOptions(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of payer
+        if self.payer:
+            _dict['payer'] = self.payer.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ItemOptions from a dict"""
+        """Create an instance of CreateBoletoBoleto from a dict"""
         if obj is None:
             return None
 
@@ -84,10 +90,10 @@ class ItemOptions(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "clientUserId": obj.get("clientUserId"),
-            "webhookUrl": obj.get("webhookUrl"),
-            "oauthRedirectUri": obj.get("oauthRedirectUri"),
-            "avoidDuplicates": obj.get("avoidDuplicates")
+            "seuNumero": obj.get("seuNumero"),
+            "amount": obj.get("amount"),
+            "dueDate": obj.get("dueDate"),
+            "payer": CreateBoletoBoletoPayer.from_dict(obj["payer"]) if obj.get("payer") is not None else None
         })
         return _obj
 

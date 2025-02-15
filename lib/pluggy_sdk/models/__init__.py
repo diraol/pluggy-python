@@ -30,6 +30,7 @@ from pluggy_sdk.models.bill import Bill
 from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge
 from pluggy_sdk.models.bills_list200_response import BillsList200Response
 from pluggy_sdk.models.boleto import Boleto
+from pluggy_sdk.models.boleto_connection import BoletoConnection
 from pluggy_sdk.models.boleto_payer import BoletoPayer
 from pluggy_sdk.models.boleto_recipient import BoletoRecipient
 from pluggy_sdk.models.bulk_payment import BulkPayment
@@ -47,6 +48,10 @@ from pluggy_sdk.models.connector_health_details import ConnectorHealthDetails
 from pluggy_sdk.models.connector_list_response import ConnectorListResponse
 from pluggy_sdk.models.connector_user_action import ConnectorUserAction
 from pluggy_sdk.models.consent import Consent
+from pluggy_sdk.models.create_boleto import CreateBoleto
+from pluggy_sdk.models.create_boleto_boleto import CreateBoletoBoleto
+from pluggy_sdk.models.create_boleto_boleto_payer import CreateBoletoBoletoPayer
+from pluggy_sdk.models.create_boleto_connection import CreateBoletoConnection
 from pluggy_sdk.models.create_boleto_payment_request import CreateBoletoPaymentRequest
 from pluggy_sdk.models.create_bulk_payment import CreateBulkPayment
 from pluggy_sdk.models.create_client_category_rule import CreateClientCategoryRule
@@ -85,6 +90,8 @@ from pluggy_sdk.models.investment_expenses import InvestmentExpenses
 from pluggy_sdk.models.investment_metadata import InvestmentMetadata
 from pluggy_sdk.models.investment_transaction import InvestmentTransaction
 from pluggy_sdk.models.investments_list200_response import InvestmentsList200Response
+from pluggy_sdk.models.issued_boleto import IssuedBoleto
+from pluggy_sdk.models.issued_boleto_payer import IssuedBoletoPayer
 from pluggy_sdk.models.item import Item
 from pluggy_sdk.models.item_creation_error_response import ItemCreationErrorResponse
 from pluggy_sdk.models.item_error import ItemError
@@ -119,6 +126,7 @@ from pluggy_sdk.models.payment_data_boleto_metadata import PaymentDataBoletoMeta
 from pluggy_sdk.models.payment_data_participant import PaymentDataParticipant
 from pluggy_sdk.models.payment_institution import PaymentInstitution
 from pluggy_sdk.models.payment_intent import PaymentIntent
+from pluggy_sdk.models.payment_intent_error_detail import PaymentIntentErrorDetail
 from pluggy_sdk.models.payment_intent_parameter import PaymentIntentParameter
 from pluggy_sdk.models.payment_intents_list200_response import PaymentIntentsList200Response
 from pluggy_sdk.models.payment_receipt import PaymentReceipt
@@ -130,6 +138,7 @@ from pluggy_sdk.models.payment_recipients_institution_list200_response import Pa
 from pluggy_sdk.models.payment_recipients_list200_response import PaymentRecipientsList200Response
 from pluggy_sdk.models.payment_request import PaymentRequest
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
+from pluggy_sdk.models.payment_request_error_detail import PaymentRequestErrorDetail
 from pluggy_sdk.models.payment_request_receipt_list200_response import PaymentRequestReceiptList200Response
 from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule
 from pluggy_sdk.models.payment_requests_list200_response import PaymentRequestsList200Response

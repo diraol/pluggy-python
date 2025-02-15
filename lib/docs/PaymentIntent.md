@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **reference_id** | **str** | Pix id related to the payment intent | [optional] 
 **payment_method** | **str** | Payment method can be PIS (Payment Initiation) or PIX | [optional] [default to 'PIS']
 **pix_data** | [**PixData**](PixData.md) | Pix data related to the payment intent (only applies for PIX payment method) | [optional] 
+**error_detail** | [**PaymentIntentErrorDetail**](PaymentIntentErrorDetail.md) |  | [optional] 
 
 ## Example
 

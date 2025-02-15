@@ -18,20 +18,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ItemOptions(BaseModel):
+class CreateBoletoConnection(BaseModel):
     """
-    Item options available to send through connect tokens
+    Request with information to create a boleto connection
     """ # noqa: E501
-    client_user_id: Optional[StrictStr] = Field(default=None, description="Client's external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use.", alias="clientUserId")
-    webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of this specific item changes", alias="webhookUrl")
-    oauth_redirect_uri: Optional[StrictStr] = Field(default=None, description="Url to redirect the user after the connect flow", alias="oauthRedirectUri")
-    avoid_duplicates: Optional[StrictBool] = Field(default=None, description="Avoids creating a new item if there is already one with the same credentials", alias="avoidDuplicates")
-    __properties: ClassVar[List[str]] = ["clientUserId", "webhookUrl", "oauthRedirectUri", "avoidDuplicates"]
+    connector_id: Annotated[int, Field(strict=True, ge=1)] = Field(description="Connector identifier. Check out the list of connectors, and if it has the flag 'supportsBoletoManagement' as true, it means it's possible to create a boleto connection with it.", alias="connectorId")
+    credentials: Dict[str, StrictStr] = Field(description="Credentials required for the connection. For Inter, they are clientId, clientSecret, certificate and privateKey, follow: https://docs.pluggy.ai/docs/connect-an-account#inter-pj")
+    __properties: ClassVar[List[str]] = ["connectorId", "credentials"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +50,7 @@ class ItemOptions(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ItemOptions from a JSON string"""
+        """Create an instance of CreateBoletoConnection from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -76,7 +75,7 @@ class ItemOptions(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ItemOptions from a dict"""
+        """Create an instance of CreateBoletoConnection from a dict"""
         if obj is None:
             return None
 
@@ -84,10 +83,8 @@ class ItemOptions(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "clientUserId": obj.get("clientUserId"),
-            "webhookUrl": obj.get("webhookUrl"),
-            "oauthRedirectUri": obj.get("oauthRedirectUri"),
-            "avoidDuplicates": obj.get("avoidDuplicates")
+            "connectorId": obj.get("connectorId"),
+            "credentials": obj.get("credentials")
         })
         return _obj
 

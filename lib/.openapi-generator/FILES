@@ -22,6 +22,8 @@ docs/BillApi.md
 docs/BillFinanceCharge.md
 docs/BillsList200Response.md
 docs/Boleto.md
+docs/BoletoConnection.md
+docs/BoletoManagementApi.md
 docs/BoletoPayer.md
 docs/BoletoRecipient.md
 docs/BulkPayment.md
@@ -43,6 +45,10 @@ docs/ConnectorListResponse.md
 docs/ConnectorUserAction.md
 docs/Consent.md
 docs/ConsentApi.md
+docs/CreateBoleto.md
+docs/CreateBoletoBoleto.md
+docs/CreateBoletoBoletoPayer.md
+docs/CreateBoletoConnection.md
 docs/CreateBoletoPaymentRequest.md
 docs/CreateBulkPayment.md
 docs/CreateClientCategoryRule.md
@@ -83,6 +89,8 @@ docs/InvestmentExpenses.md
 docs/InvestmentMetadata.md
 docs/InvestmentTransaction.md
 docs/InvestmentsList200Response.md
+docs/IssuedBoleto.md
+docs/IssuedBoletoPayer.md
 docs/Item.md
 docs/ItemCreationErrorResponse.md
 docs/ItemError.md
@@ -121,6 +129,7 @@ docs/PaymentDataParticipant.md
 docs/PaymentInstitution.md
 docs/PaymentIntent.md
 docs/PaymentIntentApi.md
+docs/PaymentIntentErrorDetail.md
 docs/PaymentIntentParameter.md
 docs/PaymentIntentsList200Response.md
 docs/PaymentReceipt.md
@@ -134,6 +143,7 @@ docs/PaymentRecipientsList200Response.md
 docs/PaymentRequest.md
 docs/PaymentRequestApi.md
 docs/PaymentRequestCallbackUrls.md
+docs/PaymentRequestErrorDetail.md
 docs/PaymentRequestReceiptList200Response.md
 docs/PaymentRequestSchedule.md
 docs/PaymentRequestsList200Response.md
@@ -177,6 +187,7 @@ pluggy_sdk/api/account_api.py
 pluggy_sdk/api/auth_api.py
 pluggy_sdk/api/benefit_api.py
 pluggy_sdk/api/bill_api.py
+pluggy_sdk/api/boleto_management_api.py
 pluggy_sdk/api/bulk_payment_api.py
 pluggy_sdk/api/category_api.py
 pluggy_sdk/api/connector_api.py
@@ -214,6 +225,7 @@ pluggy_sdk/models/bill.py
 pluggy_sdk/models/bill_finance_charge.py
 pluggy_sdk/models/bills_list200_response.py
 pluggy_sdk/models/boleto.py
+pluggy_sdk/models/boleto_connection.py
 pluggy_sdk/models/boleto_payer.py
 pluggy_sdk/models/boleto_recipient.py
 pluggy_sdk/models/bulk_payment.py
@@ -230,6 +242,10 @@ pluggy_sdk/models/connector_health_details.py
 pluggy_sdk/models/connector_list_response.py
 pluggy_sdk/models/connector_user_action.py
 pluggy_sdk/models/consent.py
+pluggy_sdk/models/create_boleto.py
+pluggy_sdk/models/create_boleto_boleto.py
+pluggy_sdk/models/create_boleto_boleto_payer.py
+pluggy_sdk/models/create_boleto_connection.py
 pluggy_sdk/models/create_boleto_payment_request.py
 pluggy_sdk/models/create_bulk_payment.py
 pluggy_sdk/models/create_client_category_rule.py
@@ -269,6 +285,8 @@ pluggy_sdk/models/investment_expenses.py
 pluggy_sdk/models/investment_metadata.py
 pluggy_sdk/models/investment_transaction.py
 pluggy_sdk/models/investments_list200_response.py
+pluggy_sdk/models/issued_boleto.py
+pluggy_sdk/models/issued_boleto_payer.py
 pluggy_sdk/models/item.py
 pluggy_sdk/models/item_creation_error_response.py
 pluggy_sdk/models/item_error.py
@@ -303,6 +321,7 @@ pluggy_sdk/models/payment_data_boleto_metadata.py
 pluggy_sdk/models/payment_data_participant.py
 pluggy_sdk/models/payment_institution.py
 pluggy_sdk/models/payment_intent.py
+pluggy_sdk/models/payment_intent_error_detail.py
 pluggy_sdk/models/payment_intent_parameter.py
 pluggy_sdk/models/payment_intents_list200_response.py
 pluggy_sdk/models/payment_receipt.py
@@ -314,6 +333,7 @@ pluggy_sdk/models/payment_recipients_institution_list200_response.py
 pluggy_sdk/models/payment_recipients_list200_response.py
 pluggy_sdk/models/payment_request.py
 pluggy_sdk/models/payment_request_callback_urls.py
+pluggy_sdk/models/payment_request_error_detail.py
 pluggy_sdk/models/payment_request_receipt_list200_response.py
 pluggy_sdk/models/payment_request_schedule.py
 pluggy_sdk/models/payment_requests_list200_response.py
@@ -353,4 +373,14 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_boleto_connection.py
+test/test_boleto_management_api.py
+test/test_create_boleto.py
+test/test_create_boleto_boleto.py
+test/test_create_boleto_boleto_payer.py
+test/test_create_boleto_connection.py
+test/test_issued_boleto.py
+test/test_issued_boleto_payer.py
+test/test_payment_intent_error_detail.py
+test/test_payment_request_error_detail.py
 tox.ini

@@ -29,7 +29,7 @@ class UpdateItem(BaseModel):
     Update Item Request
     """ # noqa: E501
     parameters: Optional[UpdateItemParameters] = None
-    client_user_id: Optional[StrictStr] = Field(default=None, description="Client's identifier for the user, it can be a ID, UUID or even an email.", alias="clientUserId")
+    client_user_id: Optional[StrictStr] = Field(default=None, description="Client's external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use.", alias="clientUserId")
     webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of item changes", alias="webhookUrl")
     products: Optional[List[StrictStr]] = Field(default=None, description="Products to be collected in the connection")
     __properties: ClassVar[List[str]] = ["parameters", "clientUserId", "webhookUrl", "products"]

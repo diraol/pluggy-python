@@ -5,6 +5,7 @@ from pluggy_sdk.api.account_api import AccountApi
 from pluggy_sdk.api.auth_api import AuthApi
 from pluggy_sdk.api.benefit_api import BenefitApi
 from pluggy_sdk.api.bill_api import BillApi
+from pluggy_sdk.api.boleto_management_api import BoletoManagementApi
 from pluggy_sdk.api.bulk_payment_api import BulkPaymentApi
 from pluggy_sdk.api.category_api import CategoryApi
 from pluggy_sdk.api.connector_api import ConnectorApi
