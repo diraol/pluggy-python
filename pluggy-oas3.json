@@ -4407,16 +4407,6 @@
         ],
         "parameters": [
           {
-            "description": "Filter recipients only if its default or not",
-            "in": "query",
-            "name": "isDefault",
-            "required": false,
-            "schema": {
-              "type": "boolean"
-            },
-            "example": "true"
-          },
-          {
             "description": "Page size for the paging request, default: 20",
             "in": "query",
             "name": "pageSize",
@@ -7104,6 +7094,42 @@
         ]
       }
     },
+    "/boleto-connections/from-item": {
+      "post": {
+        "operationId": "boleto-connection-create-from-item",
+        "summary": "Create boleto connection from Item",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBoletoConnectionFromItem"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Boleto connection created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BoletoConnection"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Boleto Management"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      }
+    },
     "/boletos": {
       "post": {
         "operationId": "boleto-create",
@@ -7160,6 +7186,45 @@
         "responses": {
           "200": {
             "description": "Boleto cancelled successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssuedBoleto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Boleto Management"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      }
+    },
+    "/boletos/{id}": {
+      "get": {
+        "operationId": "boleto-get",
+        "summary": "Get Boleto",
+        "parameters": [
+          {
+            "description": "Boleto primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "82da0d63-fbc0-4e20-b191-50e6df030875"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Issued Boleto",
             "content": {
               "application/json": {
                 "schema": {
@@ -8223,7 +8288,8 @@
               "scheduled_payment/canceled",
               "scheduled_payment/all_completed",
               "payment_refund/completed",
-              "payment_refund/error"
+              "payment_refund/error",
+              "boleto/updated"
             ],
             "type": "string",
             "description": ""
@@ -9145,14 +9211,6 @@
               }
             ],
             "description": "Security Portability details"
-          },
-          "transactions": {
-            "type": "array",
-            "deprecated": true,
-            "items": {
-              "$ref": "#/components/schemas/InvestmentTransaction"
-            },
-            "description": "(DEPRECATED: this field will be removed for new applications created from 21st March 2023 onward. Use the paginated `GET /investment/{id}/transactions` endpoint instead.) Transactions made on the investment (Buy, Sell, Transfer, Tax)"
           },
           "dueDate": {
             "type": "string",
@@ -11493,8 +11551,7 @@
         "required": [
           "id",
           "type",
-          "name",
-          "email"
+          "name"
         ],
         "example": {
           "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
@@ -11540,8 +11597,7 @@
         "required": [
           "id",
           "type",
-          "name",
-          "email"
+          "name"
         ],
         "example": {
           "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
@@ -11617,7 +11673,7 @@
             "number": "123456",
             "type": "CHECKING_ACCOUNT"
           },
-          "isDefault": true,
+          "isDefault": false,
           "pixKey": null
         }
       },
@@ -11645,10 +11701,6 @@
             ],
             "description": "Recipient's bank account destination. Send only if the pixKey is not sent."
           },
-          "isDefault": {
-            "type": "boolean",
-            "description": "Indicates if the recipient is the default one"
-          },
           "pixKey": {
             "type": "string",
             "description": "Pix key associated with the payment recipient"
@@ -11668,8 +11720,7 @@
             "branch": "0001",
             "number": "123456",
             "type": "CHECKING_ACCOUNT"
-          },
-          "isDefault": true
+          }
         }
       },
       "UpdatePaymentRecipient": {
@@ -11696,10 +11747,6 @@
             ],
             "description": "Recipient's bank account destination. Send only if the recipient doesn't have a pixKey."
           },
-          "isDefault": {
-            "type": "boolean",
-            "description": "Indicates if the recipient is the default one"
-          },
           "pixKey": {
             "type": "string",
             "description": "Pix key associated with the payment recipient"
@@ -11714,8 +11761,7 @@
             "branch": "0001",
             "number": "123456",
             "type": "CHECKING_ACCOUNT"
-          },
-          "isDefault": true
+          }
         }
       },
       "SmartAccount": {
@@ -12676,6 +12722,23 @@
           }
         }
       },
+      "CreateBoletoConnectionFromItem": {
+        "description": "Request with information to create a boleto connection from an Item",
+        "type": "object",
+        "required": [
+          "itemId"
+        ],
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Item ID"
+          }
+        },
+        "example": {
+          "itemId": "0303c07b-fef0-4903-af9a-007fa086ca8c"
+        }
+      },
       "BoletoConnection": {
         "description": "Response with information related to a boleto connection",
         "type": "object",
@@ -12878,6 +12941,18 @@
               "phoneNumber": {
                 "type": "string",
                 "description": "Payer phone number"
+              },
+              "amountPaid": {
+                "type": "number",
+                "description": "Amount paid or null if it hasn't been paid yet"
+              },
+              "paymentOrigin": {
+                "type": "string",
+                "description": "Payment origin for the boleto",
+                "enum": [
+                  "PIX",
+                  "BOLETO"
+                ]
               }
             },
             "required": [
