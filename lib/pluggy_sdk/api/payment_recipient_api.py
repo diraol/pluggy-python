@@ -17,7 +17,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from pydantic import Field, StrictFloat, StrictInt, StrictStr
 from typing import Optional, Union
 from typing_extensions import Annotated
 from pluggy_sdk.models.create_payment_recipient import CreatePaymentRecipient
@@ -1703,7 +1703,6 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipients_list(
         self,
-        is_default: Annotated[Optional[StrictBool], Field(description="Filter recipients only if its default or not")] = None,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
@@ -1723,8 +1722,6 @@ class PaymentRecipientApi:
 
         Recovers all created payment recipients
 
-        :param is_default: Filter recipients only if its default or not
-        :type is_default: bool
         :param page_size: Page size for the paging request, default: 20
         :type page_size: float
         :param page: Page number for the paging request, default: 1
@@ -1752,7 +1749,6 @@ class PaymentRecipientApi:
         """ # noqa: E501
 
         _param = self._payment_recipients_list_serialize(
-            is_default=is_default,
             page_size=page_size,
             page=page,
             _request_auth=_request_auth,
@@ -1778,7 +1774,6 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipients_list_with_http_info(
         self,
-        is_default: Annotated[Optional[StrictBool], Field(description="Filter recipients only if its default or not")] = None,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
@@ -1798,8 +1793,6 @@ class PaymentRecipientApi:
 
         Recovers all created payment recipients
 
-        :param is_default: Filter recipients only if its default or not
-        :type is_default: bool
         :param page_size: Page size for the paging request, default: 20
         :type page_size: float
         :param page: Page number for the paging request, default: 1
@@ -1827,7 +1820,6 @@ class PaymentRecipientApi:
         """ # noqa: E501
 
         _param = self._payment_recipients_list_serialize(
-            is_default=is_default,
             page_size=page_size,
             page=page,
             _request_auth=_request_auth,
@@ -1853,7 +1845,6 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipients_list_without_preload_content(
         self,
-        is_default: Annotated[Optional[StrictBool], Field(description="Filter recipients only if its default or not")] = None,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
@@ -1873,8 +1864,6 @@ class PaymentRecipientApi:
 
         Recovers all created payment recipients
 
-        :param is_default: Filter recipients only if its default or not
-        :type is_default: bool
         :param page_size: Page size for the paging request, default: 20
         :type page_size: float
         :param page: Page number for the paging request, default: 1
@@ -1902,7 +1891,6 @@ class PaymentRecipientApi:
         """ # noqa: E501
 
         _param = self._payment_recipients_list_serialize(
-            is_default=is_default,
             page_size=page_size,
             page=page,
             _request_auth=_request_auth,
@@ -1923,7 +1911,6 @@ class PaymentRecipientApi:
 
     def _payment_recipients_list_serialize(
         self,
-        is_default,
         page_size,
         page,
         _request_auth,
@@ -1948,10 +1935,6 @@ class PaymentRecipientApi:
 
         # process the path parameters
         # process the query parameters
-        if is_default is not None:
-            
-            _query_params.append(('isDefault', is_default))
-            
         if page_size is not None:
             
             _query_params.append(('pageSize', page_size))

@@ -6,7 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**boleto_cancel**](BoletoManagementApi.md#boleto_cancel) | **POST** /boletos/{id}/cancel | Cancel Boleto
 [**boleto_connection_create**](BoletoManagementApi.md#boleto_connection_create) | **POST** /boleto-connections | Connect boleto credentials
+[**boleto_connection_create_from_item**](BoletoManagementApi.md#boleto_connection_create_from_item) | **POST** /boleto-connections/from-item | Create boleto connection from Item
 [**boleto_create**](BoletoManagementApi.md#boleto_create) | **POST** /boletos | Issue Boleto
+[**boleto_get**](BoletoManagementApi.md#boleto_get) | **GET** /boletos/{id} | Get Boleto
 
 
 # **boleto_cancel**
@@ -165,6 +167,84 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **boleto_connection_create_from_item**
+> BoletoConnection boleto_connection_create_from_item(create_boleto_connection_from_item)
+
+Create boleto connection from Item
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.models.boleto_connection import BoletoConnection
+from pluggy_sdk.models.create_boleto_connection_from_item import CreateBoletoConnectionFromItem
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.BoletoManagementApi(api_client)
+    create_boleto_connection_from_item = pluggy_sdk.CreateBoletoConnectionFromItem() # CreateBoletoConnectionFromItem | 
+
+    try:
+        # Create boleto connection from Item
+        api_response = api_instance.boleto_connection_create_from_item(create_boleto_connection_from_item)
+        print("The response of BoletoManagementApi->boleto_connection_create_from_item:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling BoletoManagementApi->boleto_connection_create_from_item: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **create_boleto_connection_from_item** | [**CreateBoletoConnectionFromItem**](CreateBoletoConnectionFromItem.md)|  | 
+
+### Return type
+
+[**BoletoConnection**](BoletoConnection.md)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Boleto connection created successfully |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **boleto_create**
 > IssuedBoleto boleto_create(create_boleto)
 
@@ -240,6 +320,83 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Boleto created successfully |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **boleto_get**
+> IssuedBoleto boleto_get(id)
+
+Get Boleto
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.models.issued_boleto import IssuedBoleto
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.BoletoManagementApi(api_client)
+    id = '82da0d63-fbc0-4e20-b191-50e6df030875' # str | Boleto primary identifier
+
+    try:
+        # Get Boleto
+        api_response = api_instance.boleto_get(id)
+        print("The response of BoletoManagementApi->boleto_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling BoletoManagementApi->boleto_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| Boleto primary identifier | 
+
+### Return type
+
+[**IssuedBoleto**](IssuedBoleto.md)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Issued Boleto |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

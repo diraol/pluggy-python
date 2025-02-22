@@ -18,8 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -40,7 +40,19 @@ class IssuedBoletoPayer(BaseModel):
     email: Optional[StrictStr] = Field(default=None, description="Payer email")
     ddd: Optional[StrictStr] = Field(default=None, description="Payer area code")
     phone_number: Optional[StrictStr] = Field(default=None, description="Payer phone number", alias="phoneNumber")
-    __properties: ClassVar[List[str]] = ["taxNumber", "personType", "name", "addressStreet", "addressNumber", "addressComplement", "addressNeighborhood", "addressCity", "addressState", "addressZipCode", "email", "ddd", "phoneNumber"]
+    amount_paid: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount paid or null if it hasn't been paid yet", alias="amountPaid")
+    payment_origin: Optional[StrictStr] = Field(default=None, description="Payment origin for the boleto", alias="paymentOrigin")
+    __properties: ClassVar[List[str]] = ["taxNumber", "personType", "name", "addressStreet", "addressNumber", "addressComplement", "addressNeighborhood", "addressCity", "addressState", "addressZipCode", "email", "ddd", "phoneNumber", "amountPaid", "paymentOrigin"]
+
+    @field_validator('payment_origin')
+    def payment_origin_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['PIX', 'BOLETO']):
+            raise ValueError("must be one of enum values ('PIX', 'BOLETO')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -105,7 +117,9 @@ class IssuedBoletoPayer(BaseModel):
             "addressZipCode": obj.get("addressZipCode"),
             "email": obj.get("email"),
             "ddd": obj.get("ddd"),
-            "phoneNumber": obj.get("phoneNumber")
+            "phoneNumber": obj.get("phoneNumber"),
+            "amountPaid": obj.get("amountPaid"),
+            "paymentOrigin": obj.get("paymentOrigin")
         })
         return _obj
 

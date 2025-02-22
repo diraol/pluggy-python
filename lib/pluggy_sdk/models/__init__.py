@@ -52,6 +52,7 @@ from pluggy_sdk.models.create_boleto import CreateBoleto
 from pluggy_sdk.models.create_boleto_boleto import CreateBoletoBoleto
 from pluggy_sdk.models.create_boleto_boleto_payer import CreateBoletoBoletoPayer
 from pluggy_sdk.models.create_boleto_connection import CreateBoletoConnection
+from pluggy_sdk.models.create_boleto_connection_from_item import CreateBoletoConnectionFromItem
 from pluggy_sdk.models.create_boleto_payment_request import CreateBoletoPaymentRequest
 from pluggy_sdk.models.create_bulk_payment import CreateBulkPayment
 from pluggy_sdk.models.create_client_category_rule import CreateClientCategoryRule

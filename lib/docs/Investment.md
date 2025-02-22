@@ -30,7 +30,6 @@ Name | Type | Description | Notes
 **amount_withdrawal** | **float** | The amount available to withdraw | [optional] 
 **amount_original** | **float** | Amount originally invested | [optional] 
 **metadata** | [**InvestmentMetadata**](InvestmentMetadata.md) | Security Portability details | [optional] 
-**transactions** | [**List[InvestmentTransaction]**](InvestmentTransaction.md) | (DEPRECATED: this field will be removed for new applications created from 21st March 2023 onward. Use the paginated &#x60;GET /investment/{id}/transactions&#x60; endpoint instead.) Transactions made on the investment (Buy, Sell, Transfer, Tax) | [optional] 
 **due_date** | **datetime** | Expiration Date | [optional] 
 **issuer** | **str** | The entity that issued the investment | [optional] 
 **issuer_cnpj** | **str** | The entity CNPJ that issued the investment | [optional] 

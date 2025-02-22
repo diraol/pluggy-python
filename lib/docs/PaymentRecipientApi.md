@@ -497,7 +497,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payment_recipients_list**
-> PaymentRecipientsList200Response payment_recipients_list(is_default=is_default, page_size=page_size, page=page)
+> PaymentRecipientsList200Response payment_recipients_list(page_size=page_size, page=page)
 
 List
 
@@ -534,13 +534,12 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRecipientApi(api_client)
-    is_default = true # bool | Filter recipients only if its default or not (optional)
     page_size = 50 # float | Page size for the paging request, default: 20 (optional)
     page = 1 # float | Page number for the paging request, default: 1 (optional)
 
     try:
         # List
-        api_response = api_instance.payment_recipients_list(is_default=is_default, page_size=page_size, page=page)
+        api_response = api_instance.payment_recipients_list(page_size=page_size, page=page)
         print("The response of PaymentRecipientApi->payment_recipients_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -554,7 +553,6 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **is_default** | **bool**| Filter recipients only if its default or not | [optional] 
  **page_size** | **float**| Page size for the paging request, default: 20 | [optional] 
  **page** | **float**| Page number for the paging request, default: 1 | [optional] 
 

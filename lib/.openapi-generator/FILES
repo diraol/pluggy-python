@@ -49,6 +49,7 @@ docs/CreateBoleto.md
 docs/CreateBoletoBoleto.md
 docs/CreateBoletoBoletoPayer.md
 docs/CreateBoletoConnection.md
+docs/CreateBoletoConnectionFromItem.md
 docs/CreateBoletoPaymentRequest.md
 docs/CreateBulkPayment.md
 docs/CreateClientCategoryRule.md
@@ -246,6 +247,7 @@ pluggy_sdk/models/create_boleto.py
 pluggy_sdk/models/create_boleto_boleto.py
 pluggy_sdk/models/create_boleto_boleto_payer.py
 pluggy_sdk/models/create_boleto_connection.py
+pluggy_sdk/models/create_boleto_connection_from_item.py
 pluggy_sdk/models/create_boleto_payment_request.py
 pluggy_sdk/models/create_bulk_payment.py
 pluggy_sdk/models/create_client_category_rule.py
@@ -373,14 +375,5 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_boleto_connection.py
-test/test_boleto_management_api.py
-test/test_create_boleto.py
-test/test_create_boleto_boleto.py
-test/test_create_boleto_boleto_payer.py
-test/test_create_boleto_connection.py
-test/test_issued_boleto.py
-test/test_issued_boleto_payer.py
-test/test_payment_intent_error_detail.py
-test/test_payment_request_error_detail.py
+test/test_create_boleto_connection_from_item.py
 tox.ini

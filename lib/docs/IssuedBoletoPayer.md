@@ -18,6 +18,8 @@ Name | Type | Description | Notes
 **email** | **str** | Payer email | [optional] 
 **ddd** | **str** | Payer area code | [optional] 
 **phone_number** | **str** | Payer phone number | [optional] 
+**amount_paid** | **float** | Amount paid or null if it hasn&#39;t been paid yet | [optional] 
+**payment_origin** | **str** | Payment origin for the boleto | [optional] 
 
 ## Example
 

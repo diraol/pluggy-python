@@ -22,7 +22,6 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.investment_metadata import InvestmentMetadata
-from pluggy_sdk.models.investment_transaction import InvestmentTransaction
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -54,7 +53,6 @@ class Investment(BaseModel):
     amount_withdrawal: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The amount available to withdraw", alias="amountWithdrawal")
     amount_original: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount originally invested", alias="amountOriginal")
     metadata: Optional[InvestmentMetadata] = Field(default=None, description="Security Portability details")
-    transactions: Optional[List[InvestmentTransaction]] = Field(default=None, description="(DEPRECATED: this field will be removed for new applications created from 21st March 2023 onward. Use the paginated `GET /investment/{id}/transactions` endpoint instead.) Transactions made on the investment (Buy, Sell, Transfer, Tax)")
     due_date: Optional[datetime] = Field(default=None, description="Expiration Date", alias="dueDate")
     issuer: Optional[StrictStr] = Field(default=None, description="The entity that issued the investment")
     issuer_cnpj: Optional[StrictStr] = Field(default=None, description="The entity CNPJ that issued the investment", alias="issuerCNPJ")
@@ -63,7 +61,7 @@ class Investment(BaseModel):
     rate_type: Optional[StrictStr] = Field(default=None, description="Type of fixed-rate", alias="rateType")
     fixed_annual_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Fixed income annual rate", alias="fixedAnnualRate")
     status: Optional[StrictStr] = Field(default=None, description="Current status of the investment enum value")
-    __properties: ClassVar[List[str]] = ["id", "itemId", "type", "subtype", "number", "balance", "name", "lastMonthRate", "lastTwelveMonthsRate", "annualRate", "currencyCode", "code", "isin", "value", "quantity", "amount", "taxes", "taxes2", "date", "owner", "amountProfit", "amountWithdrawal", "amountOriginal", "metadata", "transactions", "dueDate", "issuer", "issuerCNPJ", "issueDate", "rate", "rateType", "fixedAnnualRate", "status"]
+    __properties: ClassVar[List[str]] = ["id", "itemId", "type", "subtype", "number", "balance", "name", "lastMonthRate", "lastTwelveMonthsRate", "annualRate", "currencyCode", "code", "isin", "value", "quantity", "amount", "taxes", "taxes2", "date", "owner", "amountProfit", "amountWithdrawal", "amountOriginal", "metadata", "dueDate", "issuer", "issuerCNPJ", "issueDate", "rate", "rateType", "fixedAnnualRate", "status"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -134,13 +132,6 @@ class Investment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of metadata
         if self.metadata:
             _dict['metadata'] = self.metadata.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in transactions (list)
-        _items = []
-        if self.transactions:
-            for _item_transactions in self.transactions:
-                if _item_transactions:
-                    _items.append(_item_transactions.to_dict())
-            _dict['transactions'] = _items
         return _dict
 
     @classmethod
@@ -177,7 +168,6 @@ class Investment(BaseModel):
             "amountWithdrawal": obj.get("amountWithdrawal"),
             "amountOriginal": obj.get("amountOriginal"),
             "metadata": InvestmentMetadata.from_dict(obj["metadata"]) if obj.get("metadata") is not None else None,
-            "transactions": [InvestmentTransaction.from_dict(_item) for _item in obj["transactions"]] if obj.get("transactions") is not None else None,
             "dueDate": obj.get("dueDate"),
             "issuer": obj.get("issuer"),
             "issuerCNPJ": obj.get("issuerCNPJ"),

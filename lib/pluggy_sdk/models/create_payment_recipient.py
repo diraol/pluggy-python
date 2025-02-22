@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.payment_recipient_account import PaymentRecipientAccount
 from typing import Optional, Set
@@ -32,10 +32,9 @@ class CreatePaymentRecipient(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="Account owner name. Send only this when the pixKey is not sent.")
     payment_institution_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the institution associated to the payment recipient. Send only when the pixKey is not sent.", alias="paymentInstitutionId")
     account: Optional[PaymentRecipientAccount] = Field(default=None, description="Recipient's bank account destination. Send only if the pixKey is not sent.")
-    is_default: Optional[StrictBool] = Field(default=None, description="Indicates if the recipient is the default one", alias="isDefault")
     pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient", alias="pixKey")
     smart_account_id: Optional[StrictStr] = Field(default=None, description="Smart account identifier associated to the payment recipient, used to be able to use PIX Qr method", alias="smartAccountId")
-    __properties: ClassVar[List[str]] = ["taxNumber", "name", "paymentInstitutionId", "account", "isDefault", "pixKey", "smartAccountId"]
+    __properties: ClassVar[List[str]] = ["taxNumber", "name", "paymentInstitutionId", "account", "pixKey", "smartAccountId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -95,7 +94,6 @@ class CreatePaymentRecipient(BaseModel):
             "name": obj.get("name"),
             "paymentInstitutionId": obj.get("paymentInstitutionId"),
             "account": PaymentRecipientAccount.from_dict(obj["account"]) if obj.get("account") is not None else None,
-            "isDefault": obj.get("isDefault"),
             "pixKey": obj.get("pixKey"),
             "smartAccountId": obj.get("smartAccountId")
         })

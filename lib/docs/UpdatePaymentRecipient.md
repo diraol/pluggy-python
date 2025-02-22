@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **name** | **str** | Account owner name. Send only if the recipient doesn&#39;t have a pixKey. | [optional] 
 **payment_institution_id** | **str** | Primary identifier of the institution associated to the payment recipient. Send only if the recipient doesn&#39;t have a pixKey. | [optional] 
 **account** | [**PaymentRecipientAccount**](PaymentRecipientAccount.md) | Recipient&#39;s bank account destination. Send only if the recipient doesn&#39;t have a pixKey. | [optional] 
-**is_default** | **bool** | Indicates if the recipient is the default one | [optional] 
 **pix_key** | **str** | Pix key associated with the payment recipient | [optional] 
 
 ## Example

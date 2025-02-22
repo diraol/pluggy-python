@@ -18,28 +18,17 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CreatePaymentCustomerRequestBody(BaseModel):
+class CreateBoletoConnectionFromItem(BaseModel):
     """
-    Response with information related to a payment customer
+    Request with information to create a boleto connection from an Item
     """ # noqa: E501
-    type: StrictStr = Field(description="Customer type")
-    name: StrictStr = Field(description="Customer name")
-    email: Optional[StrictStr] = Field(default=None, description="Customer email")
-    cpf: Optional[StrictStr] = Field(default=None, description="Customer CPF")
-    cnpj: Optional[StrictStr] = Field(default=None, description="Customer CNPJ, if type is `BUSINESS`")
-    __properties: ClassVar[List[str]] = ["type", "name", "email", "cpf", "cnpj"]
-
-    @field_validator('type')
-    def type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['INDIVIDUAL', 'BUSINESS']):
-            raise ValueError("must be one of enum values ('INDIVIDUAL', 'BUSINESS')")
-        return value
+    item_id: StrictStr = Field(description="Item ID", alias="itemId")
+    __properties: ClassVar[List[str]] = ["itemId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -59,7 +48,7 @@ class CreatePaymentCustomerRequestBody(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CreatePaymentCustomerRequestBody from a JSON string"""
+        """Create an instance of CreateBoletoConnectionFromItem from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -84,7 +73,7 @@ class CreatePaymentCustomerRequestBody(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CreatePaymentCustomerRequestBody from a dict"""
+        """Create an instance of CreateBoletoConnectionFromItem from a dict"""
         if obj is None:
             return None
 
@@ -92,11 +81,7 @@ class CreatePaymentCustomerRequestBody(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "type": obj.get("type"),
-            "name": obj.get("name"),
-            "email": obj.get("email"),
-            "cpf": obj.get("cpf"),
-            "cnpj": obj.get("cnpj")
+            "itemId": obj.get("itemId")
         })
         return _obj
 

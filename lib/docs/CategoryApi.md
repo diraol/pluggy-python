@@ -15,7 +15,8 @@ Method | HTTP request | Description
 
 List
 
-Recovers all categories active from the data categorization. Can be filtered by the parentId of the category.
+Recovers all categories active from the data categorization.
+Can be filtered by the parentId of the category.
 
 ### Example
 

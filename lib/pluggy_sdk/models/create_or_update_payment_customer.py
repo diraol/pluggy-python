@@ -30,7 +30,7 @@ class CreateOrUpdatePaymentCustomer(BaseModel):
     id: StrictStr = Field(description="Primary identifier")
     type: StrictStr = Field(description="Customer type")
     name: StrictStr = Field(description="Customer name")
-    email: StrictStr = Field(description="Customer email")
+    email: Optional[StrictStr] = Field(default=None, description="Customer email")
     cpf: Optional[StrictStr] = Field(default=None, description="Customer CPF")
     cnpj: Optional[StrictStr] = Field(default=None, description="Customer CNPJ, if type is `BUSINESS`")
     __properties: ClassVar[List[str]] = ["id", "type", "name", "email", "cpf", "cnpj"]
