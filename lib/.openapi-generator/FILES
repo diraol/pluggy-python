@@ -47,6 +47,8 @@ docs/Consent.md
 docs/ConsentApi.md
 docs/CreateBoleto.md
 docs/CreateBoletoBoleto.md
+docs/CreateBoletoBoletoFine.md
+docs/CreateBoletoBoletoInterest.md
 docs/CreateBoletoBoletoPayer.md
 docs/CreateBoletoConnection.md
 docs/CreateBoletoConnectionFromItem.md
@@ -91,6 +93,8 @@ docs/InvestmentMetadata.md
 docs/InvestmentTransaction.md
 docs/InvestmentsList200Response.md
 docs/IssuedBoleto.md
+docs/IssuedBoletoFine.md
+docs/IssuedBoletoInterest.md
 docs/IssuedBoletoPayer.md
 docs/Item.md
 docs/ItemCreationErrorResponse.md
@@ -154,6 +158,7 @@ docs/PhoneNumber.md
 docs/PixData.md
 docs/SINGLE.md
 docs/SchedulePayment.md
+docs/SchedulePaymentErrorDetail.md
 docs/SmartAccount.md
 docs/SmartAccountAddress.md
 docs/SmartAccountApi.md
@@ -245,6 +250,8 @@ pluggy_sdk/models/connector_user_action.py
 pluggy_sdk/models/consent.py
 pluggy_sdk/models/create_boleto.py
 pluggy_sdk/models/create_boleto_boleto.py
+pluggy_sdk/models/create_boleto_boleto_fine.py
+pluggy_sdk/models/create_boleto_boleto_interest.py
 pluggy_sdk/models/create_boleto_boleto_payer.py
 pluggy_sdk/models/create_boleto_connection.py
 pluggy_sdk/models/create_boleto_connection_from_item.py
@@ -288,6 +295,8 @@ pluggy_sdk/models/investment_metadata.py
 pluggy_sdk/models/investment_transaction.py
 pluggy_sdk/models/investments_list200_response.py
 pluggy_sdk/models/issued_boleto.py
+pluggy_sdk/models/issued_boleto_fine.py
+pluggy_sdk/models/issued_boleto_interest.py
 pluggy_sdk/models/issued_boleto_payer.py
 pluggy_sdk/models/item.py
 pluggy_sdk/models/item_creation_error_response.py
@@ -343,6 +352,7 @@ pluggy_sdk/models/payment_schedules_list200_response.py
 pluggy_sdk/models/phone_number.py
 pluggy_sdk/models/pix_data.py
 pluggy_sdk/models/schedule_payment.py
+pluggy_sdk/models/schedule_payment_error_detail.py
 pluggy_sdk/models/single.py
 pluggy_sdk/models/smart_account.py
 pluggy_sdk/models/smart_account_address.py
@@ -375,5 +385,9 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_create_boleto_connection_from_item.py
+test/test_create_boleto_boleto_fine.py
+test/test_create_boleto_boleto_interest.py
+test/test_issued_boleto_fine.py
+test/test_issued_boleto_interest.py
+test/test_schedule_payment_error_detail.py
 tox.ini

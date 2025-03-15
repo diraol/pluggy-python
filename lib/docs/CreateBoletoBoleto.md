@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **amount** | **float** | Boleto amount | 
 **due_date** | **datetime** | Due date for the boleto. Must be today or in the future. | 
 **payer** | [**CreateBoletoBoletoPayer**](CreateBoletoBoletoPayer.md) |  | 
+**fine** | [**CreateBoletoBoletoFine**](CreateBoletoBoletoFine.md) |  | [optional] 
+**interest** | [**CreateBoletoBoletoInterest**](CreateBoletoBoletoInterest.md) |  | [optional] 
 
 ## Example
 

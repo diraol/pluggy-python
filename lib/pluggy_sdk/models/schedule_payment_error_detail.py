@@ -18,30 +18,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import date
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pluggy_sdk.models.schedule_payment_error_detail import SchedulePaymentErrorDetail
 from typing import Optional, Set
 from typing_extensions import Self
 
-class SchedulePayment(BaseModel):
+class SchedulePaymentErrorDetail(BaseModel):
     """
-    Information of a schedule payment
+    Details about an error that occurred with the scheduled payment
     """ # noqa: E501
-    id: StrictStr
-    description: StrictStr = Field(description="Scheduled payment description")
-    status: StrictStr = Field(description="Scheduled payment status")
-    scheduled_date: date = Field(description="Date when the payment is scheduled", alias="scheduledDate")
-    error_detail: Optional[SchedulePaymentErrorDetail] = Field(default=None, alias="errorDetail")
-    __properties: ClassVar[List[str]] = ["id", "description", "status", "scheduledDate", "errorDetail"]
-
-    @field_validator('status')
-    def status_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['SCHEDULED', 'COMPLETED', 'ERROR']):
-            raise ValueError("must be one of enum values ('SCHEDULED', 'COMPLETED', 'ERROR')")
-        return value
+    code: Optional[StrictStr] = Field(default=None, description="Error code")
+    description: Optional[StrictStr] = Field(default=None, description="Human-readable description of the error")
+    detail: Optional[StrictStr] = Field(default=None, description="Additional details about the error in the provider's language")
+    __properties: ClassVar[List[str]] = ["code", "description", "detail"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -61,7 +50,7 @@ class SchedulePayment(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of SchedulePayment from a JSON string"""
+        """Create an instance of SchedulePaymentErrorDetail from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -82,14 +71,11 @@ class SchedulePayment(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of error_detail
-        if self.error_detail:
-            _dict['errorDetail'] = self.error_detail.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of SchedulePayment from a dict"""
+        """Create an instance of SchedulePaymentErrorDetail from a dict"""
         if obj is None:
             return None
 
@@ -97,11 +83,9 @@ class SchedulePayment(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
+            "code": obj.get("code"),
             "description": obj.get("description"),
-            "status": obj.get("status"),
-            "scheduledDate": obj.get("scheduledDate"),
-            "errorDetail": SchedulePaymentErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None
+            "detail": obj.get("detail")
         })
         return _obj
 

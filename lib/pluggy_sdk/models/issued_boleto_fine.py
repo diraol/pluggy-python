@@ -18,27 +18,29 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
-from pluggy_sdk.models.create_boleto_boleto_fine import CreateBoletoBoletoFine
-from pluggy_sdk.models.create_boleto_boleto_interest import CreateBoletoBoletoInterest
-from pluggy_sdk.models.create_boleto_boleto_payer import CreateBoletoBoletoPayer
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CreateBoletoBoleto(BaseModel):
+class IssuedBoletoFine(BaseModel):
     """
-    CreateBoletoBoleto
+    Fine information for late payment
     """ # noqa: E501
-    seu_numero: Annotated[str, Field(strict=True, max_length=10)] = Field(description="Your identifier for this boleto", alias="seuNumero")
-    amount: Union[Annotated[float, Field(strict=True, ge=2.5)], Annotated[int, Field(strict=True, ge=3)]] = Field(description="Boleto amount")
-    due_date: datetime = Field(description="Due date for the boleto. Must be today or in the future.", alias="dueDate")
-    payer: CreateBoletoBoletoPayer
-    fine: Optional[CreateBoletoBoletoFine] = None
-    interest: Optional[CreateBoletoBoletoInterest] = None
-    __properties: ClassVar[List[str]] = ["seuNumero", "amount", "dueDate", "payer", "fine", "interest"]
+    value: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, description="Fine value")
+    type: Optional[StrictStr] = Field(default=None, description="Type of fine calculation")
+    __properties: ClassVar[List[str]] = ["value", "type"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['PERCENTAGE', 'FIXED']):
+            raise ValueError("must be one of enum values ('PERCENTAGE', 'FIXED')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -58,7 +60,7 @@ class CreateBoletoBoleto(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CreateBoletoBoleto from a JSON string"""
+        """Create an instance of IssuedBoletoFine from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -79,20 +81,11 @@ class CreateBoletoBoleto(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of payer
-        if self.payer:
-            _dict['payer'] = self.payer.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of fine
-        if self.fine:
-            _dict['fine'] = self.fine.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of interest
-        if self.interest:
-            _dict['interest'] = self.interest.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CreateBoletoBoleto from a dict"""
+        """Create an instance of IssuedBoletoFine from a dict"""
         if obj is None:
             return None
 
@@ -100,12 +93,8 @@ class CreateBoletoBoleto(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "seuNumero": obj.get("seuNumero"),
-            "amount": obj.get("amount"),
-            "dueDate": obj.get("dueDate"),
-            "payer": CreateBoletoBoletoPayer.from_dict(obj["payer"]) if obj.get("payer") is not None else None,
-            "fine": CreateBoletoBoletoFine.from_dict(obj["fine"]) if obj.get("fine") is not None else None,
-            "interest": CreateBoletoBoletoInterest.from_dict(obj["interest"]) if obj.get("interest") is not None else None
+            "value": obj.get("value"),
+            "type": obj.get("type")
         })
         return _obj
 

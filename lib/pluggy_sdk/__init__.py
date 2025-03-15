@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post38"
+__version__ = "1.0.0.post39"
 
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi
@@ -88,6 +88,8 @@ from pluggy_sdk.models.connector_user_action import ConnectorUserAction
 from pluggy_sdk.models.consent import Consent
 from pluggy_sdk.models.create_boleto import CreateBoleto
 from pluggy_sdk.models.create_boleto_boleto import CreateBoletoBoleto
+from pluggy_sdk.models.create_boleto_boleto_fine import CreateBoletoBoletoFine
+from pluggy_sdk.models.create_boleto_boleto_interest import CreateBoletoBoletoInterest
 from pluggy_sdk.models.create_boleto_boleto_payer import CreateBoletoBoletoPayer
 from pluggy_sdk.models.create_boleto_connection import CreateBoletoConnection
 from pluggy_sdk.models.create_boleto_connection_from_item import CreateBoletoConnectionFromItem
@@ -130,6 +132,8 @@ from pluggy_sdk.models.investment_metadata import InvestmentMetadata
 from pluggy_sdk.models.investment_transaction import InvestmentTransaction
 from pluggy_sdk.models.investments_list200_response import InvestmentsList200Response
 from pluggy_sdk.models.issued_boleto import IssuedBoleto
+from pluggy_sdk.models.issued_boleto_fine import IssuedBoletoFine
+from pluggy_sdk.models.issued_boleto_interest import IssuedBoletoInterest
 from pluggy_sdk.models.issued_boleto_payer import IssuedBoletoPayer
 from pluggy_sdk.models.item import Item
 from pluggy_sdk.models.item_creation_error_response import ItemCreationErrorResponse
@@ -186,6 +190,7 @@ from pluggy_sdk.models.phone_number import PhoneNumber
 from pluggy_sdk.models.pix_data import PixData
 from pluggy_sdk.models.single import SINGLE
 from pluggy_sdk.models.schedule_payment import SchedulePayment
+from pluggy_sdk.models.schedule_payment_error_detail import SchedulePaymentErrorDetail
 from pluggy_sdk.models.smart_account import SmartAccount
 from pluggy_sdk.models.smart_account_address import SmartAccountAddress
 from pluggy_sdk.models.smart_account_balance import SmartAccountBalance

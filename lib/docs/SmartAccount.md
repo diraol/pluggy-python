@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **verifying_digit** | **str** | Smart account verifying digit | 
 **type** | **str** | Smart account type | 
 **is_sandbox** | **bool** | Indicates if the smart account is a sandbox account | 
+**pix_key** | **str** | Smart account PIX key | 
 
 ## Example
 

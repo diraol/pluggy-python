@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **description** | **str** | Scheduled payment description | 
 **status** | **str** | Scheduled payment status | 
 **scheduled_date** | **date** | Date when the payment is scheduled | 
+**error_detail** | [**SchedulePaymentErrorDetail**](SchedulePaymentErrorDetail.md) |  | [optional] 
 
 ## Example
 

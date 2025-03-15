@@ -6,6 +6,7 @@ Movement of the investment
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **str** | Primary investment transaction identifier | 
 **type** | **str** | Type of transactions | 
 **movement_type** | **str** | Type of movement of the transaction | [optional] 
 **quantity** | **float** | Quantity of the transaction | [optional] 

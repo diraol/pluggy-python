@@ -34,7 +34,8 @@ class SmartAccount(BaseModel):
     verifying_digit: StrictStr = Field(description="Smart account verifying digit", alias="verifyingDigit")
     type: StrictStr = Field(description="Smart account type")
     is_sandbox: StrictBool = Field(description="Indicates if the smart account is a sandbox account", alias="isSandbox")
-    __properties: ClassVar[List[str]] = ["id", "ispb", "agency", "number", "verifyingDigit", "type", "isSandbox"]
+    pix_key: StrictStr = Field(description="Smart account PIX key", alias="pixKey")
+    __properties: ClassVar[List[str]] = ["id", "ispb", "agency", "number", "verifyingDigit", "type", "isSandbox", "pixKey"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -100,7 +101,8 @@ class SmartAccount(BaseModel):
             "number": obj.get("number"),
             "verifyingDigit": obj.get("verifyingDigit"),
             "type": obj.get("type"),
-            "isSandbox": obj.get("isSandbox")
+            "isSandbox": obj.get("isSandbox"),
+            "pixKey": obj.get("pixKey")
         })
         return _obj
 

@@ -17,6 +17,12 @@ Name | Type | Description | Notes
 **nosso_numero** | **str** | Bank&#39;s internal identifier for the boleto | [optional] 
 **barcode** | **str** | Boleto barcode | 
 **boleto_connection_id** | **str** | ID of the boleto connection used to create this boleto | 
+**created_at** | **datetime** | Date when the boleto was created | 
+**amount_paid** | **float** | Amount that was paid for this boleto | [optional] 
+**payment_origin** | **str** | Origin of the payment when the boleto is paid | [optional] 
+**fine** | [**IssuedBoletoFine**](IssuedBoletoFine.md) |  | [optional] 
+**interest** | [**IssuedBoletoInterest**](IssuedBoletoInterest.md) |  | [optional] 
+**paid_at** | **datetime** | Date when the boleto was paid | [optional] 
 
 ## Example
 

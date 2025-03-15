@@ -29,6 +29,7 @@ class InvestmentTransaction(BaseModel):
     """
     Movement of the investment
     """ # noqa: E501
+    id: StrictStr = Field(description="Primary investment transaction identifier")
     type: StrictStr = Field(description="Type of transactions")
     movement_type: Optional[StrictStr] = Field(default=None, description="Type of movement of the transaction", alias="movementType")
     quantity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Quantity of the transaction")
@@ -38,7 +39,7 @@ class InvestmentTransaction(BaseModel):
     var_date: datetime = Field(description="Date when the transaction was made", alias="date")
     trade_date: Optional[datetime] = Field(default=None, description="Date when the transaction was confirmed", alias="tradeDate")
     expenses: Optional[InvestmentExpenses] = None
-    __properties: ClassVar[List[str]] = ["type", "movementType", "quantity", "value", "amount", "agreedRate", "date", "tradeDate", "expenses"]
+    __properties: ClassVar[List[str]] = ["id", "type", "movementType", "quantity", "value", "amount", "agreedRate", "date", "tradeDate", "expenses"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -111,6 +112,7 @@ class InvestmentTransaction(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "type": obj.get("type"),
             "movementType": obj.get("movementType"),
             "quantity": obj.get("quantity"),
