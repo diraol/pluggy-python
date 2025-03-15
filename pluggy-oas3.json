@@ -5487,14 +5487,26 @@
                   "response": {
                     "value": {
                       "page": 1,
-                      "total": 1,
+                      "total": 2,
                       "totalPages": 1,
                       "results": [
                         {
                           "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "scheduledDate": "2024-07-04",
+                          "description": "PAGAMENTO AGENDADO 2/2",
+                          "status": "SCHEDULED",
+                          "errorDetail": null
+                        },
+                        {
+                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a05",
                           "scheduledDate": "2024-06-04",
-                          "description": "PAGAMENTO AGENDADO 2/20",
-                          "status": "SCHEDULED"
+                          "description": "PAGAMENTO AGENDADO 1/2",
+                          "status": "ERROR",
+                          "errorDetail": {
+                            "code": "INSUFFICIENT_BALANCE",
+                            "description": "The account doesn't have enough balance to perform the payment.",
+                            "detail": "A conta selecionada não possui saldo suficiente para realizar o pagamento."
+                          }
                         }
                       ]
                     }
@@ -6477,7 +6489,8 @@
                             "agency": "001",
                             "number": "14244",
                             "verifyingDigit": "1",
-                            "type": "CHECKING_ACCOUNT"
+                            "type": "CHECKING_ACCOUNT",
+                            "pixKey": "1234567890"
                           },
                           "createdAt": "2023-11-06T13:03:45.689Z",
                           "updatedAt": "2023-11-06T13:03:45.689Z"
@@ -8885,6 +8898,10 @@
       "InvestmentTransaction": {
         "description": "Movement of the investment",
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "Primary investment transaction identifier"
+          },
           "type": {
             "type": "string",
             "description": "Type of transactions",
@@ -8941,6 +8958,7 @@
         },
         "type": "object",
         "required": [
+          "id",
           "type",
           "date"
         ]
@@ -10734,6 +10752,24 @@
             "type": "string",
             "format": "date",
             "description": "Date when the payment is scheduled"
+          },
+          "errorDetail": {
+            "type": "object",
+            "description": "Details about an error that occurred with the scheduled payment",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code"
+              },
+              "description": {
+                "type": "string",
+                "description": "Human-readable description of the error"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Additional details about the error in the provider's language"
+              }
+            }
           }
         },
         "type": "object",
@@ -11264,7 +11300,8 @@
             "number": "123456",
             "verifyingDigit": "7",
             "type": "CHECKING_ACCOUNT",
-            "isSandbox": false
+            "isSandbox": false,
+            "pixKey": "12345678901"
           }
         }
       },
@@ -11797,6 +11834,10 @@
           "isSandbox": {
             "type": "boolean",
             "description": "Indicates if the smart account is a sandbox account"
+          },
+          "pixKey": {
+            "type": "string",
+            "description": "Smart account PIX key"
           }
         },
         "type": "object",
@@ -11807,7 +11848,8 @@
           "number",
           "verifyingDigit",
           "type",
-          "isSandbox"
+          "isSandbox",
+          "pixKey"
         ],
         "example": {
           "id": "71996b6d-8991-450c-8542-ae59069d1a9d",
@@ -12839,6 +12881,51 @@
                   "addressState",
                   "addressZipCode"
                 ]
+              },
+              "fine": {
+                "type": "object",
+                "description": "Fine information for late payment",
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 0,
+                    "description": "Fine value"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "PERCENTAGE",
+                      "FIXED"
+                    ],
+                    "description": "Type of fine calculation"
+                  }
+                },
+                "required": [
+                  "value",
+                  "type"
+                ]
+              },
+              "interest": {
+                "type": "object",
+                "description": "Interest information for late payment",
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 0,
+                    "description": "Interest value"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "PERCENTAGE"
+                    ],
+                    "description": "Type of interest calculation"
+                  }
+                },
+                "required": [
+                  "value",
+                  "type"
+                ]
               }
             },
             "required": [
@@ -12982,6 +13069,68 @@
             "type": "string",
             "format": "uuid",
             "description": "ID of the boleto connection used to create this boleto"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the boleto was created"
+          },
+          "amountPaid": {
+            "type": "number",
+            "description": "Amount that was paid for this boleto",
+            "nullable": true
+          },
+          "paymentOrigin": {
+            "type": "string",
+            "enum": [
+              "PIX",
+              "BOLETO"
+            ],
+            "description": "Origin of the payment when the boleto is paid",
+            "nullable": true
+          },
+          "fine": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Fine value"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "PERCENTAGE",
+                  "FIXED"
+                ],
+                "description": "Type of fine calculation"
+              }
+            },
+            "description": "Fine information for late payment",
+            "nullable": true
+          },
+          "interest": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Interest value"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "PERCENTAGE"
+                ],
+                "description": "Type of interest calculation"
+              }
+            },
+            "description": "Interest information for late payment"
+          },
+          "paidAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the boleto was paid"
           }
         },
         "required": [
@@ -12989,6 +13138,7 @@
           "providerId",
           "amount",
           "status",
+          "createdAt",
           "seuNumero",
           "dueDate",
           "payer",
