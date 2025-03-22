@@ -497,6 +497,17 @@
                         }
                       ]
                     }
+                  },
+                  "itemUserAlreadyExists": {
+                    "summary": "Item user already exists, avoid duplicates detected.",
+                    "value": {
+                      "message": "There are other items with the same credentials, you can't create a new one",
+                      "codeDescription": "ITEM_USER_ALREADY_EXISTS",
+                      "items": [
+                        "d0f8a8c0-e8e3-11e9-b210-d663bd873d93",
+                        "d0f8a8c0-e8e3-11e9-b210-d663bd873d94"
+                      ]
+                    }
                   }
                 }
               }
@@ -1500,7 +1511,8 @@
                           "providerCode": null,
                           "status": "POSTED",
                           "paymentData": null,
-                          "type": "DEBIT"
+                          "type": "DEBIT",
+                          "providerId": null
                         },
                         {
                           "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
@@ -1517,6 +1529,7 @@
                           "status": "POSTED",
                           "paymentData": null,
                           "type": "DEBIT",
+                          "providerId": null,
                           "merchant": {
                             "name": "Netflix",
                             "businessName": "NETFLIX ENTRETENIMENTO BRASIL LTDA.",
@@ -1538,7 +1551,8 @@
                           "providerCode": null,
                           "status": "POSTED",
                           "paymentData": null,
-                          "type": "CREDIT"
+                          "type": "CREDIT",
+                          "providerId": null
                         },
                         {
                           "id": "8caf328b-4528-4de6-b931-10639d0084c5",
@@ -1553,7 +1567,8 @@
                           "providerCode": null,
                           "status": "POSTED",
                           "paymentData": null,
-                          "type": "DEBIT"
+                          "type": "DEBIT",
+                          "providerId": null
                         },
                         {
                           "id": "ff9ed929-edc4-408c-a959-d51f79ab1814",
@@ -1576,7 +1591,8 @@
                             "payeeMCC": 1234,
                             "cardNumber": "0597",
                             "billId": "abced929-edc4-408c-a959-d51f79ab1123"
-                          }
+                          },
+                          "providerId": null
                         },
                         {
                           "id": "093fc873-442a-4bd8-9171-51f17892fb09",
@@ -1591,7 +1607,8 @@
                           "providerCode": null,
                           "status": "POSTED",
                           "paymentData": null,
-                          "type": "DEBIT"
+                          "type": "DEBIT",
+                          "providerId": null
                         },
                         {
                           "id": "6ec156fe-e8ac-4d9a-a4b3-7770529ab01c",
@@ -1631,7 +1648,8 @@
                             },
                             "paymentMethod": "TED",
                             "referenceNumber": "123456789"
-                          }
+                          },
+                          "providerId": null
                         }
                       ]
                     }
@@ -8618,6 +8636,10 @@
           "operationType": {
             "type": "string",
             "description": "Type of operation classified by the institution."
+          },
+          "providerId": {
+            "type": "string",
+            "description": "Provider's identifier for the transaction. Only returned for Open Finance connectors."
           }
         },
         "type": "object",
@@ -8667,7 +8689,8 @@
             "paymentMethod": "TED",
             "referenceNumber": "123456789"
           },
-          "merchant": null
+          "merchant": null,
+          "providerId": null
         }
       },
       "PageResponseTransactions": {
