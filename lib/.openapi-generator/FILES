@@ -385,9 +385,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_create_boleto_boleto_fine.py
-test/test_create_boleto_boleto_interest.py
-test/test_issued_boleto_fine.py
-test/test_issued_boleto_interest.py
-test/test_schedule_payment_error_detail.py
 tox.ini

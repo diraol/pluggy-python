@@ -47,7 +47,8 @@ class Transaction(BaseModel):
     credit_card_metadata: Optional[CreditCardMetadata] = Field(default=None, alias="creditCardMetadata")
     merchant: Optional[Merchant] = None
     operation_type: Optional[StrictStr] = Field(default=None, description="Type of operation classified by the institution.", alias="operationType")
-    __properties: ClassVar[List[str]] = ["id", "description", "currencyCode", "amount", "amountInAccountCurrency", "date", "type", "balance", "providerCode", "status", "category", "categoryId", "paymentData", "creditCardMetadata", "merchant", "operationType"]
+    provider_id: Optional[StrictStr] = Field(default=None, description="Provider's identifier for the transaction. Only returned for Open Finance connectors.", alias="providerId")
+    __properties: ClassVar[List[str]] = ["id", "description", "currencyCode", "amount", "amountInAccountCurrency", "date", "type", "balance", "providerCode", "status", "category", "categoryId", "paymentData", "creditCardMetadata", "merchant", "operationType", "providerId"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -134,7 +135,8 @@ class Transaction(BaseModel):
             "paymentData": PaymentData.from_dict(obj["paymentData"]) if obj.get("paymentData") is not None else None,
             "creditCardMetadata": CreditCardMetadata.from_dict(obj["creditCardMetadata"]) if obj.get("creditCardMetadata") is not None else None,
             "merchant": Merchant.from_dict(obj["merchant"]) if obj.get("merchant") is not None else None,
-            "operationType": obj.get("operationType")
+            "operationType": obj.get("operationType"),
+            "providerId": obj.get("providerId")
         })
         return _obj
 

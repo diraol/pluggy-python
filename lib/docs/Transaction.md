@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **credit_card_metadata** | [**CreditCardMetadata**](CreditCardMetadata.md) |  | [optional] 
 **merchant** | [**Merchant**](Merchant.md) |  | [optional] 
 **operation_type** | **str** | Type of operation classified by the institution. | [optional] 
+**provider_id** | **str** | Provider&#39;s identifier for the transaction. Only returned for Open Finance connectors. | [optional] 
 
 ## Example
 
