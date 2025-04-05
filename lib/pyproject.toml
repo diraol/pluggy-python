@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pluggy_sdk"
-version = "1.0.0.post40"
+version = "1.0.0.post41"
 description = "Pluggy API"
 authors = ["Pluggy <hello@pluggy.ai>"]
 license = "MIT"
@@ -10,7 +10,7 @@ keywords = ["OpenAPI", "OpenAPI-Generator", "Pluggy API"]
 include = ["pluggy_sdk/py.typed"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 
 urllib3 = ">= 2.1.0, < 3.0.0"
 python-dateutil = ">= 2.8.2"

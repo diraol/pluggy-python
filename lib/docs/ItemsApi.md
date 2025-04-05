@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**items_create**](ItemsApi.md#items_create) | **POST** /items | Create
 [**items_delete**](ItemsApi.md#items_delete) | **DELETE** /items/{id} | Delete
+[**items_disable_autosync**](ItemsApi.md#items_disable_autosync) | **PATCH** /items/{id}/disable-auto-sync | Disable item auto sync
 [**items_retrieve**](ItemsApi.md#items_retrieve) | **GET** /items/{id} | Retrieve
 [**items_send_mfa**](ItemsApi.md#items_send_mfa) | **POST** /items/{id}/mfa | Send MFA
 [**items_update**](ItemsApi.md#items_update) | **PATCH** /items/{id} | Update
@@ -170,6 +171,87 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Item was deleted |  -  |
+**404** | Item not found |  -  |
+**500** | Server Internal Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **items_disable_autosync**
+> Item items_disable_autosync(id)
+
+Disable item auto sync
+
+When client disables auto sync, the item will not be updated automatically anymore, until the client force an item update.
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.models.item import Item
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.ItemsApi(api_client)
+    id = 'd0e8448e-0156-4b4a-ae6c-3e2a6d9bff5c' # str | Item primary identifier
+
+    try:
+        # Disable item auto sync
+        api_response = api_instance.items_disable_autosync(id)
+        print("The response of ItemsApi->items_disable_autosync:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ItemsApi->items_disable_autosync: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| Item primary identifier | 
+
+### Return type
+
+[**Item**](Item.md)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Item auto sync was disabled |  -  |
 **404** | Item not found |  -  |
 **500** | Server Internal Error |  -  |
 

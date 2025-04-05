@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Primary identifier | 
 **amount** | **float** | Requested amount | 
+**fees** | **float** | Fees charged for the payment request. This includes both Pluggy&#39;s fees and any customer-specific fees. Fees are calculated based on the payment method (PIX or Boleto) and the client&#39;s pricing configuration. For sandbox accounts, fees are set to 0. | [optional] 
 **description** | **str** | Payment description | [optional] 
 **status** | **str** | Payment request status | 
 **client_payment_id** | **str** | Client payment identifier | [optional] 

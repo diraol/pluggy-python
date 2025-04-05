@@ -34,6 +34,7 @@ class PaymentRequest(BaseModel):
     """ # noqa: E501
     id: StrictStr = Field(description="Primary identifier")
     amount: Union[StrictFloat, StrictInt] = Field(description="Requested amount")
+    fees: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Fees charged for the payment request. This includes both Pluggy's fees and any customer-specific fees. Fees are calculated based on the payment method (PIX or Boleto) and the client's pricing configuration. For sandbox accounts, fees are set to 0.")
     description: Optional[StrictStr] = Field(default=None, description="Payment description")
     status: StrictStr = Field(description="Payment request status")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Client payment identifier", alias="clientPaymentId")
@@ -46,7 +47,7 @@ class PaymentRequest(BaseModel):
     boleto: Optional[Boleto] = None
     schedule: Optional[PaymentRequestSchedule] = None
     error_detail: Optional[PaymentRequestErrorDetail] = Field(default=None, alias="errorDetail")
-    __properties: ClassVar[List[str]] = ["id", "amount", "description", "status", "clientPaymentId", "createdAt", "updatedAt", "callbackUrls", "recipientId", "paymentUrl", "pixQrCode", "boleto", "schedule", "errorDetail"]
+    __properties: ClassVar[List[str]] = ["id", "amount", "fees", "description", "status", "clientPaymentId", "createdAt", "updatedAt", "callbackUrls", "recipientId", "paymentUrl", "pixQrCode", "boleto", "schedule", "errorDetail"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -120,6 +121,7 @@ class PaymentRequest(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "amount": obj.get("amount"),
+            "fees": obj.get("fees"),
             "description": obj.get("description"),
             "status": obj.get("status"),
             "clientPaymentId": obj.get("clientPaymentId"),
