@@ -1046,6 +1046,71 @@
         }
       }
     },
+    "/items/{id}/disable-auto-sync": {
+      "patch": {
+        "operationId": "items-disable-autosync",
+        "summary": "Disable item auto sync",
+        "description": "When client disables auto sync, the item will not be updated automatically anymore, until the client force an item update.",
+        "responses": {
+          "200": {
+            "description": "Item auto sync was disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Item"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Item not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "ITEM_NOT_FOUND",
+                  "message": "item not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Items"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Item primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8448e-0156-4b4a-ae6c-3e2a6d9bff5c"
+          }
+        ]
+      }
+    },
     "/consents": {
       "get": {
         "operationId": "consents-list",
@@ -10650,6 +10715,10 @@
           "amount": {
             "type": "number",
             "description": "Requested amount"
+          },
+          "fees": {
+            "type": "number",
+            "description": "Fees charged for the payment request. This includes both Pluggy's fees and any customer-specific fees. Fees are calculated based on the payment method (PIX or Boleto) and the client's pricing configuration. For sandbox accounts, fees are set to 0."
           },
           "description": {
             "type": "string",
