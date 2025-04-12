@@ -6886,7 +6886,8 @@
                             "updatedAt": "2024-07-31T15:33:57.512Z",
                             "supportsPaymentInitiation": true,
                             "supportsScheduledPayments": true,
-                            "supportsSmartTransfers": true
+                            "supportsSmartTransfers": true,
+                            "supportsBoletoManagement": true
                           }
                         }
                       ]
@@ -7731,6 +7732,20 @@
           "supportsSmartTransfers": {
             "type": "boolean",
             "description": "Indicates if the connector supports smart transfers"
+          },
+          "supportsBoletoManagement": {
+            "type": "boolean",
+            "description": "Indicates if the connector supports boleto management"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of creation"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of last modification"
           }
         },
         "type": "object",
@@ -7777,7 +7792,8 @@
           "updatedAt": "2024-07-16T15:34:08.028Z",
           "supportsPaymentInitiation": true,
           "supportsScheduledPayments": true,
-          "supportsSmartTransfers": true
+          "supportsSmartTransfers": true,
+          "supportsBoletoManagement": true
         }
       },
       "ConnectorListResponse": {
@@ -7852,7 +7868,8 @@
               "updatedAt": "2024-07-16T15:34:08.028Z",
               "supportsPaymentInitiation": true,
               "supportsScheduledPayments": true,
-              "supportsSmartTransfers": true
+              "supportsSmartTransfers": true,
+              "supportsBoletoManagement": true
             }
           ]
         }
@@ -8029,7 +8046,8 @@
             "updatedAt": "2024-11-26T13:33:44.296Z",
             "supportsPaymentInitiation": false,
             "supportsScheduledPayments": false,
-            "supportsSmartTransfers": false
+            "supportsSmartTransfers": false,
+            "supportsBoletoManagement": false
           },
           "createdAt": "2024-09-19T13:10:31.212Z",
           "updatedAt": "2024-09-19T13:11:23.613Z",
