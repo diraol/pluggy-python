@@ -24,6 +24,9 @@ Name | Type | Description | Notes
 **supports_payment_initiation** | **bool** | Indicates if the connector supports the payment initiation API | [optional] 
 **supports_scheduled_payments** | **bool** | Indicates if the connector supports scheduled payments | [optional] 
 **supports_smart_transfers** | **bool** | Indicates if the connector supports smart transfers | [optional] 
+**supports_boleto_management** | **bool** | Indicates if the connector supports boleto management | [optional] 
+**created_at** | **datetime** | Date of creation | [optional] 
+**updated_at** | **datetime** | Date of last modification | [optional] 
 
 ## Example
 

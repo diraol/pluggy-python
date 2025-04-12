@@ -18,6 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.connector_credential import ConnectorCredential
@@ -47,7 +48,10 @@ class Connector(BaseModel):
     supports_payment_initiation: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports the payment initiation API", alias="supportsPaymentInitiation")
     supports_scheduled_payments: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports scheduled payments", alias="supportsScheduledPayments")
     supports_smart_transfers: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports smart transfers", alias="supportsSmartTransfers")
-    __properties: ClassVar[List[str]] = ["id", "name", "institutionUrl", "imageUrl", "primaryColor", "type", "country", "credentials", "hasMFA", "products", "oauth", "oauthUrl", "resetPasswordUrl", "health", "isOpenFinance", "supportsPaymentInitiation", "supportsScheduledPayments", "supportsSmartTransfers"]
+    supports_boleto_management: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports boleto management", alias="supportsBoletoManagement")
+    created_at: Optional[datetime] = Field(default=None, description="Date of creation", alias="createdAt")
+    updated_at: Optional[datetime] = Field(default=None, description="Date of last modification", alias="updatedAt")
+    __properties: ClassVar[List[str]] = ["id", "name", "institutionUrl", "imageUrl", "primaryColor", "type", "country", "credentials", "hasMFA", "products", "oauth", "oauthUrl", "resetPasswordUrl", "health", "isOpenFinance", "supportsPaymentInitiation", "supportsScheduledPayments", "supportsSmartTransfers", "supportsBoletoManagement", "createdAt", "updatedAt"]
 
     @field_validator('products')
     def products_validate_enum(cls, value):
@@ -138,7 +142,10 @@ class Connector(BaseModel):
             "isOpenFinance": obj.get("isOpenFinance"),
             "supportsPaymentInitiation": obj.get("supportsPaymentInitiation"),
             "supportsScheduledPayments": obj.get("supportsScheduledPayments"),
-            "supportsSmartTransfers": obj.get("supportsSmartTransfers")
+            "supportsSmartTransfers": obj.get("supportsSmartTransfers"),
+            "supportsBoletoManagement": obj.get("supportsBoletoManagement"),
+            "createdAt": obj.get("createdAt"),
+            "updatedAt": obj.get("updatedAt")
         })
         return _obj
 
