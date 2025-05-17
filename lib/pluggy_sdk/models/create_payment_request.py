@@ -35,9 +35,8 @@ class CreatePaymentRequest(BaseModel):
     recipient_id: Optional[StrictStr] = Field(default=None, description="Payment receiver identifier", alias="recipientId")
     customer_id: Optional[StrictStr] = Field(default=None, description="Customer identifier associated to the payment", alias="customerId")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Your payment identifier", alias="clientPaymentId")
-    smart_account_id: Optional[StrictStr] = Field(default=None, description="Smart account identifier associated to the payment, used to be able to use PIX Qr method", alias="smartAccountId")
     schedule: Optional[CreatePaymentRequestSchedule] = None
-    __properties: ClassVar[List[str]] = ["amount", "description", "callbackUrls", "recipientId", "customerId", "clientPaymentId", "smartAccountId", "schedule"]
+    __properties: ClassVar[List[str]] = ["amount", "description", "callbackUrls", "recipientId", "customerId", "clientPaymentId", "schedule"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -107,7 +106,6 @@ class CreatePaymentRequest(BaseModel):
             "recipientId": obj.get("recipientId"),
             "customerId": obj.get("customerId"),
             "clientPaymentId": obj.get("clientPaymentId"),
-            "smartAccountId": obj.get("smartAccountId"),
             "schedule": CreatePaymentRequestSchedule.from_dict(obj["schedule"]) if obj.get("schedule") is not None else None
         })
         return _obj

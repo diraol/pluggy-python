@@ -11,12 +11,6 @@ docs/AuthApi.md
 docs/AuthRequest.md
 docs/AuthResponse.md
 docs/BankData.md
-docs/BenefitApi.md
-docs/BenefitLoan.md
-docs/BenefitLoanClient.md
-docs/BenefitResponse.md
-docs/BenefitResponsePayingInstitution.md
-docs/BenefitsList200Response.md
 docs/Bill.md
 docs/BillApi.md
 docs/BillFinanceCharge.md
@@ -26,9 +20,6 @@ docs/BoletoConnection.md
 docs/BoletoManagementApi.md
 docs/BoletoPayer.md
 docs/BoletoRecipient.md
-docs/BulkPayment.md
-docs/BulkPaymentApi.md
-docs/BulkPaymentsList200Response.md
 docs/CUSTOM.md
 docs/Category.md
 docs/CategoryApi.md
@@ -53,7 +44,6 @@ docs/CreateBoletoBoletoPayer.md
 docs/CreateBoletoConnection.md
 docs/CreateBoletoConnectionFromItem.md
 docs/CreateBoletoPaymentRequest.md
-docs/CreateBulkPayment.md
 docs/CreateClientCategoryRule.md
 docs/CreateItem.md
 docs/CreateItemParameters.md
@@ -64,8 +54,6 @@ docs/CreatePaymentRecipient.md
 docs/CreatePaymentRequest.md
 docs/CreatePaymentRequestSchedule.md
 docs/CreatePixQrPaymentRequest.md
-docs/CreateSmartAccountRequest.md
-docs/CreateSmartAccountTransferRequest.md
 docs/CreateSmartTransferPayment.md
 docs/CreateSmartTransferPreauthorization.md
 docs/CreateWebhook.md
@@ -137,9 +125,6 @@ docs/PaymentIntentApi.md
 docs/PaymentIntentErrorDetail.md
 docs/PaymentIntentParameter.md
 docs/PaymentIntentsList200Response.md
-docs/PaymentReceipt.md
-docs/PaymentReceiptBankAccount.md
-docs/PaymentReceiptPerson.md
 docs/PaymentRecipient.md
 docs/PaymentRecipientAccount.md
 docs/PaymentRecipientApi.md
@@ -149,7 +134,6 @@ docs/PaymentRequest.md
 docs/PaymentRequestApi.md
 docs/PaymentRequestCallbackUrls.md
 docs/PaymentRequestErrorDetail.md
-docs/PaymentRequestReceiptList200Response.md
 docs/PaymentRequestSchedule.md
 docs/PaymentRequestsList200Response.md
 docs/PaymentScheduleApi.md
@@ -159,12 +143,6 @@ docs/PixData.md
 docs/SINGLE.md
 docs/SchedulePayment.md
 docs/SchedulePaymentErrorDetail.md
-docs/SmartAccount.md
-docs/SmartAccountAddress.md
-docs/SmartAccountApi.md
-docs/SmartAccountBalance.md
-docs/SmartAccountTransfer.md
-docs/SmartAccountsList200Response.md
 docs/SmartTranfersPreauthorizationsList200Response.md
 docs/SmartTransferApi.md
 docs/SmartTransferCallbackUrls.md
@@ -191,10 +169,8 @@ pluggy_sdk/__init__.py
 pluggy_sdk/api/__init__.py
 pluggy_sdk/api/account_api.py
 pluggy_sdk/api/auth_api.py
-pluggy_sdk/api/benefit_api.py
 pluggy_sdk/api/bill_api.py
 pluggy_sdk/api/boleto_management_api.py
-pluggy_sdk/api/bulk_payment_api.py
 pluggy_sdk/api/category_api.py
 pluggy_sdk/api/connector_api.py
 pluggy_sdk/api/consent_api.py
@@ -207,7 +183,6 @@ pluggy_sdk/api/payment_intent_api.py
 pluggy_sdk/api/payment_recipient_api.py
 pluggy_sdk/api/payment_request_api.py
 pluggy_sdk/api/payment_schedule_api.py
-pluggy_sdk/api/smart_account_api.py
 pluggy_sdk/api/smart_transfer_api.py
 pluggy_sdk/api/transaction_api.py
 pluggy_sdk/api/webhook_api.py
@@ -222,11 +197,6 @@ pluggy_sdk/models/address.py
 pluggy_sdk/models/auth_request.py
 pluggy_sdk/models/auth_response.py
 pluggy_sdk/models/bank_data.py
-pluggy_sdk/models/benefit_loan.py
-pluggy_sdk/models/benefit_loan_client.py
-pluggy_sdk/models/benefit_response.py
-pluggy_sdk/models/benefit_response_paying_institution.py
-pluggy_sdk/models/benefits_list200_response.py
 pluggy_sdk/models/bill.py
 pluggy_sdk/models/bill_finance_charge.py
 pluggy_sdk/models/bills_list200_response.py
@@ -234,8 +204,6 @@ pluggy_sdk/models/boleto.py
 pluggy_sdk/models/boleto_connection.py
 pluggy_sdk/models/boleto_payer.py
 pluggy_sdk/models/boleto_recipient.py
-pluggy_sdk/models/bulk_payment.py
-pluggy_sdk/models/bulk_payments_list200_response.py
 pluggy_sdk/models/category.py
 pluggy_sdk/models/client_category_rule.py
 pluggy_sdk/models/company.py
@@ -256,7 +224,6 @@ pluggy_sdk/models/create_boleto_boleto_payer.py
 pluggy_sdk/models/create_boleto_connection.py
 pluggy_sdk/models/create_boleto_connection_from_item.py
 pluggy_sdk/models/create_boleto_payment_request.py
-pluggy_sdk/models/create_bulk_payment.py
 pluggy_sdk/models/create_client_category_rule.py
 pluggy_sdk/models/create_item.py
 pluggy_sdk/models/create_item_parameters.py
@@ -267,8 +234,6 @@ pluggy_sdk/models/create_payment_recipient.py
 pluggy_sdk/models/create_payment_request.py
 pluggy_sdk/models/create_payment_request_schedule.py
 pluggy_sdk/models/create_pix_qr_payment_request.py
-pluggy_sdk/models/create_smart_account_request.py
-pluggy_sdk/models/create_smart_account_transfer_request.py
 pluggy_sdk/models/create_smart_transfer_payment.py
 pluggy_sdk/models/create_smart_transfer_preauthorization.py
 pluggy_sdk/models/create_webhook.py
@@ -335,9 +300,6 @@ pluggy_sdk/models/payment_intent.py
 pluggy_sdk/models/payment_intent_error_detail.py
 pluggy_sdk/models/payment_intent_parameter.py
 pluggy_sdk/models/payment_intents_list200_response.py
-pluggy_sdk/models/payment_receipt.py
-pluggy_sdk/models/payment_receipt_bank_account.py
-pluggy_sdk/models/payment_receipt_person.py
 pluggy_sdk/models/payment_recipient.py
 pluggy_sdk/models/payment_recipient_account.py
 pluggy_sdk/models/payment_recipients_institution_list200_response.py
@@ -345,7 +307,6 @@ pluggy_sdk/models/payment_recipients_list200_response.py
 pluggy_sdk/models/payment_request.py
 pluggy_sdk/models/payment_request_callback_urls.py
 pluggy_sdk/models/payment_request_error_detail.py
-pluggy_sdk/models/payment_request_receipt_list200_response.py
 pluggy_sdk/models/payment_request_schedule.py
 pluggy_sdk/models/payment_requests_list200_response.py
 pluggy_sdk/models/payment_schedules_list200_response.py
@@ -354,11 +315,6 @@ pluggy_sdk/models/pix_data.py
 pluggy_sdk/models/schedule_payment.py
 pluggy_sdk/models/schedule_payment_error_detail.py
 pluggy_sdk/models/single.py
-pluggy_sdk/models/smart_account.py
-pluggy_sdk/models/smart_account_address.py
-pluggy_sdk/models/smart_account_balance.py
-pluggy_sdk/models/smart_account_transfer.py
-pluggy_sdk/models/smart_accounts_list200_response.py
 pluggy_sdk/models/smart_tranfers_preauthorizations_list200_response.py
 pluggy_sdk/models/smart_transfer_callback_urls.py
 pluggy_sdk/models/smart_transfer_payment.py

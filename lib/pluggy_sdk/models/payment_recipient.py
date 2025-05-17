@@ -36,8 +36,7 @@ class PaymentRecipient(BaseModel):
     is_default: StrictBool = Field(description="Indicates if the recipient is the default one", alias="isDefault")
     account: PaymentRecipientAccount
     pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient", alias="pixKey")
-    smart_account_id: Optional[StrictStr] = Field(default=None, description="Smart account that will receive the money, if you are using a Smart Account to pay and it's the same one, the smart account will keep the money", alias="smartAccountId")
-    __properties: ClassVar[List[str]] = ["id", "taxNumber", "name", "paymentInstitution", "isDefault", "account", "pixKey", "smartAccountId"]
+    __properties: ClassVar[List[str]] = ["id", "taxNumber", "name", "paymentInstitution", "isDefault", "account", "pixKey"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -102,8 +101,7 @@ class PaymentRecipient(BaseModel):
             "paymentInstitution": PaymentInstitution.from_dict(obj["paymentInstitution"]) if obj.get("paymentInstitution") is not None else None,
             "isDefault": obj.get("isDefault"),
             "account": PaymentRecipientAccount.from_dict(obj["account"]) if obj.get("account") is not None else None,
-            "pixKey": obj.get("pixKey"),
-            "smartAccountId": obj.get("smartAccountId")
+            "pixKey": obj.get("pixKey")
         })
         return _obj
 

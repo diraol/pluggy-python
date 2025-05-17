@@ -21,7 +21,6 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from pluggy_sdk.models.bulk_payment import BulkPayment
 from pluggy_sdk.models.connector import Connector
 from pluggy_sdk.models.payment_intent_error_detail import PaymentIntentErrorDetail
 from pluggy_sdk.models.payment_request import PaymentRequest
@@ -38,14 +37,13 @@ class PaymentIntent(BaseModel):
     created_at: Optional[datetime] = Field(default=None, description="Date when the payment intent was created", alias="createdAt")
     updated_at: Optional[datetime] = Field(default=None, description="Date when the payment intent was updated", alias="updatedAt")
     payment_request: Optional[PaymentRequest] = Field(default=None, description="Payment request associated to the payment intent", alias="paymentRequest")
-    bulk_payment: Optional[BulkPayment] = Field(default=None, description="Bulk Payment associated to the payment intent", alias="bulkPayment")
     connector: Optional[Connector] = Field(default=None, description="Connector associated to the payment intent")
     consent_url: Optional[StrictStr] = Field(default=None, description="Url to authorize the payment intent", alias="consentUrl")
     reference_id: Optional[StrictStr] = Field(default=None, description="Pix id related to the payment intent", alias="referenceId")
     payment_method: Optional[StrictStr] = Field(default='PIS', description="Payment method can be PIS (Payment Initiation) or PIX", alias="paymentMethod")
     pix_data: Optional[PixData] = Field(default=None, description="Pix data related to the payment intent (only applies for PIX payment method)", alias="pixData")
     error_detail: Optional[PaymentIntentErrorDetail] = Field(default=None, alias="errorDetail")
-    __properties: ClassVar[List[str]] = ["id", "status", "createdAt", "updatedAt", "paymentRequest", "bulkPayment", "connector", "consentUrl", "referenceId", "paymentMethod", "pixData", "errorDetail"]
+    __properties: ClassVar[List[str]] = ["id", "status", "createdAt", "updatedAt", "paymentRequest", "connector", "consentUrl", "referenceId", "paymentMethod", "pixData", "errorDetail"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -109,9 +107,6 @@ class PaymentIntent(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of payment_request
         if self.payment_request:
             _dict['paymentRequest'] = self.payment_request.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of bulk_payment
-        if self.bulk_payment:
-            _dict['bulkPayment'] = self.bulk_payment.to_dict()
         # override the default output from pydantic by calling `to_dict()` of connector
         if self.connector:
             _dict['connector'] = self.connector.to_dict()
@@ -138,7 +133,6 @@ class PaymentIntent(BaseModel):
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt"),
             "paymentRequest": PaymentRequest.from_dict(obj["paymentRequest"]) if obj.get("paymentRequest") is not None else None,
-            "bulkPayment": BulkPayment.from_dict(obj["bulkPayment"]) if obj.get("bulkPayment") is not None else None,
             "connector": Connector.from_dict(obj["connector"]) if obj.get("connector") is not None else None,
             "consentUrl": obj.get("consentUrl"),
             "referenceId": obj.get("referenceId"),

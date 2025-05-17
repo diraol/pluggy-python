@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **is_default** | **bool** | Indicates if the recipient is the default one | 
 **account** | [**PaymentRecipientAccount**](PaymentRecipientAccount.md) |  | 
 **pix_key** | **str** | Pix key associated with the payment recipient | [optional] 
-**smart_account_id** | **str** | Smart account that will receive the money, if you are using a Smart Account to pay and it&#39;s the same one, the smart account will keep the money | [optional] 
 
 ## Example
 

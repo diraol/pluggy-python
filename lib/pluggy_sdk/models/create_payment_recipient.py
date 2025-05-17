@@ -33,8 +33,7 @@ class CreatePaymentRecipient(BaseModel):
     payment_institution_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the institution associated to the payment recipient. Send only when the pixKey is not sent.", alias="paymentInstitutionId")
     account: Optional[PaymentRecipientAccount] = Field(default=None, description="Recipient's bank account destination. Send only if the pixKey is not sent.")
     pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient", alias="pixKey")
-    smart_account_id: Optional[StrictStr] = Field(default=None, description="Smart account identifier associated to the payment recipient, used to be able to use PIX Qr method", alias="smartAccountId")
-    __properties: ClassVar[List[str]] = ["taxNumber", "name", "paymentInstitutionId", "account", "pixKey", "smartAccountId"]
+    __properties: ClassVar[List[str]] = ["taxNumber", "name", "paymentInstitutionId", "account", "pixKey"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -94,8 +93,7 @@ class CreatePaymentRecipient(BaseModel):
             "name": obj.get("name"),
             "paymentInstitutionId": obj.get("paymentInstitutionId"),
             "account": PaymentRecipientAccount.from_dict(obj["account"]) if obj.get("account") is not None else None,
-            "pixKey": obj.get("pixKey"),
-            "smartAccountId": obj.get("smartAccountId")
+            "pixKey": obj.get("pixKey")
         })
         return _obj
 

@@ -7,10 +7,9 @@ Request with information to create a payment intent
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **payment_request_id** | **str** | Primary identifier of the payment request associated to the payment intent | [optional] 
-**bulk_payment_id** | **str** | Primary identifier of the bulk payment associated to the payment intent | [optional] 
 **parameters** | [**PaymentIntentParameter**](PaymentIntentParameter.md) |  | [optional] 
 **connector_id** | **float** | Primary identifier of the connector associated to the payment intent | [optional] 
-**payment_method** | **str** | Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected &#x60;bulkPaymentId&#x60; or a &#x60;paymentRequest&#x60; with smartAccountId attached will be accepted | [optional] 
+**payment_method** | **str** | Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow). | [optional] 
 **is_dynamic_pix** | **bool** | Only for PIX paymentMethod. If true, the generated PIX QR code is dynamic and one-use. This requires the customerId to be present, and the customer must have CPF/CNPJ | [optional] 
 
 ## Example

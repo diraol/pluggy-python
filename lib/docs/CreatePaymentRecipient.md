@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **payment_institution_id** | **str** | Primary identifier of the institution associated to the payment recipient. Send only when the pixKey is not sent. | [optional] 
 **account** | [**PaymentRecipientAccount**](PaymentRecipientAccount.md) | Recipient&#39;s bank account destination. Send only if the pixKey is not sent. | [optional] 
 **pix_key** | **str** | Pix key associated with the payment recipient | [optional] 
-**smart_account_id** | **str** | Smart account identifier associated to the payment recipient, used to be able to use PIX Qr method | [optional] 
 
 ## Example
 

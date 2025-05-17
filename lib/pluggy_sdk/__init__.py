@@ -15,15 +15,187 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post42"
+__version__ = "1.0.0.post43"
+
+# Define package exports
+__all__ = [
+    "AccountApi",
+    "AuthApi",
+    "BillApi",
+    "BoletoManagementApi",
+    "CategoryApi",
+    "ConnectorApi",
+    "ConsentApi",
+    "IdentityApi",
+    "InvestmentApi",
+    "ItemsApi",
+    "LoanApi",
+    "PaymentCustomerApi",
+    "PaymentIntentApi",
+    "PaymentRecipientApi",
+    "PaymentRequestApi",
+    "PaymentScheduleApi",
+    "SmartTransferApi",
+    "TransactionApi",
+    "WebhookApi",
+    "ApiResponse",
+    "ApiClient",
+    "Configuration",
+    "OpenApiException",
+    "ApiTypeError",
+    "ApiValueError",
+    "ApiKeyError",
+    "ApiAttributeError",
+    "ApiException",
+    "Account",
+    "AccountsList200Response",
+    "Address",
+    "AuthRequest",
+    "AuthResponse",
+    "BankData",
+    "Bill",
+    "BillFinanceCharge",
+    "BillsList200Response",
+    "Boleto",
+    "BoletoConnection",
+    "BoletoPayer",
+    "BoletoRecipient",
+    "CUSTOM",
+    "Category",
+    "ClientCategoryRule",
+    "Company",
+    "ConnectTokenRequest",
+    "ConnectTokenResponse",
+    "Connector",
+    "ConnectorCredential",
+    "ConnectorHealth",
+    "ConnectorHealthDetails",
+    "ConnectorListResponse",
+    "ConnectorUserAction",
+    "Consent",
+    "CreateBoleto",
+    "CreateBoletoBoleto",
+    "CreateBoletoBoletoFine",
+    "CreateBoletoBoletoInterest",
+    "CreateBoletoBoletoPayer",
+    "CreateBoletoConnection",
+    "CreateBoletoConnectionFromItem",
+    "CreateBoletoPaymentRequest",
+    "CreateClientCategoryRule",
+    "CreateItem",
+    "CreateItemParameters",
+    "CreateOrUpdatePaymentCustomer",
+    "CreatePaymentCustomerRequestBody",
+    "CreatePaymentIntent",
+    "CreatePaymentRecipient",
+    "CreatePaymentRequest",
+    "CreatePaymentRequestSchedule",
+    "CreatePixQrPaymentRequest",
+    "CreateSmartTransferPayment",
+    "CreateSmartTransferPreauthorization",
+    "CreateWebhook",
+    "CredentialSelectOption",
+    "CreditCardMetadata",
+    "CreditData",
+    "DAILY",
+    "Document",
+    "Email",
+    "GlobalErrorResponse",
+    "ICountResponse",
+    "IdentityRelation",
+    "IdentityResponse",
+    "IdentityResponseFinancialRelationships",
+    "IdentityResponseFinancialRelationshipsAccountsInner",
+    "IdentityResponseFinancialRelationshipsProcuratorsInner",
+    "IdentityResponseQualifications",
+    "IdentityResponseQualificationsInformedIncome",
+    "IdentityResponseQualificationsInformedPatrimony",
+    "Investment",
+    "InvestmentExpenses",
+    "InvestmentMetadata",
+    "InvestmentTransaction",
+    "InvestmentsList200Response",
+    "IssuedBoleto",
+    "IssuedBoletoFine",
+    "IssuedBoletoInterest",
+    "IssuedBoletoPayer",
+    "Item",
+    "ItemCreationErrorResponse",
+    "ItemError",
+    "ItemOptions",
+    "Loan",
+    "LoanContractedFee",
+    "LoanContractedFinanceCharge",
+    "LoanInstallmentBalloonPayment",
+    "LoanInstallmentBalloonPaymentAmount",
+    "LoanInstallments",
+    "LoanInterestRate",
+    "LoanPaymentRelease",
+    "LoanPaymentReleaseOverParcel",
+    "LoanPaymentReleaseOverParcelCharge",
+    "LoanPaymentReleaseOverParcelFee",
+    "LoanPayments",
+    "LoanWarranty",
+    "LoansList200Response",
+    "MONTHLY",
+    "Merchant",
+    "NotAuthenticatedResponse",
+    "PageResponseCategoryRules",
+    "PageResponseConsents",
+    "PageResponseInvestmentTransactions",
+    "PageResponseTransactions",
+    "ParameterValidationError",
+    "ParameterValidationResponse",
+    "PaymentCustomer",
+    "PaymentCustomersList200Response",
+    "PaymentData",
+    "PaymentDataBoletoMetadata",
+    "PaymentDataParticipant",
+    "PaymentInstitution",
+    "PaymentIntent",
+    "PaymentIntentErrorDetail",
+    "PaymentIntentParameter",
+    "PaymentIntentsList200Response",
+    "PaymentRecipient",
+    "PaymentRecipientAccount",
+    "PaymentRecipientsInstitutionList200Response",
+    "PaymentRecipientsList200Response",
+    "PaymentRequest",
+    "PaymentRequestCallbackUrls",
+    "PaymentRequestErrorDetail",
+    "PaymentRequestSchedule",
+    "PaymentRequestsList200Response",
+    "PaymentSchedulesList200Response",
+    "PhoneNumber",
+    "PixData",
+    "SINGLE",
+    "SchedulePayment",
+    "SchedulePaymentErrorDetail",
+    "SmartTranfersPreauthorizationsList200Response",
+    "SmartTransferCallbackUrls",
+    "SmartTransferPayment",
+    "SmartTransferPreauthorization",
+    "SmartTransferPreauthorizationParameter",
+    "StatusDetail",
+    "StatusDetailProduct",
+    "StatusDetailProductWarning",
+    "Transaction",
+    "UpdateItem",
+    "UpdateItemParameters",
+    "UpdatePaymentRecipient",
+    "UpdatePaymentRequest",
+    "UpdateTransaction",
+    "WEEKLY",
+    "Webhook",
+    "WebhookCreationErrorResponse",
+    "WebhooksList200Response",
+]
 
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi
 from pluggy_sdk.api.auth_api import AuthApi
-from pluggy_sdk.api.benefit_api import BenefitApi
 from pluggy_sdk.api.bill_api import BillApi
 from pluggy_sdk.api.boleto_management_api import BoletoManagementApi
-from pluggy_sdk.api.bulk_payment_api import BulkPaymentApi
 from pluggy_sdk.api.category_api import CategoryApi
 from pluggy_sdk.api.connector_api import ConnectorApi
 from pluggy_sdk.api.consent_api import ConsentApi
@@ -36,7 +208,6 @@ from pluggy_sdk.api.payment_intent_api import PaymentIntentApi
 from pluggy_sdk.api.payment_recipient_api import PaymentRecipientApi
 from pluggy_sdk.api.payment_request_api import PaymentRequestApi
 from pluggy_sdk.api.payment_schedule_api import PaymentScheduleApi
-from pluggy_sdk.api.smart_account_api import SmartAccountApi
 from pluggy_sdk.api.smart_transfer_api import SmartTransferApi
 from pluggy_sdk.api.transaction_api import TransactionApi
 from pluggy_sdk.api.webhook_api import WebhookApi
@@ -59,11 +230,6 @@ from pluggy_sdk.models.address import Address
 from pluggy_sdk.models.auth_request import AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse
 from pluggy_sdk.models.bank_data import BankData
-from pluggy_sdk.models.benefit_loan import BenefitLoan
-from pluggy_sdk.models.benefit_loan_client import BenefitLoanClient
-from pluggy_sdk.models.benefit_response import BenefitResponse
-from pluggy_sdk.models.benefit_response_paying_institution import BenefitResponsePayingInstitution
-from pluggy_sdk.models.benefits_list200_response import BenefitsList200Response
 from pluggy_sdk.models.bill import Bill
 from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge
 from pluggy_sdk.models.bills_list200_response import BillsList200Response
@@ -71,8 +237,6 @@ from pluggy_sdk.models.boleto import Boleto
 from pluggy_sdk.models.boleto_connection import BoletoConnection
 from pluggy_sdk.models.boleto_payer import BoletoPayer
 from pluggy_sdk.models.boleto_recipient import BoletoRecipient
-from pluggy_sdk.models.bulk_payment import BulkPayment
-from pluggy_sdk.models.bulk_payments_list200_response import BulkPaymentsList200Response
 from pluggy_sdk.models.custom import CUSTOM
 from pluggy_sdk.models.category import Category
 from pluggy_sdk.models.client_category_rule import ClientCategoryRule
@@ -94,7 +258,6 @@ from pluggy_sdk.models.create_boleto_boleto_payer import CreateBoletoBoletoPayer
 from pluggy_sdk.models.create_boleto_connection import CreateBoletoConnection
 from pluggy_sdk.models.create_boleto_connection_from_item import CreateBoletoConnectionFromItem
 from pluggy_sdk.models.create_boleto_payment_request import CreateBoletoPaymentRequest
-from pluggy_sdk.models.create_bulk_payment import CreateBulkPayment
 from pluggy_sdk.models.create_client_category_rule import CreateClientCategoryRule
 from pluggy_sdk.models.create_item import CreateItem
 from pluggy_sdk.models.create_item_parameters import CreateItemParameters
@@ -105,8 +268,6 @@ from pluggy_sdk.models.create_payment_recipient import CreatePaymentRecipient
 from pluggy_sdk.models.create_payment_request import CreatePaymentRequest
 from pluggy_sdk.models.create_payment_request_schedule import CreatePaymentRequestSchedule
 from pluggy_sdk.models.create_pix_qr_payment_request import CreatePixQrPaymentRequest
-from pluggy_sdk.models.create_smart_account_request import CreateSmartAccountRequest
-from pluggy_sdk.models.create_smart_account_transfer_request import CreateSmartAccountTransferRequest
 from pluggy_sdk.models.create_smart_transfer_payment import CreateSmartTransferPayment
 from pluggy_sdk.models.create_smart_transfer_preauthorization import CreateSmartTransferPreauthorization
 from pluggy_sdk.models.create_webhook import CreateWebhook
@@ -172,9 +333,6 @@ from pluggy_sdk.models.payment_intent import PaymentIntent
 from pluggy_sdk.models.payment_intent_error_detail import PaymentIntentErrorDetail
 from pluggy_sdk.models.payment_intent_parameter import PaymentIntentParameter
 from pluggy_sdk.models.payment_intents_list200_response import PaymentIntentsList200Response
-from pluggy_sdk.models.payment_receipt import PaymentReceipt
-from pluggy_sdk.models.payment_receipt_bank_account import PaymentReceiptBankAccount
-from pluggy_sdk.models.payment_receipt_person import PaymentReceiptPerson
 from pluggy_sdk.models.payment_recipient import PaymentRecipient
 from pluggy_sdk.models.payment_recipient_account import PaymentRecipientAccount
 from pluggy_sdk.models.payment_recipients_institution_list200_response import PaymentRecipientsInstitutionList200Response
@@ -182,7 +340,6 @@ from pluggy_sdk.models.payment_recipients_list200_response import PaymentRecipie
 from pluggy_sdk.models.payment_request import PaymentRequest
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
 from pluggy_sdk.models.payment_request_error_detail import PaymentRequestErrorDetail
-from pluggy_sdk.models.payment_request_receipt_list200_response import PaymentRequestReceiptList200Response
 from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule
 from pluggy_sdk.models.payment_requests_list200_response import PaymentRequestsList200Response
 from pluggy_sdk.models.payment_schedules_list200_response import PaymentSchedulesList200Response
@@ -191,11 +348,6 @@ from pluggy_sdk.models.pix_data import PixData
 from pluggy_sdk.models.single import SINGLE
 from pluggy_sdk.models.schedule_payment import SchedulePayment
 from pluggy_sdk.models.schedule_payment_error_detail import SchedulePaymentErrorDetail
-from pluggy_sdk.models.smart_account import SmartAccount
-from pluggy_sdk.models.smart_account_address import SmartAccountAddress
-from pluggy_sdk.models.smart_account_balance import SmartAccountBalance
-from pluggy_sdk.models.smart_account_transfer import SmartAccountTransfer
-from pluggy_sdk.models.smart_accounts_list200_response import SmartAccountsList200Response
 from pluggy_sdk.models.smart_tranfers_preauthorizations_list200_response import SmartTranfersPreauthorizationsList200Response
 from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls
 from pluggy_sdk.models.smart_transfer_payment import SmartTransferPayment

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **status** | **str** | Payment status | 
 **amount** | **float** | Payment amount | 
 **description** | **str** | Payment description | [optional] 
-**recipient** | [**PaymentReceipt**](PaymentReceipt.md) |  | 
+**recipient** | [**PaymentRecipient**](PaymentRecipient.md) |  | 
 **client_payment_id** | **str** | Client payment identifier | [optional] 
 **created_at** | **datetime** | Date when the payemnt was created | 
 **updated_at** | **datetime** | Date when the payment was updated | 

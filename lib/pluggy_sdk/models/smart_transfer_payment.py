@@ -21,7 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
-from pluggy_sdk.models.payment_receipt import PaymentReceipt
+from pluggy_sdk.models.payment_recipient import PaymentRecipient
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -34,7 +34,7 @@ class SmartTransferPayment(BaseModel):
     status: StrictStr = Field(description="Payment status")
     amount: Union[StrictFloat, StrictInt] = Field(description="Payment amount")
     description: Optional[StrictStr] = Field(default=None, description="Payment description")
-    recipient: PaymentReceipt
+    recipient: PaymentRecipient
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Client payment identifier", alias="clientPaymentId")
     created_at: datetime = Field(description="Date when the payemnt was created", alias="createdAt")
     updated_at: datetime = Field(description="Date when the payment was updated", alias="updatedAt")
@@ -106,7 +106,7 @@ class SmartTransferPayment(BaseModel):
             "status": obj.get("status"),
             "amount": obj.get("amount"),
             "description": obj.get("description"),
-            "recipient": PaymentReceipt.from_dict(obj["recipient"]) if obj.get("recipient") is not None else None,
+            "recipient": PaymentRecipient.from_dict(obj["recipient"]) if obj.get("recipient") is not None else None,
             "clientPaymentId": obj.get("clientPaymentId"),
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt")

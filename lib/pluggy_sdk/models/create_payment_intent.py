@@ -29,12 +29,11 @@ class CreatePaymentIntent(BaseModel):
     Request with information to create a payment intent
     """ # noqa: E501
     payment_request_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the payment request associated to the payment intent", alias="paymentRequestId")
-    bulk_payment_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the bulk payment associated to the payment intent", alias="bulkPaymentId")
     parameters: Optional[PaymentIntentParameter] = None
     connector_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Primary identifier of the connector associated to the payment intent", alias="connectorId")
-    payment_method: Optional[StrictStr] = Field(default=None, description="Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow), if PIX selected `bulkPaymentId` or a `paymentRequest` with smartAccountId attached will be accepted", alias="paymentMethod")
+    payment_method: Optional[StrictStr] = Field(default=None, description="Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow).", alias="paymentMethod")
     is_dynamic_pix: Optional[StrictBool] = Field(default=None, description="Only for PIX paymentMethod. If true, the generated PIX QR code is dynamic and one-use. This requires the customerId to be present, and the customer must have CPF/CNPJ", alias="isDynamicPix")
-    __properties: ClassVar[List[str]] = ["paymentRequestId", "bulkPaymentId", "parameters", "connectorId", "paymentMethod", "isDynamicPix"]
+    __properties: ClassVar[List[str]] = ["paymentRequestId", "parameters", "connectorId", "paymentMethod", "isDynamicPix"]
 
     @field_validator('payment_method')
     def payment_method_validate_enum(cls, value):
@@ -42,8 +41,8 @@ class CreatePaymentIntent(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['PIS', 'PIX']):
-            raise ValueError("must be one of enum values ('PIS', 'PIX')")
+        if value not in set(['PIS']):
+            raise ValueError("must be one of enum values ('PIS')")
         return value
 
     model_config = ConfigDict(
@@ -101,7 +100,6 @@ class CreatePaymentIntent(BaseModel):
 
         _obj = cls.model_validate({
             "paymentRequestId": obj.get("paymentRequestId"),
-            "bulkPaymentId": obj.get("bulkPaymentId"),
             "parameters": PaymentIntentParameter.from_dict(obj["parameters"]) if obj.get("parameters") is not None else None,
             "connectorId": obj.get("connectorId"),
             "paymentMethod": obj.get("paymentMethod"),
