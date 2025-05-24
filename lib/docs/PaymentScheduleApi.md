@@ -5,7 +5,7 @@ All URIs are relative to *https://api.pluggy.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**payment_schedules_cancel**](PaymentScheduleApi.md#payment_schedules_cancel) | **POST** /payments/requests/{id}/schedules/cancel | Cancel Payment Schedule Authorization
-[**payment_schedules_cancel_specific**](PaymentScheduleApi.md#payment_schedules_cancel_specific) | **POST** /payments/requests/{id}/schedules/{scheduleId}/cancel | Cancel Payment Schedule Authorization
+[**payment_schedules_cancel_specific**](PaymentScheduleApi.md#payment_schedules_cancel_specific) | **POST** /payments/requests/{id}/schedules/{scheduleId}/cancel | Cancel Payment Schedule
 [**payment_schedules_list**](PaymentScheduleApi.md#payment_schedules_list) | **GET** /payments/requests/{id}/schedules | List Schedules
 
 
@@ -88,7 +88,7 @@ void (empty response body)
 # **payment_schedules_cancel_specific**
 > payment_schedules_cancel_specific(id, schedule_id)
 
-Cancel Payment Schedule Authorization
+Cancel Payment Schedule
 
 
 
@@ -126,7 +126,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     schedule_id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment schedule primary identifier
 
     try:
-        # Cancel Payment Schedule Authorization
+        # Cancel Payment Schedule
         api_instance.payment_schedules_cancel_specific(id, schedule_id)
     except Exception as e:
         print("Exception when calling PaymentScheduleApi->payment_schedules_cancel_specific: %s\n" % e)

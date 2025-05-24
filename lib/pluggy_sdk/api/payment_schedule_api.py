@@ -311,7 +311,7 @@ class PaymentScheduleApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Cancel Payment Schedule Authorization
+        """Cancel Payment Schedule
 
         
 
@@ -382,7 +382,7 @@ class PaymentScheduleApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Cancel Payment Schedule Authorization
+        """Cancel Payment Schedule
 
         
 
@@ -453,7 +453,7 @@ class PaymentScheduleApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Cancel Payment Schedule Authorization
+        """Cancel Payment Schedule
 
         
 

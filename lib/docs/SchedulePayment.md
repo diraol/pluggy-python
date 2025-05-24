@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **description** | **str** | Scheduled payment description | 
 **status** | **str** | Scheduled payment status | 
 **scheduled_date** | **date** | Date when the payment is scheduled | 
+**end_to_end_id** | **str** | Identifier for the payment, used to link the scheduled payment with the corresponding payment received | [optional] 
 **error_detail** | [**SchedulePaymentErrorDetail**](SchedulePaymentErrorDetail.md) |  | [optional] 
 
 ## Example

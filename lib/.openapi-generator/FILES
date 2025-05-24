@@ -43,7 +43,6 @@ docs/CreateBoletoBoletoInterest.md
 docs/CreateBoletoBoletoPayer.md
 docs/CreateBoletoConnection.md
 docs/CreateBoletoConnectionFromItem.md
-docs/CreateBoletoPaymentRequest.md
 docs/CreateClientCategoryRule.md
 docs/CreateItem.md
 docs/CreateItemParameters.md
@@ -223,7 +222,6 @@ pluggy_sdk/models/create_boleto_boleto_interest.py
 pluggy_sdk/models/create_boleto_boleto_payer.py
 pluggy_sdk/models/create_boleto_connection.py
 pluggy_sdk/models/create_boleto_connection_from_item.py
-pluggy_sdk/models/create_boleto_payment_request.py
 pluggy_sdk/models/create_client_category_rule.py
 pluggy_sdk/models/create_item.py
 pluggy_sdk/models/create_item_parameters.py

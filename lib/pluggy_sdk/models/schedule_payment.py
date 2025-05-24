@@ -33,8 +33,9 @@ class SchedulePayment(BaseModel):
     description: StrictStr = Field(description="Scheduled payment description")
     status: StrictStr = Field(description="Scheduled payment status")
     scheduled_date: date = Field(description="Date when the payment is scheduled", alias="scheduledDate")
+    end_to_end_id: Optional[StrictStr] = Field(default=None, description="Identifier for the payment, used to link the scheduled payment with the corresponding payment received", alias="endToEndId")
     error_detail: Optional[SchedulePaymentErrorDetail] = Field(default=None, alias="errorDetail")
-    __properties: ClassVar[List[str]] = ["id", "description", "status", "scheduledDate", "errorDetail"]
+    __properties: ClassVar[List[str]] = ["id", "description", "status", "scheduledDate", "endToEndId", "errorDetail"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -101,6 +102,7 @@ class SchedulePayment(BaseModel):
             "description": obj.get("description"),
             "status": obj.get("status"),
             "scheduledDate": obj.get("scheduledDate"),
+            "endToEndId": obj.get("endToEndId"),
             "errorDetail": SchedulePaymentErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None
         })
         return _obj
