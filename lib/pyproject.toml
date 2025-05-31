@@ -1,23 +1,29 @@
-[tool.poetry]
+[project]
 name = "pluggy_sdk"
-version = "1.0.0.post44"
+version = "1.0.0.post45"
 description = "Pluggy API"
-authors = ["Pluggy <hello@pluggy.ai>"]
+authors = [
+  {name = "Pluggy",email = "hello@pluggy.ai"},
+]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/GIT_USER_ID/GIT_REPO_ID"
 keywords = ["OpenAPI", "OpenAPI-Generator", "Pluggy API"]
-include = ["pluggy_sdk/py.typed"]
+requires-python = "^3.9"
 
-[tool.poetry.dependencies]
-python = "^3.9"
+dependencies = [
+  "urllib3 (>=2.1.0,<3.0.0)",
+  "python-dateutil (>=2.8.2)",
+  "pydantic (>=2)",
+  "typing-extensions (>=4.7.1)"
+]
 
-urllib3 = ">= 2.1.0, < 3.0.0"
-python-dateutil = ">= 2.8.2"
-pydantic = ">= 2"
-typing-extensions = ">= 4.7.1"
+[project.urls]
+Repository = "https://github.com/GIT_USER_ID/GIT_REPO_ID"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry]
+requires-poetry = ">=2.0"
+
+[tool.poetry.group.dev.dependencies]
 pytest = ">= 7.2.1"
 pytest-cov = ">= 2.8.1"
 tox = ">= 3.9.0"

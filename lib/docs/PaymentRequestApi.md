@@ -412,7 +412,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payment_requests_list**
-> PaymentRequestsList200Response payment_requests_list()
+> PaymentRequestsList200Response payment_requests_list(page_size=page_size, page=page, var_from=var_from, to=to, customer=customer, pix_key=pix_key)
 
 List
 
@@ -449,10 +449,16 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRequestApi(api_client)
+    page_size = 50 # float | Page size for the paging request, default: 20 (optional)
+    page = 1 # float | Page number for the paging request, default: 1 (optional)
+    var_from = '2023-01-01' # date | Filter payment requests by start date. Returns only requests created **on or after** this date. (optional)
+    to = '2024-01-01' # date | Filter payment requests by end date. Returns only requests created **on or before** this date. (optional)
+    customer = 'John' # str | Filter payment requests with one customer attribute (name, email, CPF or CNPJ) (optional)
+    pix_key = '11111111111' # str | Filter payment requests by Pix Key (optional)
 
     try:
         # List
-        api_response = api_instance.payment_requests_list()
+        api_response = api_instance.payment_requests_list(page_size=page_size, page=page, var_from=var_from, to=to, customer=customer, pix_key=pix_key)
         print("The response of PaymentRequestApi->payment_requests_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -463,7 +469,15 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page_size** | **float**| Page size for the paging request, default: 20 | [optional] 
+ **page** | **float**| Page number for the paging request, default: 1 | [optional] 
+ **var_from** | **date**| Filter payment requests by start date. Returns only requests created **on or after** this date. | [optional] 
+ **to** | **date**| Filter payment requests by end date. Returns only requests created **on or before** this date. | [optional] 
+ **customer** | **str**| Filter payment requests with one customer attribute (name, email, CPF or CNPJ) | [optional] 
+ **pix_key** | **str**| Filter payment requests by Pix Key | [optional] 
 
 ### Return type
 

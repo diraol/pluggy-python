@@ -17,7 +17,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from datetime import date
+from pydantic import Field, StrictFloat, StrictInt, StrictStr
+from typing import Optional, Union
 from typing_extensions import Annotated
 from pluggy_sdk.models.create_payment_request import CreatePaymentRequest
 from pluggy_sdk.models.create_pix_qr_payment_request import CreatePixQrPaymentRequest
@@ -1411,6 +1413,12 @@ class PaymentRequestApi:
     @validate_call
     def payment_requests_list(
         self,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        var_from: Annotated[Optional[date], Field(description="Filter payment requests by start date. Returns only requests created **on or after** this date.")] = None,
+        to: Annotated[Optional[date], Field(description="Filter payment requests by end date. Returns only requests created **on or before** this date.")] = None,
+        customer: Annotated[Optional[StrictStr], Field(description="Filter payment requests with one customer attribute (name, email, CPF or CNPJ)")] = None,
+        pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment requests by Pix Key")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1428,6 +1436,18 @@ class PaymentRequestApi:
 
         Recovers all created payment requests
 
+        :param page_size: Page size for the paging request, default: 20
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
+        :param var_from: Filter payment requests by start date. Returns only requests created **on or after** this date.
+        :type var_from: date
+        :param to: Filter payment requests by end date. Returns only requests created **on or before** this date.
+        :type to: date
+        :param customer: Filter payment requests with one customer attribute (name, email, CPF or CNPJ)
+        :type customer: str
+        :param pix_key: Filter payment requests by Pix Key
+        :type pix_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1451,6 +1471,12 @@ class PaymentRequestApi:
         """ # noqa: E501
 
         _param = self._payment_requests_list_serialize(
+            page_size=page_size,
+            page=page,
+            var_from=var_from,
+            to=to,
+            customer=customer,
+            pix_key=pix_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1474,6 +1500,12 @@ class PaymentRequestApi:
     @validate_call
     def payment_requests_list_with_http_info(
         self,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        var_from: Annotated[Optional[date], Field(description="Filter payment requests by start date. Returns only requests created **on or after** this date.")] = None,
+        to: Annotated[Optional[date], Field(description="Filter payment requests by end date. Returns only requests created **on or before** this date.")] = None,
+        customer: Annotated[Optional[StrictStr], Field(description="Filter payment requests with one customer attribute (name, email, CPF or CNPJ)")] = None,
+        pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment requests by Pix Key")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1491,6 +1523,18 @@ class PaymentRequestApi:
 
         Recovers all created payment requests
 
+        :param page_size: Page size for the paging request, default: 20
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
+        :param var_from: Filter payment requests by start date. Returns only requests created **on or after** this date.
+        :type var_from: date
+        :param to: Filter payment requests by end date. Returns only requests created **on or before** this date.
+        :type to: date
+        :param customer: Filter payment requests with one customer attribute (name, email, CPF or CNPJ)
+        :type customer: str
+        :param pix_key: Filter payment requests by Pix Key
+        :type pix_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1514,6 +1558,12 @@ class PaymentRequestApi:
         """ # noqa: E501
 
         _param = self._payment_requests_list_serialize(
+            page_size=page_size,
+            page=page,
+            var_from=var_from,
+            to=to,
+            customer=customer,
+            pix_key=pix_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1537,6 +1587,12 @@ class PaymentRequestApi:
     @validate_call
     def payment_requests_list_without_preload_content(
         self,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        var_from: Annotated[Optional[date], Field(description="Filter payment requests by start date. Returns only requests created **on or after** this date.")] = None,
+        to: Annotated[Optional[date], Field(description="Filter payment requests by end date. Returns only requests created **on or before** this date.")] = None,
+        customer: Annotated[Optional[StrictStr], Field(description="Filter payment requests with one customer attribute (name, email, CPF or CNPJ)")] = None,
+        pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment requests by Pix Key")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1554,6 +1610,18 @@ class PaymentRequestApi:
 
         Recovers all created payment requests
 
+        :param page_size: Page size for the paging request, default: 20
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
+        :param var_from: Filter payment requests by start date. Returns only requests created **on or after** this date.
+        :type var_from: date
+        :param to: Filter payment requests by end date. Returns only requests created **on or before** this date.
+        :type to: date
+        :param customer: Filter payment requests with one customer attribute (name, email, CPF or CNPJ)
+        :type customer: str
+        :param pix_key: Filter payment requests by Pix Key
+        :type pix_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1577,6 +1645,12 @@ class PaymentRequestApi:
         """ # noqa: E501
 
         _param = self._payment_requests_list_serialize(
+            page_size=page_size,
+            page=page,
+            var_from=var_from,
+            to=to,
+            customer=customer,
+            pix_key=pix_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1595,6 +1669,12 @@ class PaymentRequestApi:
 
     def _payment_requests_list_serialize(
         self,
+        page_size,
+        page,
+        var_from,
+        to,
+        customer,
+        pix_key,
         _request_auth,
         _content_type,
         _headers,
@@ -1617,6 +1697,48 @@ class PaymentRequestApi:
 
         # process the path parameters
         # process the query parameters
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
+        if var_from is not None:
+            if isinstance(var_from, date):
+                _query_params.append(
+                    (
+                        'from',
+                        var_from.strftime(
+                            self.api_client.configuration.date_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('from', var_from))
+            
+        if to is not None:
+            if isinstance(to, date):
+                _query_params.append(
+                    (
+                        'to',
+                        to.strftime(
+                            self.api_client.configuration.date_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('to', to))
+            
+        if customer is not None:
+            
+            _query_params.append(('customer', customer))
+            
+        if pix_key is not None:
+            
+            _query_params.append(('pixKey', pix_key))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter

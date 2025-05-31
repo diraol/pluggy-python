@@ -17,6 +17,7 @@
 # import models into model package
 from pluggy_sdk.models.account import Account
 from pluggy_sdk.models.accounts_list200_response import AccountsList200Response
+from pluggy_sdk.models.additional_card import AdditionalCard
 from pluggy_sdk.models.address import Address
 from pluggy_sdk.models.auth_request import AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse
@@ -65,6 +66,7 @@ from pluggy_sdk.models.credential_select_option import CredentialSelectOption
 from pluggy_sdk.models.credit_card_metadata import CreditCardMetadata
 from pluggy_sdk.models.credit_data import CreditData
 from pluggy_sdk.models.daily import DAILY
+from pluggy_sdk.models.disaggregated_credit_limit import DisaggregatedCreditLimit
 from pluggy_sdk.models.document import Document
 from pluggy_sdk.models.email import Email
 from pluggy_sdk.models.global_error_response import GlobalErrorResponse

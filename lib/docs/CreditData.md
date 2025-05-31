@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **credit_limit** | **float** | Maximum amount that can be spent | [optional] 
 **status** | **str** | Credit card status | [optional] 
 **holder_type** | **str** | Credit card holder type | [optional] 
+**disaggregated_credit_limits** | [**List[DisaggregatedCreditLimit]**](DisaggregatedCreditLimit.md) | Disaggregated credit card limits | [optional] 
+**additional_cards** | [**List[AdditionalCard]**](AdditionalCard.md) | Additional credit cards associated with the main one | [optional] 
 
 ## Example
 

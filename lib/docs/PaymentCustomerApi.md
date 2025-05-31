@@ -330,7 +330,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payment_customers_list**
-> PaymentCustomersList200Response payment_customers_list(page_size=page_size, page=page)
+> PaymentCustomersList200Response payment_customers_list(page_size=page_size, page=page, name=name, email=email, cpf=cpf, cnpj=cnpj)
 
 List
 
@@ -369,10 +369,14 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     api_instance = pluggy_sdk.PaymentCustomerApi(api_client)
     page_size = 50 # float | Page size for the paging request, default: 20 (optional)
     page = 1 # float | Page number for the paging request, default: 1 (optional)
+    name = 'John' # str | Filter payment customers by name (optional)
+    email = 'john.doe@email.com' # str | Filter payment customers by email (optional)
+    cpf = '11111111111' # str | Filter payment customers by CPF (optional)
+    cnpj = '1111111111111' # str | Filter payment customers by CNPJ (optional)
 
     try:
         # List
-        api_response = api_instance.payment_customers_list(page_size=page_size, page=page)
+        api_response = api_instance.payment_customers_list(page_size=page_size, page=page, name=name, email=email, cpf=cpf, cnpj=cnpj)
         print("The response of PaymentCustomerApi->payment_customers_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -388,6 +392,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page_size** | **float**| Page size for the paging request, default: 20 | [optional] 
  **page** | **float**| Page number for the paging request, default: 1 | [optional] 
+ **name** | **str**| Filter payment customers by name | [optional] 
+ **email** | **str**| Filter payment customers by email | [optional] 
+ **cpf** | **str**| Filter payment customers by CPF | [optional] 
+ **cnpj** | **str**| Filter payment customers by CNPJ | [optional] 
 
 ### Return type
 

@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post44"
+__version__ = "1.0.0.post45"
 
 # Define package exports
 __all__ = [
@@ -49,6 +49,7 @@ __all__ = [
     "ApiException",
     "Account",
     "AccountsList200Response",
+    "AdditionalCard",
     "Address",
     "AuthRequest",
     "AuthResponse",
@@ -97,6 +98,7 @@ __all__ = [
     "CreditCardMetadata",
     "CreditData",
     "DAILY",
+    "DisaggregatedCreditLimit",
     "Document",
     "Email",
     "GlobalErrorResponse",
@@ -225,6 +227,7 @@ from pluggy_sdk.exceptions import ApiException as ApiException
 # import models into sdk package
 from pluggy_sdk.models.account import Account as Account
 from pluggy_sdk.models.accounts_list200_response import AccountsList200Response as AccountsList200Response
+from pluggy_sdk.models.additional_card import AdditionalCard as AdditionalCard
 from pluggy_sdk.models.address import Address as Address
 from pluggy_sdk.models.auth_request import AuthRequest as AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse as AuthResponse
@@ -273,6 +276,7 @@ from pluggy_sdk.models.credential_select_option import CredentialSelectOption as
 from pluggy_sdk.models.credit_card_metadata import CreditCardMetadata as CreditCardMetadata
 from pluggy_sdk.models.credit_data import CreditData as CreditData
 from pluggy_sdk.models.daily import DAILY as DAILY
+from pluggy_sdk.models.disaggregated_credit_limit import DisaggregatedCreditLimit as DisaggregatedCreditLimit
 from pluggy_sdk.models.document import Document as Document
 from pluggy_sdk.models.email import Email as Email
 from pluggy_sdk.models.global_error_response import GlobalErrorResponse as GlobalErrorResponse

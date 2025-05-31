@@ -21,6 +21,8 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from pluggy_sdk.models.additional_card import AdditionalCard
+from pluggy_sdk.models.disaggregated_credit_limit import DisaggregatedCreditLimit
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -38,7 +40,9 @@ class CreditData(BaseModel):
     credit_limit: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Maximum amount that can be spent", alias="creditLimit")
     status: Optional[StrictStr] = Field(default=None, description="Credit card status")
     holder_type: Optional[StrictStr] = Field(default=None, description="Credit card holder type", alias="holderType")
-    __properties: ClassVar[List[str]] = ["level", "brand", "balanceCloseDate", "balanceDueDate", "availableCreditLimit", "balanceForeignCurrency", "minimumPayment", "creditLimit", "status", "holderType"]
+    disaggregated_credit_limits: Optional[List[DisaggregatedCreditLimit]] = Field(default=None, description="Disaggregated credit card limits", alias="disaggregatedCreditLimits")
+    additional_cards: Optional[List[AdditionalCard]] = Field(default=None, description="Additional credit cards associated with the main one", alias="additionalCards")
+    __properties: ClassVar[List[str]] = ["level", "brand", "balanceCloseDate", "balanceDueDate", "availableCreditLimit", "balanceForeignCurrency", "minimumPayment", "creditLimit", "status", "holderType", "disaggregatedCreditLimits", "additionalCards"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -99,6 +103,20 @@ class CreditData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in disaggregated_credit_limits (list)
+        _items = []
+        if self.disaggregated_credit_limits:
+            for _item_disaggregated_credit_limits in self.disaggregated_credit_limits:
+                if _item_disaggregated_credit_limits:
+                    _items.append(_item_disaggregated_credit_limits.to_dict())
+            _dict['disaggregatedCreditLimits'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in additional_cards (list)
+        _items = []
+        if self.additional_cards:
+            for _item_additional_cards in self.additional_cards:
+                if _item_additional_cards:
+                    _items.append(_item_additional_cards.to_dict())
+            _dict['additionalCards'] = _items
         return _dict
 
     @classmethod
@@ -120,7 +138,9 @@ class CreditData(BaseModel):
             "minimumPayment": obj.get("minimumPayment"),
             "creditLimit": obj.get("creditLimit"),
             "status": obj.get("status"),
-            "holderType": obj.get("holderType")
+            "holderType": obj.get("holderType"),
+            "disaggregatedCreditLimits": [DisaggregatedCreditLimit.from_dict(_item) for _item in obj["disaggregatedCreditLimits"]] if obj.get("disaggregatedCreditLimits") is not None else None,
+            "additionalCards": [AdditionalCard.from_dict(_item) for _item in obj["additionalCards"]] if obj.get("additionalCards") is not None else None
         })
         return _obj
 

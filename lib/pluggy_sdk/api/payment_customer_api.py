@@ -1139,6 +1139,10 @@ class PaymentCustomerApi:
         self,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        name: Annotated[Optional[StrictStr], Field(description="Filter payment customers by name")] = None,
+        email: Annotated[Optional[StrictStr], Field(description="Filter payment customers by email")] = None,
+        cpf: Annotated[Optional[StrictStr], Field(description="Filter payment customers by CPF")] = None,
+        cnpj: Annotated[Optional[StrictStr], Field(description="Filter payment customers by CNPJ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1160,6 +1164,14 @@ class PaymentCustomerApi:
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
+        :param name: Filter payment customers by name
+        :type name: str
+        :param email: Filter payment customers by email
+        :type email: str
+        :param cpf: Filter payment customers by CPF
+        :type cpf: str
+        :param cnpj: Filter payment customers by CNPJ
+        :type cnpj: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1185,6 +1197,10 @@ class PaymentCustomerApi:
         _param = self._payment_customers_list_serialize(
             page_size=page_size,
             page=page,
+            name=name,
+            email=email,
+            cpf=cpf,
+            cnpj=cnpj,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1210,6 +1226,10 @@ class PaymentCustomerApi:
         self,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        name: Annotated[Optional[StrictStr], Field(description="Filter payment customers by name")] = None,
+        email: Annotated[Optional[StrictStr], Field(description="Filter payment customers by email")] = None,
+        cpf: Annotated[Optional[StrictStr], Field(description="Filter payment customers by CPF")] = None,
+        cnpj: Annotated[Optional[StrictStr], Field(description="Filter payment customers by CNPJ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1231,6 +1251,14 @@ class PaymentCustomerApi:
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
+        :param name: Filter payment customers by name
+        :type name: str
+        :param email: Filter payment customers by email
+        :type email: str
+        :param cpf: Filter payment customers by CPF
+        :type cpf: str
+        :param cnpj: Filter payment customers by CNPJ
+        :type cnpj: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1256,6 +1284,10 @@ class PaymentCustomerApi:
         _param = self._payment_customers_list_serialize(
             page_size=page_size,
             page=page,
+            name=name,
+            email=email,
+            cpf=cpf,
+            cnpj=cnpj,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1281,6 +1313,10 @@ class PaymentCustomerApi:
         self,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        name: Annotated[Optional[StrictStr], Field(description="Filter payment customers by name")] = None,
+        email: Annotated[Optional[StrictStr], Field(description="Filter payment customers by email")] = None,
+        cpf: Annotated[Optional[StrictStr], Field(description="Filter payment customers by CPF")] = None,
+        cnpj: Annotated[Optional[StrictStr], Field(description="Filter payment customers by CNPJ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1302,6 +1338,14 @@ class PaymentCustomerApi:
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
+        :param name: Filter payment customers by name
+        :type name: str
+        :param email: Filter payment customers by email
+        :type email: str
+        :param cpf: Filter payment customers by CPF
+        :type cpf: str
+        :param cnpj: Filter payment customers by CNPJ
+        :type cnpj: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1327,6 +1371,10 @@ class PaymentCustomerApi:
         _param = self._payment_customers_list_serialize(
             page_size=page_size,
             page=page,
+            name=name,
+            email=email,
+            cpf=cpf,
+            cnpj=cnpj,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1347,6 +1395,10 @@ class PaymentCustomerApi:
         self,
         page_size,
         page,
+        name,
+        email,
+        cpf,
+        cnpj,
         _request_auth,
         _content_type,
         _headers,
@@ -1376,6 +1428,22 @@ class PaymentCustomerApi:
         if page is not None:
             
             _query_params.append(('page', page))
+            
+        if name is not None:
+            
+            _query_params.append(('name', name))
+            
+        if email is not None:
+            
+            _query_params.append(('email', email))
+            
+        if cpf is not None:
+            
+            _query_params.append(('cpf', cpf))
+            
+        if cnpj is not None:
+            
+            _query_params.append(('cnpj', cnpj))
             
         # process the header parameters
         # process the form parameters

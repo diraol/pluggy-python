@@ -17,7 +17,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictFloat, StrictInt, StrictStr
+from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Optional, Union
 from typing_extensions import Annotated
 from pluggy_sdk.models.create_payment_recipient import CreatePaymentRecipient
@@ -1705,6 +1705,9 @@ class PaymentRecipientApi:
         self,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        is_default: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `isDefault` attribute. If not sent, it won't filter.")] = None,
+        pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by Pix key")] = None,
+        name: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by name")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1726,6 +1729,12 @@ class PaymentRecipientApi:
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
+        :param is_default: Filter connectors by the `isDefault` attribute. If not sent, it won't filter.
+        :type is_default: bool
+        :param pix_key: Filter payment recipient by Pix key
+        :type pix_key: str
+        :param name: Filter payment recipient by name
+        :type name: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1751,6 +1760,9 @@ class PaymentRecipientApi:
         _param = self._payment_recipients_list_serialize(
             page_size=page_size,
             page=page,
+            is_default=is_default,
+            pix_key=pix_key,
+            name=name,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1776,6 +1788,9 @@ class PaymentRecipientApi:
         self,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        is_default: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `isDefault` attribute. If not sent, it won't filter.")] = None,
+        pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by Pix key")] = None,
+        name: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by name")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1797,6 +1812,12 @@ class PaymentRecipientApi:
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
+        :param is_default: Filter connectors by the `isDefault` attribute. If not sent, it won't filter.
+        :type is_default: bool
+        :param pix_key: Filter payment recipient by Pix key
+        :type pix_key: str
+        :param name: Filter payment recipient by name
+        :type name: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1822,6 +1843,9 @@ class PaymentRecipientApi:
         _param = self._payment_recipients_list_serialize(
             page_size=page_size,
             page=page,
+            is_default=is_default,
+            pix_key=pix_key,
+            name=name,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1847,6 +1871,9 @@ class PaymentRecipientApi:
         self,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        is_default: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `isDefault` attribute. If not sent, it won't filter.")] = None,
+        pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by Pix key")] = None,
+        name: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by name")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1868,6 +1895,12 @@ class PaymentRecipientApi:
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
+        :param is_default: Filter connectors by the `isDefault` attribute. If not sent, it won't filter.
+        :type is_default: bool
+        :param pix_key: Filter payment recipient by Pix key
+        :type pix_key: str
+        :param name: Filter payment recipient by name
+        :type name: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1893,6 +1926,9 @@ class PaymentRecipientApi:
         _param = self._payment_recipients_list_serialize(
             page_size=page_size,
             page=page,
+            is_default=is_default,
+            pix_key=pix_key,
+            name=name,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1913,6 +1949,9 @@ class PaymentRecipientApi:
         self,
         page_size,
         page,
+        is_default,
+        pix_key,
+        name,
         _request_auth,
         _content_type,
         _headers,
@@ -1942,6 +1981,18 @@ class PaymentRecipientApi:
         if page is not None:
             
             _query_params.append(('page', page))
+            
+        if is_default is not None:
+            
+            _query_params.append(('isDefault', is_default))
+            
+        if pix_key is not None:
+            
+            _query_params.append(('pixKey', pix_key))
+            
+        if name is not None:
+            
+            _query_params.append(('name', name))
             
         # process the header parameters
         # process the form parameters
