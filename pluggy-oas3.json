@@ -3915,6 +3915,46 @@
               "format": "double"
             },
             "example": "1"
+          },
+          {
+            "description": "Filter payment customers by name",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "John"
+          },
+          {
+            "description": "Filter payment customers by email",
+            "in": "query",
+            "name": "email",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "john.doe@email.com"
+          },
+          {
+            "description": "Filter payment customers by CPF",
+            "in": "query",
+            "name": "cpf",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "11111111111"
+          },
+          {
+            "description": "Filter payment customers by CNPJ",
+            "in": "query",
+            "name": "cnpj",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "1111111111111"
           }
         ]
       },
@@ -4177,6 +4217,35 @@
               "format": "double"
             },
             "example": "1"
+          },
+          {
+            "description": "Filter connectors by the `isDefault` attribute. If not sent, it won't filter.",
+            "in": "query",
+            "name": "isDefault",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filter payment recipient by Pix key",
+            "in": "query",
+            "name": "pixKey",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "11111111111"
+          },
+          {
+            "description": "Filter payment recipient by name",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "John"
           }
         ]
       },
@@ -4575,6 +4644,72 @@
         "security": [
           {
             "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Page size for the paging request, default: 20",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "example": "50"
+          },
+          {
+            "description": "Page number for the paging request, default: 1",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "example": "1"
+          },
+          {
+            "description": "Filter payment requests by start date. Returns only requests created **on or after** this date.",
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "example": "2023-01-01"
+          },
+          {
+            "description": "Filter payment requests by end date. Returns only requests created **on or before** this date.",
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "example": "2024-01-01"
+          },
+          {
+            "description": "Filter payment requests with one customer attribute (name, email, CPF or CNPJ)",
+            "in": "query",
+            "name": "customer",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "John"
+          },
+          {
+            "description": "Filter payment requests by Pix Key",
+            "in": "query",
+            "name": "pixKey",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "11111111111"
           }
         ]
       },
@@ -5979,9 +6114,99 @@
             "enum": ["MAIN", "ADDITIONAL"],
             "type": "string",
             "description": "Credit card holder type"
+          },
+          "disaggregatedCreditLimits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DisaggregatedCreditLimit"
+            },
+            "description": "Disaggregated credit card limits"
+          },
+          "additionalCards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdditionalCard"
+            },
+            "description": "Additional credit cards associated with the main one"
           }
         },
         "type": "object"
+      },
+      "AdditionalCard": {
+        "description": "Additional credit card data",
+        "properties": {
+          "number": {
+            "type": "string",
+            "description": "Number of the additional credit card"
+          }
+        },
+        "type": "object",
+        "required": ["number"]
+      },
+      "DisaggregatedCreditLimit": {
+        "description": "Disaggregated credit card limit",
+        "properties": {
+          "creditLineLimitType": {
+            "type": "string",
+            "description": "Limit type (LIMITE_CREDITO_TOTAL or LIMITE_CREDITO_MODALIDADE_OPERACAO)"
+          },
+          "consolidationType": {
+            "type": "string",
+            "description": "Indicates if the limit is consolidated or individual"
+          },
+          "identificationNumber": {
+            "type": "string",
+            "description": "Identification number of the additional credit card"
+          },
+          "isLimitFlexible": {
+            "type": "boolean",
+            "description": "Indicates if the limit is flexible"
+          },
+          "usedAmount": {
+            "type": "number",
+            "format": "double",
+            "description": "Used amount of the additional credit card"
+          },
+          "usedAmountCurrencyCode": {
+            "type": "string",
+            "description": "Used amount currency code (for example, BRL)"
+          },
+          "lineName": {
+            "type": "string",
+            "description": "Name of the line (for example, 'Limite de Crédito')"
+          },
+          "lineNameAdditionalInfo": {
+            "type": "string",
+            "description": "Additional information about the line name"
+          },
+          "limitAmount": {
+            "type": "number",
+            "format": "double",
+            "description": "Limit amount of the additional credit card"
+          },
+          "limitAmountCurrencyCode": {
+            "type": "string",
+            "description": "Limit amount currency code (for example, BRL)"
+          },
+          "availableAmount": {
+            "type": "number",
+            "format": "double",
+            "description": "Available amount of the additional credit card"
+          },
+          "availableAmountCurrencyCode": {
+            "type": "string",
+            "description": "Available amount currency code (for example, BRL)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "creditLineLimitType",
+          "consolidationType",
+          "identificationNumber",
+          "isLimitFlexible",
+          "usedAmount",
+          "usedAmountCurrencyCode"
+        ]
       },
       "Account": {
         "description": "Account of type bank",
