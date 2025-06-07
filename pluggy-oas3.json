@@ -19,7 +19,9 @@
         "operationId": "auth-create",
         "summary": "Create API Key",
         "description": "Validate clientId and clientSecret and return an API Key",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -134,7 +136,9 @@
           }
         },
         "description": "Creates a connect token",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "requestBody": {
           "description": "Create connect token payload",
           "content": {
@@ -185,7 +189,9 @@
             }
           }
         },
-        "tags": ["Connector"],
+        "tags": [
+          "Connector"
+        ],
         "security": [
           {
             "default": []
@@ -204,7 +210,9 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "enum": ["BR"]
+                "enum": [
+                  "BR"
+                ]
               }
             }
           },
@@ -327,7 +335,9 @@
           }
         },
         "description": "This endpoint retrieves a specific connector.",
-        "tags": ["Connector"],
+        "tags": [
+          "Connector"
+        ],
         "security": [
           {
             "default": []
@@ -389,7 +399,9 @@
             }
           }
         },
-        "tags": ["Connector"],
+        "tags": [
+          "Connector"
+        ],
         "security": [
           {
             "default": []
@@ -536,7 +548,9 @@
           }
         },
         "description": "Creates a item and syncs all the products with the financial institution, using as credentials the sent parameters.",
-        "tags": ["Items"],
+        "tags": [
+          "Items"
+        ],
         "security": [
           {
             "default": []
@@ -631,7 +645,9 @@
           }
         },
         "description": "Recovers the item resource by its id",
-        "tags": ["Items"],
+        "tags": [
+          "Items"
+        ],
         "security": [
           {
             "default": []
@@ -787,7 +803,9 @@
           }
         },
         "description": "Triggers new syncronization for the Item, optionally updating the stored credentials.",
-        "tags": ["Items"],
+        "tags": [
+          "Items"
+        ],
         "security": [
           {
             "default": []
@@ -893,7 +911,9 @@
             }
           }
         },
-        "tags": ["Items"],
+        "tags": [
+          "Items"
+        ],
         "security": [
           {
             "default": []
@@ -972,7 +992,9 @@
             }
           }
         },
-        "tags": ["Items"],
+        "tags": [
+          "Items"
+        ],
         "security": [
           {
             "default": []
@@ -1066,7 +1088,9 @@
             }
           }
         },
-        "tags": ["Items"],
+        "tags": [
+          "Items"
+        ],
         "security": [
           {
             "default": []
@@ -1110,8 +1134,14 @@
                         {
                           "id": "71996b6d-8991-450c-8542-ae59069d1a9d",
                           "itemId": "9aab8d24-c89b-4b0e-8974-7dd5614686e4",
-                          "products": ["ACCOUNTS", "IDENTITY"],
-                          "openFinancePermissionsGranted": ["ACCOUNTS_ALL", "REGISTRATION_ALL"],
+                          "products": [
+                            "ACCOUNTS",
+                            "IDENTITY"
+                          ],
+                          "openFinancePermissionsGranted": [
+                            "ACCOUNTS_ALL",
+                            "REGISTRATION_ALL"
+                          ],
                           "createdAt": "2023-10-02T03:00:00.000Z",
                           "expiresAt": "2024-10-02T03:00:00.000Z",
                           "revokedAt": null
@@ -1148,7 +1178,9 @@
             }
           }
         },
-        "tags": ["Consent"],
+        "tags": [
+          "Consent"
+        ],
         "security": [
           {
             "default": []
@@ -1211,7 +1243,9 @@
             }
           }
         },
-        "tags": ["Consent"],
+        "tags": [
+          "Consent"
+        ],
         "security": [
           {
             "default": []
@@ -1327,7 +1361,9 @@
             }
           }
         },
-        "tags": ["Account"],
+        "tags": [
+          "Account"
+        ],
         "security": [
           {
             "default": []
@@ -1352,7 +1388,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["BANK", "CREDIT"]
+              "enum": [
+                "BANK",
+                "CREDIT"
+              ]
             },
             "example": "BANK"
           }
@@ -1466,7 +1505,9 @@
             }
           }
         },
-        "tags": ["Account"],
+        "tags": [
+          "Account"
+        ],
         "security": [
           {
             "default": []
@@ -1707,7 +1748,9 @@
             }
           }
         },
-        "tags": ["Transaction"],
+        "tags": [
+          "Transaction"
+        ],
         "security": [
           {
             "default": []
@@ -1868,7 +1911,9 @@
             }
           }
         },
-        "tags": ["Transaction"],
+        "tags": [
+          "Transaction"
+        ],
         "security": [
           {
             "default": []
@@ -1969,7 +2014,9 @@
             }
           }
         },
-        "tags": ["Transaction"],
+        "tags": [
+          "Transaction"
+        ],
         "security": [
           {
             "default": []
@@ -2139,7 +2186,9 @@
             }
           }
         },
-        "tags": ["Investment"],
+        "tags": [
+          "Investment"
+        ],
         "security": [
           {
             "default": []
@@ -2164,7 +2213,15 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["COE", "EQUITY", "ETF", "FIXED_INCOME", "MUTUAL_FUND", "SECURITY", "OTHER"]
+              "enum": [
+                "COE",
+                "EQUITY",
+                "ETF",
+                "FIXED_INCOME",
+                "MUTUAL_FUND",
+                "SECURITY",
+                "OTHER"
+              ]
             }
           },
           {
@@ -2240,7 +2297,9 @@
           }
         },
         "description": "Recovers the investment resource by its id",
-        "tags": ["Investment"],
+        "tags": [
+          "Investment"
+        ],
         "security": [
           {
             "default": []
@@ -2329,7 +2388,9 @@
             }
           }
         },
-        "tags": ["Investment"],
+        "tags": [
+          "Investment"
+        ],
         "security": [
           {
             "default": []
@@ -2475,7 +2536,9 @@
             }
           }
         },
-        "tags": ["Identity"],
+        "tags": [
+          "Identity"
+        ],
         "security": [
           {
             "default": []
@@ -2615,7 +2678,9 @@
             }
           }
         },
-        "tags": ["Identity"],
+        "tags": [
+          "Identity"
+        ],
         "security": [
           {
             "default": []
@@ -2737,7 +2802,9 @@
             "description": "No content"
           }
         },
-        "tags": ["Webhook"],
+        "tags": [
+          "Webhook"
+        ],
         "security": [
           {
             "default": []
@@ -2813,7 +2880,9 @@
             }
           }
         },
-        "tags": ["Webhook"],
+        "tags": [
+          "Webhook"
+        ],
         "security": [
           {
             "default": []
@@ -2882,7 +2951,9 @@
             }
           }
         },
-        "tags": ["Webhook"],
+        "tags": [
+          "Webhook"
+        ],
         "security": [
           {
             "default": []
@@ -2972,7 +3043,9 @@
             }
           }
         },
-        "tags": ["Webhook"],
+        "tags": [
+          "Webhook"
+        ],
         "security": [
           {
             "default": []
@@ -3052,7 +3125,9 @@
             }
           }
         },
-        "tags": ["Webhook"],
+        "tags": [
+          "Webhook"
+        ],
         "security": [
           {
             "default": []
@@ -3124,7 +3199,9 @@
             }
           }
         },
-        "tags": ["Category"],
+        "tags": [
+          "Category"
+        ],
         "security": [
           {
             "default": []
@@ -3192,7 +3269,9 @@
             }
           }
         },
-        "tags": ["Category"],
+        "tags": [
+          "Category"
+        ],
         "security": [
           {
             "default": []
@@ -3248,7 +3327,9 @@
             }
           }
         },
-        "tags": ["Category"],
+        "tags": [
+          "Category"
+        ],
         "security": [
           {
             "default": []
@@ -3310,7 +3391,9 @@
             }
           }
         },
-        "tags": ["Category"],
+        "tags": [
+          "Category"
+        ],
         "security": [
           {
             "default": []
@@ -3371,7 +3454,9 @@
                           "type": "CREDITO_PESSOAL_COM_CONSIGNACAO",
                           "date": "2023-07-20T00:00:00",
                           "contractDate": "2022-08-01T00:00:00",
-                          "disbursementDates": ["2018-01-15T00:00:00"],
+                          "disbursementDates": [
+                            "2018-01-15T00:00:00"
+                          ],
                           "settlementDate": "2018-01-15T00:00:00",
                           "contractAmount": 50000,
                           "currencyCode": "BRL",
@@ -3477,7 +3562,9 @@
             }
           }
         },
-        "tags": ["Loan"],
+        "tags": [
+          "Loan"
+        ],
         "security": [
           {
             "default": []
@@ -3521,7 +3608,9 @@
                       "type": "CREDITO_PESSOAL_COM_CONSIGNACAO",
                       "date": "2023-07-20T00:00:00",
                       "contractDate": "2022-08-01T00:00:00",
-                      "disbursementDates": ["2018-01-15T00:00:00"],
+                      "disbursementDates": [
+                        "2018-01-15T00:00:00"
+                      ],
                       "settlementDate": "2018-01-15T00:00:00",
                       "contractAmount": 50000,
                       "currencyCode": "BRL",
@@ -3641,7 +3730,9 @@
           }
         },
         "description": "Recovers the loan resource by its id",
-        "tags": ["Loan"],
+        "tags": [
+          "Loan"
+        ],
         "security": [
           {
             "default": []
@@ -3731,7 +3822,9 @@
             }
           }
         },
-        "tags": ["Bill"],
+        "tags": [
+          "Bill"
+        ],
         "security": [
           {
             "default": []
@@ -3807,7 +3900,9 @@
           }
         },
         "description": "Recovers the bill resource by its id",
-        "tags": ["Bill"],
+        "tags": [
+          "Bill"
+        ],
         "security": [
           {
             "default": []
@@ -3887,7 +3982,9 @@
             }
           }
         },
-        "tags": ["Payment Customer"],
+        "tags": [
+          "Payment Customer"
+        ],
         "security": [
           {
             "default": []
@@ -3987,7 +4084,9 @@
             }
           }
         },
-        "tags": ["Payment Customer"],
+        "tags": [
+          "Payment Customer"
+        ],
         "security": [
           {
             "default": []
@@ -4037,7 +4136,9 @@
           }
         },
         "description": "Recovers the payment customer resource by its id",
-        "tags": ["Payment Customer"],
+        "tags": [
+          "Payment Customer"
+        ],
         "security": [
           {
             "default": []
@@ -4081,7 +4182,9 @@
           }
         },
         "description": "Deletes the payment customer resource by its id",
-        "tags": ["Payment Customer"],
+        "tags": [
+          "Payment Customer"
+        ],
         "security": [
           {
             "default": []
@@ -4117,7 +4220,9 @@
           }
         },
         "description": "Updates the payment customer resource",
-        "tags": ["Payment Customer"],
+        "tags": [
+          "Payment Customer"
+        ],
         "security": [
           {
             "default": []
@@ -4189,7 +4294,9 @@
             }
           }
         },
-        "tags": ["Payment Recipient"],
+        "tags": [
+          "Payment Recipient"
+        ],
         "security": [
           {
             "default": []
@@ -4279,7 +4386,9 @@
           }
         },
         "description": "Creates the payment recipient resource",
-        "tags": ["Payment Recipient"],
+        "tags": [
+          "Payment Recipient"
+        ],
         "security": [
           {
             "default": []
@@ -4329,7 +4438,9 @@
           }
         },
         "description": "Recovers the payment recipient resource by its id",
-        "tags": ["Payment Recipient"],
+        "tags": [
+          "Payment Recipient"
+        ],
         "security": [
           {
             "default": []
@@ -4365,7 +4476,9 @@
           }
         },
         "description": "Updates the payment recipient resource",
-        "tags": ["Payment Recipient"],
+        "tags": [
+          "Payment Recipient"
+        ],
         "security": [
           {
             "default": []
@@ -4419,7 +4532,9 @@
           }
         },
         "description": "Deletes the payment recipient resource by its id",
-        "tags": ["Payment Recipient"],
+        "tags": [
+          "Payment Recipient"
+        ],
         "security": [
           {
             "default": []
@@ -4481,7 +4596,9 @@
             }
           }
         },
-        "tags": ["Payment Recipient"],
+        "tags": [
+          "Payment Recipient"
+        ],
         "security": [
           {
             "default": []
@@ -4555,7 +4672,9 @@
           }
         },
         "description": "Recovers the payment institution resource by its id",
-        "tags": ["Payment Recipient"],
+        "tags": [
+          "Payment Recipient"
+        ],
         "security": [
           {
             "default": []
@@ -4640,7 +4759,9 @@
             }
           }
         },
-        "tags": ["Payment Request"],
+        "tags": [
+          "Payment Request"
+        ],
         "security": [
           {
             "default": []
@@ -4743,7 +4864,9 @@
           }
         },
         "description": "Creates the payment request resource",
-        "tags": ["Payment Request"],
+        "tags": [
+          "Payment Request"
+        ],
         "security": [
           {
             "default": []
@@ -4760,6 +4883,61 @@
                   "value": {
                     "amount": 100.5,
                     "description": "Transferência"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/payments/requests/automatic-pix": {
+      "post": {
+        "operationId": "payment-request-create-automatic-pix",
+        "summary": "Create Automatic PIX payment request",
+        "responses": {
+          "200": {
+            "description": "Create a Automatic PIX payment request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentRequest"
+                }
+              }
+            }
+          }
+        },
+        "description": "Creates the automatic PIX payment request resource",
+        "tags": [
+          "Automatic PIX"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAutomaticPixPaymentRequest"
+              },
+              "examples": {
+                "request": {
+                  "value": {
+                    "fixedAmount": 100.5,
+                    "startDate": "2025-06-10",
+                    "expiresAt": "2025-10-01",
+                    "isRetryAccepted": true,
+                    "firstPayment": {
+                      "date": "2025-06-10",
+                      "description": "Primeiro pagamento",
+                      "amount": 100.5
+                    },
+                    "interval": "WEEKLY",
+                    "callbackUrls": null,
+                    "recipientId": "05c693bf-c196-47ea-a28c-8251d6bb8a06"
                   }
                 }
               }
@@ -4800,7 +4978,9 @@
           }
         },
         "description": "Creates the PIX QR payment request resource",
-        "tags": ["Payment Request"],
+        "tags": [
+          "Payment Request"
+        ],
         "security": [
           {
             "default": []
@@ -4873,7 +5053,9 @@
           }
         },
         "description": "Recovers the payment request resource by its id",
-        "tags": ["Payment Request"],
+        "tags": [
+          "Payment Request"
+        ],
         "security": [
           {
             "default": []
@@ -4917,7 +5099,9 @@
           }
         },
         "description": "Deletes the payment request resource by its id",
-        "tags": ["Payment Request"],
+        "tags": [
+          "Payment Request"
+        ],
         "security": [
           {
             "default": []
@@ -4967,7 +5151,9 @@
           }
         },
         "description": "Updates the payment request resource",
-        "tags": ["Payment Request"],
+        "tags": [
+          "Payment Request"
+        ],
         "security": [
           {
             "default": []
@@ -5097,7 +5283,9 @@
             "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
           }
         ],
-        "tags": ["Payment Schedule"],
+        "tags": [
+          "Payment Schedule"
+        ],
         "security": [
           {
             "default": []
@@ -5128,7 +5316,9 @@
             "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
           }
         ],
-        "tags": ["Payment Schedule"],
+        "tags": [
+          "Payment Schedule"
+        ],
         "security": [
           {
             "default": []
@@ -5170,7 +5360,9 @@
             "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
           }
         ],
-        "tags": ["Payment Schedule"],
+        "tags": [
+          "Payment Schedule"
+        ],
         "security": [
           {
             "default": []
@@ -5195,7 +5387,9 @@
           }
         },
         "description": "Creates the payment intent resource",
-        "tags": ["Payment Intent"],
+        "tags": [
+          "Payment Intent"
+        ],
         "security": [
           {
             "default": []
@@ -5330,7 +5524,9 @@
             }
           }
         },
-        "tags": ["Payment Intent"],
+        "tags": [
+          "Payment Intent"
+        ],
         "security": [
           {
             "default": []
@@ -5443,7 +5639,9 @@
           }
         },
         "description": "Recovers the payment intent resource by its id",
-        "tags": ["Payment Intent"],
+        "tags": [
+          "Payment Intent"
+        ],
         "security": [
           {
             "default": []
@@ -5592,7 +5790,9 @@
             }
           }
         },
-        "tags": ["Smart Transfer"],
+        "tags": [
+          "Smart Transfer"
+        ],
         "security": [
           {
             "default": []
@@ -5653,7 +5853,9 @@
           }
         },
         "description": "Creates the smart transfer preauthorization resource",
-        "tags": ["Smart Transfer"],
+        "tags": [
+          "Smart Transfer"
+        ],
         "security": [
           {
             "default": []
@@ -5703,7 +5905,9 @@
           }
         },
         "description": "Recovers the smart transfer preauthorization resource by its id",
-        "tags": ["Smart Transfer"],
+        "tags": [
+          "Smart Transfer"
+        ],
         "security": [
           {
             "default": []
@@ -5755,7 +5959,9 @@
           }
         },
         "description": "Creates the smart transfer payment resource",
-        "tags": ["Smart Transfer"],
+        "tags": [
+          "Smart Transfer"
+        ],
         "security": [
           {
             "default": []
@@ -5805,7 +6011,9 @@
           }
         },
         "description": "Recovers the smart transfer payment resource by its id",
-        "tags": ["Smart Transfer"],
+        "tags": [
+          "Smart Transfer"
+        ],
         "security": [
           {
             "default": []
@@ -5865,7 +6073,9 @@
             }
           }
         },
-        "tags": ["Boleto Management"],
+        "tags": [
+          "Boleto Management"
+        ],
         "security": [
           {
             "default": []
@@ -5899,7 +6109,9 @@
             }
           }
         },
-        "tags": ["Boleto Management"],
+        "tags": [
+          "Boleto Management"
+        ],
         "security": [
           {
             "default": []
@@ -5933,7 +6145,9 @@
             }
           }
         },
-        "tags": ["Boleto Management"],
+        "tags": [
+          "Boleto Management"
+        ],
         "security": [
           {
             "default": []
@@ -5970,7 +6184,9 @@
             }
           }
         },
-        "tags": ["Boleto Management"],
+        "tags": [
+          "Boleto Management"
+        ],
         "security": [
           {
             "default": []
@@ -6007,7 +6223,9 @@
             }
           }
         },
-        "tags": ["Boleto Management"],
+        "tags": [
+          "Boleto Management"
+        ],
         "security": [
           {
             "default": []
@@ -6106,12 +6324,19 @@
             "description": "Maximum amount that can be spent"
           },
           "status": {
-            "enum": ["ACTIVE", "BLOCKED", "CANCELLED"],
+            "enum": [
+              "ACTIVE",
+              "BLOCKED",
+              "CANCELLED"
+            ],
             "type": "string",
             "description": "Credit card status"
           },
           "holderType": {
-            "enum": ["MAIN", "ADDITIONAL"],
+            "enum": [
+              "MAIN",
+              "ADDITIONAL"
+            ],
             "type": "string",
             "description": "Credit card holder type"
           },
@@ -6141,7 +6366,9 @@
           }
         },
         "type": "object",
-        "required": ["number"]
+        "required": [
+          "number"
+        ]
       },
       "DisaggregatedCreditLimit": {
         "description": "Disaggregated credit card limit",
@@ -6217,13 +6444,20 @@
             "example": "a658c848-e475-457b-8565-d1fffba127c4"
           },
           "type": {
-            "enum": ["BANK", "CREDIT"],
+            "enum": [
+              "BANK",
+              "CREDIT"
+            ],
             "type": "string",
             "description": "Type of account, may be BANK or CREDIT",
             "example": "BANK"
           },
           "subtype": {
-            "enum": ["SAVINGS_ACCOUNT", "CHECKING_ACCOUNT", "CREDIT_CARD"],
+            "enum": [
+              "SAVINGS_ACCOUNT",
+              "CHECKING_ACCOUNT",
+              "CREDIT_CARD"
+            ],
             "type": "string",
             "description": "Subtype of corresponding type of account",
             "example": "SAVINGS_ACCOUNT"
@@ -6278,7 +6512,16 @@
           }
         },
         "type": "object",
-        "required": ["id", "type", "subtype", "number", "name", "balance", "itemId", "currencyCode"]
+        "required": [
+          "id",
+          "type",
+          "subtype",
+          "number",
+          "name",
+          "balance",
+          "itemId",
+          "currencyCode"
+        ]
       },
       "CredentialSelectOption": {
         "description": "Option for ConnectorCredential of type select",
@@ -6293,7 +6536,10 @@
           }
         },
         "type": "object",
-        "required": ["value", "label"]
+        "required": [
+          "value",
+          "label"
+        ]
       },
       "ConnectorCredential": {
         "description": "Credential details for a connector",
@@ -6307,7 +6553,13 @@
             "description": "Label for input"
           },
           "type": {
-            "enum": ["text", "password", "number", "image", "select"],
+            "enum": [
+              "text",
+              "password",
+              "number",
+              "image",
+              "select"
+            ],
             "type": "string",
             "description": "Type of credential required"
           },
@@ -6344,7 +6596,11 @@
           }
         },
         "type": "object",
-        "required": ["name", "label", "type"]
+        "required": [
+          "name",
+          "label",
+          "type"
+        ]
       },
       "ConnectorUserAction": {
         "description": "User action details for an item",
@@ -6364,7 +6620,9 @@
           }
         },
         "type": "object",
-        "required": ["instructions"]
+        "required": [
+          "instructions"
+        ]
       },
       "Connector": {
         "description": "Connector object",
@@ -6475,7 +6733,9 @@
           }
         },
         "type": "object",
-        "required": ["id"],
+        "required": [
+          "id"
+        ],
         "example": {
           "id": 601,
           "name": "Itaú",
@@ -6663,7 +6923,10 @@
                 "description": "'{ [key]:[value] }'. Additional information necessary for future executions, used for example in some device authorization flow"
               }
             },
-            "required": ["code", "message"]
+            "required": [
+              "code",
+              "message"
+            ]
           },
           "parameter": {
             "$ref": "#/components/schemas/ConnectorCredential"
@@ -6729,7 +6992,11 @@
           }
         },
         "type": "object",
-        "required": ["id", "status", "executionStatus"],
+        "required": [
+          "id",
+          "status",
+          "executionStatus"
+        ],
         "example": {
           "id": "e062ab2b-9006-45e8-b689-defabba53647",
           "connector": {
@@ -6853,7 +7120,10 @@
           }
         },
         "type": "object",
-        "required": ["connectorId", "parameters"],
+        "required": [
+          "connectorId",
+          "parameters"
+        ],
         "example": {
           "connectorId": 2,
           "parameters": {
@@ -7015,7 +7285,10 @@
             "description": "The warning message from the FI if provided"
           }
         },
-        "required": ["code", "message"]
+        "required": [
+          "code",
+          "message"
+        ]
       },
       "ICountResponse": {
         "description": "Deletion response",
@@ -7026,7 +7299,9 @@
           }
         },
         "type": "object",
-        "required": ["count"],
+        "required": [
+          "count"
+        ],
         "example": {
           "count": 1
         }
@@ -7074,7 +7349,11 @@
           }
         },
         "type": "object",
-        "required": ["id", "url", "event"]
+        "required": [
+          "id",
+          "url",
+          "event"
+        ]
       },
       "CreateWebhook": {
         "description": "",
@@ -7119,7 +7398,10 @@
           }
         },
         "type": "object",
-        "required": ["url", "event"]
+        "required": [
+          "url",
+          "event"
+        ]
       },
       "ParameterValidationError": {
         "description": "",
@@ -7138,7 +7420,11 @@
           }
         },
         "type": "object",
-        "required": ["code", "message", "parameter"]
+        "required": [
+          "code",
+          "message",
+          "parameter"
+        ]
       },
       "ItemParameter": {
         "description": "Key-Value credentials neccesary to create an item",
@@ -7162,6 +7448,10 @@
           "cnpj": {
             "type": "string",
             "description": "CNPJ of the payer"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the payer. Only required for automatic pix payment requests."
           }
         },
         "type": "object",
@@ -7169,7 +7459,9 @@
           "cpf": "416.799.495-00",
           "cnpj": "41.679.495/0001-00"
         },
-        "required": ["cpf"]
+        "required": [
+          "cpf"
+        ]
       },
       "ParameterValidationResponse": {
         "description": "Response to parameter's validations",
@@ -7210,7 +7502,10 @@
             "type": "string",
             "description": "Type of document",
             "example": "CPF",
-            "enum": ["CPF", "CNPJ"]
+            "enum": [
+              "CPF",
+              "CNPJ"
+            ]
           },
           "value": {
             "type": "string",
@@ -7374,7 +7669,10 @@
           "type": {
             "type": "string",
             "description": "Type of the transaction. DEBIT (outflow) or CREDIT (inflow)",
-            "enum": ["DEBIT", "CREDIT"]
+            "enum": [
+              "DEBIT",
+              "CREDIT"
+            ]
           },
           "balance": {
             "type": "number",
@@ -7416,7 +7714,13 @@
           }
         },
         "type": "object",
-        "required": ["id", "description", "currencyCode", "amount", "date"],
+        "required": [
+          "id",
+          "description",
+          "currencyCode",
+          "amount",
+          "date"
+        ],
         "example": {
           "id": "6ec156fe-e8ac-4d9a-a4b3-7770529ab01c",
           "description": "TED Example",
@@ -7487,7 +7791,12 @@
           }
         },
         "type": "object",
-        "required": ["results", "page", "total", "totalPages"]
+        "required": [
+          "results",
+          "page",
+          "total",
+          "totalPages"
+        ]
       },
       "UpdateTransaction": {
         "description": "Update transaction category request body",
@@ -7498,7 +7807,9 @@
           }
         },
         "type": "object",
-        "required": ["categoryId"],
+        "required": [
+          "categoryId"
+        ],
         "example": {
           "categoryId": "07010000"
         }
@@ -7528,7 +7839,10 @@
           }
         },
         "type": "object",
-        "required": ["id", "description"],
+        "required": [
+          "id",
+          "description"
+        ],
         "example": {
           "id": "01010000",
           "description": "Salary/pro-labore",
@@ -7565,7 +7879,10 @@
           }
         },
         "type": "object",
-        "required": ["description", "category"],
+        "required": [
+          "description",
+          "category"
+        ],
         "example": {
           "description": "uber payment",
           "category": "Salary/pro-labore",
@@ -7600,7 +7917,10 @@
           }
         },
         "type": "object",
-        "required": ["description", "categoryId"],
+        "required": [
+          "description",
+          "categoryId"
+        ],
         "example": {
           "description": "uber payment",
           "categoryId": "05000000",
@@ -7679,12 +7999,22 @@
           "type": {
             "type": "string",
             "description": "Type of transactions",
-            "enum": ["BUY", "SELL", "TAX", "TRANSFER", "INTEREST", "AMORTIZATION"]
+            "enum": [
+              "BUY",
+              "SELL",
+              "TAX",
+              "TRANSFER",
+              "INTEREST",
+              "AMORTIZATION"
+            ]
           },
           "movementType": {
             "type": "string",
             "description": "Type of movement of the transaction",
-            "enum": ["CREDIT", "DEBIT"]
+            "enum": [
+              "CREDIT",
+              "DEBIT"
+            ]
           },
           "quantity": {
             "type": "number",
@@ -7721,7 +8051,11 @@
           }
         },
         "type": "object",
-        "required": ["id", "type", "date"]
+        "required": [
+          "id",
+          "type",
+          "date"
+        ]
       },
       "PageResponseInvestmentTransactions": {
         "description": "",
@@ -7750,7 +8084,12 @@
           }
         },
         "type": "object",
-        "required": ["results", "page", "total", "totalPages"]
+        "required": [
+          "results",
+          "page",
+          "total",
+          "totalPages"
+        ]
       },
       "PageResponseCategoryRules": {
         "description": "",
@@ -7779,7 +8118,12 @@
           }
         },
         "type": "object",
-        "required": ["results", "page", "total", "totalPages"]
+        "required": [
+          "results",
+          "page",
+          "total",
+          "totalPages"
+        ]
       },
       "InvestmentMetadata": {
         "description": "Investment metadata for Previdencia migrations",
@@ -7838,7 +8182,15 @@
             "format": "uuid"
           },
           "type": {
-            "enum": ["COE", "EQUITY", "ETF", "FIXED_INCOME", "MUTUAL_FUND", "SECURITY", "OTHER"],
+            "enum": [
+              "COE",
+              "EQUITY",
+              "ETF",
+              "FIXED_INCOME",
+              "MUTUAL_FUND",
+              "SECURITY",
+              "OTHER"
+            ],
             "type": "string",
             "description": "Investment Asset type"
           },
@@ -8007,11 +8359,23 @@
           "status": {
             "type": "string",
             "description": "Current status of the investment enum value",
-            "enum": ["ACTIVE", "PENDING", "TOTAL_WITHDRAWAL"]
+            "enum": [
+              "ACTIVE",
+              "PENDING",
+              "TOTAL_WITHDRAWAL"
+            ]
           }
         },
         "type": "object",
-        "required": ["id", "itemId", "type", "balance", "name", "currencyCode", "date"],
+        "required": [
+          "id",
+          "itemId",
+          "type",
+          "balance",
+          "name",
+          "currencyCode",
+          "date"
+        ],
         "example": {
           "id": "f77eccf4-7714-498e-92a9-1bebe70335d9",
           "code": "12.345.678/0001-00",
@@ -8054,7 +8418,11 @@
         "description": "The phone number object contains data related to contact information.",
         "properties": {
           "type": {
-            "enum": ["Personal", "Work", "Residencial"],
+            "enum": [
+              "Personal",
+              "Work",
+              "Residencial"
+            ],
             "type": "string",
             "description": "Type of phone number: personal, work or residencial"
           },
@@ -8064,13 +8432,18 @@
           }
         },
         "type": "object",
-        "required": ["value"]
+        "required": [
+          "value"
+        ]
       },
       "Email": {
         "description": "The email object contains emails associated with the owner of the account",
         "properties": {
           "type": {
-            "enum": ["Personal", "Work"],
+            "enum": [
+              "Personal",
+              "Work"
+            ],
             "type": "string",
             "description": ""
           },
@@ -8080,7 +8453,9 @@
           }
         },
         "type": "object",
-        "required": ["value"]
+        "required": [
+          "value"
+        ]
       },
       "Address": {
         "description": "The address object contains data related to an specific owner's location.",
@@ -8110,7 +8485,10 @@
             "description": "The complete country name"
           },
           "type": {
-            "enum": ["Personal", "Work"],
+            "enum": [
+              "Personal",
+              "Work"
+            ],
             "type": "string",
             "description": "Type of address, Personal or Work"
           }
@@ -8121,7 +8499,11 @@
         "description": "The relation object contains name and relation to the owner of the account",
         "properties": {
           "type": {
-            "enum": ["Mother", "Father", "Spouse"],
+            "enum": [
+              "Mother",
+              "Father",
+              "Spouse"
+            ],
             "type": "string",
             "description": "Type of relation: Father, Mother or Spouse"
           },
@@ -8214,14 +8596,20 @@
             "description": "List of names related to the account"
           },
           "investorProfile": {
-            "enum": ["Conservative", "Moderate", "Aggressive"],
+            "enum": [
+              "Conservative",
+              "Moderate",
+              "Aggressive"
+            ],
             "type": "string",
             "description": "Is a rating that indicates the investor personality and motivation for investing"
           },
           "qualifications": {
             "type": "object",
             "description": "Information that allows understanding since when the consulted person has been a client of the institution, as well as an indicator of the products and services they currently consume and their representatives",
-            "required": ["companyCnpj"],
+            "required": [
+              "companyCnpj"
+            ],
             "properties": {
               "companyCnpj": {
                 "type": "string",
@@ -8229,13 +8617,21 @@
               },
               "occupationCode": {
                 "type": "string",
-                "enum": ["RECEITA_FEDERAL", "CBO", "OUTRO"],
+                "enum": [
+                  "RECEITA_FEDERAL",
+                  "CBO",
+                  "OUTRO"
+                ],
                 "description": "Occupation code"
               },
               "informedIncome": {
                 "type": "object",
                 "description": "Informed income",
-                "required": ["frequency", "amount", "date"],
+                "required": [
+                  "frequency",
+                  "amount",
+                  "date"
+                ],
                 "properties": {
                   "frequency": {
                     "type": "string",
@@ -8266,7 +8662,10 @@
               "informedPatrimony": {
                 "type": "object",
                 "description": "Informed patrimony",
-                "required": ["amount", "year"],
+                "required": [
+                  "amount",
+                  "year"
+                ],
                 "properties": {
                   "amount": {
                     "type": "number",
@@ -8282,7 +8681,11 @@
           },
           "financialRelationships": {
             "type": "object",
-            "required": ["startDate", "productsServicesType", "procurators"],
+            "required": [
+              "startDate",
+              "productsServicesType",
+              "procurators"
+            ],
             "properties": {
               "startDate": {
                 "type": "string",
@@ -8300,11 +8703,18 @@
                 "type": "array",
                 "items": {
                   "type": "object",
-                  "required": ["type", "cpfNumber", "civilName"],
+                  "required": [
+                    "type",
+                    "cpfNumber",
+                    "civilName"
+                  ],
                   "properties": {
                     "type": {
                       "type": "string",
-                      "enum": ["REPRESENTANTE_LEGAL", "PROCURADOR"],
+                      "enum": [
+                        "REPRESENTANTE_LEGAL",
+                        "PROCURADOR"
+                      ],
                       "description": "Type of relationship with the client"
                     },
                     "cpfNumber": {
@@ -8369,7 +8779,10 @@
           }
         },
         "type": "object",
-        "required": ["id", "itemId"]
+        "required": [
+          "id",
+          "itemId"
+        ]
       },
       "ConnectTokenResponse": {
         "description": "Connect token response",
@@ -8380,7 +8793,9 @@
           }
         },
         "type": "object",
-        "required": ["accessToken"],
+        "required": [
+          "accessToken"
+        ],
         "example": {
           "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJZCI6IjI3MzY0YjRhLTM1NGUtNDc5ZC04OWJkLTA1Y2VmNDc2ZTFmNCIsImRhdGEiOiI4NmYyMjIwNDVkNjc3NDJjZjI5MjhjMGNmNjBlZjFkZjo5MjRmNGZlNjg5YWM1NGI2ZmVmMzkzZDc2ZTExNjAxZTI1MjliNmUyNDY1Y2I4ZDkxMWI3ZDY0ZjA5Y2NkYzBiMzg4YWFjZWNkZmQzMGMzZGZiNTBkNzk1OTA1Y2QyNWZlZmEyODZhMWQ0NDc5YzYyNzgwZDZiMzBlNDZiYTY3YjUyZDRkMmIwNWU0ODVjYzk5NjZiYzJjMDUyNDE5OTgzNjBjYTVkM2M4MTJhODQ0ODI1NDI2NDJhNWNkNjhjMTU3YjUzYThkOGEyOGZlMWM4ZDkxNmYzZjZlOTQ0MzEyYjBjNzNmZDBhYmIyYTk0MDU2MzZhYjMxM2RkMmY0OTE0IiwiaWF0IjoxNjQwNjk3MjUwLCJleHAiOjE2NDA2OTkwNTB9.i9DpZ_sOW_I9yGUUXqUWcB9zqCJEXQnjaUrwmcVOXX3F1-he3LjT2f8mHbt7DOvxHtxqAagZkW8BT3J2OBYDOzmHuBgKbbSUmb4YLfC8PaKf2p7fY0fKVu30iIFqiM5CgDQ048dIWzWSlGAYZq00edD0BYlfOkU3ll7OofzmDUAG6KBRDx68FrtYxboNJa8sXli7WSAI3nzZDhcVyPJvqlMHG6VXbJboQrxnSEBGdpGBQ7n_-2G5Oa3-MHCR-Z5cKx1pi4NwqorGFg1c2uRj3F4GdRs94UkqlvdH6FRxAUD3SVDiegvQ6vkOWCHpD1-wZELOmenkJ7ecjg9CChPavx"
         }
@@ -8394,7 +8809,9 @@
           }
         },
         "type": "object",
-        "required": ["apiKey"],
+        "required": [
+          "apiKey"
+        ],
         "example": {
           "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
         }
@@ -8413,7 +8830,10 @@
           }
         },
         "type": "object",
-        "required": ["clientId", "clientSecret"],
+        "required": [
+          "clientId",
+          "clientSecret"
+        ],
         "example": {
           "clientId": "f8c9b8f0-b8e2-4f0f-b8e2-4f0f8e2f0f8e2",
           "clientSecret": "UZzp2n7eMThpfZ74Xf7"
@@ -8522,7 +8942,10 @@
       "GlobalErrorResponse": {
         "title": "Global Error Response Schema",
         "type": "object",
-        "required": ["code", "message"],
+        "required": [
+          "code",
+          "message"
+        ],
         "properties": {
           "code": {
             "type": "number"
@@ -8643,7 +9066,13 @@
           "amortizationScheduled": {
             "type": "string",
             "description": "Amortization system (https://openbanking-brasil.github.io/openapi/swagger-apis/loans/?urls.primaryName=2.0.1#model-EnumContractAmortizationScheduled)",
-            "enum": ["SAC", "PRICE", "SAM", "WITHOUT_AMORTIZATION_SYSTEM", "OTHERS"]
+            "enum": [
+              "SAC",
+              "PRICE",
+              "SAM",
+              "WITHOUT_AMORTIZATION_SYSTEM",
+              "OTHERS"
+            ]
           },
           "amortizationScheduledAdditionalInfo": {
             "type": "string",
@@ -8692,7 +9121,13 @@
           }
         },
         "type": "object",
-        "required": ["id", "itemId", "date", "productName", "currencyCode"],
+        "required": [
+          "id",
+          "itemId",
+          "date",
+          "productName",
+          "currencyCode"
+        ],
         "example": {}
       },
       "LoanInterestRate": {
@@ -8701,17 +9136,26 @@
           "taxType": {
             "type": "string",
             "description": "Tax type",
-            "enum": ["NOMINAL", "EFFECTIVE"]
+            "enum": [
+              "NOMINAL",
+              "EFFECTIVE"
+            ]
           },
           "interestRateType": {
             "type": "string",
             "description": "Interest rate type",
-            "enum": ["SIMPLE", "COMPOUND"]
+            "enum": [
+              "SIMPLE",
+              "COMPOUND"
+            ]
           },
           "taxPeriodicity": {
             "type": "string",
             "description": "Tax periodicity",
-            "enum": ["MONTHLY", "YEARLY"]
+            "enum": [
+              "MONTHLY",
+              "YEARLY"
+            ]
           },
           "calculation": {
             "type": "string",
@@ -8756,12 +9200,20 @@
           "chargeType": {
             "type": "string",
             "description": "Charge type for the rate agreed in the contract",
-            "enum": ["UNIQUE", "BY_INSTALLMENT"]
+            "enum": [
+              "UNIQUE",
+              "BY_INSTALLMENT"
+            ]
           },
           "charge": {
             "type": "string",
             "description": "Billing method related to the tariff agreed in the contract",
-            "enum": ["MINIMUM", "MAXIMUM", "FIXED", "PERCENTAGE"]
+            "enum": [
+              "MINIMUM",
+              "MAXIMUM",
+              "FIXED",
+              "PERCENTAGE"
+            ]
           },
           "amount": {
             "type": "number",
@@ -8815,7 +9267,13 @@
           "typeNumberOfInstallments": {
             "type": "string",
             "description": "Type of total term of the contract referring to the type of credit informed",
-            "enum": ["DAY", "WEEK", "MONTH", "YEAR", "WITHOUT_TOTAL_PERIOD"]
+            "enum": [
+              "DAY",
+              "WEEK",
+              "MONTH",
+              "YEAR",
+              "WITHOUT_TOTAL_PERIOD"
+            ]
           },
           "totalNumberOfInstallments": {
             "type": "number",
@@ -9060,7 +9518,13 @@
           }
         },
         "type": "object",
-        "required": ["id", "creditCardBillId", "type", "amount", "currencyCode"],
+        "required": [
+          "id",
+          "creditCardBillId",
+          "type",
+          "amount",
+          "currencyCode"
+        ],
         "example": {}
       },
       "PaymentRequest": {
@@ -9072,7 +9536,7 @@
           },
           "amount": {
             "type": "number",
-            "description": "Requested amount"
+            "description": "Requested amount. For automatic pix it won't be returned"
           },
           "fees": {
             "type": "number",
@@ -9130,6 +9594,9 @@
           "boleto": {
             "$ref": "#/components/schemas/Boleto"
           },
+          "automaticPix": {
+            "$ref": "#/components/schemas/PaymentIntentAutomaticPix"
+          },
           "schedule": {
             "oneOf": [
               {
@@ -9168,7 +9635,13 @@
           }
         },
         "type": "object",
-        "required": ["id", "amount", "status", "createdAt", "updatedAt", "paymentUrl"],
+        "required": [
+          "id",
+          "status",
+          "createdAt",
+          "updatedAt",
+          "paymentUrl"
+        ],
         "example": {}
       },
       "SchedulePayment": {
@@ -9185,7 +9658,11 @@
           "status": {
             "type": "string",
             "description": "Scheduled payment status",
-            "enum": ["SCHEDULED", "COMPLETED", "ERROR"]
+            "enum": [
+              "SCHEDULED",
+              "COMPLETED",
+              "ERROR"
+            ]
           },
           "scheduledDate": {
             "type": "string",
@@ -9216,7 +9693,12 @@
           }
         },
         "type": "object",
-        "required": ["id", "description", "status", "scheduledDate"]
+        "required": [
+          "id",
+          "description",
+          "status",
+          "scheduledDate"
+        ]
       },
       "CreatePaymentRequest": {
         "description": "Request with information to create a payment request",
@@ -9272,7 +9754,9 @@
           }
         },
         "type": "object",
-        "required": ["amount"],
+        "required": [
+          "amount"
+        ],
         "example": {
           "amount": 100.5,
           "description": "Transferência"
@@ -9295,7 +9779,9 @@
           }
         },
         "type": "object",
-        "required": ["pixQrCode"],
+        "required": [
+          "pixQrCode"
+        ],
         "example": {}
       },
       "UpdatePaymentRequest": {
@@ -9384,7 +9870,14 @@
           }
         },
         "type": "object",
-        "required": ["id", "name", "ispb", "tradeName", "createdAt", "updatedAt"],
+        "required": [
+          "id",
+          "name",
+          "ispb",
+          "tradeName",
+          "createdAt",
+          "updatedAt"
+        ],
         "example": {
           "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
           "name": "Banco J. Safra S.A.",
@@ -9413,7 +9906,11 @@
         },
         "type": "object",
         "example": {},
-        "required": ["branch", "number", "type"]
+        "required": [
+          "branch",
+          "number",
+          "type"
+        ]
       },
       "PaymentIntent": {
         "description": "Request with information related to a payment intent",
@@ -9479,7 +9976,10 @@
           },
           "paymentMethod": {
             "type": "string",
-            "enum": ["PIS", "PIX"],
+            "enum": [
+              "PIS",
+              "PIX"
+            ],
             "description": "Payment method can be PIS (Payment Initiation) or PIX",
             "default": "PIS"
           },
@@ -9515,7 +10015,9 @@
           }
         },
         "type": "object",
-        "required": ["amount"],
+        "required": [
+          "amount"
+        ],
         "example": {
           "id": "4cfe1f6d-ae71-4c35-aae0-8f8a535ffbbd",
           "status": "CONSENT_AWAITING_AUTHORIZATION",
@@ -9589,7 +10091,9 @@
           },
           "paymentMethod": {
             "type": "string",
-            "enum": ["PIS"],
+            "enum": [
+              "PIS"
+            ],
             "description": "Payment method can be PIS (Payment Initiation) or PIX (PIX QR flow)."
           },
           "isDynamicPix": {
@@ -9608,7 +10112,10 @@
             "description": "Primary identifier"
           },
           "type": {
-            "enum": ["INDIVIDUAL", "BUSINESS"],
+            "enum": [
+              "INDIVIDUAL",
+              "BUSINESS"
+            ],
             "type": "string",
             "description": "Customer type"
           },
@@ -9630,7 +10137,11 @@
           }
         },
         "type": "object",
-        "required": ["id", "type", "name"],
+        "required": [
+          "id",
+          "type",
+          "name"
+        ],
         "example": {
           "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
           "type": "INDIVIDUAL",
@@ -9643,7 +10154,10 @@
         "description": "Response with information related to a payment customer",
         "properties": {
           "type": {
-            "enum": ["INDIVIDUAL", "BUSINESS"],
+            "enum": [
+              "INDIVIDUAL",
+              "BUSINESS"
+            ],
             "type": "string",
             "description": "Customer type"
           },
@@ -9665,7 +10179,11 @@
           }
         },
         "type": "object",
-        "required": ["id", "type", "name"],
+        "required": [
+          "id",
+          "type",
+          "name"
+        ],
         "example": {
           "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
           "type": "INDIVIDUAL",
@@ -9682,7 +10200,10 @@
             "description": "Primary identifier"
           },
           "type": {
-            "enum": ["INDIVIDUAL", "BUSINESS"],
+            "enum": [
+              "INDIVIDUAL",
+              "BUSINESS"
+            ],
             "type": "string",
             "description": "Customer type"
           },
@@ -9704,7 +10225,11 @@
           }
         },
         "type": "object",
-        "required": ["id", "type", "name"],
+        "required": [
+          "id",
+          "type",
+          "name"
+        ],
         "example": {
           "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
           "type": "INDIVIDUAL",
@@ -9749,7 +10274,14 @@
           }
         },
         "type": "object",
-        "required": ["id", "name", "taxNumber", "paymentInstitution", "isDefault", "account"],
+        "required": [
+          "id",
+          "name",
+          "taxNumber",
+          "paymentInstitution",
+          "isDefault",
+          "account"
+        ],
         "example": {
           "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
           "name": "Conta empresa",
@@ -9867,7 +10399,10 @@
           }
         },
         "type": "object",
-        "required": ["value", "qr"]
+        "required": [
+          "value",
+          "qr"
+        ]
       },
       "Boleto": {
         "description": "Boleto data",
@@ -9953,7 +10488,10 @@
           }
         },
         "type": "object",
-        "required": ["taxNumber", "name"]
+        "required": [
+          "taxNumber",
+          "name"
+        ]
       },
       "BoletoRecipient": {
         "description": "Boleto recipient information",
@@ -9968,7 +10506,10 @@
           }
         },
         "type": "object",
-        "required": ["taxNumber", "name"]
+        "required": [
+          "taxNumber",
+          "name"
+        ]
       },
       "SINGLE": {
         "title": "One time option",
@@ -9977,7 +10518,9 @@
           "type": {
             "type": "string",
             "description": "Scheduled type",
-            "enum": ["SINGLE"],
+            "enum": [
+              "SINGLE"
+            ],
             "example": "SINGLE"
           },
           "date": {
@@ -9987,7 +10530,10 @@
           }
         },
         "type": "object",
-        "required": ["type", "date"]
+        "required": [
+          "type",
+          "date"
+        ]
       },
       "DAILY": {
         "title": "Daily option",
@@ -9996,7 +10542,9 @@
           "type": {
             "type": "string",
             "description": "Scheduled type",
-            "enum": ["DAILY"],
+            "enum": [
+              "DAILY"
+            ],
             "example": "DAILY"
           },
           "startDate": {
@@ -10015,7 +10563,11 @@
           }
         },
         "type": "object",
-        "required": ["type", "startDate", "quantity"]
+        "required": [
+          "type",
+          "startDate",
+          "quantity"
+        ]
       },
       "WEEKLY": {
         "title": "Weekly option",
@@ -10024,7 +10576,9 @@
           "type": {
             "type": "string",
             "description": "Scheduled type",
-            "enum": ["WEEKLY"],
+            "enum": [
+              "WEEKLY"
+            ],
             "example": "WEEKLY"
           },
           "startDate": {
@@ -10036,7 +10590,15 @@
           "dayOfWeek": {
             "type": "string",
             "description": "Day of the week on which each payment will occur. For instance, if set to 'MONDAY', the first payment will occur on the first monday after the startDate (or the same day, if it is already monday), and every monday after that.",
-            "enum": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURDSAY", "FRIDAY", "SATURDAY", "SUNDAY"],
+            "enum": [
+              "MONDAY",
+              "TUESDAY",
+              "WEDNESDAY",
+              "THURDSAY",
+              "FRIDAY",
+              "SATURDAY",
+              "SUNDAY"
+            ],
             "example": "MONDAY"
           },
           "occurrences": {
@@ -10049,7 +10611,12 @@
           }
         },
         "type": "object",
-        "required": ["type", "startDate", "dayOfWeek", "quantity"]
+        "required": [
+          "type",
+          "startDate",
+          "dayOfWeek",
+          "quantity"
+        ]
       },
       "MONTHLY": {
         "title": "Monthly option",
@@ -10058,7 +10625,9 @@
           "type": {
             "type": "string",
             "description": "Scheduled type",
-            "enum": ["MONTHLY"],
+            "enum": [
+              "MONTHLY"
+            ],
             "example": "MONTHLY"
           },
           "startDate": {
@@ -10083,7 +10652,12 @@
           }
         },
         "type": "object",
-        "required": ["type", "startDate", "dayOfMonth", "quantity"]
+        "required": [
+          "type",
+          "startDate",
+          "dayOfMonth",
+          "quantity"
+        ]
       },
       "CUSTOM": {
         "title": "Customized option",
@@ -10091,7 +10665,9 @@
         "properties": {
           "type": {
             "description": "Scheduled type",
-            "enum": ["CUSTOM"],
+            "enum": [
+              "CUSTOM"
+            ],
             "example": "CUSTOM"
           },
           "dates": {
@@ -10108,7 +10684,10 @@
           }
         },
         "type": "object",
-        "required": ["type", "dates"]
+        "required": [
+          "type",
+          "dates"
+        ]
       },
       "PageResponseConsents": {
         "description": "",
@@ -10137,7 +10716,12 @@
           }
         },
         "type": "object",
-        "required": ["results", "page", "total", "totalPages"]
+        "required": [
+          "results",
+          "page",
+          "total",
+          "totalPages"
+        ]
       },
       "Consent": {
         "description": "Item consent information",
@@ -10212,7 +10796,12 @@
           }
         },
         "type": "object",
-        "required": ["id", "itemId", "products", "createdAt"]
+        "required": [
+          "id",
+          "itemId",
+          "products",
+          "createdAt"
+        ]
       },
       "SmartTransferPreauthorization": {
         "description": "Smart transfer preauthorization",
@@ -10224,7 +10813,13 @@
           "status": {
             "type": "string",
             "description": "Preauthorization status",
-            "enum": ["CREATED", "COMPLETED", "REVOKED", "REJECTED", "ERROR"],
+            "enum": [
+              "CREATED",
+              "COMPLETED",
+              "REVOKED",
+              "REJECTED",
+              "ERROR"
+            ],
             "example": "COMPLETED"
           },
           "consentUrl": {
@@ -10259,7 +10854,14 @@
           }
         },
         "type": "object",
-        "required": ["id", "status", "recipients", "connector", "createdAt", "updatedAt"]
+        "required": [
+          "id",
+          "status",
+          "recipients",
+          "connector",
+          "createdAt",
+          "updatedAt"
+        ]
       },
       "SmartTransferCallbackUrls": {
         "description": "Redirect urls after the preauthorization flow was completed or ended in error status",
@@ -10301,7 +10903,11 @@
             "description": "Client preauthorization identifier"
           }
         },
-        "required": ["connectorId", "parameters", "recipientIds"]
+        "required": [
+          "connectorId",
+          "parameters",
+          "recipientIds"
+        ]
       },
       "SmartTransferPreauthorizationParameter": {
         "description": "Credentials neccesary to create a smart transfer preauthorization",
@@ -10320,7 +10926,9 @@
           "cpf": "416.799.495-00",
           "cnpj": "41.679.495/0001-00"
         },
-        "required": ["cpf"]
+        "required": [
+          "cpf"
+        ]
       },
       "SmartTransferPayment": {
         "description": "Smart transfer payment",
@@ -10410,7 +11018,11 @@
             "description": "Client payment identifier"
           }
         },
-        "required": ["preauthorizationId", "recipientId", "amount"]
+        "required": [
+          "preauthorizationId",
+          "recipientId",
+          "amount"
+        ]
       },
       "PaymentDataBoletoMetadata": {
         "description": "Information of the boleto associated with the payment",
@@ -10444,7 +11056,10 @@
       "CreateBoletoConnection": {
         "description": "Request with information to create a boleto connection",
         "type": "object",
-        "required": ["connectorId", "credentials"],
+        "required": [
+          "connectorId",
+          "credentials"
+        ],
         "properties": {
           "connectorId": {
             "type": "integer",
@@ -10472,7 +11087,9 @@
       "CreateBoletoConnectionFromItem": {
         "description": "Request with information to create a boleto connection from an Item",
         "type": "object",
-        "required": ["itemId"],
+        "required": [
+          "itemId"
+        ],
         "properties": {
           "itemId": {
             "type": "string",
@@ -10508,7 +11125,12 @@
             "description": "Date when the connection was last updated"
           }
         },
-        "required": ["id", "connectorId", "createdAt", "updatedAt"],
+        "required": [
+          "id",
+          "connectorId",
+          "createdAt",
+          "updatedAt"
+        ],
         "example": {
           "id": "dc3537ad-13b4-4770-b248-e4578983899c",
           "connectorId": 225,
@@ -10573,7 +11195,12 @@
                     "description": "Payer ZIP code"
                   }
                 },
-                "required": ["taxNumber", "name", "addressState", "addressZipCode"]
+                "required": [
+                  "taxNumber",
+                  "name",
+                  "addressState",
+                  "addressZipCode"
+                ]
               },
               "fine": {
                 "type": "object",
@@ -10586,11 +11213,17 @@
                   },
                   "type": {
                     "type": "string",
-                    "enum": ["PERCENTAGE", "FIXED"],
+                    "enum": [
+                      "PERCENTAGE",
+                      "FIXED"
+                    ],
                     "description": "Type of fine calculation"
                   }
                 },
-                "required": ["value", "type"]
+                "required": [
+                  "value",
+                  "type"
+                ]
               },
               "interest": {
                 "type": "object",
@@ -10603,17 +11236,30 @@
                   },
                   "type": {
                     "type": "string",
-                    "enum": ["PERCENTAGE"],
+                    "enum": [
+                      "PERCENTAGE"
+                    ],
                     "description": "Type of interest calculation"
                   }
                 },
-                "required": ["value", "type"]
+                "required": [
+                  "value",
+                  "type"
+                ]
               }
             },
-            "required": ["seuNumero", "amount", "dueDate", "payer"]
+            "required": [
+              "seuNumero",
+              "amount",
+              "dueDate",
+              "payer"
+            ]
           }
         },
-        "required": ["boletoConnectionId", "boleto"]
+        "required": [
+          "boletoConnectionId",
+          "boleto"
+        ]
       },
       "IssuedBoleto": {
         "description": "Response with information related to an issued boleto",
@@ -10631,7 +11277,12 @@
           "status": {
             "type": "string",
             "description": "Current status of the boleto",
-            "enum": ["OPEN", "PAID", "OVERDUE", "CANCELLED"]
+            "enum": [
+              "OPEN",
+              "PAID",
+              "OVERDUE",
+              "CANCELLED"
+            ]
           },
           "seuNumero": {
             "type": "string",
@@ -10705,10 +11356,18 @@
               "paymentOrigin": {
                 "type": "string",
                 "description": "Payment origin for the boleto",
-                "enum": ["PIX", "BOLETO"]
+                "enum": [
+                  "PIX",
+                  "BOLETO"
+                ]
               }
             },
-            "required": ["taxNumber", "name", "addressState", "addressZipCode"]
+            "required": [
+              "taxNumber",
+              "name",
+              "addressState",
+              "addressZipCode"
+            ]
           },
           "pixQr": {
             "type": "string",
@@ -10743,7 +11402,10 @@
           },
           "paymentOrigin": {
             "type": "string",
-            "enum": ["PIX", "BOLETO"],
+            "enum": [
+              "PIX",
+              "BOLETO"
+            ],
             "description": "Origin of the payment when the boleto is paid",
             "nullable": true
           },
@@ -10757,7 +11419,10 @@
               },
               "type": {
                 "type": "string",
-                "enum": ["PERCENTAGE", "FIXED"],
+                "enum": [
+                  "PERCENTAGE",
+                  "FIXED"
+                ],
                 "description": "Type of fine calculation"
               }
             },
@@ -10774,7 +11439,9 @@
               },
               "type": {
                 "type": "string",
-                "enum": ["PERCENTAGE"],
+                "enum": [
+                  "PERCENTAGE"
+                ],
                 "description": "Type of interest calculation"
               }
             },
@@ -10799,13 +11466,161 @@
           "barcode",
           "boletoConnectionId"
         ]
+      },
+      "CreateAutomaticPixPaymentRequest": {
+        "description": "Automatic PIX data",
+        "type": "object",
+        "properties": {
+          "fixedAmount": {
+            "type": "number",
+            "description": "Fixed charge amount; if filled in, it represents consent for payments of fixed amounts, not subject to change during the validity of the consent. If it's sent, minimumVariableAmount and maximumVariableAmount cannot be provided."
+          },
+          "minimumVariableAmount": {
+            "type": "number",
+            "description": "Minimum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it's sent, fixedAmount cannot be provided."
+          },
+          "maximumVariableAmount": {
+            "type": "number",
+            "description": "Maximum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it's sent, fixedAmount cannot be provided."
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Represents the expected date for the first occurrence of a payment associated with the recurrence."
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration date for the automatic pix authorization"
+          },
+          "isRetryAccepted": {
+            "type": "boolean",
+            "description": "Indicates whether the receiving customer is allowed to make payment attempts, according to the rules established in the Pix arrangement."
+          },
+          "firstPayment": {
+            "$ref": "#/components/schemas/AutomaticPixFirstPayment"
+          },
+          "interval": {
+            "type": "string",
+            "enum": [
+              "WEEKLY",
+              "MONTHLY",
+              "QUARTERLY",
+              "SEMESTER",
+              "YEARLY"
+            ],
+            "description": "Defines the permitted frequency for carrying out transactions."
+          },
+          "callbackUrls": {
+            "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
+          },
+          "recipientId": {
+            "type": "string",
+            "description": "Primary identifier of the payment recipient"
+          },
+          "clientPaymentId": {
+            "type": "string",
+            "description": "Client payment identifier"
+          },
+          "customerId": {
+            "type": "string",
+            "description": "Primary identifier of the customer"
+          }
+        },
+        "required": [
+          "startDate",
+          "interval",
+          "recipientId"
+        ]
+      },
+      "AutomaticPixFirstPayment": {
+        "description": "Definitions for the first payment. It is considered as the user's enrollment payment for the service.",
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Defines the target settlement date of the first payment. If not provided, it will be settled immediately"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description for the first payment. If not provided, the description will be the same as the description of the payment request"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount for the first payment."
+          }
+        },
+        "required": [
+          "amount"
+        ]
+      },
+      "PaymentIntentAutomaticPix": {
+        "description": "Automatic PIX data",
+        "type": "object",
+        "properties": {
+          "fixedAmount": {
+            "type": "number",
+            "description": "Fixed charge amount; if filled in, it represents consent for payments of fixed amounts, not subject to change during the validity of the consent. If it's sent, minimumVariableAmount and maximumVariableAmount cannot be provided."
+          },
+          "minimumVariableAmount": {
+            "type": "number",
+            "description": "Minimum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it's sent, fixedAmount cannot be provided."
+          },
+          "maximumVariableAmount": {
+            "type": "number",
+            "description": "Maximum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it's sent, fixedAmount cannot be provided."
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Represents the expected date for the first occurrence of a payment associated with the recurrence."
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration date for the automatic pix authorization"
+          },
+          "isRetryAccepted": {
+            "type": "boolean",
+            "description": "Indicates whether the receiving customer is allowed to make payment attempts, according to the rules established in the Pix arrangement."
+          },
+          "firstPayment": {
+            "$ref": "#/components/schemas/AutomaticPixFirstPayment"
+          },
+          "interval": {
+            "type": "string",
+            "enum": [
+              "WEEKLY",
+              "MONTHLY",
+              "QUARTERLY",
+              "SEMESTER",
+              "YEARLY"
+            ],
+            "description": "Defines the permitted frequency for carrying out transactions."
+          }
+        },
+        "required": [
+          "startDate",
+          "interval"
+        ]
       }
     },
     "x-readme": {
       "explorer-enabled": true,
       "proxy-enabled": true,
       "samples-enabled": true,
-      "samples-languages": ["curl", "node", "csharp", "java", "python", "php", "ruby", "go", "r"]
+      "samples-languages": [
+        "curl",
+        "node",
+        "csharp",
+        "java",
+        "python",
+        "php",
+        "ruby",
+        "go",
+        "r"
+      ]
     }
   }
 }
