@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **cpf** | **str** | CPF of the payer | 
 **cnpj** | **str** | CNPJ of the payer | [optional] 
+**name** | **str** | Name of the payer. Only required for automatic pix payment requests. | [optional] 
 
 ## Example
 

@@ -15,12 +15,13 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post45"
+__version__ = "1.0.0.post46"
 
 # Define package exports
 __all__ = [
     "AccountApi",
     "AuthApi",
+    "AutomaticPIXApi",
     "BillApi",
     "BoletoManagementApi",
     "CategoryApi",
@@ -53,6 +54,7 @@ __all__ = [
     "Address",
     "AuthRequest",
     "AuthResponse",
+    "AutomaticPixFirstPayment",
     "BankData",
     "Bill",
     "BillFinanceCharge",
@@ -74,6 +76,7 @@ __all__ = [
     "ConnectorListResponse",
     "ConnectorUserAction",
     "Consent",
+    "CreateAutomaticPixPaymentRequest",
     "CreateBoleto",
     "CreateBoletoBoleto",
     "CreateBoletoBoletoFine",
@@ -154,6 +157,7 @@ __all__ = [
     "PaymentDataParticipant",
     "PaymentInstitution",
     "PaymentIntent",
+    "PaymentIntentAutomaticPix",
     "PaymentIntentErrorDetail",
     "PaymentIntentParameter",
     "PaymentIntentsList200Response",
@@ -195,6 +199,7 @@ __all__ = [
 # import apis into sdk package
 from pluggy_sdk.api.account_api import AccountApi as AccountApi
 from pluggy_sdk.api.auth_api import AuthApi as AuthApi
+from pluggy_sdk.api.automatic_pix_api import AutomaticPIXApi as AutomaticPIXApi
 from pluggy_sdk.api.bill_api import BillApi as BillApi
 from pluggy_sdk.api.boleto_management_api import BoletoManagementApi as BoletoManagementApi
 from pluggy_sdk.api.category_api import CategoryApi as CategoryApi
@@ -231,6 +236,7 @@ from pluggy_sdk.models.additional_card import AdditionalCard as AdditionalCard
 from pluggy_sdk.models.address import Address as Address
 from pluggy_sdk.models.auth_request import AuthRequest as AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse as AuthResponse
+from pluggy_sdk.models.automatic_pix_first_payment import AutomaticPixFirstPayment as AutomaticPixFirstPayment
 from pluggy_sdk.models.bank_data import BankData as BankData
 from pluggy_sdk.models.bill import Bill as Bill
 from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge as BillFinanceCharge
@@ -252,6 +258,7 @@ from pluggy_sdk.models.connector_health_details import ConnectorHealthDetails as
 from pluggy_sdk.models.connector_list_response import ConnectorListResponse as ConnectorListResponse
 from pluggy_sdk.models.connector_user_action import ConnectorUserAction as ConnectorUserAction
 from pluggy_sdk.models.consent import Consent as Consent
+from pluggy_sdk.models.create_automatic_pix_payment_request import CreateAutomaticPixPaymentRequest as CreateAutomaticPixPaymentRequest
 from pluggy_sdk.models.create_boleto import CreateBoleto as CreateBoleto
 from pluggy_sdk.models.create_boleto_boleto import CreateBoletoBoleto as CreateBoletoBoleto
 from pluggy_sdk.models.create_boleto_boleto_fine import CreateBoletoBoletoFine as CreateBoletoBoletoFine
@@ -332,6 +339,7 @@ from pluggy_sdk.models.payment_data_boleto_metadata import PaymentDataBoletoMeta
 from pluggy_sdk.models.payment_data_participant import PaymentDataParticipant as PaymentDataParticipant
 from pluggy_sdk.models.payment_institution import PaymentInstitution as PaymentInstitution
 from pluggy_sdk.models.payment_intent import PaymentIntent as PaymentIntent
+from pluggy_sdk.models.payment_intent_automatic_pix import PaymentIntentAutomaticPix as PaymentIntentAutomaticPix
 from pluggy_sdk.models.payment_intent_error_detail import PaymentIntentErrorDetail as PaymentIntentErrorDetail
 from pluggy_sdk.models.payment_intent_parameter import PaymentIntentParameter as PaymentIntentParameter
 from pluggy_sdk.models.payment_intents_list200_response import PaymentIntentsList200Response as PaymentIntentsList200Response

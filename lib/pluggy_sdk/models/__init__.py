@@ -21,6 +21,7 @@ from pluggy_sdk.models.additional_card import AdditionalCard
 from pluggy_sdk.models.address import Address
 from pluggy_sdk.models.auth_request import AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse
+from pluggy_sdk.models.automatic_pix_first_payment import AutomaticPixFirstPayment
 from pluggy_sdk.models.bank_data import BankData
 from pluggy_sdk.models.bill import Bill
 from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge
@@ -42,6 +43,7 @@ from pluggy_sdk.models.connector_health_details import ConnectorHealthDetails
 from pluggy_sdk.models.connector_list_response import ConnectorListResponse
 from pluggy_sdk.models.connector_user_action import ConnectorUserAction
 from pluggy_sdk.models.consent import Consent
+from pluggy_sdk.models.create_automatic_pix_payment_request import CreateAutomaticPixPaymentRequest
 from pluggy_sdk.models.create_boleto import CreateBoleto
 from pluggy_sdk.models.create_boleto_boleto import CreateBoletoBoleto
 from pluggy_sdk.models.create_boleto_boleto_fine import CreateBoletoBoletoFine
@@ -122,6 +124,7 @@ from pluggy_sdk.models.payment_data_boleto_metadata import PaymentDataBoletoMeta
 from pluggy_sdk.models.payment_data_participant import PaymentDataParticipant
 from pluggy_sdk.models.payment_institution import PaymentInstitution
 from pluggy_sdk.models.payment_intent import PaymentIntent
+from pluggy_sdk.models.payment_intent_automatic_pix import PaymentIntentAutomaticPix
 from pluggy_sdk.models.payment_intent_error_detail import PaymentIntentErrorDetail
 from pluggy_sdk.models.payment_intent_parameter import PaymentIntentParameter
 from pluggy_sdk.models.payment_intents_list200_response import PaymentIntentsList200Response

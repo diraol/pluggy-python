@@ -3,6 +3,7 @@
 # import apis into api package
 from pluggy_sdk.api.account_api import AccountApi
 from pluggy_sdk.api.auth_api import AuthApi
+from pluggy_sdk.api.automatic_pix_api import AutomaticPIXApi
 from pluggy_sdk.api.bill_api import BillApi
 from pluggy_sdk.api.boleto_management_api import BoletoManagementApi
 from pluggy_sdk.api.category_api import CategoryApi

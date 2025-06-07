@@ -11,6 +11,8 @@ docs/Address.md
 docs/AuthApi.md
 docs/AuthRequest.md
 docs/AuthResponse.md
+docs/AutomaticPIXApi.md
+docs/AutomaticPixFirstPayment.md
 docs/BankData.md
 docs/Bill.md
 docs/BillApi.md
@@ -37,6 +39,7 @@ docs/ConnectorListResponse.md
 docs/ConnectorUserAction.md
 docs/Consent.md
 docs/ConsentApi.md
+docs/CreateAutomaticPixPaymentRequest.md
 docs/CreateBoleto.md
 docs/CreateBoletoBoleto.md
 docs/CreateBoletoBoletoFine.md
@@ -123,6 +126,7 @@ docs/PaymentDataParticipant.md
 docs/PaymentInstitution.md
 docs/PaymentIntent.md
 docs/PaymentIntentApi.md
+docs/PaymentIntentAutomaticPix.md
 docs/PaymentIntentErrorDetail.md
 docs/PaymentIntentParameter.md
 docs/PaymentIntentsList200Response.md
@@ -170,6 +174,7 @@ pluggy_sdk/__init__.py
 pluggy_sdk/api/__init__.py
 pluggy_sdk/api/account_api.py
 pluggy_sdk/api/auth_api.py
+pluggy_sdk/api/automatic_pix_api.py
 pluggy_sdk/api/bill_api.py
 pluggy_sdk/api/boleto_management_api.py
 pluggy_sdk/api/category_api.py
@@ -198,6 +203,7 @@ pluggy_sdk/models/additional_card.py
 pluggy_sdk/models/address.py
 pluggy_sdk/models/auth_request.py
 pluggy_sdk/models/auth_response.py
+pluggy_sdk/models/automatic_pix_first_payment.py
 pluggy_sdk/models/bank_data.py
 pluggy_sdk/models/bill.py
 pluggy_sdk/models/bill_finance_charge.py
@@ -218,6 +224,7 @@ pluggy_sdk/models/connector_health_details.py
 pluggy_sdk/models/connector_list_response.py
 pluggy_sdk/models/connector_user_action.py
 pluggy_sdk/models/consent.py
+pluggy_sdk/models/create_automatic_pix_payment_request.py
 pluggy_sdk/models/create_boleto.py
 pluggy_sdk/models/create_boleto_boleto.py
 pluggy_sdk/models/create_boleto_boleto_fine.py
@@ -299,6 +306,7 @@ pluggy_sdk/models/payment_data_boleto_metadata.py
 pluggy_sdk/models/payment_data_participant.py
 pluggy_sdk/models/payment_institution.py
 pluggy_sdk/models/payment_intent.py
+pluggy_sdk/models/payment_intent_automatic_pix.py
 pluggy_sdk/models/payment_intent_error_detail.py
 pluggy_sdk/models/payment_intent_parameter.py
 pluggy_sdk/models/payment_intents_list200_response.py
@@ -343,6 +351,8 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_additional_card.py
-test/test_disaggregated_credit_limit.py
+test/test_automatic_pix_api.py
+test/test_automatic_pix_first_payment.py
+test/test_create_automatic_pix_payment_request.py
+test/test_payment_intent_automatic_pix.py
 tox.ini

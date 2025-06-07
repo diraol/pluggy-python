@@ -18,19 +18,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class PaymentIntentParameter(BaseModel):
+class AutomaticPixFirstPayment(BaseModel):
     """
-    Credentials neccesary to create a payment intent
+    Definitions for the first payment. It is considered as the user's enrollment payment for the service.
     """ # noqa: E501
-    cpf: StrictStr = Field(description="CPF of the payer")
-    cnpj: Optional[StrictStr] = Field(default=None, description="CNPJ of the payer")
-    name: Optional[StrictStr] = Field(default=None, description="Name of the payer. Only required for automatic pix payment requests.")
-    __properties: ClassVar[List[str]] = ["cpf", "cnpj", "name"]
+    var_date: Optional[datetime] = Field(default=None, description="Defines the target settlement date of the first payment. If not provided, it will be settled immediately", alias="date")
+    description: Optional[StrictStr] = Field(default=None, description="Description for the first payment. If not provided, the description will be the same as the description of the payment request")
+    amount: Union[StrictFloat, StrictInt] = Field(description="Amount for the first payment.")
+    __properties: ClassVar[List[str]] = ["date", "description", "amount"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +51,7 @@ class PaymentIntentParameter(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of PaymentIntentParameter from a JSON string"""
+        """Create an instance of AutomaticPixFirstPayment from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,7 +76,7 @@ class PaymentIntentParameter(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of PaymentIntentParameter from a dict"""
+        """Create an instance of AutomaticPixFirstPayment from a dict"""
         if obj is None:
             return None
 
@@ -83,9 +84,9 @@ class PaymentIntentParameter(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "cpf": obj.get("cpf"),
-            "cnpj": obj.get("cnpj"),
-            "name": obj.get("name")
+            "date": obj.get("date"),
+            "description": obj.get("description"),
+            "amount": obj.get("amount")
         })
         return _obj
 
