@@ -4903,12 +4903,67 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PaymentRequest"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "d7059555-eadc-4f63-bb8c-1fb367b8dac6",
+                      "description": "Automatic PIX",
+                      "status": "CREATED",
+                      "createdAt": "2025-06-10T17:50:12.919Z",
+                      "updatedAt": "2025-06-10T17:50:12.919Z",
+                      "callbackUrls": null,
+                      "paymentUrl": "https://pay.pluggy.ai/d7059555-eadc-4f63-bb8c-1fb367b8dacd",
+                      "bulkPaymentId": null,
+                      "recipient": {
+                        "type": "BANK_ACCOUNT",
+                        "id": "02a1fde6-5183-4571-85cc-1ada6d25839d",
+                        "name": "My recipient",
+                        "taxNumber": "11111111111111",
+                        "isDefault": false,
+                        "paymentInstitution": {
+                          "id": "6dc10a50-c8ef-4c10-a505-84e701c2cfbb",
+                          "name": "Banco C6 S.A.",
+                          "tradeName": "BCO C6 S.A.",
+                          "ispb": "31872495",
+                          "compe": "336",
+                          "createdAt": "2023-12-08T11:44:20.234Z",
+                          "updatedAt": "2023-12-08T11:44:20.234Z"
+                        },
+                        "account": {
+                          "type": "*******",
+                          "number": "******396",
+                          "branch": "*001"
+                        },
+                        "pixKey": null,
+                        "createdAt": "2025-06-03T20:29:10.846Z",
+                        "updatedAt": "2025-06-03T20:29:10.846Z"
+                      },
+                      "clientPaymentId": null,
+                      "customer": null,
+                      "fees": null,
+                      "pixQrCode": null,
+                      "boleto": null,
+                      "smartAccount": null,
+                      "schedule": null,
+                      "automaticPix": {
+                        "interval": "WEEKLY",
+                        "expiresAt": "2025-06-16T03:00:00Z",
+                        "startDate": "2025-06-11",
+                        "fixedAmount": 0.01,
+                        "firstPayment": {
+                          "amount": 0.01
+                        }
+                      },
+                      "errorDetail": null
+                    }
+                  }
                 }
               }
             }
           }
         },
-        "description": "Creates the automatic PIX payment request resource",
+        "description": "Creates a payment request where the payment is made using automatic PIX. Once consent is granted by the user, payments can be scheduled according to the rules defined in the request.",
         "tags": [
           "Automatic PIX"
         ],
@@ -4945,6 +5000,352 @@
           },
           "required": true
         }
+      }
+    },
+    "/payments/requests/{id}/automatic-pix/schedule": {
+      "post": {
+        "operationId": "payment-request-create-automatic-pix-schedule",
+        "summary": "Schedule Automatic PIX payment",
+        "responses": {
+          "200": {
+            "description": "Schedule a Automatic PIX payment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutomaticPixPayment"
+                }
+              }
+            }
+          }
+        },
+        "description": "Schedules an Automatic PIX payment",
+        "tags": [
+          "Automatic PIX"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduleAutomaticPixPaymentRequest"
+              },
+              "examples": {
+                "request": {
+                  "value": {
+                    "amount": 100.5,
+                    "date": "2025-06-10",
+                    "description": "Transferência"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
+    },
+    "/payments/requests/{id}/automatic-pix/schedules": {
+      "get": {
+        "operationId": "payment-request-get-automatic-pix-schedules",
+        "summary": "List Automatic PIX scheduled payments",
+        "responses": {
+          "200": {
+            "description": "Recovers all automatic PIX payments from a payment request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "total": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "totalPages": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/AutomaticPixPayment"
+                      },
+                      "description": "List of automatic PIX payments"
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "page": 1,
+                      "total": 1,
+                      "totalPages": 1,
+                      "results": [
+                        {
+                          "id": "66d503f1-0cfa-4d64-9f87-0782d959eba7",
+                          "status": "SCHEDULED",
+                          "amount": 0.01,
+                          "description": "Teste pagamento schedule",
+                          "endToEndId": null,
+                          "date": "2025-06-08",
+                          "errorDetail": null
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Lists all Automatic PIX payments from a payment request",
+        "tags": [
+          "Automatic PIX"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
+    },
+    "/payments/requests/{requestId}/automatic-pix/schedules/{paymentId}": {
+      "get": {
+        "operationId": "payment-request-get-automatic-pix-schedule",
+        "summary": "Get an automatic PIX scheduled payment",
+        "responses": {
+          "200": {
+            "description": "Recovers an automatic PIX scheduled payment by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/AutomaticPixPayment"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "66d503f1-0cfa-4d64-9f87-0782d959eba7",
+                      "status": "SCHEDULED",
+                      "amount": 0.01,
+                      "description": "Teste pagamento schedule",
+                      "endToEndId": null,
+                      "date": "2025-06-08",
+                      "errorDetail": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Recovers an automatic PIX scheduled payment by id",
+        "tags": [
+          "Automatic PIX"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "requestId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          },
+          {
+            "description": "Automatic PIX scheduled payment primary identifier",
+            "in": "path",
+            "name": "paymentId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
+    },
+    "/payments/requests/{id}/automatic-pix/cancel": {
+      "post": {
+        "operationId": "payment-request-cancel-automatic-pix-consent",
+        "summary": "Cancel an automatic PIX consent",
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        },
+        "description": "Cancels an automatic PIX consent",
+        "tags": [
+          "Automatic PIX"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
+    },
+    "/payments/requests/{id}/automatic-pix/schedules/{scheduleId}/cancel": {
+      "post": {
+        "operationId": "cancel-automatic-pix-schedule",
+        "summary": "Cancel an Automatic PIX schedule",
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        },
+        "description": "Cancels an Automatic PIX schedule.",
+        "tags": [
+          "Automatic PIX"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          },
+          {
+            "description": "Automatic PIX schedule primary identifier",
+            "in": "path",
+            "name": "scheduleId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
+    },
+    "/payments/requests/{id}/automatic-pix/schedules/{scheduleId}/retry": {
+      "post": {
+        "operationId": "retry-automatic-pix-schedule",
+        "summary": "Retry an Automatic PIX schedule",
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        },
+        "description": "Retries an Automatic PIX schedule, only if the authorization accepts retries. The system allows up to 3 retry attempts. Requests must be submitted by 10pm on the day before the scheduled payment date.",
+        "tags": [
+          "Automatic PIX"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetryAutomaticPixPaymentRequest"
+              },
+              "examples": {
+                "request": {
+                  "value": {
+                    "date": "2025-06-10"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "description": "Payment request primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          },
+          {
+            "description": "Automatic PIX schedule primary identifier",
+            "in": "path",
+            "name": "scheduleId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
       }
     },
     "/payments/requests/pix-qr": {
@@ -9556,7 +9957,8 @@
               "ERROR",
               "REFUND_IN_PROGRESS",
               "REFUNDED",
-              "REFUND_ERROR"
+              "REFUND_ERROR",
+              "CANCELED"
             ],
             "type": "string",
             "description": "Payment request status"
@@ -9935,7 +10337,8 @@
               "PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT",
               "PAYMENT_COMPLETED",
               "POSSIBLE_FRAUD",
-              "TOP_UP_CNPJ_MISMATCH"
+              "TOP_UP_CNPJ_MISMATCH",
+              "REVOKED"
             ],
             "type": "string",
             "description": "Payment intent status"
@@ -10307,6 +10710,10 @@
       "CreatePaymentRecipient": {
         "description": "Request with information to create a payment recipient, there is two form to create a payment recipient, one with pixKey and other with taxNumber, name, paymentInstitutionId and account",
         "properties": {
+          "pixKey": {
+            "type": "string",
+            "description": "Pix key associated with the payment recipient. When sending this fields, the rest of the fields are ignored and use DICT to create the payment recipient."
+          },
           "taxNumber": {
             "type": "string",
             "description": "Account owner tax number. Can be CPF or CNPJ (only numbers). Send only when the pixKey is not sent."
@@ -10327,10 +10734,6 @@
               }
             ],
             "description": "Recipient's bank account destination. Send only if the pixKey is not sent."
-          },
-          "pixKey": {
-            "type": "string",
-            "description": "Pix key associated with the payment recipient"
           }
         },
         "type": "object",
@@ -10348,6 +10751,10 @@
       "UpdatePaymentRecipient": {
         "description": "Request with information to update a payment recipient",
         "properties": {
+          "pixKey": {
+            "type": "string",
+            "description": "Pix key associated with the payment recipient."
+          },
           "taxNumber": {
             "type": "string",
             "description": "Account owner tax number. Can be CPF or CNPJ (only numbers). Send only if the recipient doesn't have a pixKey."
@@ -10368,10 +10775,6 @@
               }
             ],
             "description": "Recipient's bank account destination. Send only if the recipient doesn't have a pixKey."
-          },
-          "pixKey": {
-            "type": "string",
-            "description": "Pix key associated with the payment recipient"
           }
         },
         "type": "object",
@@ -11483,15 +11886,19 @@
             "type": "number",
             "description": "Maximum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it's sent, fixedAmount cannot be provided."
           },
+          "description": {
+            "type": "string",
+            "description": "Description for the automatic pix authorization"
+          },
           "startDate": {
             "type": "string",
             "format": "date-time",
-            "description": "Represents the expected date for the first occurrence of a payment associated with the recurrence."
+            "description": "Represents the expected date for the first occurrence of a payment associated with the recurrence. Date format must be YYYY-MM-DD (for example: 2025-06-16)"
           },
           "expiresAt": {
             "type": "string",
             "format": "date-time",
-            "description": "Expiration date for the automatic pix authorization"
+            "description": "Expiration date for the automatic pix authorization. The date format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z)"
           },
           "isRetryAccepted": {
             "type": "boolean",
@@ -11540,7 +11947,7 @@
           "date": {
             "type": "string",
             "format": "date-time",
-            "description": "Defines the target settlement date of the first payment. If not provided, it will be settled immediately"
+            "description": "Defines the target settlement date of the first payment. If not provided, it will be settled immediately. Date format must be YYYY-MM-DD (for example: 2025-06-16)"
           },
           "description": {
             "type": "string",
@@ -11603,6 +12010,105 @@
         "required": [
           "startDate",
           "interval"
+        ]
+      },
+      "AutomaticPixPayment": {
+        "description": "Automatic PIX payment",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Payment primary identifier"
+          },
+          "status": {
+            "type": "string",
+            "description": "Payment status",
+            "enum": [
+              "SCHEDULED",
+              "CREATED",
+              "COMPLETED",
+              "CANCELED",
+              "ERROR"
+            ]
+          },
+          "amount": {
+            "type": "number",
+            "description": "Payment amount"
+          },
+          "description": {
+            "type": "string",
+            "description": "Payment description"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Payment scheduled date"
+          },
+          "endToEndId": {
+            "type": "string",
+            "description": "Payment end to end identifier"
+          },
+          "errorDetail": {
+            "type": "object",
+            "description": "Details about an error that occurred with the scheduled payment",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code"
+              },
+              "description": {
+                "type": "string",
+                "description": "Human-readable description of the error"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Additional details about the error in the provider's language"
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "amount",
+          "date"
+        ]
+      },
+      "ScheduleAutomaticPixPaymentRequest": {
+        "description": "Request to schedule an Automatic PIX payment",
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Transaction value"
+          },
+          "description": {
+            "type": "string",
+            "description": "Transaction description"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "The payment date, which must fall between D+2 and D+10. Date format must be YYYY-MM-DD (for example: 2025-06-16)"
+          }
+        },
+        "required": [
+          "amount",
+          "date"
+        ]
+      },
+      "RetryAutomaticPixPaymentRequest": {
+        "description": "Request to retry an automatic PIX payment",
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "The date to retry the payment within a 7-day window. Date format must be YYYY-MM-DD (for example: 2025-06-16)"
+          }
+        },
+        "required": [
+          "date"
         ]
       }
     },
