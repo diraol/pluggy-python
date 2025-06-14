@@ -18,22 +18,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from pluggy_sdk.models.payment_recipient_account import PaymentRecipientAccount
+from datetime import date
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class UpdatePaymentRecipient(BaseModel):
+class ScheduleAutomaticPixPaymentRequest(BaseModel):
     """
-    Request with information to update a payment recipient
+    Request to schedule an Automatic PIX payment
     """ # noqa: E501
-    pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient.", alias="pixKey")
-    tax_number: Optional[StrictStr] = Field(default=None, description="Account owner tax number. Can be CPF or CNPJ (only numbers). Send only if the recipient doesn't have a pixKey.", alias="taxNumber")
-    name: Optional[StrictStr] = Field(default=None, description="Account owner name. Send only if the recipient doesn't have a pixKey.")
-    payment_institution_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the institution associated to the payment recipient. Send only if the recipient doesn't have a pixKey.", alias="paymentInstitutionId")
-    account: Optional[PaymentRecipientAccount] = Field(default=None, description="Recipient's bank account destination. Send only if the recipient doesn't have a pixKey.")
-    __properties: ClassVar[List[str]] = ["pixKey", "taxNumber", "name", "paymentInstitutionId", "account"]
+    amount: Union[StrictFloat, StrictInt] = Field(description="Transaction value")
+    description: Optional[StrictStr] = Field(default=None, description="Transaction description")
+    var_date: date = Field(description="The payment date, which must fall between D+2 and D+10. Date format must be YYYY-MM-DD (for example: 2025-06-16)", alias="date")
+    __properties: ClassVar[List[str]] = ["amount", "description", "date"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -53,7 +51,7 @@ class UpdatePaymentRecipient(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of UpdatePaymentRecipient from a JSON string"""
+        """Create an instance of ScheduleAutomaticPixPaymentRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -74,14 +72,11 @@ class UpdatePaymentRecipient(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of account
-        if self.account:
-            _dict['account'] = self.account.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of UpdatePaymentRecipient from a dict"""
+        """Create an instance of ScheduleAutomaticPixPaymentRequest from a dict"""
         if obj is None:
             return None
 
@@ -89,11 +84,9 @@ class UpdatePaymentRecipient(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pixKey": obj.get("pixKey"),
-            "taxNumber": obj.get("taxNumber"),
-            "name": obj.get("name"),
-            "paymentInstitutionId": obj.get("paymentInstitutionId"),
-            "account": PaymentRecipientAccount.from_dict(obj["account"]) if obj.get("account") is not None else None
+            "amount": obj.get("amount"),
+            "description": obj.get("description"),
+            "date": obj.get("date")
         })
         return _obj
 

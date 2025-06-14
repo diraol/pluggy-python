@@ -6,11 +6,11 @@ Request with information to create a payment recipient, there is two form to cre
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**pix_key** | **str** | Pix key associated with the payment recipient. When sending this fields, the rest of the fields are ignored and use DICT to create the payment recipient. | [optional] 
 **tax_number** | **str** | Account owner tax number. Can be CPF or CNPJ (only numbers). Send only when the pixKey is not sent. | [optional] 
 **name** | **str** | Account owner name. Send only this when the pixKey is not sent. | [optional] 
 **payment_institution_id** | **str** | Primary identifier of the institution associated to the payment recipient. Send only when the pixKey is not sent. | [optional] 
 **account** | [**PaymentRecipientAccount**](PaymentRecipientAccount.md) | Recipient&#39;s bank account destination. Send only if the pixKey is not sent. | [optional] 
-**pix_key** | **str** | Pix key associated with the payment recipient | [optional] 
 
 ## Example
 

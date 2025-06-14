@@ -22,6 +22,7 @@ from pluggy_sdk.models.address import Address
 from pluggy_sdk.models.auth_request import AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse
 from pluggy_sdk.models.automatic_pix_first_payment import AutomaticPixFirstPayment
+from pluggy_sdk.models.automatic_pix_payment import AutomaticPixPayment
 from pluggy_sdk.models.bank_data import BankData
 from pluggy_sdk.models.bill import Bill
 from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge
@@ -135,12 +136,15 @@ from pluggy_sdk.models.payment_recipients_list200_response import PaymentRecipie
 from pluggy_sdk.models.payment_request import PaymentRequest
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
 from pluggy_sdk.models.payment_request_error_detail import PaymentRequestErrorDetail
+from pluggy_sdk.models.payment_request_get_automatic_pix_schedules200_response import PaymentRequestGetAutomaticPixSchedules200Response
 from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule
 from pluggy_sdk.models.payment_requests_list200_response import PaymentRequestsList200Response
 from pluggy_sdk.models.payment_schedules_list200_response import PaymentSchedulesList200Response
 from pluggy_sdk.models.phone_number import PhoneNumber
 from pluggy_sdk.models.pix_data import PixData
+from pluggy_sdk.models.retry_automatic_pix_payment_request import RetryAutomaticPixPaymentRequest
 from pluggy_sdk.models.single import SINGLE
+from pluggy_sdk.models.schedule_automatic_pix_payment_request import ScheduleAutomaticPixPaymentRequest
 from pluggy_sdk.models.schedule_payment import SchedulePayment
 from pluggy_sdk.models.schedule_payment_error_detail import SchedulePaymentErrorDetail
 from pluggy_sdk.models.smart_tranfers_preauthorizations_list200_response import SmartTranfersPreauthorizationsList200Response

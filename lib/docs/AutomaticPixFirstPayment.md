@@ -6,7 +6,7 @@ Definitions for the first payment. It is considered as the user's enrollment pay
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**var_date** | **datetime** | Defines the target settlement date of the first payment. If not provided, it will be settled immediately | [optional] 
+**var_date** | **datetime** | Defines the target settlement date of the first payment. If not provided, it will be settled immediately. Date format must be YYYY-MM-DD (for example: 2025-06-16) | [optional] 
 **description** | **str** | Description for the first payment. If not provided, the description will be the same as the description of the payment request | [optional] 
 **amount** | **float** | Amount for the first payment. | 
 

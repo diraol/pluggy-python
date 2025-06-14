@@ -18,22 +18,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from pluggy_sdk.models.payment_recipient_account import PaymentRecipientAccount
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from pluggy_sdk.models.automatic_pix_payment import AutomaticPixPayment
 from typing import Optional, Set
 from typing_extensions import Self
 
-class UpdatePaymentRecipient(BaseModel):
+class PaymentRequestGetAutomaticPixSchedules200Response(BaseModel):
     """
-    Request with information to update a payment recipient
+    PaymentRequestGetAutomaticPixSchedules200Response
     """ # noqa: E501
-    pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient.", alias="pixKey")
-    tax_number: Optional[StrictStr] = Field(default=None, description="Account owner tax number. Can be CPF or CNPJ (only numbers). Send only if the recipient doesn't have a pixKey.", alias="taxNumber")
-    name: Optional[StrictStr] = Field(default=None, description="Account owner name. Send only if the recipient doesn't have a pixKey.")
-    payment_institution_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the institution associated to the payment recipient. Send only if the recipient doesn't have a pixKey.", alias="paymentInstitutionId")
-    account: Optional[PaymentRecipientAccount] = Field(default=None, description="Recipient's bank account destination. Send only if the recipient doesn't have a pixKey.")
-    __properties: ClassVar[List[str]] = ["pixKey", "taxNumber", "name", "paymentInstitutionId", "account"]
+    page: Optional[Union[StrictFloat, StrictInt]] = None
+    total: Optional[Union[StrictFloat, StrictInt]] = None
+    total_pages: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="totalPages")
+    results: Optional[List[AutomaticPixPayment]] = Field(default=None, description="List of automatic PIX payments")
+    __properties: ClassVar[List[str]] = ["page", "total", "totalPages", "results"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -53,7 +52,7 @@ class UpdatePaymentRecipient(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of UpdatePaymentRecipient from a JSON string"""
+        """Create an instance of PaymentRequestGetAutomaticPixSchedules200Response from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -74,14 +73,18 @@ class UpdatePaymentRecipient(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of account
-        if self.account:
-            _dict['account'] = self.account.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in results (list)
+        _items = []
+        if self.results:
+            for _item_results in self.results:
+                if _item_results:
+                    _items.append(_item_results.to_dict())
+            _dict['results'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of UpdatePaymentRecipient from a dict"""
+        """Create an instance of PaymentRequestGetAutomaticPixSchedules200Response from a dict"""
         if obj is None:
             return None
 
@@ -89,11 +92,10 @@ class UpdatePaymentRecipient(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pixKey": obj.get("pixKey"),
-            "taxNumber": obj.get("taxNumber"),
-            "name": obj.get("name"),
-            "paymentInstitutionId": obj.get("paymentInstitutionId"),
-            "account": PaymentRecipientAccount.from_dict(obj["account"]) if obj.get("account") is not None else None
+            "page": obj.get("page"),
+            "total": obj.get("total"),
+            "totalPages": obj.get("totalPages"),
+            "results": [AutomaticPixPayment.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None
         })
         return _obj
 

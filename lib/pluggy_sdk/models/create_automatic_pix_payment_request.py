@@ -33,8 +33,9 @@ class CreateAutomaticPixPaymentRequest(BaseModel):
     fixed_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Fixed charge amount; if filled in, it represents consent for payments of fixed amounts, not subject to change during the validity of the consent. If it's sent, minimumVariableAmount and maximumVariableAmount cannot be provided.", alias="fixedAmount")
     minimum_variable_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Minimum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it's sent, fixedAmount cannot be provided.", alias="minimumVariableAmount")
     maximum_variable_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Maximum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it's sent, fixedAmount cannot be provided.", alias="maximumVariableAmount")
-    start_date: datetime = Field(description="Represents the expected date for the first occurrence of a payment associated with the recurrence.", alias="startDate")
-    expires_at: Optional[datetime] = Field(default=None, description="Expiration date for the automatic pix authorization", alias="expiresAt")
+    description: Optional[StrictStr] = Field(default=None, description="Description for the automatic pix authorization")
+    start_date: datetime = Field(description="Represents the expected date for the first occurrence of a payment associated with the recurrence. Date format must be YYYY-MM-DD (for example: 2025-06-16)", alias="startDate")
+    expires_at: Optional[datetime] = Field(default=None, description="Expiration date for the automatic pix authorization. The date format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z)", alias="expiresAt")
     is_retry_accepted: Optional[StrictBool] = Field(default=None, description="Indicates whether the receiving customer is allowed to make payment attempts, according to the rules established in the Pix arrangement.", alias="isRetryAccepted")
     first_payment: Optional[AutomaticPixFirstPayment] = Field(default=None, alias="firstPayment")
     interval: StrictStr = Field(description="Defines the permitted frequency for carrying out transactions.")
@@ -42,7 +43,7 @@ class CreateAutomaticPixPaymentRequest(BaseModel):
     recipient_id: StrictStr = Field(description="Primary identifier of the payment recipient", alias="recipientId")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Client payment identifier", alias="clientPaymentId")
     customer_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the customer", alias="customerId")
-    __properties: ClassVar[List[str]] = ["fixedAmount", "minimumVariableAmount", "maximumVariableAmount", "startDate", "expiresAt", "isRetryAccepted", "firstPayment", "interval", "callbackUrls", "recipientId", "clientPaymentId", "customerId"]
+    __properties: ClassVar[List[str]] = ["fixedAmount", "minimumVariableAmount", "maximumVariableAmount", "description", "startDate", "expiresAt", "isRetryAccepted", "firstPayment", "interval", "callbackUrls", "recipientId", "clientPaymentId", "customerId"]
 
     @field_validator('interval')
     def interval_validate_enum(cls, value):
@@ -111,6 +112,7 @@ class CreateAutomaticPixPaymentRequest(BaseModel):
             "fixedAmount": obj.get("fixedAmount"),
             "minimumVariableAmount": obj.get("minimumVariableAmount"),
             "maximumVariableAmount": obj.get("maximumVariableAmount"),
+            "description": obj.get("description"),
             "startDate": obj.get("startDate"),
             "expiresAt": obj.get("expiresAt"),
             "isRetryAccepted": obj.get("isRetryAccepted"),

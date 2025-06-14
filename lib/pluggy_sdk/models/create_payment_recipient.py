@@ -28,12 +28,12 @@ class CreatePaymentRecipient(BaseModel):
     """
     Request with information to create a payment recipient, there is two form to create a payment recipient, one with pixKey and other with taxNumber, name, paymentInstitutionId and account
     """ # noqa: E501
+    pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient. When sending this fields, the rest of the fields are ignored and use DICT to create the payment recipient.", alias="pixKey")
     tax_number: Optional[StrictStr] = Field(default=None, description="Account owner tax number. Can be CPF or CNPJ (only numbers). Send only when the pixKey is not sent.", alias="taxNumber")
     name: Optional[StrictStr] = Field(default=None, description="Account owner name. Send only this when the pixKey is not sent.")
     payment_institution_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the institution associated to the payment recipient. Send only when the pixKey is not sent.", alias="paymentInstitutionId")
     account: Optional[PaymentRecipientAccount] = Field(default=None, description="Recipient's bank account destination. Send only if the pixKey is not sent.")
-    pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient", alias="pixKey")
-    __properties: ClassVar[List[str]] = ["taxNumber", "name", "paymentInstitutionId", "account", "pixKey"]
+    __properties: ClassVar[List[str]] = ["pixKey", "taxNumber", "name", "paymentInstitutionId", "account"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,11 +89,11 @@ class CreatePaymentRecipient(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "pixKey": obj.get("pixKey"),
             "taxNumber": obj.get("taxNumber"),
             "name": obj.get("name"),
             "paymentInstitutionId": obj.get("paymentInstitutionId"),
-            "account": PaymentRecipientAccount.from_dict(obj["account"]) if obj.get("account") is not None else None,
-            "pixKey": obj.get("pixKey")
+            "account": PaymentRecipientAccount.from_dict(obj["account"]) if obj.get("account") is not None else None
         })
         return _obj
 

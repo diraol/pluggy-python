@@ -54,8 +54,8 @@ class PaymentRequest(BaseModel):
     @field_validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['CREATED', 'IN_PROGRESS', 'COMPLETED', 'SCHEDULED', 'WAITING_PAYER_AUTHORIZATION', 'ERROR', 'REFUND_IN_PROGRESS', 'REFUNDED', 'REFUND_ERROR']):
-            raise ValueError("must be one of enum values ('CREATED', 'IN_PROGRESS', 'COMPLETED', 'SCHEDULED', 'WAITING_PAYER_AUTHORIZATION', 'ERROR', 'REFUND_IN_PROGRESS', 'REFUNDED', 'REFUND_ERROR')")
+        if value not in set(['CREATED', 'IN_PROGRESS', 'COMPLETED', 'SCHEDULED', 'WAITING_PAYER_AUTHORIZATION', 'ERROR', 'REFUND_IN_PROGRESS', 'REFUNDED', 'REFUND_ERROR', 'CANCELED']):
+            raise ValueError("must be one of enum values ('CREATED', 'IN_PROGRESS', 'COMPLETED', 'SCHEDULED', 'WAITING_PAYER_AUTHORIZATION', 'ERROR', 'REFUND_IN_PROGRESS', 'REFUNDED', 'REFUND_ERROR', 'CANCELED')")
         return value
 
     model_config = ConfigDict(

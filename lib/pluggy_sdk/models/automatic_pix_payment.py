@@ -18,20 +18,32 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from datetime import date
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from pluggy_sdk.models.schedule_payment_error_detail import SchedulePaymentErrorDetail
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AutomaticPixFirstPayment(BaseModel):
+class AutomaticPixPayment(BaseModel):
     """
-    Definitions for the first payment. It is considered as the user's enrollment payment for the service.
+    Automatic PIX payment
     """ # noqa: E501
-    var_date: Optional[datetime] = Field(default=None, description="Defines the target settlement date of the first payment. If not provided, it will be settled immediately. Date format must be YYYY-MM-DD (for example: 2025-06-16)", alias="date")
-    description: Optional[StrictStr] = Field(default=None, description="Description for the first payment. If not provided, the description will be the same as the description of the payment request")
-    amount: Union[StrictFloat, StrictInt] = Field(description="Amount for the first payment.")
-    __properties: ClassVar[List[str]] = ["date", "description", "amount"]
+    id: StrictStr = Field(description="Payment primary identifier")
+    status: StrictStr = Field(description="Payment status")
+    amount: Union[StrictFloat, StrictInt] = Field(description="Payment amount")
+    description: Optional[StrictStr] = Field(default=None, description="Payment description")
+    var_date: date = Field(description="Payment scheduled date", alias="date")
+    end_to_end_id: Optional[StrictStr] = Field(default=None, description="Payment end to end identifier", alias="endToEndId")
+    error_detail: Optional[SchedulePaymentErrorDetail] = Field(default=None, alias="errorDetail")
+    __properties: ClassVar[List[str]] = ["id", "status", "amount", "description", "date", "endToEndId", "errorDetail"]
+
+    @field_validator('status')
+    def status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['SCHEDULED', 'CREATED', 'COMPLETED', 'CANCELED', 'ERROR']):
+            raise ValueError("must be one of enum values ('SCHEDULED', 'CREATED', 'COMPLETED', 'CANCELED', 'ERROR')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +63,7 @@ class AutomaticPixFirstPayment(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AutomaticPixFirstPayment from a JSON string"""
+        """Create an instance of AutomaticPixPayment from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,11 +84,14 @@ class AutomaticPixFirstPayment(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of error_detail
+        if self.error_detail:
+            _dict['errorDetail'] = self.error_detail.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AutomaticPixFirstPayment from a dict"""
+        """Create an instance of AutomaticPixPayment from a dict"""
         if obj is None:
             return None
 
@@ -84,9 +99,13 @@ class AutomaticPixFirstPayment(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "date": obj.get("date"),
+            "id": obj.get("id"),
+            "status": obj.get("status"),
+            "amount": obj.get("amount"),
             "description": obj.get("description"),
-            "amount": obj.get("amount")
+            "date": obj.get("date"),
+            "endToEndId": obj.get("endToEndId"),
+            "errorDetail": SchedulePaymentErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None
         })
         return _obj
 

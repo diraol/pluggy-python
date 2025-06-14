@@ -9,8 +9,9 @@ Name | Type | Description | Notes
 **fixed_amount** | **float** | Fixed charge amount; if filled in, it represents consent for payments of fixed amounts, not subject to change during the validity of the consent. If it&#39;s sent, minimumVariableAmount and maximumVariableAmount cannot be provided. | [optional] 
 **minimum_variable_amount** | **float** | Minimum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it&#39;s sent, fixedAmount cannot be provided. | [optional] 
 **maximum_variable_amount** | **float** | Maximum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it&#39;s sent, fixedAmount cannot be provided. | [optional] 
-**start_date** | **datetime** | Represents the expected date for the first occurrence of a payment associated with the recurrence. | 
-**expires_at** | **datetime** | Expiration date for the automatic pix authorization | [optional] 
+**description** | **str** | Description for the automatic pix authorization | [optional] 
+**start_date** | **datetime** | Represents the expected date for the first occurrence of a payment associated with the recurrence. Date format must be YYYY-MM-DD (for example: 2025-06-16) | 
+**expires_at** | **datetime** | Expiration date for the automatic pix authorization. The date format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z) | [optional] 
 **is_retry_accepted** | **bool** | Indicates whether the receiving customer is allowed to make payment attempts, according to the rules established in the Pix arrangement. | [optional] 
 **first_payment** | [**AutomaticPixFirstPayment**](AutomaticPixFirstPayment.md) |  | [optional] 
 **interval** | **str** | Defines the permitted frequency for carrying out transactions. | 
