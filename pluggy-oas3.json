@@ -4983,7 +4983,7 @@
                   "value": {
                     "fixedAmount": 100.5,
                     "startDate": "2025-06-10",
-                    "expiresAt": "2025-10-01",
+                    "expiresAt": "2025-10-01T03:00:00Z",
                     "isRetryAccepted": true,
                     "firstPayment": {
                       "date": "2025-06-10",
@@ -11898,7 +11898,7 @@
           "expiresAt": {
             "type": "string",
             "format": "date-time",
-            "description": "Expiration date for the automatic pix authorization. The date format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z)"
+            "description": "Expiration date for the automatic pix authorization. The date must be in UTC and the format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z)."
           },
           "isRetryAccepted": {
             "type": "boolean",
