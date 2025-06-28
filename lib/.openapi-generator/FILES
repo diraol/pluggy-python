@@ -359,8 +359,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_automatic_pix_payment.py
-test/test_payment_request_get_automatic_pix_schedules200_response.py
-test/test_retry_automatic_pix_payment_request.py
-test/test_schedule_automatic_pix_payment_request.py
 tox.ini

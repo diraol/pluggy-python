@@ -35,7 +35,7 @@ class CreateAutomaticPixPaymentRequest(BaseModel):
     maximum_variable_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Maximum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it's sent, fixedAmount cannot be provided.", alias="maximumVariableAmount")
     description: Optional[StrictStr] = Field(default=None, description="Description for the automatic pix authorization")
     start_date: datetime = Field(description="Represents the expected date for the first occurrence of a payment associated with the recurrence. Date format must be YYYY-MM-DD (for example: 2025-06-16)", alias="startDate")
-    expires_at: Optional[datetime] = Field(default=None, description="Expiration date for the automatic pix authorization. The date format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z)", alias="expiresAt")
+    expires_at: Optional[datetime] = Field(default=None, description="Expiration date for the automatic pix authorization. The date must be in UTC and the format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z).", alias="expiresAt")
     is_retry_accepted: Optional[StrictBool] = Field(default=None, description="Indicates whether the receiving customer is allowed to make payment attempts, according to the rules established in the Pix arrangement.", alias="isRetryAccepted")
     first_payment: Optional[AutomaticPixFirstPayment] = Field(default=None, alias="firstPayment")
     interval: StrictStr = Field(description="Defines the permitted frequency for carrying out transactions.")

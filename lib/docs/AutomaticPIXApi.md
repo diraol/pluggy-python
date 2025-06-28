@@ -206,7 +206,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.AutomaticPIXApi(api_client)
-    create_automatic_pix_payment_request = {"fixedAmount":100.5,"startDate":"2025-06-10","expiresAt":"2025-10-01","isRetryAccepted":true,"firstPayment":{"date":"2025-06-10","description":"Primeiro pagamento","amount":100.5},"interval":"WEEKLY","callbackUrls":null,"recipientId":"05c693bf-c196-47ea-a28c-8251d6bb8a06"} # CreateAutomaticPixPaymentRequest | 
+    create_automatic_pix_payment_request = {"fixedAmount":100.5,"startDate":"2025-06-10","expiresAt":"2025-10-01T03:00:00Z","isRetryAccepted":true,"firstPayment":{"date":"2025-06-10","description":"Primeiro pagamento","amount":100.5},"interval":"WEEKLY","callbackUrls":null,"recipientId":"05c693bf-c196-47ea-a28c-8251d6bb8a06"} # CreateAutomaticPixPaymentRequest | 
 
     try:
         # Create Automatic PIX payment request
