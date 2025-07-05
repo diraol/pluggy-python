@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **amount** | **float** | Transaction value | 
 **description** | **str** | Transaction description | [optional] 
 **var_date** | **date** | The payment date, which must fall between D+2 and D+10. Date format must be YYYY-MM-DD (for example: 2025-06-16) | 
+**client_payment_id** | **str** | External identifier for the payment | [optional] 
 
 ## Example
 

@@ -36,7 +36,8 @@ class AutomaticPixPayment(BaseModel):
     var_date: date = Field(description="Payment scheduled date", alias="date")
     end_to_end_id: Optional[StrictStr] = Field(default=None, description="Payment end to end identifier", alias="endToEndId")
     error_detail: Optional[SchedulePaymentErrorDetail] = Field(default=None, alias="errorDetail")
-    __properties: ClassVar[List[str]] = ["id", "status", "amount", "description", "date", "endToEndId", "errorDetail"]
+    client_payment_id: Optional[StrictStr] = Field(default=None, description="External identifier for the payment", alias="clientPaymentId")
+    __properties: ClassVar[List[str]] = ["id", "status", "amount", "description", "date", "endToEndId", "errorDetail", "clientPaymentId"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -105,7 +106,8 @@ class AutomaticPixPayment(BaseModel):
             "description": obj.get("description"),
             "date": obj.get("date"),
             "endToEndId": obj.get("endToEndId"),
-            "errorDetail": SchedulePaymentErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None
+            "errorDetail": SchedulePaymentErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None,
+            "clientPaymentId": obj.get("clientPaymentId")
         })
         return _obj
 

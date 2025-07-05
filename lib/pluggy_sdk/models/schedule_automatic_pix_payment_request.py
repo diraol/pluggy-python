@@ -31,7 +31,8 @@ class ScheduleAutomaticPixPaymentRequest(BaseModel):
     amount: Union[StrictFloat, StrictInt] = Field(description="Transaction value")
     description: Optional[StrictStr] = Field(default=None, description="Transaction description")
     var_date: date = Field(description="The payment date, which must fall between D+2 and D+10. Date format must be YYYY-MM-DD (for example: 2025-06-16)", alias="date")
-    __properties: ClassVar[List[str]] = ["amount", "description", "date"]
+    client_payment_id: Optional[StrictStr] = Field(default=None, description="External identifier for the payment", alias="clientPaymentId")
+    __properties: ClassVar[List[str]] = ["amount", "description", "date", "clientPaymentId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,7 +87,8 @@ class ScheduleAutomaticPixPaymentRequest(BaseModel):
         _obj = cls.model_validate({
             "amount": obj.get("amount"),
             "description": obj.get("description"),
-            "date": obj.get("date")
+            "date": obj.get("date"),
+            "clientPaymentId": obj.get("clientPaymentId")
         })
         return _obj
 

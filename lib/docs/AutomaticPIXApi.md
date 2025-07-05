@@ -287,7 +287,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.AutomaticPIXApi(api_client)
     id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
-    schedule_automatic_pix_payment_request = {"amount":100.5,"date":"2025-06-10","description":"Transferência"} # ScheduleAutomaticPixPaymentRequest | 
+    schedule_automatic_pix_payment_request = {"amount":100.5,"date":"2025-06-10","description":"Transferência","clientPaymentId":"external-ref-456"} # ScheduleAutomaticPixPaymentRequest | 
 
     try:
         # Schedule Automatic PIX payment

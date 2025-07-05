@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **var_date** | **date** | Payment scheduled date | 
 **end_to_end_id** | **str** | Payment end to end identifier | [optional] 
 **error_detail** | [**SchedulePaymentErrorDetail**](SchedulePaymentErrorDetail.md) |  | [optional] 
+**client_payment_id** | **str** | External identifier for the payment | [optional] 
 
 ## Example
 
