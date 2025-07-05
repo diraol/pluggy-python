@@ -5013,6 +5013,20 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AutomaticPixPayment"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "id": "66d503f1-0cfa-4d64-9f87-0782d959eba7",
+                      "status": "SCHEDULED",
+                      "amount": 0.01,
+                      "description": "Teste pagamento schedule",
+                      "endToEndId": null,
+                      "date": "2025-06-08",
+                      "errorDetail": null,
+                      "clientPaymentId": "external-ref-456"
+                    }
+                  }
                 }
               }
             }
@@ -5038,7 +5052,8 @@
                   "value": {
                     "amount": 100.5,
                     "date": "2025-06-10",
-                    "description": "Transferência"
+                    "description": "Transferência",
+                    "clientPaymentId": "external-ref-456"
                   }
                 }
               }
@@ -5111,7 +5126,8 @@
                           "description": "Teste pagamento schedule",
                           "endToEndId": null,
                           "date": "2025-06-08",
-                          "errorDetail": null
+                          "errorDetail": null,
+                          "clientPaymentId": "external-ref-456"
                         }
                       ]
                     }
@@ -5167,7 +5183,8 @@
                       "description": "Teste pagamento schedule",
                       "endToEndId": null,
                       "date": "2025-06-08",
-                      "errorDetail": null
+                      "errorDetail": null,
+                      "clientPaymentId": "external-ref-456"
                     }
                   }
                 }
@@ -12065,6 +12082,10 @@
                 "description": "Additional details about the error in the provider's language"
               }
             }
+          },
+          "clientPaymentId": {
+            "type": "string",
+            "description": "External identifier for the payment"
           }
         },
         "required": [
@@ -12090,6 +12111,10 @@
             "type": "string",
             "format": "date",
             "description": "The payment date, which must fall between D+2 and D+10. Date format must be YYYY-MM-DD (for example: 2025-06-16)"
+          },
+          "clientPaymentId": {
+            "type": "string",
+            "description": "External identifier for the payment"
           }
         },
         "required": [
