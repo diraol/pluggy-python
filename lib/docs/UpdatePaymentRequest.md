@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **recipient_id** | **str** | Payment receiver identifier | [optional] 
 **customer_id** | **str** | Customer identifier associated to the payment | [optional] 
 **client_payment_id** | **str** | Your payment identifier | [optional] 
+**is_sandbox** | **bool** | Indicates if this payment request should be updated as sandbox. Default: false. | [optional] [default to False]
 
 ## Example
 

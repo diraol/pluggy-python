@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
 from typing import Optional, Set
@@ -34,7 +34,8 @@ class UpdatePaymentRequest(BaseModel):
     recipient_id: Optional[StrictStr] = Field(default=None, description="Payment receiver identifier", alias="recipientId")
     customer_id: Optional[StrictStr] = Field(default=None, description="Customer identifier associated to the payment", alias="customerId")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Your payment identifier", alias="clientPaymentId")
-    __properties: ClassVar[List[str]] = ["amount", "description", "callbackUrls", "recipientId", "customerId", "clientPaymentId"]
+    is_sandbox: Optional[StrictBool] = Field(default=False, description="Indicates if this payment request should be updated as sandbox. Default: false.", alias="isSandbox")
+    __properties: ClassVar[List[str]] = ["amount", "description", "callbackUrls", "recipientId", "customerId", "clientPaymentId", "isSandbox"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -95,7 +96,8 @@ class UpdatePaymentRequest(BaseModel):
             "callbackUrls": PaymentRequestCallbackUrls.from_dict(obj["callbackUrls"]) if obj.get("callbackUrls") is not None else None,
             "recipientId": obj.get("recipientId"),
             "customerId": obj.get("customerId"),
-            "clientPaymentId": obj.get("clientPaymentId")
+            "clientPaymentId": obj.get("clientPaymentId"),
+            "isSandbox": obj.get("isSandbox") if obj.get("isSandbox") is not None else False
         })
         return _obj
 

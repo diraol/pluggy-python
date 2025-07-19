@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **automatic_pix** | [**PaymentIntentAutomaticPix**](PaymentIntentAutomaticPix.md) |  | [optional] 
 **schedule** | [**PaymentRequestSchedule**](PaymentRequestSchedule.md) |  | [optional] 
 **error_detail** | [**PaymentRequestErrorDetail**](PaymentRequestErrorDetail.md) |  | [optional] 
+**is_sandbox** | **bool** | Indicates if this payment request is in sandbox mode. Default: false. | [optional] [default to False]
 
 ## Example
 

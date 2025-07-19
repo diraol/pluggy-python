@@ -206,7 +206,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.AutomaticPIXApi(api_client)
-    create_automatic_pix_payment_request = {"fixedAmount":100.5,"startDate":"2025-06-10","expiresAt":"2025-10-01T03:00:00Z","isRetryAccepted":true,"firstPayment":{"date":"2025-06-10","description":"Primeiro pagamento","amount":100.5},"interval":"WEEKLY","callbackUrls":null,"recipientId":"05c693bf-c196-47ea-a28c-8251d6bb8a06"} # CreateAutomaticPixPaymentRequest | 
+    create_automatic_pix_payment_request = {"fixedAmount":100.5,"startDate":"2025-06-10","expiresAt":"2025-10-01T03:00:00Z","isRetryAccepted":true,"firstPayment":{"date":"2025-06-10","description":"Primeiro pagamento","amount":100.5},"interval":"WEEKLY","callbackUrls":null,"recipientId":"05c693bf-c196-47ea-a28c-8251d6bb8a06","isSandbox":false} # CreateAutomaticPixPaymentRequest | 
 
     try:
         # Create Automatic PIX payment request
@@ -287,7 +287,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.AutomaticPIXApi(api_client)
     id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
-    schedule_automatic_pix_payment_request = {"amount":100.5,"date":"2025-06-10","description":"Transferência","clientPaymentId":"external-ref-456"} # ScheduleAutomaticPixPaymentRequest | 
+    schedule_automatic_pix_payment_request = {"amount":100.5,"date":"2025-06-10","description":"Transferência","clientPaymentId":"external-ref-456","isSandbox":false} # ScheduleAutomaticPixPaymentRequest | 
 
     try:
         # Schedule Automatic PIX payment
@@ -528,7 +528,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     api_instance = pluggy_sdk.AutomaticPIXApi(api_client)
     id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
     schedule_id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Automatic PIX schedule primary identifier
-    retry_automatic_pix_payment_request = {"date":"2025-06-10"} # RetryAutomaticPixPaymentRequest | 
+    retry_automatic_pix_payment_request = {"date":"2025-06-10","isSandbox":false} # RetryAutomaticPixPaymentRequest | 
 
     try:
         # Retry an Automatic PIX schedule

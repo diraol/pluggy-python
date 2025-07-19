@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **pix_qr_code** | **str** | Pix QR code | 
 **callback_urls** | [**PaymentRequestCallbackUrls**](PaymentRequestCallbackUrls.md) |  | [optional] 
 **customer_id** | **str** | Customer identifier associated to the payment | [optional] 
+**is_sandbox** | **bool** | Indicates if this payment request should be created in sandbox mode. Default: false. | [optional] [default to False]
 
 ## Example
 

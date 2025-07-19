@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.create_payment_request_schedule import CreatePaymentRequestSchedule
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
@@ -36,7 +36,8 @@ class CreatePaymentRequest(BaseModel):
     customer_id: Optional[StrictStr] = Field(default=None, description="Customer identifier associated to the payment", alias="customerId")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Your payment identifier", alias="clientPaymentId")
     schedule: Optional[CreatePaymentRequestSchedule] = None
-    __properties: ClassVar[List[str]] = ["amount", "description", "callbackUrls", "recipientId", "customerId", "clientPaymentId", "schedule"]
+    is_sandbox: Optional[StrictBool] = Field(default=False, description="Indicates if this payment request should be created in sandbox mode. Default: false.", alias="isSandbox")
+    __properties: ClassVar[List[str]] = ["amount", "description", "callbackUrls", "recipientId", "customerId", "clientPaymentId", "schedule", "isSandbox"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -106,7 +107,8 @@ class CreatePaymentRequest(BaseModel):
             "recipientId": obj.get("recipientId"),
             "customerId": obj.get("customerId"),
             "clientPaymentId": obj.get("clientPaymentId"),
-            "schedule": CreatePaymentRequestSchedule.from_dict(obj["schedule"]) if obj.get("schedule") is not None else None
+            "schedule": CreatePaymentRequestSchedule.from_dict(obj["schedule"]) if obj.get("schedule") is not None else None,
+            "isSandbox": obj.get("isSandbox") if obj.get("isSandbox") is not None else False
         })
         return _obj
 

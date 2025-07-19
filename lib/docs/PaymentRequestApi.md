@@ -131,7 +131,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRequestApi(api_client)
-    create_pix_qr_payment_request = {"pixQrCode":"00020126490014br.gov.bcb.pix0108dict-key0215additional-info52040000530398654031005802BR5912example-name6006Cidade62090505tx-id63045E20","callbackUrls":null} # CreatePixQrPaymentRequest | 
+    create_pix_qr_payment_request = {"pixQrCode":"00020126490014br.gov.bcb.pix0108dict-key0215additional-info52040000530398654031005802BR5912example-name6006Cidade62090505tx-id63045E20","callbackUrls":null,"isSandbox":false} # CreatePixQrPaymentRequest | 
 
     try:
         # Create PIX QR payment request
@@ -369,7 +369,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRequestApi(api_client)
     id = 'd0f8a8c0-e8e3-11e9-b210-d663bd873d93' # str | Payment request primary identifier
-    update_payment_request = {"amount":100.5,"description":"Transferência"} # UpdatePaymentRequest | 
+    update_payment_request = {"amount":100.5,"description":"Transferência","isSandbox":false} # UpdatePaymentRequest | 
 
     try:
         # Update

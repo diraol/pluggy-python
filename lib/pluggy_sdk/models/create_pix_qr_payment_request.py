@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
 from typing import Optional, Set
@@ -31,7 +31,8 @@ class CreatePixQrPaymentRequest(BaseModel):
     pix_qr_code: StrictStr = Field(description="Pix QR code", alias="pixQrCode")
     callback_urls: Optional[PaymentRequestCallbackUrls] = Field(default=None, alias="callbackUrls")
     customer_id: Optional[StrictStr] = Field(default=None, description="Customer identifier associated to the payment", alias="customerId")
-    __properties: ClassVar[List[str]] = ["pixQrCode", "callbackUrls", "customerId"]
+    is_sandbox: Optional[StrictBool] = Field(default=False, description="Indicates if this payment request should be created in sandbox mode. Default: false.", alias="isSandbox")
+    __properties: ClassVar[List[str]] = ["pixQrCode", "callbackUrls", "customerId", "isSandbox"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,7 +90,8 @@ class CreatePixQrPaymentRequest(BaseModel):
         _obj = cls.model_validate({
             "pixQrCode": obj.get("pixQrCode"),
             "callbackUrls": PaymentRequestCallbackUrls.from_dict(obj["callbackUrls"]) if obj.get("callbackUrls") is not None else None,
-            "customerId": obj.get("customerId")
+            "customerId": obj.get("customerId"),
+            "isSandbox": obj.get("isSandbox") if obj.get("isSandbox") is not None else False
         })
         return _obj
 

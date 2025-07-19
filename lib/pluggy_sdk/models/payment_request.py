@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.boleto import Boleto
 from pluggy_sdk.models.payment_intent_automatic_pix import PaymentIntentAutomaticPix
@@ -49,7 +49,8 @@ class PaymentRequest(BaseModel):
     automatic_pix: Optional[PaymentIntentAutomaticPix] = Field(default=None, alias="automaticPix")
     schedule: Optional[PaymentRequestSchedule] = None
     error_detail: Optional[PaymentRequestErrorDetail] = Field(default=None, alias="errorDetail")
-    __properties: ClassVar[List[str]] = ["id", "amount", "fees", "description", "status", "clientPaymentId", "createdAt", "updatedAt", "callbackUrls", "recipientId", "paymentUrl", "pixQrCode", "boleto", "automaticPix", "schedule", "errorDetail"]
+    is_sandbox: Optional[StrictBool] = Field(default=False, description="Indicates if this payment request is in sandbox mode. Default: false.", alias="isSandbox")
+    __properties: ClassVar[List[str]] = ["id", "amount", "fees", "description", "status", "clientPaymentId", "createdAt", "updatedAt", "callbackUrls", "recipientId", "paymentUrl", "pixQrCode", "boleto", "automaticPix", "schedule", "errorDetail", "isSandbox"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -139,7 +140,8 @@ class PaymentRequest(BaseModel):
             "boleto": Boleto.from_dict(obj["boleto"]) if obj.get("boleto") is not None else None,
             "automaticPix": PaymentIntentAutomaticPix.from_dict(obj["automaticPix"]) if obj.get("automaticPix") is not None else None,
             "schedule": PaymentRequestSchedule.from_dict(obj["schedule"]) if obj.get("schedule") is not None else None,
-            "errorDetail": PaymentRequestErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None
+            "errorDetail": PaymentRequestErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None,
+            "isSandbox": obj.get("isSandbox") if obj.get("isSandbox") is not None else False
         })
         return _obj
 

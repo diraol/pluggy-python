@@ -19,21 +19,20 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from pluggy_sdk.models.payment_recipient_account import PaymentRecipientAccount
 from typing import Optional, Set
 from typing_extensions import Self
 
 class CreatePaymentRecipient(BaseModel):
     """
-    Request with information to create a payment recipient, there is two form to create a payment recipient, one with pixKey and other with taxNumber, name, paymentInstitutionId and account
+    Request with information to create a payment recipient.
     """ # noqa: E501
-    pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient. When sending this fields, the rest of the fields are ignored and use DICT to create the payment recipient.", alias="pixKey")
-    tax_number: Optional[StrictStr] = Field(default=None, description="Account owner tax number. Can be CPF or CNPJ (only numbers). Send only when the pixKey is not sent.", alias="taxNumber")
-    name: Optional[StrictStr] = Field(default=None, description="Account owner name. Send only this when the pixKey is not sent.")
-    payment_institution_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the institution associated to the payment recipient. Send only when the pixKey is not sent.", alias="paymentInstitutionId")
-    account: Optional[PaymentRecipientAccount] = Field(default=None, description="Recipient's bank account destination. Send only if the pixKey is not sent.")
-    __properties: ClassVar[List[str]] = ["pixKey", "taxNumber", "name", "paymentInstitutionId", "account"]
+    tax_number: StrictStr = Field(description="Account owner tax number. Can be CPF or CNPJ (only numbers)", alias="taxNumber")
+    name: StrictStr = Field(description="Account owner name.")
+    payment_institution_id: StrictStr = Field(description="Primary identifier of the institution associated to the payment recipient.", alias="paymentInstitutionId")
+    account: PaymentRecipientAccount = Field(description="Recipient's bank account destination.")
+    __properties: ClassVar[List[str]] = ["taxNumber", "name", "paymentInstitutionId", "account"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,7 +88,6 @@ class CreatePaymentRecipient(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pixKey": obj.get("pixKey"),
             "taxNumber": obj.get("taxNumber"),
             "name": obj.get("name"),
             "paymentInstitutionId": obj.get("paymentInstitutionId"),

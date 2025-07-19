@@ -48,7 +48,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentIntentApi(api_client)
-    create_payment_intent = {"paymentRequestId":"c2a6b7d9-3349-435d-8341-44021449ebbc","connectorId":603,"parameters":{"cpf":"11111111111"}} # CreatePaymentIntent | 
+    create_payment_intent = {"paymentRequestId":"c2a6b7d9-3349-435d-8341-44021449ebbc","connectorId":603,"parameters":{"cpf":"11111111111"},"isSandbox":false} # CreatePaymentIntent | 
 
     try:
         # Create

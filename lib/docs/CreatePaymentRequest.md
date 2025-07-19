@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **customer_id** | **str** | Customer identifier associated to the payment | [optional] 
 **client_payment_id** | **str** | Your payment identifier | [optional] 
 **schedule** | [**CreatePaymentRequestSchedule**](CreatePaymentRequestSchedule.md) |  | [optional] 
+**is_sandbox** | **bool** | Indicates if this payment request should be created in sandbox mode. Default: false. | [optional] [default to False]
 
 ## Example
 
