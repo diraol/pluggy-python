@@ -4749,7 +4749,8 @@
                           "callbackUrls": null,
                           "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
                           "recipient": null,
-                          "pixQrCode": null
+                          "pixQrCode": null,
+                          "isSandbox": false
                         }
                       ]
                     }
@@ -4855,7 +4856,8 @@
                       "createdAt": "2023-11-06T13:03:45.689Z",
                       "updatedAt": "2023-11-06T13:03:45.689Z",
                       "callbackUrls": null,
-                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
+                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "isSandbox": false
                     }
                   }
                 }
@@ -4955,7 +4957,8 @@
                           "amount": 0.01
                         }
                       },
-                      "errorDetail": null
+                      "errorDetail": null,
+                      "isSandbox": false
                     }
                   }
                 }
@@ -4992,7 +4995,8 @@
                     },
                     "interval": "WEEKLY",
                     "callbackUrls": null,
-                    "recipientId": "05c693bf-c196-47ea-a28c-8251d6bb8a06"
+                    "recipientId": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                    "isSandbox": false
                   }
                 }
               }
@@ -5024,7 +5028,8 @@
                       "endToEndId": null,
                       "date": "2025-06-08",
                       "errorDetail": null,
-                      "clientPaymentId": "external-ref-456"
+                      "clientPaymentId": "external-ref-456",
+                      "isSandbox": false
                     }
                   }
                 }
@@ -5053,7 +5058,8 @@
                     "amount": 100.5,
                     "date": "2025-06-10",
                     "description": "Transferência",
-                    "clientPaymentId": "external-ref-456"
+                    "clientPaymentId": "external-ref-456",
+                    "isSandbox": false
                   }
                 }
               }
@@ -5127,7 +5133,8 @@
                           "endToEndId": null,
                           "date": "2025-06-08",
                           "errorDetail": null,
-                          "clientPaymentId": "external-ref-456"
+                          "clientPaymentId": "external-ref-456",
+                          "isSandbox": false
                         }
                       ]
                     }
@@ -5184,7 +5191,8 @@
                       "endToEndId": null,
                       "date": "2025-06-08",
                       "errorDetail": null,
-                      "clientPaymentId": "external-ref-456"
+                      "clientPaymentId": "external-ref-456",
+                      "isSandbox": false
                     }
                   }
                 }
@@ -5331,7 +5339,8 @@
               "examples": {
                 "request": {
                   "value": {
-                    "date": "2025-06-10"
+                    "date": "2025-06-10",
+                    "isSandbox": false
                   }
                 }
               }
@@ -5387,7 +5396,8 @@
                       "createdAt": "2023-11-06T13:03:45.689Z",
                       "updatedAt": "2023-11-06T13:03:45.689Z",
                       "callbackUrls": null,
-                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
+                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "isSandbox": false
                     }
                   }
                 }
@@ -5414,7 +5424,8 @@
                 "request": {
                   "value": {
                     "pixQrCode": "00020126490014br.gov.bcb.pix0108dict-key0215additional-info52040000530398654031005802BR5912example-name6006Cidade62090505tx-id63045E20",
-                    "callbackUrls": null
+                    "callbackUrls": null,
+                    "isSandbox": false
                   }
                 }
               }
@@ -5447,7 +5458,8 @@
                       "updatedAt": "2023-11-06T13:03:45.689Z",
                       "callbackUrls": null,
                       "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "recipient": null
+                      "recipient": null,
+                      "isSandbox": false
                     }
                   }
                 }
@@ -5560,7 +5572,8 @@
                       "createdAt": "2023-11-06T13:03:45.689Z",
                       "updatedAt": "2023-11-06T13:03:45.689Z",
                       "callbackUrls": null,
-                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
+                      "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "isSandbox": false
                     }
                   }
                 }
@@ -5600,7 +5613,8 @@
                 "Plain parameters": {
                   "value": {
                     "amount": 100.5,
-                    "description": "Transferência"
+                    "description": "Transferência",
+                    "isSandbox": false
                   }
                 }
               }
@@ -5663,7 +5677,8 @@
                             "code": "INSUFFICIENT_BALANCE",
                             "description": "The account doesn't have enough balance to perform the payment.",
                             "detail": "A conta selecionada não possui saldo suficiente para realizar o pagamento."
-                          }
+                          },
+                          "isSandbox": false
                         },
                         {
                           "id": "05c693bf-c196-47ea-a28c-8251d6bb8a05",
@@ -5671,14 +5686,16 @@
                           "description": "PAGAMENTO AGENDADO 2/3",
                           "status": "COMPLETED",
                           "errorDetail": null,
-                          "endToEndId": "E44471172202505141500U29c6ff88e3"
+                          "endToEndId": "E44471172202505141500U29c6ff88e3",
+                          "isSandbox": false
                         },
                         {
                           "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
                           "scheduledDate": "2024-07-04",
                           "description": "PAGAMENTO AGENDADO 3/3",
                           "status": "SCHEDULED",
-                          "errorDetail": null
+                          "errorDetail": null,
+                          "isSandbox": false
                         }
                       ]
                     }
@@ -5826,7 +5843,8 @@
                     "connectorId": 603,
                     "parameters": {
                       "cpf": "11111111111"
-                    }
+                    },
+                    "isSandbox": false
                   }
                 }
               }
@@ -5892,7 +5910,8 @@
                             "updatedAt": "2023-11-06T15:38:47.861Z",
                             "callbackUrls": null,
                             "recipient": null,
-                            "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
+                            "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                            "isSandbox": false
                           },
                           "connector": {
                             "id": 603,
@@ -5993,7 +6012,8 @@
                         "updatedAt": "2023-11-06T15:45:19.401Z",
                         "callbackUrls": null,
                         "recipient": null,
-                        "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06"
+                        "paymentUrl": "https://pay.pluggy.ai/05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                        "isSandbox": false
                       },
                       "connector": {
                         "id": 603,
@@ -6198,7 +6218,8 @@
                             "supportsScheduledPayments": true,
                             "supportsSmartTransfers": true,
                             "supportsBoletoManagement": true
-                          }
+                          },
+                          "isSandbox": false
                         }
                       ]
                     }
@@ -10051,6 +10072,11 @@
                 "description": "Error message returned by the institution"
               }
             }
+          },
+          "isSandbox": {
+            "type": "boolean",
+            "description": "Indicates if this payment request is in sandbox mode. Default: false.",
+            "default": false
           }
         },
         "type": "object",
@@ -10170,6 +10196,11 @@
             "discriminator": {
               "propertyName": "type"
             }
+          },
+          "isSandbox": {
+            "type": "boolean",
+            "description": "Indicates if this payment request should be created in sandbox mode. Default: false.",
+            "default": false
           }
         },
         "type": "object",
@@ -10178,7 +10209,8 @@
         ],
         "example": {
           "amount": 100.5,
-          "description": "Transferência"
+          "description": "Transferência",
+          "isSandbox": false
         }
       },
       "CreatePixQrPaymentRequest": {
@@ -10195,13 +10227,23 @@
             "type": "string",
             "format": "uuid",
             "description": "Customer identifier associated to the payment"
+          },
+          "isSandbox": {
+            "type": "boolean",
+            "description": "Indicates if this payment request should be created in sandbox mode. Default: false.",
+            "default": false
           }
         },
         "type": "object",
         "required": [
           "pixQrCode"
         ],
-        "example": {}
+        "example": {
+          "pixQrCode": "00020126490014br.gov.bcb.pix0108dict-key0215additional-info52040000530398654031005802BR5912example-name6006Cidade62090505tx-id63045E20",
+          "callbackUrls": null,
+          "customerId": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
+          "isSandbox": false
+        }
       },
       "UpdatePaymentRequest": {
         "description": "Request with information to update a payment request",
@@ -10230,10 +10272,23 @@
           "clientPaymentId": {
             "type": "string",
             "description": "Your payment identifier"
+          },
+          "isSandbox": {
+            "type": "boolean",
+            "description": "Indicates if this payment request should be updated as sandbox. Default: false.",
+            "default": false
           }
         },
         "type": "object",
-        "example": {}
+        "example": {
+          "amount": 100.5,
+          "description": "Transferência",
+          "callbackUrls": null,
+          "recipientId": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+          "customerId": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
+          "clientPaymentId": "external-ref-456",
+          "isSandbox": false
+        }
       },
       "PaymentRequestCallbackUrls": {
         "description": "Redirect urls after the payment was completed or ended in error status",
@@ -10725,24 +10780,20 @@
         }
       },
       "CreatePaymentRecipient": {
-        "description": "Request with information to create a payment recipient, there is two form to create a payment recipient, one with pixKey and other with taxNumber, name, paymentInstitutionId and account",
+        "description": "Request with information to create a payment recipient.",
         "properties": {
-          "pixKey": {
-            "type": "string",
-            "description": "Pix key associated with the payment recipient. When sending this fields, the rest of the fields are ignored and use DICT to create the payment recipient."
-          },
           "taxNumber": {
             "type": "string",
-            "description": "Account owner tax number. Can be CPF or CNPJ (only numbers). Send only when the pixKey is not sent."
+            "description": "Account owner tax number. Can be CPF or CNPJ (only numbers)"
           },
           "name": {
             "type": "string",
-            "description": "Account owner name. Send only this when the pixKey is not sent."
+            "description": "Account owner name."
           },
           "paymentInstitutionId": {
             "type": "string",
             "format": "uuid",
-            "description": "Primary identifier of the institution associated to the payment recipient. Send only when the pixKey is not sent."
+            "description": "Primary identifier of the institution associated to the payment recipient."
           },
           "account": {
             "allOf": [
@@ -10750,9 +10801,15 @@
                 "$ref": "#/components/schemas/PaymentRecipientAccount"
               }
             ],
-            "description": "Recipient's bank account destination. Send only if the pixKey is not sent."
+            "description": "Recipient's bank account destination."
           }
         },
+        "required": [
+          "taxNumber",
+          "name",
+          "paymentInstitutionId",
+          "account"
+        ],
         "type": "object",
         "example": {
           "taxNumber": "123456789-00",
@@ -10768,22 +10825,18 @@
       "UpdatePaymentRecipient": {
         "description": "Request with information to update a payment recipient",
         "properties": {
-          "pixKey": {
-            "type": "string",
-            "description": "Pix key associated with the payment recipient."
-          },
           "taxNumber": {
             "type": "string",
-            "description": "Account owner tax number. Can be CPF or CNPJ (only numbers). Send only if the recipient doesn't have a pixKey."
+            "description": "Account owner tax number. Can be CPF or CNPJ (only numbers)"
           },
           "name": {
             "type": "string",
-            "description": "Account owner name. Send only if the recipient doesn't have a pixKey."
+            "description": "Account owner name."
           },
           "paymentInstitutionId": {
             "type": "string",
             "format": "uuid",
-            "description": "Primary identifier of the institution associated to the payment recipient. Send only if the recipient doesn't have a pixKey."
+            "description": "Primary identifier of the institution associated to the payment recipient."
           },
           "account": {
             "allOf": [
@@ -10791,7 +10844,7 @@
                 "$ref": "#/components/schemas/PaymentRecipientAccount"
               }
             ],
-            "description": "Recipient's bank account destination. Send only if the recipient doesn't have a pixKey."
+            "description": "Recipient's bank account destination."
           }
         },
         "type": "object",
