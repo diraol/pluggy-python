@@ -39,8 +39,8 @@ class Webhook(BaseModel):
     @field_validator('event')
     def event_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated']):
-            raise ValueError("must be one of enum values ('all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated')")
+        if value not in set(['all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'payment_request/updated']):
+            raise ValueError("must be one of enum values ('all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'payment_request/updated')")
         return value
 
     model_config = ConfigDict(
