@@ -7766,7 +7766,8 @@
               "item/waiting_user_input",
               "item/waiting_user_action",
               "item/login_succeeded",
-              "connector/status_updated"
+              "connector/status_updated",
+              "payment_request/updated"
             ],
             "type": "string",
             "description": ""
@@ -7826,7 +7827,8 @@
               "scheduled_payment/all_completed",
               "payment_refund/completed",
               "payment_refund/error",
-              "boleto/updated"
+              "boleto/updated",
+              "payment_request/updated"
             ],
             "type": "string",
             "description": ""
@@ -10522,7 +10524,7 @@
                 "validationMessage": "CPF deve ter 11 números.",
                 "label": "CPF",
                 "name": "cpf",
-                "type": "number",
+            "type": "number",
                 "placeholder": "",
                 "optional": false
               }
@@ -11063,12 +11065,12 @@
           "dayOfWeek": {
             "type": "string",
             "description": "Day of the week on which each payment will occur. For instance, if set to 'MONDAY', the first payment will occur on the first monday after the startDate (or the same day, if it is already monday), and every monday after that.",
-            "enum": [
-              "MONDAY",
-              "TUESDAY",
-              "WEDNESDAY",
+              "enum": [
+                "MONDAY",
+                "TUESDAY",
+                "WEDNESDAY",
               "THURDSAY",
-              "FRIDAY",
+                "FRIDAY",
               "SATURDAY",
               "SUNDAY"
             ],
@@ -11146,8 +11148,8 @@
           "dates": {
             "type": "array",
             "items": {
-              "type": "string",
-              "format": "date",
+            "type": "string",
+            "format": "date",
               "example": "2024-06-11"
             }
           },
@@ -11211,7 +11213,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "enum": [
+            "enum": [
                 "ACCOUNTS",
                 "CREDIT_CARDS",
                 "TRANSACTIONS",
@@ -11624,7 +11626,7 @@
             "type": "object",
             "properties": {
               "seuNumero": {
-                "type": "string",
+            "type": "string",
                 "maxLength": 10,
                 "description": "Your identifier for this boleto"
               },
@@ -11634,7 +11636,7 @@
                 "description": "Boleto amount"
               },
               "dueDate": {
-                "type": "string",
+            "type": "string",
                 "format": "date-time",
                 "description": "Due date for the boleto. Must be today or in the future."
               },
@@ -11666,9 +11668,9 @@
                   "addressZipCode": {
                     "type": "string",
                     "description": "Payer ZIP code"
-                  }
-                },
-                "required": [
+          }
+        },
+        "required": [
                   "taxNumber",
                   "name",
                   "addressState",
@@ -11678,14 +11680,14 @@
               "fine": {
                 "type": "object",
                 "description": "Fine information for late payment",
-                "properties": {
+        "properties": {
                   "value": {
                     "type": "number",
                     "minimum": 0,
                     "description": "Fine value"
                   },
                   "type": {
-                    "type": "string",
+            "type": "string",
                     "enum": [
                       "PERCENTAGE",
                       "FIXED"
@@ -11708,14 +11710,14 @@
                     "description": "Interest value"
                   },
                   "type": {
-                    "type": "string",
+            "type": "string",
                     "enum": [
                       "PERCENTAGE"
                     ],
                     "description": "Type of interest calculation"
-                  }
-                },
-                "required": [
+          }
+        },
+        "required": [
                   "value",
                   "type"
                 ]
@@ -11769,17 +11771,17 @@
           },
           "payer": {
             "type": "object",
-            "properties": {
+        "properties": {
               "taxNumber": {
-                "type": "string",
+            "type": "string",
                 "description": "Payer tax number (CPF/CNPJ)"
-              },
+          },
               "personType": {
-                "type": "string",
+            "type": "string",
                 "description": "Type of person (individual or business)"
-              },
+          },
               "name": {
-                "type": "string",
+            "type": "string",
                 "description": "Payer name"
               },
               "addressStreet": {
@@ -11833,9 +11835,9 @@
                   "PIX",
                   "BOLETO"
                 ]
-              }
-            },
-            "required": [
+          }
+        },
+        "required": [
               "taxNumber",
               "name",
               "addressState",
@@ -11884,14 +11886,14 @@
           },
           "fine": {
             "type": "object",
-            "properties": {
+        "properties": {
               "value": {
                 "type": "number",
                 "minimum": 0,
                 "description": "Fine value"
               },
               "type": {
-                "type": "string",
+            "type": "string",
                 "enum": [
                   "PERCENTAGE",
                   "FIXED"
@@ -11911,7 +11913,7 @@
                 "description": "Interest value"
               },
               "type": {
-                "type": "string",
+            "type": "string",
                 "enum": [
                   "PERCENTAGE"
                 ],
@@ -12121,17 +12123,17 @@
           "errorDetail": {
             "type": "object",
             "description": "Details about an error that occurred with the scheduled payment",
-            "properties": {
-              "code": {
-                "type": "string",
-                "description": "Error code"
-              },
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code"
+          },
               "description": {
-                "type": "string",
+            "type": "string",
                 "description": "Human-readable description of the error"
-              },
-              "detail": {
-                "type": "string",
+          },
+          "detail": {
+            "type": "string",
                 "description": "Additional details about the error in the provider's language"
               }
             }
