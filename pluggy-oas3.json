@@ -1543,6 +1543,137 @@
         }
       }
     },
+    "/accounts/{id}/statements": {
+      "get": {
+        "operationId": "account-statements-list",
+        "summary": "List",
+        "description": "Recovers all statements collected for the account provided",
+        "responses": {
+          "200": {
+            "description": "Retrieve a list of all statements for an account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "total": {
+                      "type": "number"
+                    },
+                    "totalPages": {
+                      "type": "number"
+                    },
+                    "page": {
+                      "type": "number"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "monthYear": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string",
+                            "description": "Signed URL to the statement file, this url is valid for 30 minutes"
+                          },
+                          "accountId": {
+                            "type": "string",
+                            "format": "uuid"
+                          }
+                        }
+                      }
+                    }
+                  
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "total": 2,
+                      "totalPages": 1,
+                      "page": 1,
+                      "results": [
+                        {
+                          "id": "a8534c85-53ce-4f21-94d7-50e9d2ee4957",
+                          "monthYear": "01-2025",
+                          "url": "signed-aws-url",
+                          "accountId": "562b795d-1653-429f-be86-74ead9502813"
+                        },
+                        {
+                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "monthYear": "02-2025",
+                          "filename": "signed-aws-url",
+                          "accountId": "562b795d-1653-429f-be86-74ead9502813"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "message": "accountId should not be null or undefined,accountId must be a UUID",
+                  "code": 400
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Account"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Account primary identifier",
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "562b795d-1653-429f-be86-74ead9502813"
+          }
+        ],
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "node",
+              "code": "const pluggy = require('pluggy-sdk');\nconst client = new pluggy.PluggyClient({\n  clientId: 'YOUR_CLIENT_ID',\n  clientSecret: 'YOUR_CLIENT_SECRET',\n});\n\nclient\n  .fetchAccountStatements('ACCOUNT_ID')\n  .then(({ results: statements }) => {\n    console.log(statements);\n  });"
+            }
+          ]
+        }
+      }
+    },
+
     "/transactions": {
       "get": {
         "operationId": "transactions-list",
