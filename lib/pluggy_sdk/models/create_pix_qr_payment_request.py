@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,7 +31,7 @@ class CreatePixQrPaymentRequest(BaseModel):
     """ # noqa: E501
     pix_qr_code: StrictStr = Field(description="Pix QR code", alias="pixQrCode")
     callback_urls: Optional[PaymentRequestCallbackUrls] = Field(default=None, alias="callbackUrls")
-    customer_id: Optional[StrictStr] = Field(default=None, description="Customer identifier associated to the payment", alias="customerId")
+    customer_id: Optional[UUID] = Field(default=None, description="Customer identifier associated to the payment", alias="customerId")
     is_sandbox: Optional[StrictBool] = Field(default=False, description="Indicates if this payment request should be created in sandbox mode. Default: false.", alias="isSandbox")
     __properties: ClassVar[List[str]] = ["pixQrCode", "callbackUrls", "customerId", "isSandbox"]
 

@@ -14,8 +14,171 @@
 """  # noqa: E501
 
 
-# import models into model package
+if __import__("typing").TYPE_CHECKING:
+    # import models into model package
+    from pluggy_sdk.models.account import Account
+    from pluggy_sdk.models.account_statements_list200_response import AccountStatementsList200Response
+    from pluggy_sdk.models.account_statements_list200_response_results_inner import AccountStatementsList200ResponseResultsInner
+    from pluggy_sdk.models.accounts_list200_response import AccountsList200Response
+    from pluggy_sdk.models.additional_card import AdditionalCard
+    from pluggy_sdk.models.address import Address
+    from pluggy_sdk.models.auth_request import AuthRequest
+    from pluggy_sdk.models.auth_response import AuthResponse
+    from pluggy_sdk.models.automatic_pix_first_payment import AutomaticPixFirstPayment
+    from pluggy_sdk.models.automatic_pix_payment import AutomaticPixPayment
+    from pluggy_sdk.models.bank_data import BankData
+    from pluggy_sdk.models.bill import Bill
+    from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge
+    from pluggy_sdk.models.bills_list200_response import BillsList200Response
+    from pluggy_sdk.models.boleto import Boleto
+    from pluggy_sdk.models.boleto_connection import BoletoConnection
+    from pluggy_sdk.models.boleto_payer import BoletoPayer
+    from pluggy_sdk.models.boleto_recipient import BoletoRecipient
+    from pluggy_sdk.models.custom import CUSTOM
+    from pluggy_sdk.models.category import Category
+    from pluggy_sdk.models.client_category_rule import ClientCategoryRule
+    from pluggy_sdk.models.company import Company
+    from pluggy_sdk.models.connect_token_request import ConnectTokenRequest
+    from pluggy_sdk.models.connect_token_response import ConnectTokenResponse
+    from pluggy_sdk.models.connector import Connector
+    from pluggy_sdk.models.connector_credential import ConnectorCredential
+    from pluggy_sdk.models.connector_health import ConnectorHealth
+    from pluggy_sdk.models.connector_health_details import ConnectorHealthDetails
+    from pluggy_sdk.models.connector_list_response import ConnectorListResponse
+    from pluggy_sdk.models.connector_user_action import ConnectorUserAction
+    from pluggy_sdk.models.consent import Consent
+    from pluggy_sdk.models.create_automatic_pix_payment_request import CreateAutomaticPixPaymentRequest
+    from pluggy_sdk.models.create_boleto import CreateBoleto
+    from pluggy_sdk.models.create_boleto_boleto import CreateBoletoBoleto
+    from pluggy_sdk.models.create_boleto_boleto_fine import CreateBoletoBoletoFine
+    from pluggy_sdk.models.create_boleto_boleto_interest import CreateBoletoBoletoInterest
+    from pluggy_sdk.models.create_boleto_boleto_payer import CreateBoletoBoletoPayer
+    from pluggy_sdk.models.create_boleto_connection import CreateBoletoConnection
+    from pluggy_sdk.models.create_boleto_connection_from_item import CreateBoletoConnectionFromItem
+    from pluggy_sdk.models.create_client_category_rule import CreateClientCategoryRule
+    from pluggy_sdk.models.create_item import CreateItem
+    from pluggy_sdk.models.create_item_parameters import CreateItemParameters
+    from pluggy_sdk.models.create_or_update_payment_customer import CreateOrUpdatePaymentCustomer
+    from pluggy_sdk.models.create_payment_customer_request_body import CreatePaymentCustomerRequestBody
+    from pluggy_sdk.models.create_payment_intent import CreatePaymentIntent
+    from pluggy_sdk.models.create_payment_recipient import CreatePaymentRecipient
+    from pluggy_sdk.models.create_payment_request import CreatePaymentRequest
+    from pluggy_sdk.models.create_payment_request_schedule import CreatePaymentRequestSchedule
+    from pluggy_sdk.models.create_pix_qr_payment_request import CreatePixQrPaymentRequest
+    from pluggy_sdk.models.create_smart_transfer_payment import CreateSmartTransferPayment
+    from pluggy_sdk.models.create_smart_transfer_preauthorization import CreateSmartTransferPreauthorization
+    from pluggy_sdk.models.create_webhook import CreateWebhook
+    from pluggy_sdk.models.credential_select_option import CredentialSelectOption
+    from pluggy_sdk.models.credit_card_metadata import CreditCardMetadata
+    from pluggy_sdk.models.credit_data import CreditData
+    from pluggy_sdk.models.daily import DAILY
+    from pluggy_sdk.models.disaggregated_credit_limit import DisaggregatedCreditLimit
+    from pluggy_sdk.models.document import Document
+    from pluggy_sdk.models.email import Email
+    from pluggy_sdk.models.global_error_response import GlobalErrorResponse
+    from pluggy_sdk.models.i_count_response import ICountResponse
+    from pluggy_sdk.models.identity_relation import IdentityRelation
+    from pluggy_sdk.models.identity_response import IdentityResponse
+    from pluggy_sdk.models.identity_response_financial_relationships import IdentityResponseFinancialRelationships
+    from pluggy_sdk.models.identity_response_financial_relationships_accounts_inner import IdentityResponseFinancialRelationshipsAccountsInner
+    from pluggy_sdk.models.identity_response_financial_relationships_procurators_inner import IdentityResponseFinancialRelationshipsProcuratorsInner
+    from pluggy_sdk.models.identity_response_qualifications import IdentityResponseQualifications
+    from pluggy_sdk.models.identity_response_qualifications_informed_income import IdentityResponseQualificationsInformedIncome
+    from pluggy_sdk.models.identity_response_qualifications_informed_patrimony import IdentityResponseQualificationsInformedPatrimony
+    from pluggy_sdk.models.investment import Investment
+    from pluggy_sdk.models.investment_expenses import InvestmentExpenses
+    from pluggy_sdk.models.investment_metadata import InvestmentMetadata
+    from pluggy_sdk.models.investment_transaction import InvestmentTransaction
+    from pluggy_sdk.models.investments_list200_response import InvestmentsList200Response
+    from pluggy_sdk.models.issued_boleto import IssuedBoleto
+    from pluggy_sdk.models.issued_boleto_fine import IssuedBoletoFine
+    from pluggy_sdk.models.issued_boleto_interest import IssuedBoletoInterest
+    from pluggy_sdk.models.issued_boleto_payer import IssuedBoletoPayer
+    from pluggy_sdk.models.item import Item
+    from pluggy_sdk.models.item_creation_error_response import ItemCreationErrorResponse
+    from pluggy_sdk.models.item_error import ItemError
+    from pluggy_sdk.models.item_options import ItemOptions
+    from pluggy_sdk.models.loan import Loan
+    from pluggy_sdk.models.loan_contracted_fee import LoanContractedFee
+    from pluggy_sdk.models.loan_contracted_finance_charge import LoanContractedFinanceCharge
+    from pluggy_sdk.models.loan_installment_balloon_payment import LoanInstallmentBalloonPayment
+    from pluggy_sdk.models.loan_installment_balloon_payment_amount import LoanInstallmentBalloonPaymentAmount
+    from pluggy_sdk.models.loan_installments import LoanInstallments
+    from pluggy_sdk.models.loan_interest_rate import LoanInterestRate
+    from pluggy_sdk.models.loan_payment_release import LoanPaymentRelease
+    from pluggy_sdk.models.loan_payment_release_over_parcel import LoanPaymentReleaseOverParcel
+    from pluggy_sdk.models.loan_payment_release_over_parcel_charge import LoanPaymentReleaseOverParcelCharge
+    from pluggy_sdk.models.loan_payment_release_over_parcel_fee import LoanPaymentReleaseOverParcelFee
+    from pluggy_sdk.models.loan_payments import LoanPayments
+    from pluggy_sdk.models.loan_warranty import LoanWarranty
+    from pluggy_sdk.models.loans_list200_response import LoansList200Response
+    from pluggy_sdk.models.monthly import MONTHLY
+    from pluggy_sdk.models.merchant import Merchant
+    from pluggy_sdk.models.not_authenticated_response import NotAuthenticatedResponse
+    from pluggy_sdk.models.page_response_category_rules import PageResponseCategoryRules
+    from pluggy_sdk.models.page_response_consents import PageResponseConsents
+    from pluggy_sdk.models.page_response_investment_transactions import PageResponseInvestmentTransactions
+    from pluggy_sdk.models.page_response_transactions import PageResponseTransactions
+    from pluggy_sdk.models.parameter_validation_error import ParameterValidationError
+    from pluggy_sdk.models.parameter_validation_response import ParameterValidationResponse
+    from pluggy_sdk.models.payment_customer import PaymentCustomer
+    from pluggy_sdk.models.payment_customers_list200_response import PaymentCustomersList200Response
+    from pluggy_sdk.models.payment_data import PaymentData
+    from pluggy_sdk.models.payment_data_boleto_metadata import PaymentDataBoletoMetadata
+    from pluggy_sdk.models.payment_data_participant import PaymentDataParticipant
+    from pluggy_sdk.models.payment_institution import PaymentInstitution
+    from pluggy_sdk.models.payment_intent import PaymentIntent
+    from pluggy_sdk.models.payment_intent_automatic_pix import PaymentIntentAutomaticPix
+    from pluggy_sdk.models.payment_intent_error_detail import PaymentIntentErrorDetail
+    from pluggy_sdk.models.payment_intent_parameter import PaymentIntentParameter
+    from pluggy_sdk.models.payment_intents_list200_response import PaymentIntentsList200Response
+    from pluggy_sdk.models.payment_recipient import PaymentRecipient
+    from pluggy_sdk.models.payment_recipient_account import PaymentRecipientAccount
+    from pluggy_sdk.models.payment_recipients_institution_list200_response import PaymentRecipientsInstitutionList200Response
+    from pluggy_sdk.models.payment_recipients_list200_response import PaymentRecipientsList200Response
+    from pluggy_sdk.models.payment_request import PaymentRequest
+    from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
+    from pluggy_sdk.models.payment_request_error_detail import PaymentRequestErrorDetail
+    from pluggy_sdk.models.payment_request_get_automatic_pix_schedules200_response import PaymentRequestGetAutomaticPixSchedules200Response
+    from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule
+    from pluggy_sdk.models.payment_requests_list200_response import PaymentRequestsList200Response
+    from pluggy_sdk.models.payment_schedules_list200_response import PaymentSchedulesList200Response
+    from pluggy_sdk.models.phone_number import PhoneNumber
+    from pluggy_sdk.models.pix_data import PixData
+    from pluggy_sdk.models.retry_automatic_pix_payment_request import RetryAutomaticPixPaymentRequest
+    from pluggy_sdk.models.single import SINGLE
+    from pluggy_sdk.models.schedule_automatic_pix_payment_request import ScheduleAutomaticPixPaymentRequest
+    from pluggy_sdk.models.schedule_payment import SchedulePayment
+    from pluggy_sdk.models.schedule_payment_error_detail import SchedulePaymentErrorDetail
+    from pluggy_sdk.models.smart_tranfers_preauthorizations_list200_response import SmartTranfersPreauthorizationsList200Response
+    from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls
+    from pluggy_sdk.models.smart_transfer_payment import SmartTransferPayment
+    from pluggy_sdk.models.smart_transfer_preauthorization import SmartTransferPreauthorization
+    from pluggy_sdk.models.smart_transfer_preauthorization_parameter import SmartTransferPreauthorizationParameter
+    from pluggy_sdk.models.status_detail import StatusDetail
+    from pluggy_sdk.models.status_detail_product import StatusDetailProduct
+    from pluggy_sdk.models.status_detail_product_warning import StatusDetailProductWarning
+    from pluggy_sdk.models.transaction import Transaction
+    from pluggy_sdk.models.update_item import UpdateItem
+    from pluggy_sdk.models.update_item_parameters import UpdateItemParameters
+    from pluggy_sdk.models.update_payment_recipient import UpdatePaymentRecipient
+    from pluggy_sdk.models.update_payment_request import UpdatePaymentRequest
+    from pluggy_sdk.models.update_transaction import UpdateTransaction
+    from pluggy_sdk.models.weekly import WEEKLY
+    from pluggy_sdk.models.webhook import Webhook
+    from pluggy_sdk.models.webhook_creation_error_response import WebhookCreationErrorResponse
+    from pluggy_sdk.models.webhooks_list200_response import WebhooksList200Response
+    
+else:
+    from lazy_imports import LazyModule, as_package, load
+
+    load(
+        LazyModule(
+            *as_package(__file__),
+            """# import models into model package
 from pluggy_sdk.models.account import Account
+from pluggy_sdk.models.account_statements_list200_response import AccountStatementsList200Response
+from pluggy_sdk.models.account_statements_list200_response_results_inner import AccountStatementsList200ResponseResultsInner
 from pluggy_sdk.models.accounts_list200_response import AccountsList200Response
 from pluggy_sdk.models.additional_card import AdditionalCard
 from pluggy_sdk.models.address import Address
@@ -165,3 +328,9 @@ from pluggy_sdk.models.weekly import WEEKLY
 from pluggy_sdk.models.webhook import Webhook
 from pluggy_sdk.models.webhook_creation_error_response import WebhookCreationErrorResponse
 from pluggy_sdk.models.webhooks_list200_response import WebhooksList200Response
+
+""",
+            name=__name__,
+            doc=__doc__,
+        )
+    )

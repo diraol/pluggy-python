@@ -22,6 +22,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.issued_boleto_fine import IssuedBoletoFine
 from pluggy_sdk.models.issued_boleto_interest import IssuedBoletoInterest
 from pluggy_sdk.models.issued_boleto_payer import IssuedBoletoPayer
@@ -42,7 +43,7 @@ class IssuedBoleto(BaseModel):
     digitable_line: StrictStr = Field(description="Boleto digitable line", alias="digitableLine")
     nosso_numero: Optional[StrictStr] = Field(default=None, description="Bank's internal identifier for the boleto", alias="nossoNumero")
     barcode: StrictStr = Field(description="Boleto barcode")
-    boleto_connection_id: StrictStr = Field(description="ID of the boleto connection used to create this boleto", alias="boletoConnectionId")
+    boleto_connection_id: UUID = Field(description="ID of the boleto connection used to create this boleto", alias="boletoConnectionId")
     created_at: datetime = Field(description="Date when the boleto was created", alias="createdAt")
     amount_paid: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount that was paid for this boleto", alias="amountPaid")
     payment_origin: Optional[StrictStr] = Field(default=None, description="Origin of the payment when the boleto is paid", alias="paymentOrigin")

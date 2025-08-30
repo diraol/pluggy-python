@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **state** | **str** | The state or province | [optional] 
 **country** | **str** | The complete country name | [optional] 
 **type** | **str** | Type of address, Personal or Work | [optional] 
+**additional_info** | **str** | Additional address information such as apartment number, complement, or other details | [optional] 
 
 ## Example
 

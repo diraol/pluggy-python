@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from pluggy_sdk.models.bank_data import BankData
 from pluggy_sdk.models.credit_data import CreditData
 from typing import Optional, Set
@@ -36,7 +37,7 @@ class Account(BaseModel):
     name: StrictStr = Field(description="Name of the account in a descriptive format")
     marketing_name: Optional[StrictStr] = Field(default=None, description="Name of the account as defined externally", alias="marketingName")
     balance: Union[StrictFloat, StrictInt] = Field(description="Funds of the account")
-    item_id: StrictStr = Field(description="Attached item's primary identifier", alias="itemId")
+    item_id: UUID = Field(description="Attached item's primary identifier", alias="itemId")
     tax_number: Optional[StrictStr] = Field(default=None, description="Tax ID of the corresponding owner", alias="taxNumber")
     owner: Optional[StrictStr] = Field(default=None, description="Name of the owner of the account")
     currency_code: StrictStr = Field(description="Code referencing the currency of the balance", alias="currencyCode")

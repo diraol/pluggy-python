@@ -33,7 +33,7 @@ class IdentityResponseFinancialRelationships(BaseModel):
     start_date: datetime = Field(description="Date when the relationship with the institution started", alias="startDate")
     products_services_type: List[StrictStr] = Field(description="List of products and services that the client consumes", alias="productsServicesType")
     procurators: List[IdentityResponseFinancialRelationshipsProcuratorsInner] = Field(description="List of procurators of the client")
-    accounts: Optional[List[IdentityResponseFinancialRelationshipsAccountsInner]] = Field(default=None, description="List of accounts of the client")
+    accounts: Optional[List[IdentityResponseFinancialRelationshipsAccountsInner]] = Field(default=None, description="List of accounts of the client with valid consent. Only accounts that have explicit user consent are returned.")
     __properties: ClassVar[List[str]] = ["startDate", "productsServicesType", "procurators", "accounts"]
 
     model_config = ConfigDict(

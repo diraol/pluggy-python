@@ -19,6 +19,7 @@ from typing_extensions import Annotated
 
 from pydantic import Field, StrictStr
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.create_webhook import CreateWebhook
 from pluggy_sdk.models.i_count_response import ICountResponse
 from pluggy_sdk.models.webhook import Webhook
@@ -325,7 +326,7 @@ class WebhookApi:
     @validate_call
     def webhooks_delete(
         self,
-        id: Annotated[StrictStr, Field(description="webhook primary identifier")],
+        id: Annotated[UUID, Field(description="webhook primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -394,7 +395,7 @@ class WebhookApi:
     @validate_call
     def webhooks_delete_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="webhook primary identifier")],
+        id: Annotated[UUID, Field(description="webhook primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -463,7 +464,7 @@ class WebhookApi:
     @validate_call
     def webhooks_delete_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="webhook primary identifier")],
+        id: Annotated[UUID, Field(description="webhook primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1111,7 +1112,7 @@ class WebhookApi:
     @validate_call
     def webhooks_update(
         self,
-        id: Annotated[StrictStr, Field(description="webhook primary identifier")],
+        id: Annotated[UUID, Field(description="webhook primary identifier")],
         create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.")],
         _request_timeout: Union[
             None,
@@ -1185,7 +1186,7 @@ class WebhookApi:
     @validate_call
     def webhooks_update_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="webhook primary identifier")],
+        id: Annotated[UUID, Field(description="webhook primary identifier")],
         create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.")],
         _request_timeout: Union[
             None,
@@ -1259,7 +1260,7 @@ class WebhookApi:
     @validate_call
     def webhooks_update_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="webhook primary identifier")],
+        id: Annotated[UUID, Field(description="webhook primary identifier")],
         create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.")],
         _request_timeout: Union[
             None,

@@ -5,6 +5,8 @@
 README.md
 docs/Account.md
 docs/AccountApi.md
+docs/AccountStatementsList200Response.md
+docs/AccountStatementsList200ResponseResultsInner.md
 docs/AccountsList200Response.md
 docs/AdditionalCard.md
 docs/Address.md
@@ -202,6 +204,8 @@ pluggy_sdk/configuration.py
 pluggy_sdk/exceptions.py
 pluggy_sdk/models/__init__.py
 pluggy_sdk/models/account.py
+pluggy_sdk/models/account_statements_list200_response.py
+pluggy_sdk/models/account_statements_list200_response_results_inner.py
 pluggy_sdk/models/accounts_list200_response.py
 pluggy_sdk/models/additional_card.py
 pluggy_sdk/models/address.py
@@ -359,4 +363,6 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_account_statements_list200_response.py
+test/test_account_statements_list200_response_results_inner.py
 tox.ini

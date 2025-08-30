@@ -17,8 +17,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.identity_response import IdentityResponse
 
 from pluggy_sdk.api_client import ApiClient, RequestSerialized
@@ -42,7 +43,7 @@ class IdentityApi:
     @validate_call
     def identity_find_by_item(
         self,
-        item_id: Annotated[StrictStr, Field(description="Item's primary identifier")],
+        item_id: Annotated[UUID, Field(description="Item's primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -112,7 +113,7 @@ class IdentityApi:
     @validate_call
     def identity_find_by_item_with_http_info(
         self,
-        item_id: Annotated[StrictStr, Field(description="Item's primary identifier")],
+        item_id: Annotated[UUID, Field(description="Item's primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -182,7 +183,7 @@ class IdentityApi:
     @validate_call
     def identity_find_by_item_without_preload_content(
         self,
-        item_id: Annotated[StrictStr, Field(description="Item's primary identifier")],
+        item_id: Annotated[UUID, Field(description="Item's primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -314,7 +315,7 @@ class IdentityApi:
     @validate_call
     def identity_retrieve(
         self,
-        id: Annotated[StrictStr, Field(description="identity primary identifier")],
+        id: Annotated[UUID, Field(description="identity primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -384,7 +385,7 @@ class IdentityApi:
     @validate_call
     def identity_retrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="identity primary identifier")],
+        id: Annotated[UUID, Field(description="identity primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -454,7 +455,7 @@ class IdentityApi:
     @validate_call
     def identity_retrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="identity primary identifier")],
+        id: Annotated[UUID, Field(description="identity primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],

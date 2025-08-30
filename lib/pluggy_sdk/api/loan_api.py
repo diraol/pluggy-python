@@ -17,8 +17,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.loan import Loan
 from pluggy_sdk.models.loans_list200_response import LoansList200Response
 
@@ -43,7 +44,7 @@ class LoanApi:
     @validate_call
     def loans_list(
         self,
-        item_id: Annotated[StrictStr, Field(description="Item's primary identifier")],
+        item_id: Annotated[UUID, Field(description="Item's primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -110,7 +111,7 @@ class LoanApi:
     @validate_call
     def loans_list_with_http_info(
         self,
-        item_id: Annotated[StrictStr, Field(description="Item's primary identifier")],
+        item_id: Annotated[UUID, Field(description="Item's primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -177,7 +178,7 @@ class LoanApi:
     @validate_call
     def loans_list_without_preload_content(
         self,
-        item_id: Annotated[StrictStr, Field(description="Item's primary identifier")],
+        item_id: Annotated[UUID, Field(description="Item's primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -306,7 +307,7 @@ class LoanApi:
     @validate_call
     def loans_retrieve(
         self,
-        id: Annotated[StrictStr, Field(description="loan primary identifier")],
+        id: Annotated[UUID, Field(description="loan primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -374,7 +375,7 @@ class LoanApi:
     @validate_call
     def loans_retrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="loan primary identifier")],
+        id: Annotated[UUID, Field(description="loan primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -442,7 +443,7 @@ class LoanApi:
     @validate_call
     def loans_retrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="loan primary identifier")],
+        id: Annotated[UUID, Field(description="loan primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],

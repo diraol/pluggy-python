@@ -17,8 +17,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.create_payment_intent import CreatePaymentIntent
 from pluggy_sdk.models.payment_intent import PaymentIntent
 from pluggy_sdk.models.payment_intents_list200_response import PaymentIntentsList200Response
@@ -318,7 +319,7 @@ class PaymentIntentApi:
     @validate_call
     def payment_intent_retrieve(
         self,
-        id: Annotated[StrictStr, Field(description="Payment intent primary identifier")],
+        id: Annotated[UUID, Field(description="Payment intent primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -386,7 +387,7 @@ class PaymentIntentApi:
     @validate_call
     def payment_intent_retrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment intent primary identifier")],
+        id: Annotated[UUID, Field(description="Payment intent primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -454,7 +455,7 @@ class PaymentIntentApi:
     @validate_call
     def payment_intent_retrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment intent primary identifier")],
+        id: Annotated[UUID, Field(description="Payment intent primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -582,7 +583,7 @@ class PaymentIntentApi:
     @validate_call
     def payment_intents_list(
         self,
-        payment_request_id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        payment_request_id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -649,7 +650,7 @@ class PaymentIntentApi:
     @validate_call
     def payment_intents_list_with_http_info(
         self,
-        payment_request_id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        payment_request_id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -716,7 +717,7 @@ class PaymentIntentApi:
     @validate_call
     def payment_intents_list_without_preload_content(
         self,
-        payment_request_id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        payment_request_id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],

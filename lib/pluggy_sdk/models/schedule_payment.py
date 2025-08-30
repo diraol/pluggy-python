@@ -21,6 +21,7 @@ import json
 from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from pluggy_sdk.models.schedule_payment_error_detail import SchedulePaymentErrorDetail
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +30,7 @@ class SchedulePayment(BaseModel):
     """
     Information of a schedule payment
     """ # noqa: E501
-    id: StrictStr
+    id: UUID
     description: StrictStr = Field(description="Scheduled payment description")
     status: StrictStr = Field(description="Scheduled payment status")
     scheduled_date: date = Field(description="Date when the payment is scheduled", alias="scheduledDate")

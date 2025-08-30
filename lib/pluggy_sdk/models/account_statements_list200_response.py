@@ -18,18 +18,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
-from uuid import UUID
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Union
+from pluggy_sdk.models.account_statements_list200_response_results_inner import AccountStatementsList200ResponseResultsInner
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CreateBoletoConnectionFromItem(BaseModel):
+class AccountStatementsList200Response(BaseModel):
     """
-    Request with information to create a boleto connection from an Item
+    AccountStatementsList200Response
     """ # noqa: E501
-    item_id: UUID = Field(description="Item ID", alias="itemId")
-    __properties: ClassVar[List[str]] = ["itemId"]
+    total: Union[StrictFloat, StrictInt]
+    total_pages: Union[StrictFloat, StrictInt] = Field(alias="totalPages")
+    page: Union[StrictFloat, StrictInt]
+    results: List[AccountStatementsList200ResponseResultsInner]
+    __properties: ClassVar[List[str]] = ["total", "totalPages", "page", "results"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,7 +52,7 @@ class CreateBoletoConnectionFromItem(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CreateBoletoConnectionFromItem from a JSON string"""
+        """Create an instance of AccountStatementsList200Response from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -70,11 +73,18 @@ class CreateBoletoConnectionFromItem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in results (list)
+        _items = []
+        if self.results:
+            for _item_results in self.results:
+                if _item_results:
+                    _items.append(_item_results.to_dict())
+            _dict['results'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CreateBoletoConnectionFromItem from a dict"""
+        """Create an instance of AccountStatementsList200Response from a dict"""
         if obj is None:
             return None
 
@@ -82,7 +92,10 @@ class CreateBoletoConnectionFromItem(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "itemId": obj.get("itemId")
+            "total": obj.get("total"),
+            "totalPages": obj.get("totalPages"),
+            "page": obj.get("page"),
+            "results": [AccountStatementsList200ResponseResultsInner.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None
         })
         return _obj
 

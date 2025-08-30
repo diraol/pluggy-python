@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from pluggy_sdk.models.payment_recipient_account import PaymentRecipientAccount
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,7 +31,7 @@ class UpdatePaymentRecipient(BaseModel):
     """ # noqa: E501
     tax_number: Optional[StrictStr] = Field(default=None, description="Account owner tax number. Can be CPF or CNPJ (only numbers)", alias="taxNumber")
     name: Optional[StrictStr] = Field(default=None, description="Account owner name.")
-    payment_institution_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the institution associated to the payment recipient.", alias="paymentInstitutionId")
+    payment_institution_id: Optional[UUID] = Field(default=None, description="Primary identifier of the institution associated to the payment recipient.", alias="paymentInstitutionId")
     account: Optional[PaymentRecipientAccount] = Field(default=None, description="Recipient's bank account destination.")
     __properties: ClassVar[List[str]] = ["taxNumber", "name", "paymentInstitutionId", "account"]
 

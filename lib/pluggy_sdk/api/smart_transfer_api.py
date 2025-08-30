@@ -17,9 +17,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictFloat, StrictInt, StrictStr
+from pydantic import Field, StrictFloat, StrictInt
 from typing import Optional, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.create_smart_transfer_payment import CreateSmartTransferPayment
 from pluggy_sdk.models.create_smart_transfer_preauthorization import CreateSmartTransferPreauthorization
 from pluggy_sdk.models.smart_tranfers_preauthorizations_list200_response import SmartTranfersPreauthorizationsList200Response
@@ -604,7 +605,7 @@ class SmartTransferApi:
     @validate_call
     def smart_transfer_paymentretrieve(
         self,
-        id: Annotated[StrictStr, Field(description="Payment primary identifier")],
+        id: Annotated[UUID, Field(description="Payment primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -672,7 +673,7 @@ class SmartTransferApi:
     @validate_call
     def smart_transfer_paymentretrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment primary identifier")],
+        id: Annotated[UUID, Field(description="Payment primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -740,7 +741,7 @@ class SmartTransferApi:
     @validate_call
     def smart_transfer_paymentretrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment primary identifier")],
+        id: Annotated[UUID, Field(description="Payment primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1145,7 +1146,7 @@ class SmartTransferApi:
     @validate_call
     def smart_transfer_preauthorization_retrieve(
         self,
-        id: Annotated[StrictStr, Field(description="Preauthorization primary identifier")],
+        id: Annotated[UUID, Field(description="Preauthorization primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1213,7 +1214,7 @@ class SmartTransferApi:
     @validate_call
     def smart_transfer_preauthorization_retrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Preauthorization primary identifier")],
+        id: Annotated[UUID, Field(description="Preauthorization primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1281,7 +1282,7 @@ class SmartTransferApi:
     @validate_call
     def smart_transfer_preauthorization_retrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Preauthorization primary identifier")],
+        id: Annotated[UUID, Field(description="Preauthorization primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],

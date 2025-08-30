@@ -20,6 +20,7 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictFloat, StrictInt, StrictStr
 from typing import Optional, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.create_or_update_payment_customer import CreateOrUpdatePaymentCustomer
 from pluggy_sdk.models.create_payment_customer_request_body import CreatePaymentCustomerRequestBody
 from pluggy_sdk.models.payment_customer import PaymentCustomer
@@ -320,7 +321,7 @@ class PaymentCustomerApi:
     @validate_call
     def payment_customer_delete(
         self,
-        id: Annotated[StrictStr, Field(description="Payment customer primary identifier")],
+        id: Annotated[UUID, Field(description="Payment customer primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -388,7 +389,7 @@ class PaymentCustomerApi:
     @validate_call
     def payment_customer_delete_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment customer primary identifier")],
+        id: Annotated[UUID, Field(description="Payment customer primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -456,7 +457,7 @@ class PaymentCustomerApi:
     @validate_call
     def payment_customer_delete_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment customer primary identifier")],
+        id: Annotated[UUID, Field(description="Payment customer primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -584,7 +585,7 @@ class PaymentCustomerApi:
     @validate_call
     def payment_customer_retrieve(
         self,
-        id: Annotated[StrictStr, Field(description="Payment customer primary identifier")],
+        id: Annotated[UUID, Field(description="Payment customer primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -652,7 +653,7 @@ class PaymentCustomerApi:
     @validate_call
     def payment_customer_retrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment customer primary identifier")],
+        id: Annotated[UUID, Field(description="Payment customer primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -720,7 +721,7 @@ class PaymentCustomerApi:
     @validate_call
     def payment_customer_retrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment customer primary identifier")],
+        id: Annotated[UUID, Field(description="Payment customer primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -848,7 +849,7 @@ class PaymentCustomerApi:
     @validate_call
     def payment_customer_update(
         self,
-        id: Annotated[StrictStr, Field(description="Payment customer primary identifier")],
+        id: Annotated[UUID, Field(description="Payment customer primary identifier")],
         create_or_update_payment_customer: CreateOrUpdatePaymentCustomer,
         _request_timeout: Union[
             None,
@@ -919,7 +920,7 @@ class PaymentCustomerApi:
     @validate_call
     def payment_customer_update_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment customer primary identifier")],
+        id: Annotated[UUID, Field(description="Payment customer primary identifier")],
         create_or_update_payment_customer: CreateOrUpdatePaymentCustomer,
         _request_timeout: Union[
             None,
@@ -990,7 +991,7 @@ class PaymentCustomerApi:
     @validate_call
     def payment_customer_update_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment customer primary identifier")],
+        id: Annotated[UUID, Field(description="Payment customer primary identifier")],
         create_or_update_payment_customer: CreateOrUpdatePaymentCustomer,
         _request_timeout: Union[
             None,

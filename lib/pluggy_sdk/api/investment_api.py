@@ -20,6 +20,7 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Optional, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.investment import Investment
 from pluggy_sdk.models.investments_list200_response import InvestmentsList200Response
 from pluggy_sdk.models.page_response_investment_transactions import PageResponseInvestmentTransactions
@@ -45,7 +46,7 @@ class InvestmentApi:
     @validate_call
     def investment_transactions_list(
         self,
-        id: Annotated[StrictStr, Field(description="Investment primary identifier")],
+        id: Annotated[UUID, Field(description="Investment primary identifier")],
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
@@ -121,7 +122,7 @@ class InvestmentApi:
     @validate_call
     def investment_transactions_list_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Investment primary identifier")],
+        id: Annotated[UUID, Field(description="Investment primary identifier")],
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
@@ -197,7 +198,7 @@ class InvestmentApi:
     @validate_call
     def investment_transactions_list_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Investment primary identifier")],
+        id: Annotated[UUID, Field(description="Investment primary identifier")],
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
@@ -343,7 +344,7 @@ class InvestmentApi:
     @validate_call
     def investments_list(
         self,
-        item_id: Annotated[StrictStr, Field(description="Item's primary identifier")],
+        item_id: Annotated[UUID, Field(description="Item's primary identifier")],
         type: Annotated[Optional[StrictStr], Field(description="Investment's type to filter")] = None,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
@@ -422,7 +423,7 @@ class InvestmentApi:
     @validate_call
     def investments_list_with_http_info(
         self,
-        item_id: Annotated[StrictStr, Field(description="Item's primary identifier")],
+        item_id: Annotated[UUID, Field(description="Item's primary identifier")],
         type: Annotated[Optional[StrictStr], Field(description="Investment's type to filter")] = None,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
@@ -501,7 +502,7 @@ class InvestmentApi:
     @validate_call
     def investments_list_without_preload_content(
         self,
-        item_id: Annotated[StrictStr, Field(description="Item's primary identifier")],
+        item_id: Annotated[UUID, Field(description="Item's primary identifier")],
         type: Annotated[Optional[StrictStr], Field(description="Investment's type to filter")] = None,
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
@@ -657,7 +658,7 @@ class InvestmentApi:
     @validate_call
     def investments_retrieve(
         self,
-        id: Annotated[StrictStr, Field(description="investment primary identifier")],
+        id: Annotated[UUID, Field(description="investment primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -725,7 +726,7 @@ class InvestmentApi:
     @validate_call
     def investments_retrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="investment primary identifier")],
+        id: Annotated[UUID, Field(description="investment primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -793,7 +794,7 @@ class InvestmentApi:
     @validate_call
     def investments_retrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="investment primary identifier")],
+        id: Annotated[UUID, Field(description="investment primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],

@@ -17,8 +17,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.boleto_connection import BoletoConnection
 from pluggy_sdk.models.create_boleto import CreateBoleto
 from pluggy_sdk.models.create_boleto_connection import CreateBoletoConnection
@@ -46,7 +47,7 @@ class BoletoManagementApi:
     @validate_call
     def boleto_cancel(
         self,
-        id: Annotated[StrictStr, Field(description="Boleto primary identifier")],
+        id: Annotated[UUID, Field(description="Boleto primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -112,7 +113,7 @@ class BoletoManagementApi:
     @validate_call
     def boleto_cancel_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Boleto primary identifier")],
+        id: Annotated[UUID, Field(description="Boleto primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -178,7 +179,7 @@ class BoletoManagementApi:
     @validate_call
     def boleto_cancel_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Boleto primary identifier")],
+        id: Annotated[UUID, Field(description="Boleto primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1120,7 +1121,7 @@ class BoletoManagementApi:
     @validate_call
     def boleto_get(
         self,
-        id: Annotated[StrictStr, Field(description="Boleto primary identifier")],
+        id: Annotated[UUID, Field(description="Boleto primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1186,7 +1187,7 @@ class BoletoManagementApi:
     @validate_call
     def boleto_get_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Boleto primary identifier")],
+        id: Annotated[UUID, Field(description="Boleto primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1252,7 +1253,7 @@ class BoletoManagementApi:
     @validate_call
     def boleto_get_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Boleto primary identifier")],
+        id: Annotated[UUID, Field(description="Boleto primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],

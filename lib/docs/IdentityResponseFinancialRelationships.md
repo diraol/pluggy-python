@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **start_date** | **datetime** | Date when the relationship with the institution started | 
 **products_services_type** | **List[str]** | List of products and services that the client consumes | 
 **procurators** | [**List[IdentityResponseFinancialRelationshipsProcuratorsInner]**](IdentityResponseFinancialRelationshipsProcuratorsInner.md) | List of procurators of the client | 
-**accounts** | [**List[IdentityResponseFinancialRelationshipsAccountsInner]**](IdentityResponseFinancialRelationshipsAccountsInner.md) | List of accounts of the client | [optional] 
+**accounts** | [**List[IdentityResponseFinancialRelationshipsAccountsInner]**](IdentityResponseFinancialRelationshipsAccountsInner.md) | List of accounts of the client with valid consent. Only accounts that have explicit user consent are returned. | [optional] 
 
 ## Example
 

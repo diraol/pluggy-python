@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +28,7 @@ class AuthRequest(BaseModel):
     """
     Authentication parameters required to get access to Pluggy's API
     """ # noqa: E501
-    client_id: StrictStr = Field(description="Client id", alias="clientId")
+    client_id: UUID = Field(description="Client id", alias="clientId")
     client_secret: StrictStr = Field(description="Client secret", alias="clientSecret")
     __properties: ClassVar[List[str]] = ["clientId", "clientSecret"]
 

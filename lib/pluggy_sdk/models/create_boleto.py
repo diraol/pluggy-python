@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List
+from uuid import UUID
 from pluggy_sdk.models.create_boleto_boleto import CreateBoletoBoleto
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +29,7 @@ class CreateBoleto(BaseModel):
     """
     Request with information to create a boleto
     """ # noqa: E501
-    boleto_connection_id: StrictStr = Field(description="Primary identifier of the boleto connection", alias="boletoConnectionId")
+    boleto_connection_id: UUID = Field(description="Primary identifier of the boleto connection", alias="boletoConnectionId")
     boleto: CreateBoletoBoleto
     __properties: ClassVar[List[str]] = ["boletoConnectionId", "boleto"]
 

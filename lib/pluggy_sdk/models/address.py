@@ -34,7 +34,8 @@ class Address(BaseModel):
     state: Optional[StrictStr] = Field(default=None, description="The state or province")
     country: Optional[StrictStr] = Field(default=None, description="The complete country name")
     type: Optional[StrictStr] = Field(default=None, description="Type of address, Personal or Work")
-    __properties: ClassVar[List[str]] = ["fullAddress", "primaryAddress", "city", "postalCode", "state", "country", "type"]
+    additional_info: Optional[StrictStr] = Field(default=None, description="Additional address information such as apartment number, complement, or other details", alias="additionalInfo")
+    __properties: ClassVar[List[str]] = ["fullAddress", "primaryAddress", "city", "postalCode", "state", "country", "type", "additionalInfo"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -103,7 +104,8 @@ class Address(BaseModel):
             "postalCode": obj.get("postalCode"),
             "state": obj.get("state"),
             "country": obj.get("country"),
-            "type": obj.get("type")
+            "type": obj.get("type"),
+            "additionalInfo": obj.get("additionalInfo")
         })
         return _obj
 

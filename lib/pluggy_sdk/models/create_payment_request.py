@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from pluggy_sdk.models.create_payment_request_schedule import CreatePaymentRequestSchedule
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
 from typing import Optional, Set
@@ -32,8 +33,8 @@ class CreatePaymentRequest(BaseModel):
     amount: Union[StrictFloat, StrictInt] = Field(description="Requested amount")
     description: Optional[StrictStr] = Field(default=None, description="Payment description")
     callback_urls: Optional[PaymentRequestCallbackUrls] = Field(default=None, alias="callbackUrls")
-    recipient_id: Optional[StrictStr] = Field(default=None, description="Payment receiver identifier", alias="recipientId")
-    customer_id: Optional[StrictStr] = Field(default=None, description="Customer identifier associated to the payment", alias="customerId")
+    recipient_id: Optional[UUID] = Field(default=None, description="Payment receiver identifier", alias="recipientId")
+    customer_id: Optional[UUID] = Field(default=None, description="Customer identifier associated to the payment", alias="customerId")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Your payment identifier", alias="clientPaymentId")
     schedule: Optional[CreatePaymentRequestSchedule] = None
     is_sandbox: Optional[StrictBool] = Field(default=False, description="Indicates if this payment request should be created in sandbox mode. Default: false.", alias="isSandbox")

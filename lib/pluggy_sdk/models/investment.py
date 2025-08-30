@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from pluggy_sdk.models.investment_metadata import InvestmentMetadata
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,7 +31,7 @@ class Investment(BaseModel):
     Investment representing a specific asset
     """ # noqa: E501
     id: StrictStr = Field(description="Primary identifier")
-    item_id: StrictStr = Field(description="Identifier of the item linked to the investment", alias="itemId")
+    item_id: UUID = Field(description="Identifier of the item linked to the investment", alias="itemId")
     type: StrictStr = Field(description="Investment Asset type")
     subtype: Optional[StrictStr] = Field(default=None, description="Investment subtype, depends on the type")
     number: Optional[StrictStr] = Field(default=None, description="Reference number for this holder's asset")

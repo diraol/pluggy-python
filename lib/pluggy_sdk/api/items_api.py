@@ -20,6 +20,7 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictStr
 from typing import Dict, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.create_item import CreateItem
 from pluggy_sdk.models.i_count_response import ICountResponse
 from pluggy_sdk.models.item import Item
@@ -329,7 +330,7 @@ class ItemsApi:
     @validate_call
     def items_delete(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -398,7 +399,7 @@ class ItemsApi:
     @validate_call
     def items_delete_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -467,7 +468,7 @@ class ItemsApi:
     @validate_call
     def items_delete_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -596,7 +597,7 @@ class ItemsApi:
     @validate_call
     def items_disable_autosync(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -665,7 +666,7 @@ class ItemsApi:
     @validate_call
     def items_disable_autosync_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -734,7 +735,7 @@ class ItemsApi:
     @validate_call
     def items_disable_autosync_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -863,7 +864,7 @@ class ItemsApi:
     @validate_call
     def items_retrieve(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -932,7 +933,7 @@ class ItemsApi:
     @validate_call
     def items_retrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1001,7 +1002,7 @@ class ItemsApi:
     @validate_call
     def items_retrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1130,7 +1131,7 @@ class ItemsApi:
     @validate_call
     def items_send_mfa(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         request_body: Dict[str, StrictStr],
         _request_timeout: Union[
             None,
@@ -1203,7 +1204,7 @@ class ItemsApi:
     @validate_call
     def items_send_mfa_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         request_body: Dict[str, StrictStr],
         _request_timeout: Union[
             None,
@@ -1276,7 +1277,7 @@ class ItemsApi:
     @validate_call
     def items_send_mfa_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         request_body: Dict[str, StrictStr],
         _request_timeout: Union[
             None,
@@ -1425,7 +1426,7 @@ class ItemsApi:
     @validate_call
     def items_update(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         update_item: Annotated[Optional[UpdateItem], Field(description="Update item request")] = None,
         _request_timeout: Union[
             None,
@@ -1500,7 +1501,7 @@ class ItemsApi:
     @validate_call
     def items_update_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         update_item: Annotated[Optional[UpdateItem], Field(description="Update item request")] = None,
         _request_timeout: Union[
             None,
@@ -1575,7 +1576,7 @@ class ItemsApi:
     @validate_call
     def items_update_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        id: Annotated[UUID, Field(description="Item primary identifier")],
         update_item: Annotated[Optional[UpdateItem], Field(description="Update item request")] = None,
         _request_timeout: Union[
             None,

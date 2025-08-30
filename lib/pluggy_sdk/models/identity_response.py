@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from pluggy_sdk.models.address import Address
 from pluggy_sdk.models.email import Email
 from pluggy_sdk.models.identity_relation import IdentityRelation
@@ -35,7 +36,7 @@ class IdentityResponse(BaseModel):
     Response with details personal information related to the owner of the connection's account
     """ # noqa: E501
     id: StrictStr = Field(description="The ID of the identity to retrieve")
-    item_id: StrictStr = Field(description="Identifier of the item linked to the identity", alias="itemId")
+    item_id: UUID = Field(description="Identifier of the item linked to the identity", alias="itemId")
     birth_date: Optional[datetime] = Field(default=None, description="Date of birth", alias="birthDate")
     tax_number: Optional[StrictStr] = Field(default=None, description="The tax ID (CNPJ) associated with the business account", alias="taxNumber")
     document: Optional[StrictStr] = Field(default=None, description="Primary document that identifies the owner")

@@ -18,18 +18,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
 from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CreateBoletoConnectionFromItem(BaseModel):
+class AccountStatementsList200ResponseResultsInner(BaseModel):
     """
-    Request with information to create a boleto connection from an Item
+    AccountStatementsList200ResponseResultsInner
     """ # noqa: E501
-    item_id: UUID = Field(description="Item ID", alias="itemId")
-    __properties: ClassVar[List[str]] = ["itemId"]
+    id: UUID
+    month_year: StrictStr = Field(alias="monthYear")
+    url: StrictStr = Field(description="Signed URL to the statement file, this url is valid for 30 minutes")
+    __properties: ClassVar[List[str]] = ["id", "monthYear", "url"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,7 +51,7 @@ class CreateBoletoConnectionFromItem(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CreateBoletoConnectionFromItem from a JSON string"""
+        """Create an instance of AccountStatementsList200ResponseResultsInner from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -74,7 +76,7 @@ class CreateBoletoConnectionFromItem(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CreateBoletoConnectionFromItem from a dict"""
+        """Create an instance of AccountStatementsList200ResponseResultsInner from a dict"""
         if obj is None:
             return None
 
@@ -82,7 +84,9 @@ class CreateBoletoConnectionFromItem(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "itemId": obj.get("itemId")
+            "id": obj.get("id"),
+            "monthYear": obj.get("monthYear"),
+            "url": obj.get("url")
         })
         return _obj
 

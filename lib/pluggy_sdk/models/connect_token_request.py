@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from pluggy_sdk.models.item_options import ItemOptions
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +29,7 @@ class ConnectTokenRequest(BaseModel):
     """
     Create a connect token request payload
     """ # noqa: E501
-    item_id: Optional[StrictStr] = Field(default=None, description="Item identifier to allow Connect Widget to performan an update on it.", alias="itemId")
+    item_id: Optional[UUID] = Field(default=None, description="Item identifier to allow Connect Widget to performan an update on it.", alias="itemId")
     options: Optional[ItemOptions] = None
     __properties: ClassVar[List[str]] = ["itemId", "options"]
 

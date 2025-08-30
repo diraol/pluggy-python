@@ -4,9 +4,91 @@ All URIs are relative to *https://api.pluggy.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**account_statements_list**](AccountApi.md#account_statements_list) | **GET** /accounts/{id}/statements | List account statements
 [**accounts_list**](AccountApi.md#accounts_list) | **GET** /accounts | List
 [**accounts_retrieve**](AccountApi.md#accounts_retrieve) | **GET** /accounts/{id} | Retrieve
 
+
+# **account_statements_list**
+> AccountStatementsList200Response account_statements_list(id)
+
+List account statements
+
+Recovers all statements collected for the account provided
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.models.account_statements_list200_response import AccountStatementsList200Response
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.AccountApi(api_client)
+    id = 'a658c848-e475-457b-8565-d1fffba127c4' # str | Account primary identifier
+
+    try:
+        # List account statements
+        api_response = api_instance.account_statements_list(id)
+        print("The response of AccountApi->account_statements_list:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AccountApi->account_statements_list: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| Account primary identifier | 
+
+### Return type
+
+[**AccountStatementsList200Response**](AccountStatementsList200Response.md)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Retrieve a list of all statements for an account |  -  |
+**400** | Missing parameter |  -  |
+**500** | Server Internal Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **accounts_list**
 > AccountsList200Response accounts_list(item_id, type=type)

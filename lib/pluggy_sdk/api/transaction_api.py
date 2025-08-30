@@ -18,9 +18,10 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from datetime import datetime
-from pydantic import Field, StrictFloat, StrictInt, StrictStr
+from pydantic import Field, StrictFloat, StrictInt
 from typing import List, Optional, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.page_response_transactions import PageResponseTransactions
 from pluggy_sdk.models.transaction import Transaction
 from pluggy_sdk.models.update_transaction import UpdateTransaction
@@ -46,13 +47,13 @@ class TransactionApi:
     @validate_call
     def transactions_list(
         self,
-        account_id: Annotated[StrictStr, Field(description="Account primary identifier")],
-        ids: Annotated[Optional[List[StrictStr]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
+        account_id: Annotated[UUID, Field(description="Account primary identifier")],
+        ids: Annotated[Optional[List[UUID]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
         var_from: Annotated[Optional[datetime], Field(description="Filter greater than date. Format (yyyy-mm-dd)")] = None,
         to: Annotated[Optional[datetime], Field(description="Filter lower than date. Format (yyyy-mm-dd)")] = None,
         page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
-        bill_id: Annotated[Optional[StrictStr], Field(description="Credit Card Bill's primary identifier, if account is a credit card.")] = None,
+        bill_id: Annotated[Optional[UUID], Field(description="Credit Card Bill's primary identifier, if account is a credit card.")] = None,
         created_at_from: Annotated[Optional[datetime], Field(description="Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
         _request_timeout: Union[
             None,
@@ -143,13 +144,13 @@ class TransactionApi:
     @validate_call
     def transactions_list_with_http_info(
         self,
-        account_id: Annotated[StrictStr, Field(description="Account primary identifier")],
-        ids: Annotated[Optional[List[StrictStr]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
+        account_id: Annotated[UUID, Field(description="Account primary identifier")],
+        ids: Annotated[Optional[List[UUID]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
         var_from: Annotated[Optional[datetime], Field(description="Filter greater than date. Format (yyyy-mm-dd)")] = None,
         to: Annotated[Optional[datetime], Field(description="Filter lower than date. Format (yyyy-mm-dd)")] = None,
         page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
-        bill_id: Annotated[Optional[StrictStr], Field(description="Credit Card Bill's primary identifier, if account is a credit card.")] = None,
+        bill_id: Annotated[Optional[UUID], Field(description="Credit Card Bill's primary identifier, if account is a credit card.")] = None,
         created_at_from: Annotated[Optional[datetime], Field(description="Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
         _request_timeout: Union[
             None,
@@ -240,13 +241,13 @@ class TransactionApi:
     @validate_call
     def transactions_list_without_preload_content(
         self,
-        account_id: Annotated[StrictStr, Field(description="Account primary identifier")],
-        ids: Annotated[Optional[List[StrictStr]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
+        account_id: Annotated[UUID, Field(description="Account primary identifier")],
+        ids: Annotated[Optional[List[UUID]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
         var_from: Annotated[Optional[datetime], Field(description="Filter greater than date. Format (yyyy-mm-dd)")] = None,
         to: Annotated[Optional[datetime], Field(description="Filter lower than date. Format (yyyy-mm-dd)")] = None,
         page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 20")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
-        bill_id: Annotated[Optional[StrictStr], Field(description="Credit Card Bill's primary identifier, if account is a credit card.")] = None,
+        bill_id: Annotated[Optional[UUID], Field(description="Credit Card Bill's primary identifier, if account is a credit card.")] = None,
         created_at_from: Annotated[Optional[datetime], Field(description="Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
         _request_timeout: Union[
             None,
@@ -462,7 +463,7 @@ class TransactionApi:
     @validate_call
     def transactions_retrieve(
         self,
-        id: Annotated[StrictStr, Field(description="transaction primary identifier")],
+        id: Annotated[UUID, Field(description="transaction primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -531,7 +532,7 @@ class TransactionApi:
     @validate_call
     def transactions_retrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="transaction primary identifier")],
+        id: Annotated[UUID, Field(description="transaction primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -600,7 +601,7 @@ class TransactionApi:
     @validate_call
     def transactions_retrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="transaction primary identifier")],
+        id: Annotated[UUID, Field(description="transaction primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -729,7 +730,7 @@ class TransactionApi:
     @validate_call
     def transactions_update(
         self,
-        id: Annotated[StrictStr, Field(description="transaction primary identifier")],
+        id: Annotated[UUID, Field(description="transaction primary identifier")],
         update_transaction: Annotated[UpdateTransaction, Field(description="New category identifier")],
         _request_timeout: Union[
             None,
@@ -803,7 +804,7 @@ class TransactionApi:
     @validate_call
     def transactions_update_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="transaction primary identifier")],
+        id: Annotated[UUID, Field(description="transaction primary identifier")],
         update_transaction: Annotated[UpdateTransaction, Field(description="New category identifier")],
         _request_timeout: Union[
             None,
@@ -877,7 +878,7 @@ class TransactionApi:
     @validate_call
     def transactions_update_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="transaction primary identifier")],
+        id: Annotated[UUID, Field(description="transaction primary identifier")],
         update_transaction: Annotated[UpdateTransaction, Field(description="New category identifier")],
         _request_timeout: Union[
             None,

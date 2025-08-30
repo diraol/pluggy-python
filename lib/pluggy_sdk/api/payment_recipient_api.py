@@ -20,6 +20,7 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Optional, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.create_payment_recipient import CreatePaymentRecipient
 from pluggy_sdk.models.payment_institution import PaymentInstitution
 from pluggy_sdk.models.payment_recipient import PaymentRecipient
@@ -325,7 +326,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipient_delete(
         self,
-        id: Annotated[StrictStr, Field(description="Payment recipient primary identifier")],
+        id: Annotated[UUID, Field(description="Payment recipient primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -393,7 +394,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipient_delete_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment recipient primary identifier")],
+        id: Annotated[UUID, Field(description="Payment recipient primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -461,7 +462,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipient_delete_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment recipient primary identifier")],
+        id: Annotated[UUID, Field(description="Payment recipient primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -589,7 +590,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipient_institutions_retrieve(
         self,
-        id: Annotated[StrictStr, Field(description="Payment institution primary identifier")],
+        id: Annotated[UUID, Field(description="Payment institution primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -657,7 +658,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipient_institutions_retrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment institution primary identifier")],
+        id: Annotated[UUID, Field(description="Payment institution primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -725,7 +726,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipient_institutions_retrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment institution primary identifier")],
+        id: Annotated[UUID, Field(description="Payment institution primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -853,7 +854,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipient_retrieve(
         self,
-        id: Annotated[StrictStr, Field(description="Payment recipient primary identifier")],
+        id: Annotated[UUID, Field(description="Payment recipient primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -921,7 +922,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipient_retrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment recipient primary identifier")],
+        id: Annotated[UUID, Field(description="Payment recipient primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -989,7 +990,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipient_retrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment recipient primary identifier")],
+        id: Annotated[UUID, Field(description="Payment recipient primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1117,7 +1118,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipient_update(
         self,
-        id: Annotated[StrictStr, Field(description="Payment recipient primary identifier")],
+        id: Annotated[UUID, Field(description="Payment recipient primary identifier")],
         update_payment_recipient: UpdatePaymentRecipient,
         _request_timeout: Union[
             None,
@@ -1188,7 +1189,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipient_update_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment recipient primary identifier")],
+        id: Annotated[UUID, Field(description="Payment recipient primary identifier")],
         update_payment_recipient: UpdatePaymentRecipient,
         _request_timeout: Union[
             None,
@@ -1259,7 +1260,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipient_update_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment recipient primary identifier")],
+        id: Annotated[UUID, Field(description="Payment recipient primary identifier")],
         update_payment_recipient: UpdatePaymentRecipient,
         _request_timeout: Union[
             None,

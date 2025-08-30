@@ -21,6 +21,7 @@ import json
 from datetime import date, datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from pluggy_sdk.models.loan_contracted_fee import LoanContractedFee
 from pluggy_sdk.models.loan_contracted_finance_charge import LoanContractedFinanceCharge
 from pluggy_sdk.models.loan_installments import LoanInstallments
@@ -35,7 +36,7 @@ class Loan(BaseModel):
     Response with information related to a loan
     """ # noqa: E501
     id: StrictStr = Field(description="Primary identifier")
-    item_id: StrictStr = Field(description="Identifier of the item linked to the loan", alias="itemId")
+    item_id: UUID = Field(description="Identifier of the item linked to the loan", alias="itemId")
     contract_number: Optional[StrictStr] = Field(default=None, description="Contract number given by the contracting institution", alias="contractNumber")
     ipoc_code: Optional[StrictStr] = Field(default=None, description="Standard contract number - IPOC (Identificação Padronizada da Operação de Crédito)", alias="ipocCode")
     product_name: StrictStr = Field(description="Denomination/Identification of the name of the credit operation disclosed to the customer", alias="productName")

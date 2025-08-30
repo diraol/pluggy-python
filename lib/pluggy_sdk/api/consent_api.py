@@ -17,8 +17,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.consent import Consent
 from pluggy_sdk.models.page_response_consents import PageResponseConsents
 
@@ -43,7 +44,7 @@ class ConsentApi:
     @validate_call
     def consent_retrieve(
         self,
-        id: Annotated[StrictStr, Field(description="Consent primary identifier")],
+        id: Annotated[UUID, Field(description="Consent primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -112,7 +113,7 @@ class ConsentApi:
     @validate_call
     def consent_retrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Consent primary identifier")],
+        id: Annotated[UUID, Field(description="Consent primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -181,7 +182,7 @@ class ConsentApi:
     @validate_call
     def consent_retrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Consent primary identifier")],
+        id: Annotated[UUID, Field(description="Consent primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -310,7 +311,7 @@ class ConsentApi:
     @validate_call
     def consents_list(
         self,
-        item_id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        item_id: Annotated[UUID, Field(description="Item primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -379,7 +380,7 @@ class ConsentApi:
     @validate_call
     def consents_list_with_http_info(
         self,
-        item_id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        item_id: Annotated[UUID, Field(description="Item primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -448,7 +449,7 @@ class ConsentApi:
     @validate_call
     def consents_list_without_preload_content(
         self,
-        item_id: Annotated[StrictStr, Field(description="Item primary identifier")],
+        item_id: Annotated[UUID, Field(description="Item primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],

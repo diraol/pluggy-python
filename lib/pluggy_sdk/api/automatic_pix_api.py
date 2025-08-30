@@ -17,9 +17,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field
 from typing import Any, Dict
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.automatic_pix_payment import AutomaticPixPayment
 from pluggy_sdk.models.create_automatic_pix_payment_request import CreateAutomaticPixPaymentRequest
 from pluggy_sdk.models.payment_request import PaymentRequest
@@ -48,8 +49,8 @@ class AutomaticPIXApi:
     @validate_call
     def cancel_automatic_pix_schedule(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
-        schedule_id: Annotated[StrictStr, Field(description="Automatic PIX schedule primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        schedule_id: Annotated[UUID, Field(description="Automatic PIX schedule primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -119,8 +120,8 @@ class AutomaticPIXApi:
     @validate_call
     def cancel_automatic_pix_schedule_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
-        schedule_id: Annotated[StrictStr, Field(description="Automatic PIX schedule primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        schedule_id: Annotated[UUID, Field(description="Automatic PIX schedule primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -190,8 +191,8 @@ class AutomaticPIXApi:
     @validate_call
     def cancel_automatic_pix_schedule_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
-        schedule_id: Annotated[StrictStr, Field(description="Automatic PIX schedule primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        schedule_id: Annotated[UUID, Field(description="Automatic PIX schedule primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -317,7 +318,7 @@ class AutomaticPIXApi:
     @validate_call
     def payment_request_cancel_automatic_pix_consent(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -384,7 +385,7 @@ class AutomaticPIXApi:
     @validate_call
     def payment_request_cancel_automatic_pix_consent_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -451,7 +452,7 @@ class AutomaticPIXApi:
     @validate_call
     def payment_request_cancel_automatic_pix_consent_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -845,7 +846,7 @@ class AutomaticPIXApi:
     @validate_call
     def payment_request_create_automatic_pix_schedule(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         schedule_automatic_pix_payment_request: ScheduleAutomaticPixPaymentRequest,
         _request_timeout: Union[
             None,
@@ -916,7 +917,7 @@ class AutomaticPIXApi:
     @validate_call
     def payment_request_create_automatic_pix_schedule_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         schedule_automatic_pix_payment_request: ScheduleAutomaticPixPaymentRequest,
         _request_timeout: Union[
             None,
@@ -987,7 +988,7 @@ class AutomaticPIXApi:
     @validate_call
     def payment_request_create_automatic_pix_schedule_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         schedule_automatic_pix_payment_request: ScheduleAutomaticPixPaymentRequest,
         _request_timeout: Union[
             None,
@@ -1134,8 +1135,8 @@ class AutomaticPIXApi:
     @validate_call
     def payment_request_get_automatic_pix_schedule(
         self,
-        request_id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
-        payment_id: Annotated[StrictStr, Field(description="Automatic PIX scheduled payment primary identifier")],
+        request_id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        payment_id: Annotated[UUID, Field(description="Automatic PIX scheduled payment primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1205,8 +1206,8 @@ class AutomaticPIXApi:
     @validate_call
     def payment_request_get_automatic_pix_schedule_with_http_info(
         self,
-        request_id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
-        payment_id: Annotated[StrictStr, Field(description="Automatic PIX scheduled payment primary identifier")],
+        request_id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        payment_id: Annotated[UUID, Field(description="Automatic PIX scheduled payment primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1276,8 +1277,8 @@ class AutomaticPIXApi:
     @validate_call
     def payment_request_get_automatic_pix_schedule_without_preload_content(
         self,
-        request_id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
-        payment_id: Annotated[StrictStr, Field(description="Automatic PIX scheduled payment primary identifier")],
+        request_id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        payment_id: Annotated[UUID, Field(description="Automatic PIX scheduled payment primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1410,7 +1411,7 @@ class AutomaticPIXApi:
     @validate_call
     def payment_request_get_automatic_pix_schedules(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1477,7 +1478,7 @@ class AutomaticPIXApi:
     @validate_call
     def payment_request_get_automatic_pix_schedules_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1544,7 +1545,7 @@ class AutomaticPIXApi:
     @validate_call
     def payment_request_get_automatic_pix_schedules_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1671,8 +1672,8 @@ class AutomaticPIXApi:
     @validate_call
     def retry_automatic_pix_schedule(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
-        schedule_id: Annotated[StrictStr, Field(description="Automatic PIX schedule primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        schedule_id: Annotated[UUID, Field(description="Automatic PIX schedule primary identifier")],
         retry_automatic_pix_payment_request: RetryAutomaticPixPaymentRequest,
         _request_timeout: Union[
             None,
@@ -1746,8 +1747,8 @@ class AutomaticPIXApi:
     @validate_call
     def retry_automatic_pix_schedule_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
-        schedule_id: Annotated[StrictStr, Field(description="Automatic PIX schedule primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        schedule_id: Annotated[UUID, Field(description="Automatic PIX schedule primary identifier")],
         retry_automatic_pix_payment_request: RetryAutomaticPixPaymentRequest,
         _request_timeout: Union[
             None,
@@ -1821,8 +1822,8 @@ class AutomaticPIXApi:
     @validate_call
     def retry_automatic_pix_schedule_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
-        schedule_id: Annotated[StrictStr, Field(description="Automatic PIX schedule primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        schedule_id: Annotated[UUID, Field(description="Automatic PIX schedule primary identifier")],
         retry_automatic_pix_payment_request: RetryAutomaticPixPaymentRequest,
         _request_timeout: Union[
             None,

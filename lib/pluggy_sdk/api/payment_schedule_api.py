@@ -17,8 +17,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.payment_schedules_list200_response import PaymentSchedulesList200Response
 
 from pluggy_sdk.api_client import ApiClient, RequestSerialized
@@ -42,7 +43,7 @@ class PaymentScheduleApi:
     @validate_call
     def payment_schedules_cancel(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -109,7 +110,7 @@ class PaymentScheduleApi:
     @validate_call
     def payment_schedules_cancel_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -176,7 +177,7 @@ class PaymentScheduleApi:
     @validate_call
     def payment_schedules_cancel_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -296,8 +297,8 @@ class PaymentScheduleApi:
     @validate_call
     def payment_schedules_cancel_specific(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
-        schedule_id: Annotated[StrictStr, Field(description="Payment schedule primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        schedule_id: Annotated[UUID, Field(description="Payment schedule primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -367,8 +368,8 @@ class PaymentScheduleApi:
     @validate_call
     def payment_schedules_cancel_specific_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
-        schedule_id: Annotated[StrictStr, Field(description="Payment schedule primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        schedule_id: Annotated[UUID, Field(description="Payment schedule primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -438,8 +439,8 @@ class PaymentScheduleApi:
     @validate_call
     def payment_schedules_cancel_specific_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
-        schedule_id: Annotated[StrictStr, Field(description="Payment schedule primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        schedule_id: Annotated[UUID, Field(description="Payment schedule primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -565,7 +566,7 @@ class PaymentScheduleApi:
     @validate_call
     def payment_schedules_list(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -632,7 +633,7 @@ class PaymentScheduleApi:
     @validate_call
     def payment_schedules_list_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -699,7 +700,7 @@ class PaymentScheduleApi:
     @validate_call
     def payment_schedules_list_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],

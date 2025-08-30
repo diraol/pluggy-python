@@ -21,6 +21,7 @@ from datetime import date
 from pydantic import Field, StrictFloat, StrictInt, StrictStr
 from typing import Optional, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from pluggy_sdk.models.create_payment_request import CreatePaymentRequest
 from pluggy_sdk.models.create_pix_qr_payment_request import CreatePixQrPaymentRequest
 from pluggy_sdk.models.payment_request import PaymentRequest
@@ -596,7 +597,7 @@ class PaymentRequestApi:
     @validate_call
     def payment_request_delete(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -664,7 +665,7 @@ class PaymentRequestApi:
     @validate_call
     def payment_request_delete_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -732,7 +733,7 @@ class PaymentRequestApi:
     @validate_call
     def payment_request_delete_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -860,7 +861,7 @@ class PaymentRequestApi:
     @validate_call
     def payment_request_retrieve(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -928,7 +929,7 @@ class PaymentRequestApi:
     @validate_call
     def payment_request_retrieve_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -996,7 +997,7 @@ class PaymentRequestApi:
     @validate_call
     def payment_request_retrieve_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1124,7 +1125,7 @@ class PaymentRequestApi:
     @validate_call
     def payment_request_update(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         update_payment_request: UpdatePaymentRequest,
         _request_timeout: Union[
             None,
@@ -1195,7 +1196,7 @@ class PaymentRequestApi:
     @validate_call
     def payment_request_update_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         update_payment_request: UpdatePaymentRequest,
         _request_timeout: Union[
             None,
@@ -1266,7 +1267,7 @@ class PaymentRequestApi:
     @validate_call
     def payment_request_update_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="Payment request primary identifier")],
+        id: Annotated[UUID, Field(description="Payment request primary identifier")],
         update_payment_request: UpdatePaymentRequest,
         _request_timeout: Union[
             None,

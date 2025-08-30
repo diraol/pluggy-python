@@ -19,8 +19,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,7 +29,7 @@ class BoletoConnection(BaseModel):
     """
     Response with information related to a boleto connection
     """ # noqa: E501
-    id: StrictStr = Field(description="Primary identifier")
+    id: UUID = Field(description="Primary identifier")
     connector_id: StrictInt = Field(description="Primary identifier of the connector associated with this connection", alias="connectorId")
     created_at: datetime = Field(description="Date when the connection was created", alias="createdAt")
     updated_at: datetime = Field(description="Date when the connection was last updated", alias="updatedAt")
