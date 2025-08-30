@@ -1546,7 +1546,7 @@
     "/accounts/{id}/statements": {
       "get": {
         "operationId": "account-statements-list",
-        "summary": "List",
+        "summary": "List account statements",
         "description": "Recovers all statements collected for the account provided",
         "responses": {
           "200": {
@@ -1555,6 +1555,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "total",
+                    "totalPages",
+                    "page",
+                    "results"
+                  ],
                   "properties": {
                     "total": {
                       "type": "number"
@@ -1569,6 +1575,11 @@
                       "type": "array",
                       "items": {
                         "type": "object",
+                        "required": [
+                          "id",
+                          "monthYear",
+                          "url"
+                        ],
                         "properties": {
                           "id": {
                             "type": "string",
@@ -1580,15 +1591,10 @@
                           "url": {
                             "type": "string",
                             "description": "Signed URL to the statement file, this url is valid for 30 minutes"
-                          },
-                          "accountId": {
-                            "type": "string",
-                            "format": "uuid"
                           }
                         }
                       }
                     }
-                  
                   }
                 },
                 "examples": {
@@ -1601,14 +1607,12 @@
                         {
                           "id": "a8534c85-53ce-4f21-94d7-50e9d2ee4957",
                           "monthYear": "01-2025",
-                          "url": "signed-aws-url",
-                          "accountId": "562b795d-1653-429f-be86-74ead9502813"
+                          "url": "signed-aws-url"
                         },
                         {
                           "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
                           "monthYear": "02-2025",
-                          "filename": "signed-aws-url",
-                          "accountId": "562b795d-1653-429f-be86-74ead9502813"
+                          "url": "signed-aws-url"
                         }
                       ]
                     }
@@ -1653,14 +1657,13 @@
         "parameters": [
           {
             "description": "Account primary identifier",
-            "in": "query",
+            "in": "path",
             "name": "id",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             },
-            "example": "562b795d-1653-429f-be86-74ead9502813"
+            "example": "a658c848-e475-457b-8565-d1fffba127c4"
           }
         ],
         "x-readme": {
@@ -1673,7 +1676,6 @@
         }
       }
     },
-
     "/transactions": {
       "get": {
         "operationId": "transactions-list",
@@ -2738,7 +2740,8 @@
                       "city": "Rio de Janeiro",
                       "postalCode": "22620-171",
                       "primaryAddress": "Av. Lúcio Costa, 1234",
-                      "type": "Personal"
+                      "type": "Personal",
+                      "additionalInfo": "Casa amarela"
                     }
                   ],
                   "phoneNumbers": [
@@ -9063,6 +9066,10 @@
             ],
             "type": "string",
             "description": "Type of address, Personal or Work"
+          },
+          "additionalInfo": {
+            "type": "string",
+            "description": "Additional address information such as apartment number, complement, or other details"
           }
         },
         "type": "object"
@@ -9344,7 +9351,7 @@
                     }
                   }
                 },
-                "description": "List of accounts of the client"
+                "description": "List of accounts of the client with valid consent. Only accounts that have explicit user consent are returned."
               }
             },
             "description": "Information that allows institutions to assess, evaluate, characterize, and classify the client with the purpose of understanding their risk profile and their economic-financial capacity"
@@ -10655,7 +10662,7 @@
                 "validationMessage": "CPF deve ter 11 números.",
                 "label": "CPF",
                 "name": "cpf",
-            "type": "number",
+                "type": "number",
                 "placeholder": "",
                 "optional": false
               }
@@ -11196,12 +11203,12 @@
           "dayOfWeek": {
             "type": "string",
             "description": "Day of the week on which each payment will occur. For instance, if set to 'MONDAY', the first payment will occur on the first monday after the startDate (or the same day, if it is already monday), and every monday after that.",
-              "enum": [
-                "MONDAY",
-                "TUESDAY",
-                "WEDNESDAY",
+            "enum": [
+              "MONDAY",
+              "TUESDAY",
+              "WEDNESDAY",
               "THURDSAY",
-                "FRIDAY",
+              "FRIDAY",
               "SATURDAY",
               "SUNDAY"
             ],
@@ -11279,8 +11286,8 @@
           "dates": {
             "type": "array",
             "items": {
-            "type": "string",
-            "format": "date",
+              "type": "string",
+              "format": "date",
               "example": "2024-06-11"
             }
           },
@@ -11344,7 +11351,7 @@
             "type": "array",
             "items": {
               "type": "string",
-            "enum": [
+              "enum": [
                 "ACCOUNTS",
                 "CREDIT_CARDS",
                 "TRANSACTIONS",
@@ -11757,7 +11764,7 @@
             "type": "object",
             "properties": {
               "seuNumero": {
-            "type": "string",
+                "type": "string",
                 "maxLength": 10,
                 "description": "Your identifier for this boleto"
               },
@@ -11767,7 +11774,7 @@
                 "description": "Boleto amount"
               },
               "dueDate": {
-            "type": "string",
+                "type": "string",
                 "format": "date-time",
                 "description": "Due date for the boleto. Must be today or in the future."
               },
@@ -11799,9 +11806,9 @@
                   "addressZipCode": {
                     "type": "string",
                     "description": "Payer ZIP code"
-          }
-        },
-        "required": [
+                  }
+                },
+                "required": [
                   "taxNumber",
                   "name",
                   "addressState",
@@ -11811,14 +11818,14 @@
               "fine": {
                 "type": "object",
                 "description": "Fine information for late payment",
-        "properties": {
+                "properties": {
                   "value": {
                     "type": "number",
                     "minimum": 0,
                     "description": "Fine value"
                   },
                   "type": {
-            "type": "string",
+                    "type": "string",
                     "enum": [
                       "PERCENTAGE",
                       "FIXED"
@@ -11841,14 +11848,14 @@
                     "description": "Interest value"
                   },
                   "type": {
-            "type": "string",
+                    "type": "string",
                     "enum": [
                       "PERCENTAGE"
                     ],
                     "description": "Type of interest calculation"
-          }
-        },
-        "required": [
+                  }
+                },
+                "required": [
                   "value",
                   "type"
                 ]
@@ -11902,17 +11909,17 @@
           },
           "payer": {
             "type": "object",
-        "properties": {
+            "properties": {
               "taxNumber": {
-            "type": "string",
+                "type": "string",
                 "description": "Payer tax number (CPF/CNPJ)"
-          },
+              },
               "personType": {
-            "type": "string",
+                "type": "string",
                 "description": "Type of person (individual or business)"
-          },
+              },
               "name": {
-            "type": "string",
+                "type": "string",
                 "description": "Payer name"
               },
               "addressStreet": {
@@ -11966,9 +11973,9 @@
                   "PIX",
                   "BOLETO"
                 ]
-          }
-        },
-        "required": [
+              }
+            },
+            "required": [
               "taxNumber",
               "name",
               "addressState",
@@ -12017,14 +12024,14 @@
           },
           "fine": {
             "type": "object",
-        "properties": {
+            "properties": {
               "value": {
                 "type": "number",
                 "minimum": 0,
                 "description": "Fine value"
               },
               "type": {
-            "type": "string",
+                "type": "string",
                 "enum": [
                   "PERCENTAGE",
                   "FIXED"
@@ -12044,7 +12051,7 @@
                 "description": "Interest value"
               },
               "type": {
-            "type": "string",
+                "type": "string",
                 "enum": [
                   "PERCENTAGE"
                 ],
@@ -12254,17 +12261,17 @@
           "errorDetail": {
             "type": "object",
             "description": "Details about an error that occurred with the scheduled payment",
-        "properties": {
-          "code": {
-            "type": "string",
-            "description": "Error code"
-          },
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code"
+              },
               "description": {
-            "type": "string",
+                "type": "string",
                 "description": "Human-readable description of the error"
-          },
-          "detail": {
-            "type": "string",
+              },
+              "detail": {
+                "type": "string",
                 "description": "Additional details about the error in the provider's language"
               }
             }
