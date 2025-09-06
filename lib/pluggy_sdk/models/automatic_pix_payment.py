@@ -21,7 +21,7 @@ import json
 from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
-from pluggy_sdk.models.schedule_payment_error_detail import SchedulePaymentErrorDetail
+from pluggy_sdk.models.automatic_pix_payment_error_detail import AutomaticPixPaymentErrorDetail
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -35,7 +35,7 @@ class AutomaticPixPayment(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="Payment description")
     var_date: date = Field(description="Payment scheduled date", alias="date")
     end_to_end_id: Optional[StrictStr] = Field(default=None, description="Payment end to end identifier", alias="endToEndId")
-    error_detail: Optional[SchedulePaymentErrorDetail] = Field(default=None, alias="errorDetail")
+    error_detail: Optional[AutomaticPixPaymentErrorDetail] = Field(default=None, alias="errorDetail")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="External identifier for the payment", alias="clientPaymentId")
     __properties: ClassVar[List[str]] = ["id", "status", "amount", "description", "date", "endToEndId", "errorDetail", "clientPaymentId"]
 
@@ -106,7 +106,7 @@ class AutomaticPixPayment(BaseModel):
             "description": obj.get("description"),
             "date": obj.get("date"),
             "endToEndId": obj.get("endToEndId"),
-            "errorDetail": SchedulePaymentErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None,
+            "errorDetail": AutomaticPixPaymentErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None,
             "clientPaymentId": obj.get("clientPaymentId")
         })
         return _obj

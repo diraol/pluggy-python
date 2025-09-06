@@ -16,6 +16,7 @@ docs/AuthResponse.md
 docs/AutomaticPIXApi.md
 docs/AutomaticPixFirstPayment.md
 docs/AutomaticPixPayment.md
+docs/AutomaticPixPaymentErrorDetail.md
 docs/BankData.md
 docs/Bill.md
 docs/BillApi.md
@@ -213,6 +214,7 @@ pluggy_sdk/models/auth_request.py
 pluggy_sdk/models/auth_response.py
 pluggy_sdk/models/automatic_pix_first_payment.py
 pluggy_sdk/models/automatic_pix_payment.py
+pluggy_sdk/models/automatic_pix_payment_error_detail.py
 pluggy_sdk/models/bank_data.py
 pluggy_sdk/models/bill.py
 pluggy_sdk/models/bill_finance_charge.py
@@ -363,6 +365,5 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_account_statements_list200_response.py
-test/test_account_statements_list200_response_results_inner.py
+test/test_automatic_pix_payment_error_detail.py
 tox.ini

@@ -1,6 +1,6 @@
 [project]
 name = "pluggy_sdk"
-version = "1.0.0.post52"
+version = "1.0.0.post53"
 description = "Pluggy API"
 authors = [
   {name = "Pluggy",email = "hello@pluggy.ai"},

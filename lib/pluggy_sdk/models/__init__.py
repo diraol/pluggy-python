@@ -26,6 +26,7 @@ if __import__("typing").TYPE_CHECKING:
     from pluggy_sdk.models.auth_response import AuthResponse
     from pluggy_sdk.models.automatic_pix_first_payment import AutomaticPixFirstPayment
     from pluggy_sdk.models.automatic_pix_payment import AutomaticPixPayment
+    from pluggy_sdk.models.automatic_pix_payment_error_detail import AutomaticPixPaymentErrorDetail
     from pluggy_sdk.models.bank_data import BankData
     from pluggy_sdk.models.bill import Bill
     from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge
@@ -186,6 +187,7 @@ from pluggy_sdk.models.auth_request import AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse
 from pluggy_sdk.models.automatic_pix_first_payment import AutomaticPixFirstPayment
 from pluggy_sdk.models.automatic_pix_payment import AutomaticPixPayment
+from pluggy_sdk.models.automatic_pix_payment_error_detail import AutomaticPixPaymentErrorDetail
 from pluggy_sdk.models.bank_data import BankData
 from pluggy_sdk.models.bill import Bill
 from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge

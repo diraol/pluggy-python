@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **description** | **str** | Payment description | [optional] 
 **var_date** | **date** | Payment scheduled date | 
 **end_to_end_id** | **str** | Payment end to end identifier | [optional] 
-**error_detail** | [**SchedulePaymentErrorDetail**](SchedulePaymentErrorDetail.md) |  | [optional] 
+**error_detail** | [**AutomaticPixPaymentErrorDetail**](AutomaticPixPaymentErrorDetail.md) |  | [optional] 
 **client_payment_id** | **str** | External identifier for the payment | [optional] 
 
 ## Example

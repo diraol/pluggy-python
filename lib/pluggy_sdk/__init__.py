@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post52"
+__version__ = "1.0.0.post53"
 
 # Define package exports
 __all__ = [
@@ -58,6 +58,7 @@ __all__ = [
     "AuthResponse",
     "AutomaticPixFirstPayment",
     "AutomaticPixPayment",
+    "AutomaticPixPaymentErrorDetail",
     "BankData",
     "Bill",
     "BillFinanceCharge",
@@ -247,6 +248,7 @@ if __import__("typing").TYPE_CHECKING:
     from pluggy_sdk.models.auth_response import AuthResponse as AuthResponse
     from pluggy_sdk.models.automatic_pix_first_payment import AutomaticPixFirstPayment as AutomaticPixFirstPayment
     from pluggy_sdk.models.automatic_pix_payment import AutomaticPixPayment as AutomaticPixPayment
+    from pluggy_sdk.models.automatic_pix_payment_error_detail import AutomaticPixPaymentErrorDetail as AutomaticPixPaymentErrorDetail
     from pluggy_sdk.models.bank_data import BankData as BankData
     from pluggy_sdk.models.bill import Bill as Bill
     from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge as BillFinanceCharge
@@ -442,6 +444,7 @@ from pluggy_sdk.models.auth_request import AuthRequest as AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse as AuthResponse
 from pluggy_sdk.models.automatic_pix_first_payment import AutomaticPixFirstPayment as AutomaticPixFirstPayment
 from pluggy_sdk.models.automatic_pix_payment import AutomaticPixPayment as AutomaticPixPayment
+from pluggy_sdk.models.automatic_pix_payment_error_detail import AutomaticPixPaymentErrorDetail as AutomaticPixPaymentErrorDetail
 from pluggy_sdk.models.bank_data import BankData as BankData
 from pluggy_sdk.models.bill import Bill as Bill
 from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge as BillFinanceCharge
