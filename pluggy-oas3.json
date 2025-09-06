@@ -12259,22 +12259,7 @@
             "description": "Payment end to end identifier"
           },
           "errorDetail": {
-            "type": "object",
-            "description": "Details about an error that occurred with the scheduled payment",
-            "properties": {
-              "code": {
-                "type": "string",
-                "description": "Error code"
-              },
-              "description": {
-                "type": "string",
-                "description": "Human-readable description of the error"
-              },
-              "detail": {
-                "type": "string",
-                "description": "Additional details about the error in the provider's language"
-              }
-            }
+            "$ref": "#/components/schemas/AutomaticPixPaymentErrorDetail"
           },
           "clientPaymentId": {
             "type": "string",
@@ -12286,6 +12271,48 @@
           "status",
           "amount",
           "date"
+        ]
+      },
+      "AutomaticPixPaymentErrorDetail": {
+        "type": "object",
+        "description": "Details about an error that occurred with the automatic PIX payment",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error codes expected during payment processing:\n- SALDO_INSUFICIENTE: The selected account does not have sufficient balance to make the payment.\n- VALOR_ACIMA_LIMITE: Validates if the amount exceeds the limit established [by the institution (account or channel)/in the arrangement] to allow the client to perform transactions.\n- VALOR_INVALIDO: The submitted amount is not valid.\n- NAO_INFORMADO: Not reported/identified by the account-holding institution.\n- PAGAMENTO_DIVERGENTE_CONSENTIMENTO: Payment data differs from consent data.\n- PAGAMENTO_RECUSADO_DETENTORA: [description of the reason for refusal].\n- PAGAMENTO_RECUSADO_SPI: [error code according to PACS.002 reason domain table].\n- CONSENTIMENTO_INVALIDO: Invalid consent (in final status).\n- FALHA_INFRAESTRUTURA_SPI: Indicates a failure in the Instant Payments System (SPI).\n- FALHA_INFRAESTRUTURA_ICP: Indicates a failure in the Public Key Infrastructure (ICP).\n- FALHA_INFRAESTRUTURA_PSP_RECEBEDOR: Indicates a failure in the infrastructure of the Payment Service Provider (PSP) that receives the payment.\n- FALHA_INFRAESTRUTURA_DETENTORA: Indicates a failure in the infrastructure of the institution holding the information or resources.\n- TITULARIDADE_INCONSISTENTE: Account currently not associated with the CPF/CNPJ of the long-term consent.\n- LIMITE_PERIODO_VALOR_EXCEDIDO: The transaction cannot be performed because the amount parameterized in the consent has been exceeded.\n- LIMITE_PERIODO_QUANTIDADE_EXCEDIDO: The transaction cannot be performed because the quantity parameterized in the consent has been exceeded.\n- LIMITE_VALOR_TOTAL_CONSENTIMENTO_EXCEDIDO: The transaction amount exceeds the global consent limit.\n- LIMITE_VALOR_TRANSACAO_CONSENTIMENTO_EXCEDIDO: The transaction amount exceeds the per-transaction limit set in the consent.\n- LIMITE_TENTATIVAS_EXCEDIDO: The maximum number of settlement attempts allowed by the arrangement has been reached.\n- CONSENTIMENTO_REVOGADO: The payment was associated with a consent that has been revoked.\n- FORA_PRAZO_PERMITIDO: The request time or period does not allow scheduling by the holder.\n- DETALHE_TENTATIVA_INVALIDO: The parameter(s) [field_name(s)] entered for the new payment attempt do not match the original failed payment and are not allowed in the new attempt.\n- DETALHE_PAGAMENTO_INVALIDO: Validates if a given parameter provided complies with the business rules.",
+            "enum": [
+              "SALDO_INSUFICIENTE",
+              "VALOR_ACIMA_LIMITE",
+              "VALOR_INVALIDO",
+              "NAO_INFORMADO",
+              "PAGAMENTO_DIVERGENTE_CONSENTIMENTO",
+              "PAGAMENTO_RECUSADO_DETENTORA",
+              "PAGAMENTO_RECUSADO_SPI",
+              "CONSENTIMENTO_INVALIDO",
+              "FALHA_INFRAESTRUTURA_SPI",
+              "FALHA_INFRAESTRUTURA_ICP",
+              "FALHA_INFRAESTRUTURA_PSP_RECEBEDOR",
+              "FALHA_INFRAESTRUTURA_DETENTORA",
+              "TITULARIDADE_INCONSISTENTE",
+              "LIMITE_PERIODO_VALOR_EXCEDIDO",
+              "LIMITE_PERIODO_QUANTIDADE_EXCEDIDO",
+              "LIMITE_VALOR_TOTAL_CONSENTIMENTO_EXCEDIDO",
+              "LIMITE_VALOR_TRANSACAO_CONSENTIMENTO_EXCEDIDO",
+              "LIMITE_TENTATIVAS_EXCEDIDO",
+              "CONSENTIMENTO_REVOGADO",
+              "FORA_PRAZO_PERMITIDO",
+              "DETALHE_TENTATIVA_INVALIDO",
+              "DETALHE_PAGAMENTO_INVALIDO"
+            ]
+          },
+          "detail": {
+            "type": "string",
+            "description": "Additional details about the error"
+          }
+        },
+        "required": [
+          "code",
+          "detail"
         ]
       },
       "ScheduleAutomaticPixPaymentRequest": {
