@@ -9,6 +9,9 @@ Name | Type | Description | Notes
 **transfer_number** | **str** | Complete number of the bank account &#x60;(agency code / account number)&#x60; | [optional] 
 **closing_balance** | **float** | Balance including not posted transactions | [optional] 
 **automatically_invested_balance** | **float** | Balance automatically invested in the account by the FI | [optional] 
+**overdraft_contracted_limit** | **float** | Overdraft contracted limit | [optional] 
+**overdraft_used_limit** | **float** | Overdraft used limit | [optional] 
+**unarranged_overdraft_amount** | **float** | Valor de operação contratada em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite pactuado de cheque especial. | [optional] 
 
 ## Example
 
