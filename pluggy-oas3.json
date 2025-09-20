@@ -13,6 +13,88 @@
     },
     "version": "1.0.0"
   },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication endpoints for API key generation and connect tokens"
+    },
+    {
+      "name": "Connector",
+      "description": "Financial institution connector management"
+    },
+    {
+      "name": "Items",
+      "description": "Item management for syncing financial data"
+    },
+    {
+      "name": "Consent",
+      "description": "User consent management for data access"
+    },
+    {
+      "name": "Account",
+      "description": "Bank account information and management"
+    },
+    {
+      "name": "Transaction",
+      "description": "Financial transaction data and operations"
+    },
+    {
+      "name": "Investment",
+      "description": "Investment portfolio and asset management"
+    },
+    {
+      "name": "Identity",
+      "description": "User identity verification and data"
+    },
+    {
+      "name": "Webhook",
+      "description": "Webhook configuration and management"
+    },
+    {
+      "name": "Category",
+      "description": "Transaction categorization and rules"
+    },
+    {
+      "name": "Loan",
+      "description": "Loan information and management"
+    },
+    {
+      "name": "Bill",
+      "description": "Credit card bill information"
+    },
+    {
+      "name": "Payment Customer",
+      "description": "Payment customer management"
+    },
+    {
+      "name": "Payment Recipient",
+      "description": "Payment recipient management"
+    },
+    {
+      "name": "Payment Request",
+      "description": "Payment request creation and management"
+    },
+    {
+      "name": "Automatic PIX",
+      "description": "Automatic PIX payment scheduling and management"
+    },
+    {
+      "name": "Payment Schedule",
+      "description": "Payment scheduling operations"
+    },
+    {
+      "name": "Payment Intent",
+      "description": "Payment intent processing"
+    },
+    {
+      "name": "Smart Transfer",
+      "description": "Smart transfer functionality"
+    },
+    {
+      "name": "Boleto Management",
+      "description": "Boleto payment management"
+    }
+  ],
   "paths": {
     "/auth": {
       "post": {
@@ -1325,7 +1407,10 @@
                           "bankData": {
                             "transferNumber": "0001/12345-0",
                             "closingBalance": 120950,
-                            "automaticallyInvestedBalance": 100
+                            "automaticallyInvestedBalance": 100,
+                            "overdraftContractedLimit": 0,
+                            "overdraftUsedLimit": 0,
+                            "unarrangedOverdraftAmount": 0
                           }
                         },
                         {
@@ -1444,7 +1529,10 @@
                       "bankData": {
                         "transferNumber": "0001/12345-0",
                         "closingBalance": 120950,
-                        "automaticallyInvestedBalance": null
+                        "automaticallyInvestedBalance": null,
+                        "overdraftContractedLimit": 0,
+                        "overdraftUsedLimit": 0,
+                        "unarrangedOverdraftAmount": 0
                       }
                     }
                   },
@@ -6851,6 +6939,21 @@
             "type": "number",
             "format": "double",
             "description": "Balance automatically invested in the account by the FI"
+          },
+          "overdraftContractedLimit": {
+            "type": "number",
+            "format": "double",
+            "description": "Overdraft contracted limit"
+          },
+          "overdraftUsedLimit": {
+            "type": "number",
+            "format": "double",
+            "description": "Overdraft used limit"
+          },
+          "unarrangedOverdraftAmount": {
+            "type": "number",
+            "format": "double",
+            "description": "Valor de operação contratada em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite pactuado de cheque especial."
           }
         },
         "type": "object"
