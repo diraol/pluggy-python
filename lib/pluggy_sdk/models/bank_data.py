@@ -30,7 +30,10 @@ class BankData(BaseModel):
     transfer_number: Optional[StrictStr] = Field(default=None, description="Complete number of the bank account `(agency code / account number)`", alias="transferNumber")
     closing_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Balance including not posted transactions", alias="closingBalance")
     automatically_invested_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Balance automatically invested in the account by the FI", alias="automaticallyInvestedBalance")
-    __properties: ClassVar[List[str]] = ["transferNumber", "closingBalance", "automaticallyInvestedBalance"]
+    overdraft_contracted_limit: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Overdraft contracted limit", alias="overdraftContractedLimit")
+    overdraft_used_limit: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Overdraft used limit", alias="overdraftUsedLimit")
+    unarranged_overdraft_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Valor de operação contratada em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite pactuado de cheque especial.", alias="unarrangedOverdraftAmount")
+    __properties: ClassVar[List[str]] = ["transferNumber", "closingBalance", "automaticallyInvestedBalance", "overdraftContractedLimit", "overdraftUsedLimit", "unarrangedOverdraftAmount"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,7 +88,10 @@ class BankData(BaseModel):
         _obj = cls.model_validate({
             "transferNumber": obj.get("transferNumber"),
             "closingBalance": obj.get("closingBalance"),
-            "automaticallyInvestedBalance": obj.get("automaticallyInvestedBalance")
+            "automaticallyInvestedBalance": obj.get("automaticallyInvestedBalance"),
+            "overdraftContractedLimit": obj.get("overdraftContractedLimit"),
+            "overdraftUsedLimit": obj.get("overdraftUsedLimit"),
+            "unarrangedOverdraftAmount": obj.get("unarrangedOverdraftAmount")
         })
         return _obj
 
