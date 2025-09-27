@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.1.0",
   "info": {
     "title": "Pluggy API",
     "description": "Pluggy's main API to review data and execute connectors",
@@ -10299,7 +10299,13 @@
               }
             ],
             "discriminator": {
-              "propertyName": "type"
+              "propertyName": "type",
+              "mapping": {
+                "DAILY": "#/components/schemas/DAILY",
+                "WEEKLY": "#/components/schemas/WEEKLY",
+                "MONTHLY": "#/components/schemas/MONTHLY",
+                "CUSTOM": "#/components/schemas/CUSTOM"
+              }
             }
           },
           "errorDetail": {
@@ -10434,10 +10440,19 @@
                 "$ref": "#/components/schemas/CUSTOM"
               }
             ],
-            "nullable": true,
+            "type": [
+              "string",
+              "null"
+            ],
             "default": null,
             "discriminator": {
-              "propertyName": "type"
+              "propertyName": "type",
+              "mapping": {
+                "DAILY": "#/components/schemas/DAILY",
+                "WEEKLY": "#/components/schemas/WEEKLY",
+                "MONTHLY": "#/components/schemas/MONTHLY",
+                "CUSTOM": "#/components/schemas/CUSTOM"
+              }
             }
           },
           "isSandbox": {
@@ -12112,21 +12127,28 @@
             "description": "Date when the boleto was created"
           },
           "amountPaid": {
-            "type": "number",
-            "description": "Amount that was paid for this boleto",
-            "nullable": true
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Amount that was paid for this boleto"
           },
           "paymentOrigin": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "enum": [
               "PIX",
               "BOLETO"
             ],
-            "description": "Origin of the payment when the boleto is paid",
-            "nullable": true
+            "description": "Origin of the payment when the boleto is paid"
           },
           "fine": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {
               "value": {
                 "type": "number",
@@ -12142,8 +12164,7 @@
                 "description": "Type of fine calculation"
               }
             },
-            "description": "Fine information for late payment",
-            "nullable": true
+            "description": "Fine information for late payment"
           },
           "interest": {
             "type": "object",
