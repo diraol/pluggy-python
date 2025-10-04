@@ -2686,7 +2686,8 @@
                       "city": "Rio de Janeiro",
                       "postalCode": "22620-171",
                       "primaryAddress": "Av. Lúcio Costa, 1234",
-                      "type": "Personal"
+                      "type": "Personal",
+                      "additionalInfo": "Apartamento 101"
                     }
                   ],
                   "phoneNumbers": [
@@ -2829,7 +2830,7 @@
                       "postalCode": "22620-171",
                       "primaryAddress": "Av. Lúcio Costa, 1234",
                       "type": "Personal",
-                      "additionalInfo": "Casa amarela"
+                      "additionalInfo": "Apartamento 101"
                     }
                   ],
                   "phoneNumbers": [
