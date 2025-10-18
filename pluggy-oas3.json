@@ -2371,6 +2371,7 @@
                           "issuer": "Pluggy",
                           "issuerCNPJ": "08.050.608/0001-32",
                           "issueDate": "2020-07-19T18:27:41.802Z",
+                          "purchaseDate": "2020-07-15T10:00:00.000Z",
                           "status": "ACTIVE"
                         },
                         {
@@ -9020,6 +9021,11 @@
             "type": "string",
             "format": "date-time",
             "description": "The date that the investment was issued"
+          },
+          "purchaseDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date that the investment was purchased"
           },
           "rate": {
             "type": "number",
