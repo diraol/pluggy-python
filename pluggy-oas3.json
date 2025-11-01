@@ -10238,15 +10238,14 @@
           "status": {
             "enum": [
               "CREATED",
-              "IN_PROGRESS",
-              "COMPLETED",
+              "CANCELED",
               "SCHEDULED",
-              "WAITING_PAYER_AUTHORIZATION",
+              "EXPIRED",
+              "AUTHORIZED",
+              "IN_PROGRESS",
               "ERROR",
-              "REFUND_IN_PROGRESS",
-              "REFUNDED",
-              "REFUND_ERROR",
-              "CANCELED"
+              "COMPLETED",
+              "WAITING_PAYER_AUTHORIZATION"
             ],
             "type": "string",
             "description": "Payment request status"
