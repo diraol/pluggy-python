@@ -10873,6 +10873,10 @@
           "cnpj": {
             "type": "string",
             "description": "Customer CNPJ, if type is `BUSINESS`"
+          },
+          "connector": {
+            "$ref": "#/components/schemas/Connector",
+            "description": "Default institution to be used in the Pluggy's payment initiation flow (https://pay.pluggy.ai) by the payer."
           }
         },
         "type": "object",
@@ -10886,7 +10890,8 @@
           "type": "INDIVIDUAL",
           "name": "Marco Silva",
           "email": "msilva@pluggy.ai",
-          "cpf": "123456789-00"
+          "cpf": "123456789-00",
+          "connector": null
         }
       },
       "CreatePaymentCustomerRequestBody": {
@@ -10915,6 +10920,10 @@
           "cnpj": {
             "type": "string",
             "description": "Customer CNPJ, if type is `BUSINESS`"
+          },
+          "connectorId": {
+            "type": "number",
+            "description": "Default connector id to be used in the Pluggy's payment initiation flow (https://pay.pluggy.ai) by the payer."
           }
         },
         "type": "object",
