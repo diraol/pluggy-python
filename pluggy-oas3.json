@@ -59,6 +59,10 @@
       "description": "Loan information and management"
     },
     {
+      "name": "Merchant",
+      "description": "Merchant and company information by CNPJ"
+    },
+    {
       "name": "Bill",
       "description": "Credit card bill information"
     },
@@ -361,6 +365,15 @@
             "description": "Filter connectors by the `supportsPaymentInitiation` attribute. If not sent, it won't filter.",
             "in": "query",
             "name": "supportsPaymentInitiation",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filter connectors by the `supportsSmartTransfers` attribute. If not sent, it won't filter.",
+            "in": "query",
+            "name": "supportsSmartTransfers",
             "required": false,
             "schema": {
               "type": "boolean"
@@ -3973,6 +3986,86 @@
               "format": "uuid"
             },
             "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
+    },
+    "/merchants": {
+      "get": {
+        "operationId": "merchants-get-by-cnpj",
+        "summary": "Get merchants by CNPJ list",
+        "description": "Retrieves merchant information for a list of CNPJs. Returns an object containing found merchants, valid CNPJs that were not found, and invalid CNPJs.",
+        "responses": {
+          "200": {
+            "description": "Merchant query results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "foundMerchants": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Merchant"
+                      },
+                      "description": "List of merchants found for the provided CNPJs"
+                    },
+                    "notFoundMerchants": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of valid CNPJs that were not found in the merchant database"
+                    },
+                    "invalidCnpjs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of invalid CNPJ values provided"
+                    }
+                  },
+                  "required": [
+                    "foundMerchants",
+                    "notFoundMerchants",
+                    "invalidCnpjs"
+                  ]
+                },
+                "example": {
+                  "foundMerchants": [
+                    {
+                      "businessName": "BANCO DO BRASIL SA",
+                      "cnpj": "00000000000191",
+                      "name": "BANCO DO BRASIL",
+                      "cnae": "6422100",
+                      "category": "Banking"
+                    }
+                  ],
+                  "notFoundMerchants": [],
+                  "invalidCnpjs": []
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Merchant"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Comma-separated list of CNPJs",
+            "in": "query",
+            "name": "cnpjs",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "00000000000191,60701190000104"
           }
         ]
       }
@@ -8273,10 +8366,6 @@
           "cnae": {
             "type": "string",
             "description": "Economic activity classification number related to the merchant"
-          },
-          "category": {
-            "type": "string",
-            "description": "Merchant associated category"
           }
         },
         "type": "object"
@@ -10731,26 +10820,12 @@
             "description": "Pix data related to the payment intent (only applies for PIX payment method)"
           },
           "errorDetail": {
-            "type": "object",
-            "description": "Error details when payment intent fails",
-            "properties": {
-              "code": {
-                "type": "string",
-                "description": "Error code"
-              },
-              "providerCode": {
-                "type": "string",
-                "description": "Provider error code"
-              },
-              "providerTitle": {
-                "type": "string",
-                "description": "Provider error title"
-              },
-              "providerDetail": {
-                "type": "string",
-                "description": "Provider detailed error description"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentIntentErrorDetail"
               }
-            }
+            ],
+            "description": "Error details when payment intent fails"
           }
         },
         "type": "object",
@@ -12452,6 +12527,60 @@
         "required": [
           "code",
           "detail"
+        ]
+      },
+      "PaymentIntentErrorDetail": {
+        "type": "object",
+        "description": "Details about an error that occurred with the payment intent",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error codes expected during payment intent processing:\n- TEMPO_EXPIRADO_AUTORIZACAO: Consent expired.\n- CONNECTION_ERROR: Connection error with the institution.\n- VALOR_ACIMA_LIMITE: Amount exceeds the limit established by the institution or arrangement to allow the client to perform transactions.\n- FALHA_INFRAESTRUTURA_DETENTORA: Indicates a failure in the infrastructure of the institution holding the information or resources.\n- FALHA_INFRAESTRUTURA_DETENTORA_CALLBACK_HYBRID_FLOW: Infrastructure failure in the callback hybrid flow.\n- SALDO_INSUFICIENTE: The selected account does not have sufficient balance to make the payment.\n- CONTAS_ORIGEM_DESTINO_IGUAIS: Payment failure due to source and destination accounts being the same.\n- EXPIRED_PAYMENT_INITIATION: Payment initiation expired.\n- DATA_PAGAMENTO_INVALIDA: Invalid payment date. The scheduled payment end date must be at most 2 years from the start date.\n- CONSENTIMENTO_PENDENTE_AUTORIZACAO: Consent pending authorization.\n- TEMPO_EXPIRADO_CONSUMO: Consent expired.\n- PAYMENT_INTENT_INVALID_CPF: Invalid CPF.\n- PAYMENT_INTENT_INVALID_CNPJ: Invalid CNPJ.\n- FALHA_AGENDAMENTO_PAGAMENTOS: Failed to schedule payments.\n- PAGAMENTO_DIVERGENTE_CONSENTIMENTO: Payment data differs from consent data.\n- CONTA_NAO_PERMITE_PAGAMENTO: Account does not allow payments.\n- REJEITADO_USUARIO: Consent canceled by the user.\n- TIMEOUT_CONSENTIMENTO: Consent timeout.\n- PAGAMENTO_RECUSADO_SPI: Payment refused by the Instant Payments System (SPI).\n- REVOGADO_RECEBEDOR: Consent canceled by the receiver.\n- NAO_INFORMADO: Not reported/identified by the account-holding institution.\n- AUTENTICACAO_DIVERGENTE: Invalid consent.\n- TITULARIDADE_INCONSISTENTE: Account currently not associated with the CPF/CNPJ of the long-term consent.\n- PAGAMENTO_RECUSADO_DETENTORA: Payment refused by the account-holding institution.",
+            "enum": [
+              "TEMPO_EXPIRADO_AUTORIZACAO",
+              "CONNECTION_ERROR",
+              "VALOR_ACIMA_LIMITE",
+              "FALHA_INFRAESTRUTURA_DETENTORA",
+              "FALHA_INFRAESTRUTURA_DETENTORA_CALLBACK_HYBRID_FLOW",
+              "SALDO_INSUFICIENTE",
+              "CONTAS_ORIGEM_DESTINO_IGUAIS",
+              "EXPIRED_PAYMENT_INITIATION",
+              "DATA_PAGAMENTO_INVALIDA",
+              "CONSENTIMENTO_PENDENTE_AUTORIZACAO",
+              "TEMPO_EXPIRADO_CONSUMO",
+              "PAYMENT_INTENT_INVALID_CPF",
+              "PAYMENT_INTENT_INVALID_CNPJ",
+              "FALHA_AGENDAMENTO_PAGAMENTOS",
+              "PAGAMENTO_DIVERGENTE_CONSENTIMENTO",
+              "CONTA_NAO_PERMITE_PAGAMENTO",
+              "REJEITADO_USUARIO",
+              "TIMEOUT_CONSENTIMENTO",
+              "PAGAMENTO_RECUSADO_SPI",
+              "REVOGADO_RECEBEDOR",
+              "NAO_INFORMADO",
+              "AUTENTICACAO_DIVERGENTE",
+              "TITULARIDADE_INCONSISTENTE",
+              "PAGAMENTO_RECUSADO_DETENTORA"
+            ]
+          },
+          "providerCode": {
+            "type": "string",
+            "description": "Provider error code"
+          },
+          "providerTitle": {
+            "type": "string",
+            "description": "Provider error title"
+          },
+          "providerDetail": {
+            "type": "string",
+            "description": "Provider detailed error description"
+          }
+        },
+        "required": [
+          "code",
+          "providerCode",
+          "providerTitle",
+          "providerDetail"
         ]
       },
       "ScheduleAutomaticPixPaymentRequest": {
