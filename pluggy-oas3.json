@@ -8990,6 +8990,8 @@
               "OFFSHORE_FUND",
               "FIP_FUND",
               "EXCHANGE_FUND",
+              "FI_INFRA",
+              "FI_AGRO",
               "RETIREMENT",
               "OTHER"
             ],
@@ -11672,6 +11674,9 @@
             "type": "string",
             "format": "date-time",
             "description": "Date when the preauthorization was updated"
+          },
+          "configuration": {
+            "$ref": "#/components/schemas/SmartTransferPreauthorizationConfiguration"
           }
         },
         "type": "object",
@@ -11683,6 +11688,57 @@
           "createdAt",
           "updatedAt"
         ]
+      },
+      "SmartTransferPreauthorizationConfiguration": {
+        "description": "Smart transfer preauthorization configuration",
+        "properties": {
+          "totalAllowedAmount": {
+            "type": "number",
+            "description": "Maximum amount to be reached by the sum of all transactions that use the consent authorized by the customer."
+          },
+          "transactionLimit": {
+            "type": "number",
+            "description": "Maximum amount for each payment transaction associated with this consent."
+          },
+          "periodicLimits": {
+            "$ref": "#/components/schemas/SmartTransferPreauthorizationConfigurationPeriodicLimits"
+          }
+        },
+        "type": "object"
+      },
+      "SmartTransferPreauthorizationConfigurationPeriodicLimits": {
+        "description": "Transactional limits per period as determined by the paying user.",
+        "properties": {
+          "day": {
+            "description": "Daily transactional limit.",
+            "$ref": "#/components/schemas/SmartTransferPreauthorizationConfigurationPeriodicLimit"
+          },
+          "week": {
+            "description": "Weekly transactional limit.",
+            "$ref": "#/components/schemas/SmartTransferPreauthorizationConfigurationPeriodicLimit"
+          },
+          "month": {
+            "description": "Monthly transactional limit.",
+            "$ref": "#/components/schemas/SmartTransferPreauthorizationConfigurationPeriodicLimit"
+          },
+          "year": {
+            "description": "Yearly transactional limit.",
+            "$ref": "#/components/schemas/SmartTransferPreauthorizationConfigurationPeriodicLimit"
+          }
+        }
+      },
+      "SmartTransferPreauthorizationConfigurationPeriodicLimit": {
+        "description": "Transactional limit per period. If sent, at least one of the fields (quantityLimit or transactionLimit) must be filled in.",
+        "properties": {
+          "quantityLimit": {
+            "type": "number",
+            "description": "Maximum number of transactions allowed to occur in the period."
+          },
+          "transactionLimit": {
+            "type": "number",
+            "description": "Maximum amount to be transacted in the period."
+          }
+        }
       },
       "SmartTransferCallbackUrls": {
         "description": "Redirect urls after the preauthorization flow was completed or ended in error status",
@@ -11722,6 +11778,9 @@
           "clientPreauthorizationId": {
             "type": "string",
             "description": "Client preauthorization identifier"
+          },
+          "configuration": {
+            "$ref": "#/components/schemas/SmartTransferPreauthorizationConfiguration"
           }
         },
         "required": [
@@ -11810,6 +11869,7 @@
           "preauthorizationId",
           "status",
           "amount",
+          "date",
           "recipient",
           "createdAt",
           "updatedAt"
@@ -12478,13 +12538,19 @@
           "clientPaymentId": {
             "type": "string",
             "description": "External identifier for the payment"
+          },
+          "recipientId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Payment recipient identifier"
           }
         },
         "required": [
           "id",
           "status",
           "amount",
-          "date"
+          "date",
+          "recipientId"
         ]
       },
       "AutomaticPixPaymentErrorDetail": {
@@ -12603,6 +12669,11 @@
           "clientPaymentId": {
             "type": "string",
             "description": "External identifier for the payment"
+          },
+          "recipientId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Payment recipient identifier. It should be sent if you want to use a different recipient from the one consented in the payment request (it must have the same tax number as the consented recipient)."
           }
         },
         "required": [
