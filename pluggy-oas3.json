@@ -2039,7 +2039,7 @@
             "example": "2020-10-15"
           },
           {
-            "description": "Page size for the paging request, default: 20",
+            "description": "Page size for the paging request, default: 500",
             "in": "query",
             "name": "pageSize",
             "required": false,
@@ -2644,7 +2644,7 @@
             "example": "562b795d-1653-429f-be86-74ead9502813"
           },
           {
-            "description": "Page size for the paging request, default: 20",
+            "description": "Page size for the paging request, default: 500",
             "in": "query",
             "name": "pageSize",
             "required": false,
@@ -4309,7 +4309,7 @@
         ],
         "parameters": [
           {
-            "description": "Page size for the paging request, default: 20",
+            "description": "Page size for the paging request, default: 500",
             "in": "query",
             "name": "pageSize",
             "required": false,
@@ -4621,7 +4621,7 @@
         ],
         "parameters": [
           {
-            "description": "Page size for the paging request, default: 20",
+            "description": "Page size for the paging request, default: 500",
             "in": "query",
             "name": "pageSize",
             "required": false,
@@ -4923,7 +4923,7 @@
         ],
         "parameters": [
           {
-            "description": "Page size for the paging request, default: 20",
+            "description": "Page size for the paging request, default: 500",
             "in": "query",
             "name": "pageSize",
             "required": false,
@@ -5087,7 +5087,7 @@
         ],
         "parameters": [
           {
-            "description": "Page size for the paging request, default: 20",
+            "description": "Page size for the paging request, default: 500",
             "in": "query",
             "name": "pageSize",
             "required": false,
@@ -5233,7 +5233,6 @@
                       "updatedAt": "2025-06-10T17:50:12.919Z",
                       "callbackUrls": null,
                       "paymentUrl": "https://pay.pluggy.ai/d7059555-eadc-4f63-bb8c-1fb367b8dacd",
-                      "bulkPaymentId": null,
                       "recipient": {
                         "type": "BANK_ACCOUNT",
                         "id": "02a1fde6-5183-4571-85cc-1ada6d25839d",
@@ -6556,7 +6555,7 @@
         ],
         "parameters": [
           {
-            "description": "Page size for the paging request, default: 20",
+            "description": "Page size for the paging request, default: 500",
             "in": "query",
             "name": "pageSize",
             "required": false,
