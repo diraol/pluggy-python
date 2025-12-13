@@ -8098,7 +8098,29 @@
               "item/waiting_user_action",
               "item/login_succeeded",
               "connector/status_updated",
-              "payment_request/updated"
+              "transactions/created",
+              "transactions/updated",
+              "transactions/deleted",
+              "payment_intent/created",
+              "payment_intent/completed",
+              "payment_intent/waiting_payer_authorization",
+              "payment_intent/error",
+              "payment_request/updated",
+              "scheduled_payment/created",
+              "scheduled_payment/completed",
+              "scheduled_payment/error",
+              "scheduled_payment/canceled",
+              "scheduled_payment/all_completed",
+              "scheduled_payment/all_created",
+              "boleto/updated",
+              "automatic_pix_payment/created",
+              "automatic_pix_payment/completed",
+              "automatic_pix_payment/error",
+              "automatic_pix_payment/canceled",
+              "smart_transfer_preauthorization/completed",
+              "smart_transfer_preauthorization/error",
+              "smart_transfer_payment/completed",
+              "smart_transfer_payment/error"
             ],
             "type": "string",
             "description": ""
@@ -8151,15 +8173,22 @@
               "payment_intent/completed",
               "payment_intent/waiting_payer_authorization",
               "payment_intent/error",
+              "payment_request/updated",
               "scheduled_payment/created",
               "scheduled_payment/completed",
               "scheduled_payment/error",
               "scheduled_payment/canceled",
               "scheduled_payment/all_completed",
-              "payment_refund/completed",
-              "payment_refund/error",
+              "scheduled_payment/all_created",
               "boleto/updated",
-              "payment_request/updated"
+              "automatic_pix_payment/created",
+              "automatic_pix_payment/completed",
+              "automatic_pix_payment/error",
+              "automatic_pix_payment/canceled",
+              "smart_transfer_preauthorization/completed",
+              "smart_transfer_preauthorization/error",
+              "smart_transfer_payment/completed",
+              "smart_transfer_payment/error"
             ],
             "type": "string",
             "description": ""
@@ -11676,6 +11705,24 @@
           },
           "configuration": {
             "$ref": "#/components/schemas/SmartTransferPreauthorizationConfiguration"
+          },
+          "errorDetail": {
+            "type": "object",
+            "description": "Error detail",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code"
+              },
+              "description": {
+                "type": "string",
+                "description": "Error description"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Error detail"
+              }
+            }
           }
         },
         "type": "object",
@@ -11860,6 +11907,24 @@
             "type": "string",
             "format": "date-time",
             "description": "Date when the payment was updated"
+          },
+          "errorDetail": {
+            "type": "object",
+            "description": "Error detail",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code"
+              },
+              "description": {
+                "type": "string",
+                "description": "Error description"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Error detail"
+              }
+            }
           }
         },
         "type": "object",
