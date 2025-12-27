@@ -5266,7 +5266,7 @@
                       "schedule": null,
                       "automaticPix": {
                         "interval": "WEEKLY",
-                        "expiresAt": "2025-06-16T03:00:00Z",
+                        "expiresAt": "2025-06-16T23:59:59Z",
                         "startDate": "2025-06-11",
                         "fixedAmount": 0.01,
                         "firstPayment": {
@@ -5302,7 +5302,7 @@
                   "value": {
                     "fixedAmount": 100.5,
                     "startDate": "2025-06-10",
-                    "expiresAt": "2025-10-01T03:00:00Z",
+                    "expiresAt": "2025-10-01",
                     "isRetryAccepted": true,
                     "firstPayment": {
                       "date": "2025-06-10",
@@ -12440,12 +12440,12 @@
           },
           "startDate": {
             "type": "string",
-            "format": "date-time",
+            "format": "date",
             "description": "Represents the expected date for the first occurrence of a payment associated with the recurrence. Date format must be YYYY-MM-DD (for example: 2025-06-16)"
           },
           "expiresAt": {
             "type": "string",
-            "format": "date-time",
+            "format": "date",
             "description": "Expiration date for the automatic pix authorization. The date must be in UTC and the format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z)."
           },
           "isRetryAccepted": {
