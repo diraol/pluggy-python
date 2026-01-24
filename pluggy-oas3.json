@@ -11914,7 +11914,15 @@
             "properties": {
               "code": {
                 "type": "string",
-                "description": "Error code"
+                "enum": [
+                  "INFRASTRUCTURE_FAILURE",
+                  "PAYMENT_DIFFERENT_FROM_CONSENT",
+                  "UNKNOWN_ERROR",
+                  "INVALID_PAYMENT_DETAIL",
+                  "PAYMENT_REJECTED_BY_HOLDER",
+                  "PAYMENT_REJECTED_BY_SPI"
+                ],
+                "description": "Error code. \n- INFRASTRUCTURE_FAILURE: Indicates a failure in the infrastructure of the institution holding the information or resources.\n- PAYMENT_DIFFERENT_FROM_CONSENT: Payment data differs from consent data.\n- UNKNOWN_ERROR: Unknown error.\n- INVALID_PAYMENT_DETAIL: The payment detail is invalid.\n- PAYMENT_REJECTED_BY_HOLDER: The payment was rejected by the account holder.\n- PAYMENT_REJECTED_BY_SPI: The payment was rejected by the SPI."
               },
               "description": {
                 "type": "string",
