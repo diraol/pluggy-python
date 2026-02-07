@@ -378,6 +378,15 @@
             "schema": {
               "type": "boolean"
             }
+          },
+          {
+            "description": "Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.",
+            "in": "query",
+            "name": "supportsAutomaticPix",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "x-readme": {
@@ -6533,7 +6542,8 @@
                             "supportsPaymentInitiation": true,
                             "supportsScheduledPayments": true,
                             "supportsSmartTransfers": true,
-                            "supportsBoletoManagement": true
+                            "supportsBoletoManagement": true,
+                            "supportsAutomaticPix": true
                           },
                           "isSandbox": false
                         }
@@ -7490,6 +7500,10 @@
           "supportsBoletoManagement": {
             "type": "boolean",
             "description": "Indicates if the connector supports boleto management"
+          },
+          "supportsAutomaticPix": {
+            "type": "boolean",
+            "description": "Indicates if the connector supports automatic Pix"
           },
           "createdAt": {
             "type": "string",
