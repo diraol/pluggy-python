@@ -10417,7 +10417,7 @@
             "$ref": "#/components/schemas/Boleto"
           },
           "automaticPix": {
-            "$ref": "#/components/schemas/PaymentIntentAutomaticPix"
+            "$ref": "#/components/schemas/AutomaticPix"
           },
           "schedule": {
             "oneOf": [
@@ -12488,6 +12488,9 @@
             ],
             "description": "Defines the permitted frequency for carrying out transactions."
           },
+          "automaticRetriesConfiguration": {
+            "$ref": "#/components/schemas/AutomaticPixRetriesConfiguration"
+          },
           "callbackUrls": {
             "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
           },
@@ -12508,6 +12511,30 @@
           "startDate",
           "interval",
           "recipientId"
+        ]
+      },
+      "AutomaticPixRetriesConfiguration": {
+        "description": "“Configuration for automatic retries. If provided, the scheduled payments associated with this consent will only be retried on the days specified in the array after the original payment date. This does not apply to the first payment, only for scheduled payments.",
+        "type": "object",
+        "properties": {
+          "retryDays": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          }
+        },
+        "required": [
+          "retryDays"
         ]
       },
       "AutomaticPixFirstPayment": {
@@ -12532,7 +12559,7 @@
           "amount"
         ]
       },
-      "PaymentIntentAutomaticPix": {
+      "AutomaticPix": {
         "description": "Automatic PIX data",
         "type": "object",
         "properties": {
@@ -12575,6 +12602,9 @@
               "YEARLY"
             ],
             "description": "Defines the permitted frequency for carrying out transactions."
+          },
+          "automaticRetriesConfiguration": {
+            "$ref": "#/components/schemas/AutomaticPixRetriesConfiguration"
           }
         },
         "required": [
@@ -12629,6 +12659,12 @@
             "type": "string",
             "format": "uuid",
             "description": "Payment recipient identifier"
+          },
+          "attempts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutomaticPixPaymentAttempt"
+            }
           }
         },
         "required": [
@@ -12637,6 +12673,43 @@
           "amount",
           "date",
           "recipientId"
+        ]
+      },
+      "AutomaticPixPaymentAttempt": {
+        "type": "object",
+        "description": "Payment attempt. It represents an attempt to complete this payment. Useful for tracking the payment history.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Attempt primary identifier"
+          },
+          "status": {
+            "type": "string",
+            "description": "Attempt status",
+            "enum": [
+              "IN_PROGRESS",
+              "COMPLETED",
+              "CANCELED",
+              "ERROR"
+            ]
+          },
+          "endToEndId": {
+            "type": "string",
+            "description": "Attempt end to end identifier"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Attempt date"
+          },
+          "errorDetail": {
+            "$ref": "#/components/schemas/AutomaticPixPaymentErrorDetail"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "date"
         ]
       },
       "AutomaticPixPaymentErrorDetail": {
