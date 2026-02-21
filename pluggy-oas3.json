@@ -5354,6 +5354,7 @@
                       "date": "2025-06-08",
                       "errorDetail": null,
                       "clientPaymentId": "external-ref-456",
+                      "isFirstPayment": false,
                       "isSandbox": false
                     }
                   }
@@ -5459,6 +5460,7 @@
                           "date": "2025-06-08",
                           "errorDetail": null,
                           "clientPaymentId": "external-ref-456",
+                          "isFirstPayment": false,
                           "isSandbox": false
                         }
                       ]
@@ -5517,6 +5519,7 @@
                       "date": "2025-06-08",
                       "errorDetail": null,
                       "clientPaymentId": "external-ref-456",
+                      "isFirstPayment": false,
                       "isSandbox": false
                     }
                   }
@@ -12659,6 +12662,10 @@
             "type": "string",
             "format": "uuid",
             "description": "Payment recipient identifier"
+          },
+          "isFirstPayment": {
+            "type": "boolean",
+            "description": "Indicates if this is the first payment"
           },
           "attempts": {
             "type": "array",
