@@ -3105,6 +3105,13 @@
                       "message": "A webhook for event '{event}' and url '{url}' already exists.",
                       "code": 400
                     }
+                  },
+                  "limitReached": {
+                    "summary": "Maximum webhooks per event reached",
+                    "value": {
+                      "message": "You have reached the maximum of 5 webhooks for event '{event}'.",
+                      "code": 400
+                    }
                   }
                 }
               }
@@ -3252,9 +3259,28 @@
                 "schema": {
                   "$ref": "#/components/schemas/WebhookCreationErrorResponse"
                 },
-                "example": {
-                  "message": "Webhook url must be valid URL address and not localhost",
-                  "code": 400
+                "examples": {
+                  "invalidUrl": {
+                    "summary": "Invalid webhook URL",
+                    "value": {
+                      "message": "Webhook url must be valid URL address and not localhost",
+                      "code": 400
+                    }
+                  },
+                  "alreadyExists": {
+                    "summary": "Webhook event already created for the specified url",
+                    "value": {
+                      "message": "A webhook for event '{event}' and url '{url}' already exists.",
+                      "code": 400
+                    }
+                  },
+                  "limitReached": {
+                    "summary": "Maximum webhooks per event reached",
+                    "value": {
+                      "message": "You have reached the maximum of 5 webhooks for event '{event}'.",
+                      "code": 400
+                    }
+                  }
                 }
               }
             }
@@ -12494,6 +12520,9 @@
           "automaticRetriesConfiguration": {
             "$ref": "#/components/schemas/AutomaticPixRetriesConfiguration"
           },
+          "schedulerConfiguration": {
+            "$ref": "#/components/schemas/AutomaticPixSchedulerConfiguration"
+          },
           "callbackUrls": {
             "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
           },
@@ -12608,12 +12637,36 @@
           },
           "automaticRetriesConfiguration": {
             "$ref": "#/components/schemas/AutomaticPixRetriesConfiguration"
+          },
+          "schedulerConfiguration": {
+            "$ref": "#/components/schemas/AutomaticPixSchedulerConfiguration"
           }
         },
         "required": [
           "startDate",
           "interval"
         ]
+      },
+      "AutomaticPixSchedulerConfiguration": {
+        "description": "Configuration for automatic scheduling of payments. When enabled, the system will schedule payments according to the consent interval and start date.",
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "When true, payments are automatically scheduled by the system."
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 140,
+            "description": "Optional description for the scheduled payment. Overrides the payment request description when set."
+          },
+          "valueForVariableAmount": {
+            "type": "number",
+            "minimum": 0.01,
+            "description": "Required when the consent has variable amounts (minimumVariableAmount/maximumVariableAmount). Default amount to use when scheduling the payment."
+          }
+        },
+        "required": ["enabled"]
       },
       "AutomaticPixPayment": {
         "description": "Automatic PIX payment",
