@@ -1786,6 +1786,117 @@
         }
       }
     },
+    "/accounts/{id}/balance": {
+      "get": {
+        "operationId": "account-balance-get",
+        "summary": "Get real-time balance",
+        "description": "Fetches the real-time balance for the account directly from the financial institution connector, without requiring a full item sync.",
+        "responses": {
+          "200": {
+            "description": "Real-time account balance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "balance",
+                    "currencyCode",
+                    "updateDateTime"
+                  ],
+                  "properties": {
+                    "balance": {
+                      "type": "number",
+                      "description": "The available balance of the account, same as balance in the account resource."
+                    },
+                    "currencyCode": {
+                      "type": "string",
+                      "description": "The currency code of the balance amounts"
+                    },
+                    "updateDateTime": {
+                      "type": "string",
+                      "description": "The date and time when the balance was last updated"
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "balance": 1500.50,
+                      "blockedBalance": 0,
+                      "automaticallyInvestedBalance": 200.00,
+                      "currencyCode": "BRL",
+                      "updateDateTime": "2024-01-15T10:30:00Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "message": "account not found for the given id",
+                  "code": 404
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited by the financial institution",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "message": "The financial institution rate-limited the balance request. Please try again later.",
+                  "code": 429
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error fetching balance from connector",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "message": "An error occurred while fetching the account balance from the connector",
+                  "code": 500
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Account"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Account primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "a658c848-e475-457b-8565-d1fffba127c4"
+          }
+        ]
+      }
+    },
     "/transactions": {
       "get": {
         "operationId": "transactions-list",
@@ -4705,6 +4816,16 @@
               "type": "string"
             },
             "example": "John"
+          },
+          {
+            "description": "Filter payment recipient by tax number (CPF or CNPJ)",
+            "in": "query",
+            "name": "taxNumber",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "11111111111"
           }
         ]
       },
@@ -5184,6 +5305,27 @@
               "type": "string"
             },
             "example": "11111111111"
+          },
+          {
+            "description": "Filter payment requests by status",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CREATED",
+                "IN_PROGRESS",
+                "COMPLETED",
+                "SCHEDULED",
+                "WAITING_PAYER_AUTHORIZATION",
+                "ERROR",
+                "EXPIRED",
+                "AUTHORIZED",
+                "CANCELED"
+              ]
+            },
+            "example": "CREATED"
           }
         ]
       },
@@ -11167,6 +11309,16 @@
           "pixKey": {
             "type": "string",
             "description": "Pix key associated with the payment recipient"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the payment recipient was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the payment recipient was last updated"
           }
         },
         "type": "object",
@@ -11176,7 +11328,9 @@
           "taxNumber",
           "paymentInstitution",
           "isDefault",
-          "account"
+          "account",
+          "createdAt",
+          "updatedAt"
         ],
         "example": {
           "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
@@ -11197,7 +11351,9 @@
             "type": "CHECKING_ACCOUNT"
           },
           "isDefault": false,
-          "pixKey": null
+          "pixKey": null,
+          "createdAt": "2024-01-15T10:30:00.000Z",
+          "updatedAt": "2024-01-15T10:30:00.000Z"
         }
       },
       "CreatePaymentRecipient": {
@@ -12666,7 +12822,9 @@
             "description": "Required when the consent has variable amounts (minimumVariableAmount/maximumVariableAmount). Default amount to use when scheduling the payment."
           }
         },
-        "required": ["enabled"]
+        "required": [
+          "enabled"
+        ]
       },
       "AutomaticPixPayment": {
         "description": "Automatic PIX payment",
