@@ -5674,7 +5674,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/AutomaticPixPayment"
+                  "$ref": "#/components/schemas/AutomaticPixPaymentDetail"
                 },
                 "examples": {
                   "response": {
@@ -5688,6 +5688,7 @@
                       "errorDetail": null,
                       "clientPaymentId": "external-ref-456",
                       "isFirstPayment": false,
+                      "scheduledStatusReached": false,
                       "isSandbox": false
                     }
                   }
@@ -6860,6 +6861,129 @@
               "format": "uuid"
             },
             "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ]
+      }
+    },
+    "/smart-transfers/preauthorizations/{id}/payments": {
+      "get": {
+        "operationId": "smart-transfer-preauthorization-payments-list",
+        "summary": "List preauthorization payments",
+        "description": "Recovers all payments for a specific preauthorization, ordered by date descending",
+        "responses": {
+          "200": {
+            "description": "Retrieve a list of all payments for the preauthorization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "total": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "totalPages": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SmartTransferPayment"
+                      },
+                      "description": "List of payments"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Smart Transfer Preauthorization not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "SMART_TRANSFER_PREAUTHORIZATION_NOT_FOUND",
+                  "message": "Smart Transfer Preauthorization not found"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Smart Transfer"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Preauthorization primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          },
+          {
+            "description": "Filter payments created from this date",
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "example": "2024-01-01"
+          },
+          {
+            "description": "Filter payments created until this date",
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "example": "2024-12-31"
+          },
+          {
+            "description": "Page size for the paging request, default: 500",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "example": "50"
+          },
+          {
+            "description": "Page number for the paging request, default: 1",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "example": "1"
           }
         ]
       }
@@ -10976,8 +11100,6 @@
               "PAYMENT_SETTLEMENT_PROCESSING",
               "PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT",
               "PAYMENT_COMPLETED",
-              "POSSIBLE_FRAUD",
-              "TOP_UP_CNPJ_MISMATCH",
               "REVOKED"
             ],
             "type": "string",
@@ -12891,6 +13013,24 @@
           "amount",
           "date",
           "recipientId"
+        ]
+      },
+      "AutomaticPixPaymentDetail": {
+        "description": "Automatic PIX payment detail with additional fields",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AutomaticPixPayment"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "scheduledStatusReached": {
+                "type": "boolean",
+                "description": "Indicates whether the payment reached the scheduled status in the last attempt. Useful to determine if a retry can be executed."
+              }
+            },
+            "required": ["scheduledStatusReached"]
+          }
         ]
       },
       "AutomaticPixPaymentAttempt": {
