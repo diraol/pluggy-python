@@ -2223,6 +2223,139 @@
         }
       }
     },
+    "/v2/transactions": {
+      "get": {
+        "operationId": "transactions-list-by-cursor",
+        "summary": "List v2",
+        "description": "Recovers all transactions for the account provided using cursor-based pagination.",
+        "responses": {
+          "200": {
+            "description": "Retrieve a list of transactions for an account using cursor-based pagination",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CursorPageResponseTransactions"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "results": [
+                        {
+                          "id": "a8534c85-53ce-4f21-94d7-50e9d2ee4957",
+                          "description": "* PROV * COMPRA TESOURO DIRETO CLIENTES",
+                          "descriptionRaw": "* PROV * COMPRA TESOURO DIRETO CLIENTES",
+                          "currencyCode": "BRL",
+                          "amount": -212.45,
+                          "date": "2020-10-15T00:00:00.000Z",
+                          "balance": 4439.4,
+                          "category": "Fixed Income Investment",
+                          "accountId": "562b795d-1653-429f-be86-74ead9502813",
+                          "providerCode": null,
+                          "status": "POSTED",
+                          "paymentData": null,
+                          "type": "DEBIT",
+                          "providerId": null
+                        }
+                      ],
+                      "next": "?accountId=562b795d-1653-429f-be86-74ead9502813&after=MjAyMC0xMC0xNVQwMDowMDowMC4wMDBafGE4NTM0Yzg1LTUzY2UtNGYyMS05NGQ3LTUwZTlkMmVlNDk1Nw=="
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "examples": {
+                  "missingAccountId": {
+                    "summary": "Missing accountId",
+                    "value": {
+                      "message": "accountId should not be null or undefined, accountId must be a UUID",
+                      "code": 400
+                    }
+                  },
+                  "invalidCursor": {
+                    "summary": "Invalid cursor",
+                    "value": {
+                      "message": "Invalid cursor",
+                      "code": 400
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Transaction"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Account primary identifier",
+            "in": "query",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "562b795d-1653-429f-be86-74ead9502813"
+          },
+          {
+            "description": "Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom.",
+            "in": "query",
+            "name": "dateFrom",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-10-13"
+          },
+          {
+            "description": "Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)",
+            "in": "query",
+            "name": "createdAtFrom",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-10-13T03:00:00.000Z"
+          },
+          {
+            "description": "Cursor for the next page of results. Obtained from the 'next' field of a previous response.",
+            "in": "query",
+            "name": "after",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "MjAyMC0xMC0xNVQwMDowMDowMC4wMDBafGE4NTM0Yzg1LTUzY2UtNGYyMS05NGQ3LTUwZTlkMmVlNDk1Nw=="
+          }
+        ]
+      }
+    },
     "/transactions/{id}": {
       "get": {
         "operationId": "transactions-retrieve",
@@ -8904,6 +9037,28 @@
           "totalPages"
         ]
       },
+      "CursorPageResponseTransactions": {
+        "description": "Cursor-based paginated response for transactions",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Transaction"
+            },
+            "description": "List of transactions for the current page"
+          },
+          "next": {
+            "type": "string",
+            "nullable": true,
+            "description": "Query string for the next page of results. Null if there are no more results."
+          }
+        },
+        "type": "object",
+        "required": [
+          "results",
+          "next"
+        ]
+      },
       "UpdateTransaction": {
         "description": "Update transaction category request body",
         "properties": {
@@ -10589,6 +10744,13 @@
             "items": {
               "$ref": "#/components/schemas/BillFinanceCharge"
             }
+          },
+          "payments": {
+            "type": "array",
+            "description": "List of payments associated to the bill",
+            "items": {
+              "$ref": "#/components/schemas/BillPayment"
+            }
           }
         },
         "type": "object",
@@ -10598,7 +10760,60 @@
           "dueDate",
           "totalAmount",
           "totalAmountCurrencyCode",
-          "financeCharges"
+          "financeCharges",
+          "payments"
+        ],
+        "example": {}
+      },
+      "BillPayment": {
+        "description": "Response with information related to a credit card bill payment",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Primary identifier"
+          },
+          "valueType": {
+            "enum": [
+              "INSTALLMENT_PAYMENT",
+              "FULL_PAYMENT",
+              "OTHER_PAYMENT"
+            ],
+            "type": "string",
+            "description": "Classifies the payment value type"
+          },
+          "paymentDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the payment was made"
+          },
+          "paymentMode": {
+            "enum": [
+              "DEBIT_ACCOUNT",
+              "BANK_SLIP",
+              "PAYROLL_DEDUCTION",
+              "PIX"
+            ],
+            "type": "string",
+            "nullable": true,
+            "description": "Payment mode used"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Payment amount"
+          },
+          "currencyCode": {
+            "type": "string",
+            "example": "BRL",
+            "description": "Code referencing the currency of the payment"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "valueType",
+          "paymentDate",
+          "amount",
+          "currencyCode"
         ],
         "example": {}
       },
@@ -11100,7 +11315,9 @@
               "PAYMENT_SETTLEMENT_PROCESSING",
               "PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT",
               "PAYMENT_COMPLETED",
-              "REVOKED"
+              "REJECTED",
+              "REVOKED",
+              "CONSUMED"
             ],
             "type": "string",
             "description": "Payment intent status"
@@ -13029,7 +13246,9 @@
                 "description": "Indicates whether the payment reached the scheduled status in the last attempt. Useful to determine if a retry can be executed."
               }
             },
-            "required": ["scheduledStatusReached"]
+            "required": [
+              "scheduledStatusReached"
+            ]
           }
         ]
       },
