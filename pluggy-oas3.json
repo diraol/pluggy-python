@@ -1900,8 +1900,9 @@
     "/transactions": {
       "get": {
         "operationId": "transactions-list",
-        "summary": "List",
-        "description": "Recovers all transactions collected for the acount provided",
+        "summary": "List by Page (deprecated)",
+        "description": "**Deprecated**: this endpoint is deprecated and will be available only until **2026-12-31**, after which it will be removed. Please migrate to `GET /v2/transactions`, which uses cursor-based pagination.\n\nRecovers all transactions collected for the acount provided.",
+        "deprecated": true,
         "responses": {
           "200": {
             "description": "Retrieve a list of all transactions for an account",
@@ -2226,7 +2227,7 @@
     "/v2/transactions": {
       "get": {
         "operationId": "transactions-list-by-cursor",
-        "summary": "List v2",
+        "summary": "List",
         "description": "Recovers all transactions for the account provided using cursor-based pagination.",
         "responses": {
           "200": {
@@ -2285,6 +2286,14 @@
                       "message": "Invalid cursor",
                       "code": 400
                     }
+                  },
+                  "idsExceedsMaxLength": {
+                    "summary": "ids parameter exceeds max length",
+                    "value": {
+                      "message": "The ids parameter cannot have more than 500 transaction ids",
+                      "code": 400,
+                      "codeDescription": "IDS_PARAMETER_EXCEEDS_MAX_LENGTH"
+                    }
                   }
                 }
               }
@@ -2322,6 +2331,20 @@
             "example": "562b795d-1653-429f-be86-74ead9502813"
           },
           {
+            "description": "Comma-separated list of transaction identifiers (UUIDs). Maximum of 500 ids per request.",
+            "in": "query",
+            "name": "ids",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "example": "a8534c85-53ce-4f21-94d7-50e9d2ee4957, 05c693bf-c196-47ea-a28c-8251d6bb8a06"
+          },
+          {
             "description": "Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom.",
             "in": "query",
             "name": "dateFrom",
@@ -2331,6 +2354,17 @@
               "format": "date-time"
             },
             "example": "2020-10-13"
+          },
+          {
+            "description": "Filter transactions with date less than or equal to the given date. Format (yyyy-mm-dd).",
+            "in": "query",
+            "name": "dateTo",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-10-15"
           },
           {
             "description": "Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)",
