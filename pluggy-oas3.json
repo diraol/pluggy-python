@@ -9731,6 +9731,22 @@
           "value": {
             "type": "string",
             "description": "The complete phone number"
+          },
+          "countryCallingCode": {
+            "type": "string",
+            "description": "International dialing code (DDI). Populated when different from '55'"
+          },
+          "areaCode": {
+            "type": "string",
+            "description": "Area code (DDD) of the client's phone"
+          },
+          "extension": {
+            "type": "string",
+            "description": "Extension number, when part of the phone identification"
+          },
+          "additionalInfo": {
+            "type": "string",
+            "description": "Additional info related to the source phone type. Populated when the source type at the institution does not fit the standard categories"
           }
         },
         "type": "object",
@@ -9784,7 +9800,7 @@
           },
           "country": {
             "type": "string",
-            "description": "The complete country name"
+            "description": "The complete country name (free text)"
           },
           "type": {
             "enum": [
@@ -9797,6 +9813,21 @@
           "additionalInfo": {
             "type": "string",
             "description": "Additional address information such as apartment number, complement, or other details"
+          },
+          "district": {
+            "type": "string",
+            "description": "District / neighborhood (bairro) — a community or region within a city or municipality based on geographic subdivisions"
+          },
+          "ibgeTownCode": {
+            "type": "string",
+            "description": "IBGE municipality code (7 digits). The IBGE table associates each Brazilian municipality with a 7-digit code; the first two digits identify the Federation Unit"
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "Country code in alpha3 ISO-3166 format (e.g. 'BRA')"
+          },
+          "geographicCoordinates": {
+            "$ref": "#/components/schemas/GeographicCoordinates"
           }
         },
         "type": "object"
@@ -9823,6 +9854,428 @@
           }
         },
         "type": "object"
+      },
+      "GeographicCoordinates": {
+        "description": "Geographic coordinates in decimal degrees, WGS84 reference system",
+        "type": "object",
+        "required": [
+          "latitude",
+          "longitude"
+        ],
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "description": "Latitude. Between -90 and 90 (e.g. -23.5475)"
+          },
+          "longitude": {
+            "type": "number",
+            "description": "Longitude. Between -180 and 180 (e.g. -46.6361)"
+          }
+        }
+      },
+      "MaritalStatus": {
+        "description": "Marital status of the natural person",
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "SINGLE",
+              "MARRIED",
+              "WIDOWED",
+              "JUDICIALLY_SEPARATED",
+              "DIVORCED",
+              "STABLE_UNION",
+              "OTHER"
+            ],
+            "description": "Marital status code"
+          },
+          "additionalInfo": {
+            "type": "string",
+            "description": "Free-text complement. Populated when code is OTHER"
+          }
+        }
+      },
+      "NationalityDocument": {
+        "description": "Supporting document for a non-Brazilian nationality",
+        "type": "object",
+        "required": [
+          "type",
+          "number"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Document type (free text). Required when the nationality is not Brazilian"
+          },
+          "number": {
+            "type": "string",
+            "description": "Document number. Required when the nationality is not Brazilian"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country name"
+          },
+          "issueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Issue date of the document"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration date of the document"
+          },
+          "additionalInfo": {
+            "type": "string",
+            "description": "Free-text complement"
+          }
+        }
+      },
+      "Nationality": {
+        "description": "Nationality of the natural person",
+        "type": "object",
+        "required": [
+          "hasBrazilianNationality"
+        ],
+        "properties": {
+          "hasBrazilianNationality": {
+            "type": "boolean",
+            "description": "Whether the client has Brazilian nationality"
+          },
+          "otherNationalities": {
+            "type": "array",
+            "description": "Other nationalities held by the client, if any",
+            "items": {
+              "type": "object",
+              "required": [
+                "countryCode",
+                "documents"
+              ],
+              "properties": {
+                "countryCode": {
+                  "type": "string",
+                  "description": "Country code in alpha3 ISO-3166 format"
+                },
+                "documents": {
+                  "type": "array",
+                  "description": "Supporting documents for this nationality",
+                  "items": {
+                    "$ref": "#/components/schemas/NationalityDocument"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "OtherDocument": {
+        "description": "Other identification document held by the natural person. Brazilian acronyms are kept verbatim; OTHER covers any other type",
+        "type": "object",
+        "required": [
+          "type",
+          "number"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "CNH",
+              "RG",
+              "NIF",
+              "RNE",
+              "OTHER"
+            ],
+            "description": "Document type"
+          },
+          "typeAdditionalInfo": {
+            "type": "string",
+            "description": "Free-text complement. Populated when type is OTHER"
+          },
+          "number": {
+            "type": "string",
+            "description": "Document number"
+          },
+          "checkDigit": {
+            "type": "string",
+            "description": "Check digit of the document, if it has one"
+          },
+          "additionalInfo": {
+            "type": "string",
+            "description": "Free-text complement, used to record the issuing authority (e.g. 'SSP/SP') when relevant"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration date of the document"
+          }
+        }
+      },
+      "Passport": {
+        "description": "Passport metadata for the natural person. Applies when the client is a non-resident not required to register a CPF",
+        "type": "object",
+        "required": [
+          "number",
+          "country"
+        ],
+        "properties": {
+          "number": {
+            "type": "string",
+            "description": "Passport number"
+          },
+          "country": {
+            "type": "string",
+            "description": "Issuing country in alpha3 ISO-3166 format"
+          },
+          "issueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Issue date of the passport"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration date of the passport"
+          }
+        }
+      },
+      "BusinessParty": {
+        "description": "Partner or administrator of a business. Partners with less than 25% shareholding may be omitted by the institution",
+        "type": "object",
+        "required": [
+          "type",
+          "personType",
+          "documentType",
+          "documentNumber"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "PARTNER",
+              "ADMINISTRATOR"
+            ],
+            "description": "Role of the party in the business. Administrator — runs the day-to-day, signs documents and legally responds for the entity. Partner — holds capital but may not be involved in administrative activities"
+          },
+          "personType": {
+            "type": "string",
+            "enum": [
+              "NATURAL_PERSON",
+              "LEGAL_ENTITY"
+            ],
+            "description": "Whether the party is a natural person or a legal entity"
+          },
+          "documentType": {
+            "type": "string",
+            "enum": [
+              "CPF",
+              "CNPJ",
+              "PASSPORT",
+              "OTHER_TRAVEL_DOCUMENT"
+            ],
+            "description": "Type of the party's identification document"
+          },
+          "documentNumber": {
+            "type": "string",
+            "description": "Number of the identification document (digits and check digit, if any)"
+          },
+          "documentCountry": {
+            "type": "string",
+            "description": "Issuing country of the document, alpha3 ISO-3166"
+          },
+          "documentExpirationDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration date of the document"
+          },
+          "documentIssueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Issue date of the document"
+          },
+          "documentAdditionalInfo": {
+            "type": "string",
+            "description": "Free-text complement when the document carries identification info that doesn't fit the other fields"
+          },
+          "civilName": {
+            "type": "string",
+            "description": "Civil name of the party. Required when personType is NATURAL_PERSON"
+          },
+          "socialName": {
+            "type": "string",
+            "description": "Social name of the natural-person party, if any"
+          },
+          "companyName": {
+            "type": "string",
+            "description": "Company name of the party. Required when personType is LEGAL_ENTITY"
+          },
+          "tradeName": {
+            "type": "string",
+            "description": "Trade name of the legal-entity party, if any"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date the party's participation started"
+          },
+          "shareholding": {
+            "type": "number",
+            "description": "Shareholding fraction between 0 and 1 (e.g. 0.51 represents 51%, 1 represents 100%). Required when type is PARTNER and the shareholding is 25% or higher"
+          }
+        }
+      },
+      "BusinessOtherDocument": {
+        "description": "Additional document for businesses headquartered abroad and not required to register a CNPJ",
+        "type": "object",
+        "required": [
+          "type",
+          "number",
+          "country"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of the document (e.g. 'EIN')"
+          },
+          "number": {
+            "type": "string",
+            "description": "Document number"
+          },
+          "country": {
+            "type": "string",
+            "description": "Issuing country in alpha3 ISO-3166 format"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration date of the document"
+          }
+        }
+      },
+      "EconomicActivity": {
+        "description": "CNAE code describing one of the business's economic activities. Only one entry per response should be marked as main",
+        "type": "object",
+        "required": [
+          "code",
+          "isMain"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "CNAE code (7 digits, including leading zeros). Follows the CNAE-Subclasse 2.3 classification"
+          },
+          "isMain": {
+            "type": "boolean",
+            "description": "Whether this is the main economic activity (true) or a secondary one (false). Only one item per response should be true"
+          }
+        }
+      },
+      "InformedRevenue": {
+        "description": "Revenue (faturamento) informed by the business — the business equivalent of informedIncome",
+        "type": "object",
+        "required": [
+          "amount"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Amount of the informed revenue"
+          },
+          "frequency": {
+            "type": "string",
+            "enum": [
+              "DAILY",
+              "WEEKLY",
+              "BIWEEKLY",
+              "MONTHLY",
+              "BIMONTHLY",
+              "QUARTERLY",
+              "SEMIANNUAL",
+              "ANNUAL",
+              "OTHER"
+            ],
+            "description": "Frequency or period of the informed revenue"
+          },
+          "frequencyAdditionalInfo": {
+            "type": "string",
+            "description": "Free-text complement to the frequency. Populated when frequency is OTHER"
+          },
+          "year": {
+            "type": "number",
+            "description": "Reference year of the revenue"
+          }
+        }
+      },
+      "PortabilityReceived": {
+        "description": "Salary portability received by the institution from a previous paycheck bank (banco-folha). Approved requests only — a portability is never explicitly closed, so an entry doesn't guarantee an active link with the listed paycheck bank",
+        "type": "object",
+        "required": [
+          "employerName",
+          "employerDocument",
+          "paycheckBankDetainerCnpj",
+          "paycheckBankDetainerIspb",
+          "portabilityApprovalDate"
+        ],
+        "properties": {
+          "employerName": {
+            "type": "string",
+            "description": "Employer name as received in the portability message. When the employer is a legal entity, this is the company name"
+          },
+          "employerDocument": {
+            "type": "string",
+            "description": "Employer document (CPF or CNPJ) as received in the portability message"
+          },
+          "paycheckBankDetainerCnpj": {
+            "type": "string",
+            "description": "CNPJ of the bank that holds the paycheck account (banco-folha) as received in the portability message"
+          },
+          "paycheckBankDetainerIspb": {
+            "type": "string",
+            "description": "ISPB of the bank that holds the paycheck account as received in the portability message"
+          },
+          "portabilityApprovalDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date the portability was approved"
+          }
+        }
+      },
+      "PaycheckBankLink": {
+        "description": "Paycheck-bank (banco-folha) link to an employer, active or formerly active. Old employers may not have closed the link, so an entry doesn't guarantee the listed employer is the current one",
+        "type": "object",
+        "required": [
+          "employerName",
+          "employerDocument",
+          "paycheckBankCnpj",
+          "paycheckBankIspb",
+          "accountOpeningDate"
+        ],
+        "properties": {
+          "employerName": {
+            "type": "string",
+            "description": "Employer name as registered when the paycheck account was opened. When the employer is a legal entity, this is the company name"
+          },
+          "employerDocument": {
+            "type": "string",
+            "description": "Employer document (CPF or CNPJ) as registered when the paycheck account was opened"
+          },
+          "paycheckBankCnpj": {
+            "type": "string",
+            "description": "CNPJ of the institution contracted to provide the paycheck service (banco-folha)"
+          },
+          "paycheckBankIspb": {
+            "type": "string",
+            "description": "ISPB of the institution contracted to provide the paycheck service"
+          },
+          "accountOpeningDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date the paycheck account was opened"
+          }
+        }
       },
       "IdentityResponse": {
         "description": "Response with details personal information related to the owner of the connection's account",
@@ -9930,6 +10383,10 @@
                 ],
                 "description": "Occupation code"
               },
+              "occupationDescription": {
+                "type": "string",
+                "description": "Free-text occupation description. When occupationCode is RECEITA_FEDERAL or CBO it holds the standardized list code; when OUTRO it describes the occupation in cases where the institution does not follow the Receita Federal nor the CBO list"
+              },
               "informedIncome": {
                 "type": "object",
                 "description": "Informed income",
@@ -9980,8 +10437,23 @@
                   "year": {
                     "type": "number",
                     "description": "Year of the patrimony"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Reference date of the patrimony. Returned on the business path of Open Finance, where the source field is a full date rather than just a year"
                   }
                 }
+              },
+              "economicActivities": {
+                "type": "array",
+                "description": "List of CNAE codes describing the economic activities of the business (Brazilian National Classification of Economic Activities). Only one entry per response should be marked as main",
+                "items": {
+                  "$ref": "#/components/schemas/EconomicActivity"
+                }
+              },
+              "informedRevenue": {
+                "$ref": "#/components/schemas/InformedRevenue"
               }
             }
           },
@@ -10005,6 +10477,10 @@
                 },
                 "description": "List of products and services that the client consumes"
               },
+              "productsServicesTypeAdditionalInfo": {
+                "type": "string",
+                "description": "Additional info about the products and services. Populated when productsServicesType includes 'OUTROS'"
+              },
               "procurators": {
                 "type": "array",
                 "items": {
@@ -10021,19 +10497,31 @@
                         "REPRESENTANTE_LEGAL",
                         "PROCURADOR"
                       ],
-                      "description": "Type of relationship with the client"
+                      "description": "Type of relationship with the client. Legal representative — natural person who represents the entity and is named in its incorporation document. Procurator — any person authorized in writing to represent the client in some business"
                     },
                     "cpfNumber": {
                       "type": "string",
-                      "description": "CPF of the procurator"
+                      "description": "CPF of the procurator. For business links this field may hold a CPF or a CNPJ (kept for backward compatibility — prefer documentNumber + documentType)"
+                    },
+                    "documentNumber": {
+                      "type": "string",
+                      "description": "Document number of the procurator (CPF or CNPJ). Mirrors cpfNumber and is the canonical value to read"
+                    },
+                    "documentType": {
+                      "type": "string",
+                      "enum": [
+                        "CPF",
+                        "CNPJ"
+                      ],
+                      "description": "Type of document carried by documentNumber"
                     },
                     "civilName": {
                       "type": "string",
-                      "description": "Civil name of the procurator"
+                      "description": "Civil name of the procurator. For business procurators, may hold the company name"
                     },
                     "socialName": {
                       "type": "string",
-                      "description": "Social name of the procurator"
+                      "description": "Social name of the procurator, if any"
                     }
                   }
                 },
@@ -10079,9 +10567,87 @@
                   }
                 },
                 "description": "List of accounts of the client with valid consent. Only accounts that have explicit user consent are returned."
+              },
+              "portabilitiesReceived": {
+                "type": "array",
+                "description": "Salary portabilities received by the institution from the client's previous paycheck banks (banco-folha). PF-only field",
+                "items": {
+                  "$ref": "#/components/schemas/PortabilityReceived"
+                }
+              },
+              "paychecksBankLink": {
+                "type": "array",
+                "description": "Paycheck-bank (banco-folha) links to employers, active or formerly active. PF-only field",
+                "items": {
+                  "$ref": "#/components/schemas/PaycheckBankLink"
+                }
               }
             },
             "description": "Information that allows institutions to assess, evaluate, characterize, and classify the client with the purpose of understanding their risk profile and their economic-financial capacity"
+          },
+          "socialName": {
+            "type": "string",
+            "description": "Social name of the natural person, if any (the name by which travestis and transsexuals recognize themselves and are recognized in their community). PF-only field"
+          },
+          "sex": {
+            "type": "string",
+            "enum": [
+              "FEMALE",
+              "MALE",
+              "OTHER"
+            ],
+            "description": "Sex of the natural person. PF-only field"
+          },
+          "maritalStatus": {
+            "allOf": [
+              { "$ref": "#/components/schemas/MaritalStatus" }
+            ],
+            "description": "Marital status of the natural person. PF-only field"
+          },
+          "nationality": {
+            "allOf": [
+              { "$ref": "#/components/schemas/Nationality" }
+            ],
+            "description": "Nationality of the natural person. PF-only field"
+          },
+          "otherDocuments": {
+            "type": "array",
+            "description": "List of other identification documents the natural person holds. PF-only field",
+            "items": {
+              "$ref": "#/components/schemas/OtherDocument"
+            }
+          },
+          "passport": {
+            "allOf": [
+              { "$ref": "#/components/schemas/Passport" }
+            ],
+            "description": "Passport metadata for the natural person. PF-only field"
+          },
+          "incorporationDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date the business was incorporated. PJ-only field"
+          },
+          "parties": {
+            "type": "array",
+            "description": "Partners and administrators of the business. PJ-only field",
+            "items": {
+              "$ref": "#/components/schemas/BusinessParty"
+            }
+          },
+          "businessOtherDocuments": {
+            "type": "array",
+            "description": "List of additional documents for businesses headquartered abroad and not required to register a CNPJ. PJ-only field",
+            "items": {
+              "$ref": "#/components/schemas/BusinessOtherDocument"
+            }
+          },
+          "companiesCnpj": {
+            "type": "array",
+            "description": "CNPJs of the financial institutions responsible for the customer cadastro. Numbers only, no mask",
+            "items": {
+              "type": "string"
+            }
           }
         },
         "type": "object",
