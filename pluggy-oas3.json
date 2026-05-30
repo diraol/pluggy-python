@@ -10869,6 +10869,16 @@
             "type": "string",
             "description": "Loan type (https://openbanking-brasil.github.io/openapi/swagger-apis/loans/?urls.primaryName=2.0.1#model-EnumContractProductSubTypeLoans)"
           },
+          "kind": {
+            "type": "string",
+            "description": "Credit-operation family this contract belongs to.",
+            "enum": [
+              "LOAN",
+              "FINANCING",
+              "INVOICE_FINANCING",
+              "UNARRANGED_ACCOUNT_OVERDRAFT"
+            ]
+          },
           "date": {
             "type": "string",
             "format": "date-time",
@@ -10998,7 +11008,8 @@
           "itemId",
           "date",
           "productName",
-          "currencyCode"
+          "currencyCode",
+          "kind"
         ],
         "example": {}
       },
