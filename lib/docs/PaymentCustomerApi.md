@@ -127,7 +127,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentCustomerApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment customer primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment customer primary identifier
 
     try:
         # Delete
@@ -143,7 +143,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment customer primary identifier | 
+ **id** | **UUID**| Payment customer primary identifier | 
 
 ### Return type
 
@@ -205,7 +205,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentCustomerApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment customer primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment customer primary identifier
 
     try:
         # Retrieve
@@ -223,7 +223,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment customer primary identifier | 
+ **id** | **UUID**| Payment customer primary identifier | 
 
 ### Return type
 
@@ -286,7 +286,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentCustomerApi(api_client)
-    id = 'd0f8a8c0-e8e3-11e9-b210-d663bd873d93' # str | Payment customer primary identifier
+    id = UUID('d0f8a8c0-e8e3-11e9-b210-d663bd873d93') # UUID | Payment customer primary identifier
     create_or_update_payment_customer = pluggy_sdk.CreateOrUpdatePaymentCustomer() # CreateOrUpdatePaymentCustomer | 
 
     try:
@@ -305,7 +305,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment customer primary identifier | 
+ **id** | **UUID**| Payment customer primary identifier | 
  **create_or_update_payment_customer** | [**CreateOrUpdatePaymentCustomer**](CreateOrUpdatePaymentCustomer.md)|  | 
 
 ### Return type
@@ -367,7 +367,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentCustomerApi(api_client)
-    page_size = 50 # float | Page size for the paging request, default: 20 (optional)
+    page_size = 50 # float | Page size for the paging request, default: 500 (optional)
     page = 1 # float | Page number for the paging request, default: 1 (optional)
     name = 'John' # str | Filter payment customers by name (optional)
     email = 'john.doe@email.com' # str | Filter payment customers by email (optional)
@@ -390,7 +390,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page_size** | **float**| Page size for the paging request, default: 20 | [optional] 
+ **page_size** | **float**| Page size for the paging request, default: 500 | [optional] 
  **page** | **float**| Page number for the paging request, default: 1 | [optional] 
  **name** | **str**| Filter payment customers by name | [optional] 
  **email** | **str**| Filter payment customers by email | [optional] 

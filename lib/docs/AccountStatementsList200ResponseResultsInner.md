@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
+**id** | **UUID** |  | 
 **month_year** | **str** |  | 
 **url** | **str** | Signed URL to the statement file, this url is valid for 30 minutes | 
 

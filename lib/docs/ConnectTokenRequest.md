@@ -6,7 +6,7 @@ Create a connect token request payload
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**item_id** | **str** | Item identifier to allow Connect Widget to performan an update on it. | [optional] 
+**item_id** | **UUID** | Item identifier to allow Connect Widget to performan an update on it. | [optional] 
 **options** | [**ItemOptions**](ItemOptions.md) |  | [optional] 
 
 ## Example

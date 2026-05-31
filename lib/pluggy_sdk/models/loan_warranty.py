@@ -22,19 +22,21 @@ from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, Stric
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class LoanWarranty(BaseModel):
     """
     LoanWarranty
     """ # noqa: E501
-    currency_code: Optional[StrictStr] = Field(default=None, description="Code referencing the currency of the warranty", alias="currencyCode")
+    currency_code: Optional[StrictStr] = Field(default=None, description="Code referencing the currency of the warranty", alias="currencyCode", json_schema_extra={"examples": ["BRL"]})
     type: Optional[StrictStr] = Field(default=None, description="Denomination / Identification of the type of warranty that guarantees the Type of Credit Operation contracted (https://openbanking-brasil.github.io/openapi/swagger-apis/loans/?urls.primaryName=2.0.1#model-EnumWarrantyType)")
     subtype: Optional[StrictStr] = Field(default=None, description="Denomination / Identification of the subtype of warranty that guarantees the Type of Credit Operation contracted (https://openbanking-brasil.github.io/openapi/swagger-apis/loans/?urls.primaryName=2.0.1#model-EnumWarrantySubType)")
     amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Warranty original value")
     __properties: ClassVar[List[str]] = ["currencyCode", "type", "subtype", "amount"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -46,8 +48,7 @@ class LoanWarranty(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

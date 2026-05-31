@@ -7,7 +7,7 @@ Investment representing a specific asset
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Primary identifier | 
-**item_id** | **str** | Identifier of the item linked to the investment | 
+**item_id** | **UUID** | Identifier of the item linked to the investment | 
 **type** | **str** | Investment Asset type | 
 **subtype** | **str** | Investment subtype, depends on the type | [optional] 
 **number** | **str** | Reference number for this holder&#39;s asset | [optional] 
@@ -34,6 +34,7 @@ Name | Type | Description | Notes
 **issuer** | **str** | The entity that issued the investment | [optional] 
 **issuer_cnpj** | **str** | The entity CNPJ that issued the investment | [optional] 
 **issue_date** | **datetime** | The date that the investment was issued | [optional] 
+**purchase_date** | **datetime** | The date that the investment was purchased | [optional] 
 **rate** | **float** | Fixed rate percentage applied to the investment | [optional] 
 **rate_type** | **str** | Type of fixed-rate | [optional] 
 **fixed_annual_rate** | **float** | Fixed income annual rate | [optional] 

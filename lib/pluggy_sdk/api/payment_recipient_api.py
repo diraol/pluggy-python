@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -345,7 +344,7 @@ class PaymentRecipientApi:
         Deletes the payment recipient resource by its id
 
         :param id: Payment recipient primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -413,7 +412,7 @@ class PaymentRecipientApi:
         Deletes the payment recipient resource by its id
 
         :param id: Payment recipient primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -481,7 +480,7 @@ class PaymentRecipientApi:
         Deletes the payment recipient resource by its id
 
         :param id: Payment recipient primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -609,7 +608,7 @@ class PaymentRecipientApi:
         Recovers the payment institution resource by its id
 
         :param id: Payment institution primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -677,7 +676,7 @@ class PaymentRecipientApi:
         Recovers the payment institution resource by its id
 
         :param id: Payment institution primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -745,7 +744,7 @@ class PaymentRecipientApi:
         Recovers the payment institution resource by its id
 
         :param id: Payment institution primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -873,7 +872,7 @@ class PaymentRecipientApi:
         Recovers the payment recipient resource by its id
 
         :param id: Payment recipient primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -941,7 +940,7 @@ class PaymentRecipientApi:
         Recovers the payment recipient resource by its id
 
         :param id: Payment recipient primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1009,7 +1008,7 @@ class PaymentRecipientApi:
         Recovers the payment recipient resource by its id
 
         :param id: Payment recipient primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1138,7 +1137,7 @@ class PaymentRecipientApi:
         Updates the payment recipient resource
 
         :param id: Payment recipient primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param update_payment_recipient: (required)
         :type update_payment_recipient: UpdatePaymentRecipient
         :param _request_timeout: timeout setting for this request. If one
@@ -1209,7 +1208,7 @@ class PaymentRecipientApi:
         Updates the payment recipient resource
 
         :param id: Payment recipient primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param update_payment_recipient: (required)
         :type update_payment_recipient: UpdatePaymentRecipient
         :param _request_timeout: timeout setting for this request. If one
@@ -1280,7 +1279,7 @@ class PaymentRecipientApi:
         Updates the payment recipient resource
 
         :param id: Payment recipient primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param update_payment_recipient: (required)
         :type update_payment_recipient: UpdatePaymentRecipient
         :param _request_timeout: timeout setting for this request. If one
@@ -1407,7 +1406,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipients_institution_list(
         self,
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter institutions by name")] = None,
         _request_timeout: Union[
@@ -1427,7 +1426,7 @@ class PaymentRecipientApi:
 
         Recovers all created payment institutions
 
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -1482,7 +1481,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipients_institution_list_with_http_info(
         self,
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter institutions by name")] = None,
         _request_timeout: Union[
@@ -1502,7 +1501,7 @@ class PaymentRecipientApi:
 
         Recovers all created payment institutions
 
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -1557,7 +1556,7 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipients_institution_list_without_preload_content(
         self,
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter institutions by name")] = None,
         _request_timeout: Union[
@@ -1577,7 +1576,7 @@ class PaymentRecipientApi:
 
         Recovers all created payment institutions
 
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -1704,11 +1703,12 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipients_list(
         self,
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         is_default: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `isDefault` attribute. If not sent, it won't filter.")] = None,
         pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by Pix key")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by name")] = None,
+        tax_number: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by tax number (CPF or CNPJ)")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1726,7 +1726,7 @@ class PaymentRecipientApi:
 
         Recovers all created payment recipients
 
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -1736,6 +1736,8 @@ class PaymentRecipientApi:
         :type pix_key: str
         :param name: Filter payment recipient by name
         :type name: str
+        :param tax_number: Filter payment recipient by tax number (CPF or CNPJ)
+        :type tax_number: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1764,6 +1766,7 @@ class PaymentRecipientApi:
             is_default=is_default,
             pix_key=pix_key,
             name=name,
+            tax_number=tax_number,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1787,11 +1790,12 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipients_list_with_http_info(
         self,
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         is_default: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `isDefault` attribute. If not sent, it won't filter.")] = None,
         pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by Pix key")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by name")] = None,
+        tax_number: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by tax number (CPF or CNPJ)")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1809,7 +1813,7 @@ class PaymentRecipientApi:
 
         Recovers all created payment recipients
 
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -1819,6 +1823,8 @@ class PaymentRecipientApi:
         :type pix_key: str
         :param name: Filter payment recipient by name
         :type name: str
+        :param tax_number: Filter payment recipient by tax number (CPF or CNPJ)
+        :type tax_number: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1847,6 +1853,7 @@ class PaymentRecipientApi:
             is_default=is_default,
             pix_key=pix_key,
             name=name,
+            tax_number=tax_number,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1870,11 +1877,12 @@ class PaymentRecipientApi:
     @validate_call
     def payment_recipients_list_without_preload_content(
         self,
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         is_default: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `isDefault` attribute. If not sent, it won't filter.")] = None,
         pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by Pix key")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by name")] = None,
+        tax_number: Annotated[Optional[StrictStr], Field(description="Filter payment recipient by tax number (CPF or CNPJ)")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1892,7 +1900,7 @@ class PaymentRecipientApi:
 
         Recovers all created payment recipients
 
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -1902,6 +1910,8 @@ class PaymentRecipientApi:
         :type pix_key: str
         :param name: Filter payment recipient by name
         :type name: str
+        :param tax_number: Filter payment recipient by tax number (CPF or CNPJ)
+        :type tax_number: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1930,6 +1940,7 @@ class PaymentRecipientApi:
             is_default=is_default,
             pix_key=pix_key,
             name=name,
+            tax_number=tax_number,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1953,6 +1964,7 @@ class PaymentRecipientApi:
         is_default,
         pix_key,
         name,
+        tax_number,
         _request_auth,
         _content_type,
         _headers,
@@ -1994,6 +2006,10 @@ class PaymentRecipientApi:
         if name is not None:
             
             _query_params.append(('name', name))
+            
+        if tax_number is not None:
+            
+            _query_params.append(('taxNumber', tax_number))
             
         # process the header parameters
         # process the form parameters

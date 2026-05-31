@@ -27,6 +27,7 @@ from pluggy_sdk.models.payment_request import PaymentRequest
 from pluggy_sdk.models.pix_data import PixData
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class PaymentIntent(BaseModel):
     """
@@ -42,7 +43,7 @@ class PaymentIntent(BaseModel):
     reference_id: Optional[StrictStr] = Field(default=None, description="Pix id related to the payment intent", alias="referenceId")
     payment_method: Optional[StrictStr] = Field(default='PIS', description="Payment method can be PIS (Payment Initiation) or PIX", alias="paymentMethod")
     pix_data: Optional[PixData] = Field(default=None, description="Pix data related to the payment intent (only applies for PIX payment method)", alias="pixData")
-    error_detail: Optional[PaymentIntentErrorDetail] = Field(default=None, alias="errorDetail")
+    error_detail: Optional[PaymentIntentErrorDetail] = Field(default=None, description="Error details when payment intent fails", alias="errorDetail")
     __properties: ClassVar[List[str]] = ["id", "status", "createdAt", "updatedAt", "paymentRequest", "connector", "consentUrl", "referenceId", "paymentMethod", "pixData", "errorDetail"]
 
     @field_validator('status')
@@ -51,8 +52,8 @@ class PaymentIntent(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['PAYMENT_REJECTED', 'ERROR', 'CANCELED', 'CONSENT_REJECTED', 'STARTED', 'ENQUEUED', 'CONSENT_AWAITING_AUTHORIZATION', 'CONSENT_AUTHORIZED', 'PAYMENT_PENDING', 'PAYMENT_PARTIALLY_ACCEPTED', 'PAYMENT_SETTLEMENT_PROCESSING', 'PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT', 'PAYMENT_COMPLETED', 'POSSIBLE_FRAUD', 'TOP_UP_CNPJ_MISMATCH', 'REVOKED']):
-            raise ValueError("must be one of enum values ('PAYMENT_REJECTED', 'ERROR', 'CANCELED', 'CONSENT_REJECTED', 'STARTED', 'ENQUEUED', 'CONSENT_AWAITING_AUTHORIZATION', 'CONSENT_AUTHORIZED', 'PAYMENT_PENDING', 'PAYMENT_PARTIALLY_ACCEPTED', 'PAYMENT_SETTLEMENT_PROCESSING', 'PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT', 'PAYMENT_COMPLETED', 'POSSIBLE_FRAUD', 'TOP_UP_CNPJ_MISMATCH', 'REVOKED')")
+        if value not in set(['PAYMENT_REJECTED', 'ERROR', 'CANCELED', 'CONSENT_REJECTED', 'STARTED', 'ENQUEUED', 'CONSENT_AWAITING_AUTHORIZATION', 'CONSENT_AUTHORIZED', 'PAYMENT_PENDING', 'PAYMENT_PARTIALLY_ACCEPTED', 'PAYMENT_SETTLEMENT_PROCESSING', 'PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT', 'PAYMENT_COMPLETED', 'REJECTED', 'REVOKED', 'CONSUMED']):
+            raise ValueError("must be one of enum values ('PAYMENT_REJECTED', 'ERROR', 'CANCELED', 'CONSENT_REJECTED', 'STARTED', 'ENQUEUED', 'CONSENT_AWAITING_AUTHORIZATION', 'CONSENT_AUTHORIZED', 'PAYMENT_PENDING', 'PAYMENT_PARTIALLY_ACCEPTED', 'PAYMENT_SETTLEMENT_PROCESSING', 'PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT', 'PAYMENT_COMPLETED', 'REJECTED', 'REVOKED', 'CONSUMED')")
         return value
 
     @field_validator('payment_method')
@@ -66,7 +67,8 @@ class PaymentIntent(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -78,8 +80,7 @@ class PaymentIntent(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

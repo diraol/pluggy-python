@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -12,13 +10,14 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from datetime import date
-from pydantic import Field, StrictFloat, StrictInt, StrictStr
+from pydantic import Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Optional, Union
 from typing_extensions import Annotated
 from uuid import UUID
@@ -616,7 +615,7 @@ class PaymentRequestApi:
         Deletes the payment request resource by its id
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -684,7 +683,7 @@ class PaymentRequestApi:
         Deletes the payment request resource by its id
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -752,7 +751,7 @@ class PaymentRequestApi:
         Deletes the payment request resource by its id
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -880,7 +879,7 @@ class PaymentRequestApi:
         Recovers the payment request resource by its id
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -948,7 +947,7 @@ class PaymentRequestApi:
         Recovers the payment request resource by its id
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1016,7 +1015,7 @@ class PaymentRequestApi:
         Recovers the payment request resource by its id
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1145,7 +1144,7 @@ class PaymentRequestApi:
         Updates the payment request resource
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param update_payment_request: (required)
         :type update_payment_request: UpdatePaymentRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -1216,7 +1215,7 @@ class PaymentRequestApi:
         Updates the payment request resource
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param update_payment_request: (required)
         :type update_payment_request: UpdatePaymentRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -1287,7 +1286,7 @@ class PaymentRequestApi:
         Updates the payment request resource
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param update_payment_request: (required)
         :type update_payment_request: UpdatePaymentRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -1414,12 +1413,13 @@ class PaymentRequestApi:
     @validate_call
     def payment_requests_list(
         self,
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         var_from: Annotated[Optional[date], Field(description="Filter payment requests by start date. Returns only requests created **on or after** this date.")] = None,
         to: Annotated[Optional[date], Field(description="Filter payment requests by end date. Returns only requests created **on or before** this date.")] = None,
         customer: Annotated[Optional[StrictStr], Field(description="Filter payment requests with one customer attribute (name, email, CPF or CNPJ)")] = None,
         pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment requests by Pix Key")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter payment requests by status")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1437,7 +1437,7 @@ class PaymentRequestApi:
 
         Recovers all created payment requests
 
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -1449,6 +1449,8 @@ class PaymentRequestApi:
         :type customer: str
         :param pix_key: Filter payment requests by Pix Key
         :type pix_key: str
+        :param status: Filter payment requests by status
+        :type status: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1478,6 +1480,7 @@ class PaymentRequestApi:
             to=to,
             customer=customer,
             pix_key=pix_key,
+            status=status,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1501,12 +1504,13 @@ class PaymentRequestApi:
     @validate_call
     def payment_requests_list_with_http_info(
         self,
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         var_from: Annotated[Optional[date], Field(description="Filter payment requests by start date. Returns only requests created **on or after** this date.")] = None,
         to: Annotated[Optional[date], Field(description="Filter payment requests by end date. Returns only requests created **on or before** this date.")] = None,
         customer: Annotated[Optional[StrictStr], Field(description="Filter payment requests with one customer attribute (name, email, CPF or CNPJ)")] = None,
         pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment requests by Pix Key")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter payment requests by status")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1524,7 +1528,7 @@ class PaymentRequestApi:
 
         Recovers all created payment requests
 
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -1536,6 +1540,8 @@ class PaymentRequestApi:
         :type customer: str
         :param pix_key: Filter payment requests by Pix Key
         :type pix_key: str
+        :param status: Filter payment requests by status
+        :type status: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1565,6 +1571,7 @@ class PaymentRequestApi:
             to=to,
             customer=customer,
             pix_key=pix_key,
+            status=status,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1588,12 +1595,13 @@ class PaymentRequestApi:
     @validate_call
     def payment_requests_list_without_preload_content(
         self,
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         var_from: Annotated[Optional[date], Field(description="Filter payment requests by start date. Returns only requests created **on or after** this date.")] = None,
         to: Annotated[Optional[date], Field(description="Filter payment requests by end date. Returns only requests created **on or before** this date.")] = None,
         customer: Annotated[Optional[StrictStr], Field(description="Filter payment requests with one customer attribute (name, email, CPF or CNPJ)")] = None,
         pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment requests by Pix Key")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter payment requests by status")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1611,7 +1619,7 @@ class PaymentRequestApi:
 
         Recovers all created payment requests
 
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -1623,6 +1631,8 @@ class PaymentRequestApi:
         :type customer: str
         :param pix_key: Filter payment requests by Pix Key
         :type pix_key: str
+        :param status: Filter payment requests by status
+        :type status: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1652,6 +1662,7 @@ class PaymentRequestApi:
             to=to,
             customer=customer,
             pix_key=pix_key,
+            status=status,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1676,6 +1687,7 @@ class PaymentRequestApi:
         to,
         customer,
         pix_key,
+        status,
         _request_auth,
         _content_type,
         _headers,
@@ -1739,6 +1751,10 @@ class PaymentRequestApi:
         if pix_key is not None:
             
             _query_params.append(('pixKey', pix_key))
+            
+        if status is not None:
+            
+            _query_params.append(('status', status))
             
         # process the header parameters
         # process the form parameters

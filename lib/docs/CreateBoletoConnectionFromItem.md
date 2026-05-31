@@ -6,7 +6,7 @@ Request with information to create a boleto connection from an Item
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**item_id** | **str** | Item ID | 
+**item_id** | **UUID** | Item ID | 
 
 ## Example
 

@@ -25,22 +25,23 @@ from pluggy_sdk.models.bank_data import BankData
 from pluggy_sdk.models.credit_data import CreditData
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Account(BaseModel):
     """
     Account of type bank
     """ # noqa: E501
-    id: StrictStr = Field(description="Primary account identifier")
-    type: StrictStr = Field(description="Type of account, may be BANK or CREDIT")
-    subtype: StrictStr = Field(description="Subtype of corresponding type of account")
-    number: StrictStr = Field(description="External identifier of the account")
-    name: StrictStr = Field(description="Name of the account in a descriptive format")
-    marketing_name: Optional[StrictStr] = Field(default=None, description="Name of the account as defined externally", alias="marketingName")
-    balance: Union[StrictFloat, StrictInt] = Field(description="Funds of the account")
-    item_id: UUID = Field(description="Attached item's primary identifier", alias="itemId")
-    tax_number: Optional[StrictStr] = Field(default=None, description="Tax ID of the corresponding owner", alias="taxNumber")
-    owner: Optional[StrictStr] = Field(default=None, description="Name of the owner of the account")
-    currency_code: StrictStr = Field(description="Code referencing the currency of the balance", alias="currencyCode")
+    id: StrictStr = Field(description="Primary account identifier", json_schema_extra={"examples": ["a658c848-e475-457b-8565-d1fffba127c4"]})
+    type: StrictStr = Field(description="Type of account, may be BANK or CREDIT", json_schema_extra={"examples": ["BANK"]})
+    subtype: StrictStr = Field(description="Subtype of corresponding type of account", json_schema_extra={"examples": ["SAVINGS_ACCOUNT"]})
+    number: StrictStr = Field(description="External identifier of the account", json_schema_extra={"examples": ["40114687/1234"]})
+    name: StrictStr = Field(description="Name of the account in a descriptive format", json_schema_extra={"examples": ["Conta Corrente"]})
+    marketing_name: Optional[StrictStr] = Field(default=None, description="Name of the account as defined externally", alias="marketingName", json_schema_extra={"examples": ["SIGNATURE CJA. AHORRO PESOS"]})
+    balance: Union[StrictFloat, StrictInt] = Field(description="Funds of the account", json_schema_extra={"examples": [120950.0]})
+    item_id: UUID = Field(description="Attached item's primary identifier", alias="itemId", json_schema_extra={"examples": ["a0922d6f-2007-4169-a181-b961500608db"]})
+    tax_number: Optional[StrictStr] = Field(default=None, description="Tax ID of the corresponding owner", alias="taxNumber", json_schema_extra={"examples": ["416.799.495-00"]})
+    owner: Optional[StrictStr] = Field(default=None, description="Name of the owner of the account", json_schema_extra={"examples": ["John Doe"]})
+    currency_code: StrictStr = Field(description="Code referencing the currency of the balance", alias="currencyCode", json_schema_extra={"examples": ["BRL"]})
     bank_data: Optional[BankData] = Field(default=None, alias="bankData")
     credit_data: Optional[CreditData] = Field(default=None, alias="creditData")
     __properties: ClassVar[List[str]] = ["id", "type", "subtype", "number", "name", "marketingName", "balance", "itemId", "taxNumber", "owner", "currencyCode", "bankData", "creditData"]
@@ -60,7 +61,8 @@ class Account(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -72,8 +74,7 @@ class Account(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

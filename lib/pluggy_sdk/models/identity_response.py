@@ -23,13 +23,20 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from pluggy_sdk.models.address import Address
+from pluggy_sdk.models.business_other_document import BusinessOtherDocument
+from pluggy_sdk.models.business_party import BusinessParty
 from pluggy_sdk.models.email import Email
 from pluggy_sdk.models.identity_relation import IdentityRelation
 from pluggy_sdk.models.identity_response_financial_relationships import IdentityResponseFinancialRelationships
 from pluggy_sdk.models.identity_response_qualifications import IdentityResponseQualifications
+from pluggy_sdk.models.marital_status import MaritalStatus
+from pluggy_sdk.models.nationality import Nationality
+from pluggy_sdk.models.other_document import OtherDocument
+from pluggy_sdk.models.passport import Passport
 from pluggy_sdk.models.phone_number import PhoneNumber
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class IdentityResponse(BaseModel):
     """
@@ -53,7 +60,17 @@ class IdentityResponse(BaseModel):
     investor_profile: Optional[StrictStr] = Field(default=None, description="Is a rating that indicates the investor personality and motivation for investing", alias="investorProfile")
     qualifications: Optional[IdentityResponseQualifications] = None
     financial_relationships: Optional[IdentityResponseFinancialRelationships] = Field(default=None, alias="financialRelationships")
-    __properties: ClassVar[List[str]] = ["id", "itemId", "birthDate", "taxNumber", "document", "documentType", "jobTitle", "fullName", "establishmentCode", "establishmentName", "companyName", "phoneNumbers", "emails", "addresses", "relations", "investorProfile", "qualifications", "financialRelationships"]
+    social_name: Optional[StrictStr] = Field(default=None, description="Social name of the natural person, if any (the name by which travestis and transsexuals recognize themselves and are recognized in their community). PF-only field", alias="socialName")
+    sex: Optional[StrictStr] = Field(default=None, description="Sex of the natural person. PF-only field")
+    marital_status: Optional[MaritalStatus] = Field(default=None, description="Marital status of the natural person. PF-only field", alias="maritalStatus")
+    nationality: Optional[Nationality] = Field(default=None, description="Nationality of the natural person. PF-only field")
+    other_documents: Optional[List[OtherDocument]] = Field(default=None, description="List of other identification documents the natural person holds. PF-only field", alias="otherDocuments")
+    passport: Optional[Passport] = Field(default=None, description="Passport metadata for the natural person. PF-only field")
+    incorporation_date: Optional[datetime] = Field(default=None, description="Date the business was incorporated. PJ-only field", alias="incorporationDate")
+    parties: Optional[List[BusinessParty]] = Field(default=None, description="Partners and administrators of the business. PJ-only field")
+    business_other_documents: Optional[List[BusinessOtherDocument]] = Field(default=None, description="List of additional documents for businesses headquartered abroad and not required to register a CNPJ. PJ-only field", alias="businessOtherDocuments")
+    companies_cnpj: Optional[List[StrictStr]] = Field(default=None, description="CNPJs of the financial institutions responsible for the customer cadastro. Numbers only, no mask", alias="companiesCnpj")
+    __properties: ClassVar[List[str]] = ["id", "itemId", "birthDate", "taxNumber", "document", "documentType", "jobTitle", "fullName", "establishmentCode", "establishmentName", "companyName", "phoneNumbers", "emails", "addresses", "relations", "investorProfile", "qualifications", "financialRelationships", "socialName", "sex", "maritalStatus", "nationality", "otherDocuments", "passport", "incorporationDate", "parties", "businessOtherDocuments", "companiesCnpj"]
 
     @field_validator('investor_profile')
     def investor_profile_validate_enum(cls, value):
@@ -65,8 +82,19 @@ class IdentityResponse(BaseModel):
             raise ValueError("must be one of enum values ('Conservative', 'Moderate', 'Aggressive')")
         return value
 
+    @field_validator('sex')
+    def sex_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['FEMALE', 'MALE', 'OTHER']):
+            raise ValueError("must be one of enum values ('FEMALE', 'MALE', 'OTHER')")
+        return value
+
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -78,8 +106,7 @@ class IdentityResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -138,6 +165,36 @@ class IdentityResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of financial_relationships
         if self.financial_relationships:
             _dict['financialRelationships'] = self.financial_relationships.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of marital_status
+        if self.marital_status:
+            _dict['maritalStatus'] = self.marital_status.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of nationality
+        if self.nationality:
+            _dict['nationality'] = self.nationality.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in other_documents (list)
+        _items = []
+        if self.other_documents:
+            for _item_other_documents in self.other_documents:
+                if _item_other_documents:
+                    _items.append(_item_other_documents.to_dict())
+            _dict['otherDocuments'] = _items
+        # override the default output from pydantic by calling `to_dict()` of passport
+        if self.passport:
+            _dict['passport'] = self.passport.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in parties (list)
+        _items = []
+        if self.parties:
+            for _item_parties in self.parties:
+                if _item_parties:
+                    _items.append(_item_parties.to_dict())
+            _dict['parties'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in business_other_documents (list)
+        _items = []
+        if self.business_other_documents:
+            for _item_business_other_documents in self.business_other_documents:
+                if _item_business_other_documents:
+                    _items.append(_item_business_other_documents.to_dict())
+            _dict['businessOtherDocuments'] = _items
         return _dict
 
     @classmethod
@@ -167,7 +224,17 @@ class IdentityResponse(BaseModel):
             "relations": [IdentityRelation.from_dict(_item) for _item in obj["relations"]] if obj.get("relations") is not None else None,
             "investorProfile": obj.get("investorProfile"),
             "qualifications": IdentityResponseQualifications.from_dict(obj["qualifications"]) if obj.get("qualifications") is not None else None,
-            "financialRelationships": IdentityResponseFinancialRelationships.from_dict(obj["financialRelationships"]) if obj.get("financialRelationships") is not None else None
+            "financialRelationships": IdentityResponseFinancialRelationships.from_dict(obj["financialRelationships"]) if obj.get("financialRelationships") is not None else None,
+            "socialName": obj.get("socialName"),
+            "sex": obj.get("sex"),
+            "maritalStatus": MaritalStatus.from_dict(obj["maritalStatus"]) if obj.get("maritalStatus") is not None else None,
+            "nationality": Nationality.from_dict(obj["nationality"]) if obj.get("nationality") is not None else None,
+            "otherDocuments": [OtherDocument.from_dict(_item) for _item in obj["otherDocuments"]] if obj.get("otherDocuments") is not None else None,
+            "passport": Passport.from_dict(obj["passport"]) if obj.get("passport") is not None else None,
+            "incorporationDate": obj.get("incorporationDate"),
+            "parties": [BusinessParty.from_dict(_item) for _item in obj["parties"]] if obj.get("parties") is not None else None,
+            "businessOtherDocuments": [BusinessOtherDocument.from_dict(_item) for _item in obj["businessOtherDocuments"]] if obj.get("businessOtherDocuments") is not None else None,
+            "companiesCnpj": obj.get("companiesCnpj")
         })
         return _obj
 

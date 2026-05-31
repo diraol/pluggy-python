@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **minimum_payment_amount** | **float** | Minimum payment amount of the bill | [optional] 
 **allows_installments** | **bool** | Indicates whether the bill allows installment payments (true) or not (false) | [optional] 
 **finance_charges** | [**List[BillFinanceCharge]**](BillFinanceCharge.md) | List of charges associated to the bill | 
+**payments** | [**List[BillPayment]**](BillPayment.md) | List of payments associated to the bill | 
 
 ## Example
 

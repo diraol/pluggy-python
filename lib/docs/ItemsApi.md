@@ -133,7 +133,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.ItemsApi(api_client)
-    id = 'd0f8a8c0-e8e3-11e9-b210-d663bd873d93' # str | Item primary identifier
+    id = UUID('d0f8a8c0-e8e3-11e9-b210-d663bd873d93') # UUID | Item primary identifier
 
     try:
         # Delete
@@ -151,7 +151,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Item primary identifier | 
+ **id** | **UUID**| Item primary identifier | 
 
 ### Return type
 
@@ -214,7 +214,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.ItemsApi(api_client)
-    id = 'd0e8448e-0156-4b4a-ae6c-3e2a6d9bff5c' # str | Item primary identifier
+    id = UUID('d0e8448e-0156-4b4a-ae6c-3e2a6d9bff5c') # UUID | Item primary identifier
 
     try:
         # Disable item auto sync
@@ -232,7 +232,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Item primary identifier | 
+ **id** | **UUID**| Item primary identifier | 
 
 ### Return type
 
@@ -295,7 +295,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.ItemsApi(api_client)
-    id = 'd0f8a8c0-e8e3-11e9-b210-d663bd873d93' # str | Item primary identifier
+    id = UUID('d0f8a8c0-e8e3-11e9-b210-d663bd873d93') # UUID | Item primary identifier
 
     try:
         # Retrieve
@@ -313,7 +313,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Item primary identifier | 
+ **id** | **UUID**| Item primary identifier | 
 
 ### Return type
 
@@ -376,7 +376,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.ItemsApi(api_client)
-    id = 'd0e8448e-0156-4b4a-ae6c-3e2a6d9bff5c' # str | Item primary identifier
+    id = UUID('d0e8448e-0156-4b4a-ae6c-3e2a6d9bff5c') # UUID | Item primary identifier
     request_body = {'key': 'request_body_example'} # Dict[str, str] | 
 
     try:
@@ -395,7 +395,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Item primary identifier | 
+ **id** | **UUID**| Item primary identifier | 
  **request_body** | [**Dict[str, str]**](str.md)|  | 
 
 ### Return type
@@ -460,7 +460,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.ItemsApi(api_client)
-    id = 'd0f8a8c0-e8e3-11e9-b210-d663bd873d93' # str | Item primary identifier
+    id = UUID('d0f8a8c0-e8e3-11e9-b210-d663bd873d93') # UUID | Item primary identifier
     update_item = {"webhookUrl":"https://example.com/webhook","clientUserId":"My User App Id","parameters":{"user":"user-ok","password":"password-ok"}} # UpdateItem | Update item request (optional)
 
     try:
@@ -479,7 +479,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Item primary identifier | 
+ **id** | **UUID**| Item primary identifier | 
  **update_item** | [**UpdateItem**](UpdateItem.md)| Update item request | [optional] 
 
 ### Return type

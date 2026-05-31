@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -338,7 +337,7 @@ class PaymentIntentApi:
         Recovers the payment intent resource by its id
 
         :param id: Payment intent primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -406,7 +405,7 @@ class PaymentIntentApi:
         Recovers the payment intent resource by its id
 
         :param id: Payment intent primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -474,7 +473,7 @@ class PaymentIntentApi:
         Recovers the payment intent resource by its id
 
         :param id: Payment intent primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -602,7 +601,7 @@ class PaymentIntentApi:
         Recovers all created payment intents for the payment request provided
 
         :param payment_request_id: Payment request primary identifier (required)
-        :type payment_request_id: str
+        :type payment_request_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -669,7 +668,7 @@ class PaymentIntentApi:
         Recovers all created payment intents for the payment request provided
 
         :param payment_request_id: Payment request primary identifier (required)
-        :type payment_request_id: str
+        :type payment_request_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -736,7 +735,7 @@ class PaymentIntentApi:
         Recovers all created payment intents for the payment request provided
 
         :param payment_request_id: Payment request primary identifier (required)
-        :type payment_request_id: str
+        :type payment_request_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of

@@ -22,8 +22,10 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.payment_recipient import PaymentRecipient
+from pluggy_sdk.models.smart_transfer_payment_error_detail import SmartTransferPaymentErrorDetail
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class SmartTransferPayment(BaseModel):
     """
@@ -38,7 +40,8 @@ class SmartTransferPayment(BaseModel):
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Client payment identifier", alias="clientPaymentId")
     created_at: datetime = Field(description="Date when the payemnt was created", alias="createdAt")
     updated_at: datetime = Field(description="Date when the payment was updated", alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["id", "preauthorizationId", "status", "amount", "description", "recipient", "clientPaymentId", "createdAt", "updatedAt"]
+    error_detail: Optional[SmartTransferPaymentErrorDetail] = Field(default=None, alias="errorDetail")
+    __properties: ClassVar[List[str]] = ["id", "preauthorizationId", "status", "amount", "description", "recipient", "clientPaymentId", "createdAt", "updatedAt", "errorDetail"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -48,7 +51,8 @@ class SmartTransferPayment(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -60,8 +64,7 @@ class SmartTransferPayment(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -89,6 +92,9 @@ class SmartTransferPayment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of recipient
         if self.recipient:
             _dict['recipient'] = self.recipient.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of error_detail
+        if self.error_detail:
+            _dict['errorDetail'] = self.error_detail.to_dict()
         return _dict
 
     @classmethod
@@ -109,7 +115,8 @@ class SmartTransferPayment(BaseModel):
             "recipient": PaymentRecipient.from_dict(obj["recipient"]) if obj.get("recipient") is not None else None,
             "clientPaymentId": obj.get("clientPaymentId"),
             "createdAt": obj.get("createdAt"),
-            "updatedAt": obj.get("updatedAt")
+            "updatedAt": obj.get("updatedAt"),
+            "errorDetail": SmartTransferPaymentErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None
         })
         return _obj
 

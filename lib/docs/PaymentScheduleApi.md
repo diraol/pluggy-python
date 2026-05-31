@@ -46,7 +46,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentScheduleApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
 
     try:
         # Cancel Payment Schedule Authorization
@@ -62,7 +62,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment request primary identifier | 
+ **id** | **UUID**| Payment request primary identifier | 
 
 ### Return type
 
@@ -122,8 +122,8 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentScheduleApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
-    schedule_id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment schedule primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
+    schedule_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment schedule primary identifier
 
     try:
         # Cancel Payment Schedule
@@ -139,8 +139,8 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment request primary identifier | 
- **schedule_id** | **str**| Payment schedule primary identifier | 
+ **id** | **UUID**| Payment request primary identifier | 
+ **schedule_id** | **UUID**| Payment schedule primary identifier | 
 
 ### Return type
 
@@ -201,7 +201,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentScheduleApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
 
     try:
         # List Schedules
@@ -219,7 +219,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment request primary identifier | 
+ **id** | **UUID**| Payment request primary identifier | 
 
 ### Return type
 

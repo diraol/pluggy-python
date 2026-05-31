@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class PhoneNumber(BaseModel):
     """
@@ -29,7 +30,11 @@ class PhoneNumber(BaseModel):
     """ # noqa: E501
     type: Optional[StrictStr] = Field(default=None, description="Type of phone number: personal, work or residencial")
     value: StrictStr = Field(description="The complete phone number")
-    __properties: ClassVar[List[str]] = ["type", "value"]
+    country_calling_code: Optional[StrictStr] = Field(default=None, description="International dialing code (DDI). Populated when different from '55'", alias="countryCallingCode")
+    area_code: Optional[StrictStr] = Field(default=None, description="Area code (DDD) of the client's phone", alias="areaCode")
+    extension: Optional[StrictStr] = Field(default=None, description="Extension number, when part of the phone identification")
+    additional_info: Optional[StrictStr] = Field(default=None, description="Additional info related to the source phone type. Populated when the source type at the institution does not fit the standard categories", alias="additionalInfo")
+    __properties: ClassVar[List[str]] = ["type", "value", "countryCallingCode", "areaCode", "extension", "additionalInfo"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -42,7 +47,8 @@ class PhoneNumber(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -54,8 +60,7 @@ class PhoneNumber(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -93,7 +98,11 @@ class PhoneNumber(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
-            "value": obj.get("value")
+            "value": obj.get("value"),
+            "countryCallingCode": obj.get("countryCallingCode"),
+            "areaCode": obj.get("areaCode"),
+            "extension": obj.get("extension"),
+            "additionalInfo": obj.get("additionalInfo")
         })
         return _obj
 

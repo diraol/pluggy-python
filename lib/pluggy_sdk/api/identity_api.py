@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -62,7 +61,7 @@ class IdentityApi:
         Recovers identity of an item if available
 
         :param item_id: Item's primary identifier (required)
-        :type item_id: str
+        :type item_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -132,7 +131,7 @@ class IdentityApi:
         Recovers identity of an item if available
 
         :param item_id: Item's primary identifier (required)
-        :type item_id: str
+        :type item_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -202,7 +201,7 @@ class IdentityApi:
         Recovers identity of an item if available
 
         :param item_id: Item's primary identifier (required)
-        :type item_id: str
+        :type item_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -334,7 +333,7 @@ class IdentityApi:
         Recovers the identity resource by its id
 
         :param id: identity primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -404,7 +403,7 @@ class IdentityApi:
         Recovers the identity resource by its id
 
         :param id: identity primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -474,7 +473,7 @@ class IdentityApi:
         Recovers the identity resource by its id
 
         :param id: identity primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of

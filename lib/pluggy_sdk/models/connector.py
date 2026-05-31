@@ -25,6 +25,7 @@ from pluggy_sdk.models.connector_credential import ConnectorCredential
 from pluggy_sdk.models.connector_health import ConnectorHealth
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Connector(BaseModel):
     """
@@ -49,9 +50,10 @@ class Connector(BaseModel):
     supports_scheduled_payments: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports scheduled payments", alias="supportsScheduledPayments")
     supports_smart_transfers: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports smart transfers", alias="supportsSmartTransfers")
     supports_boleto_management: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports boleto management", alias="supportsBoletoManagement")
+    supports_automatic_pix: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports automatic Pix", alias="supportsAutomaticPix")
     created_at: Optional[datetime] = Field(default=None, description="Date of creation", alias="createdAt")
     updated_at: Optional[datetime] = Field(default=None, description="Date of last modification", alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["id", "name", "institutionUrl", "imageUrl", "primaryColor", "type", "country", "credentials", "hasMFA", "products", "oauth", "oauthUrl", "resetPasswordUrl", "health", "isOpenFinance", "supportsPaymentInitiation", "supportsScheduledPayments", "supportsSmartTransfers", "supportsBoletoManagement", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "name", "institutionUrl", "imageUrl", "primaryColor", "type", "country", "credentials", "hasMFA", "products", "oauth", "oauthUrl", "resetPasswordUrl", "health", "isOpenFinance", "supportsPaymentInitiation", "supportsScheduledPayments", "supportsSmartTransfers", "supportsBoletoManagement", "supportsAutomaticPix", "createdAt", "updatedAt"]
 
     @field_validator('products')
     def products_validate_enum(cls, value):
@@ -65,7 +67,8 @@ class Connector(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -77,8 +80,7 @@ class Connector(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -144,6 +146,7 @@ class Connector(BaseModel):
             "supportsScheduledPayments": obj.get("supportsScheduledPayments"),
             "supportsSmartTransfers": obj.get("supportsSmartTransfers"),
             "supportsBoletoManagement": obj.get("supportsBoletoManagement"),
+            "supportsAutomaticPix": obj.get("supportsAutomaticPix"),
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt")
         })

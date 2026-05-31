@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **client_payment_id** | **str** | Client payment identifier | [optional] 
 **created_at** | **datetime** | Date when the payemnt was created | 
 **updated_at** | **datetime** | Date when the payment was updated | 
+**error_detail** | [**SmartTransferPaymentErrorDetail**](SmartTransferPaymentErrorDetail.md) |  | [optional] 
 
 ## Example
 

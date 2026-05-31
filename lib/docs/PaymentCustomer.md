@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **email** | **str** | Customer email | [optional] 
 **cpf** | **str** | Customer CPF | [optional] 
 **cnpj** | **str** | Customer CNPJ, if type is &#x60;BUSINESS&#x60; | [optional] 
+**connector** | [**Connector**](Connector.md) | Default institution to be used in the Pluggy&#39;s payment initiation flow (https://pay.pluggy.ai) by the payer. | [optional] 
 
 ## Example
 

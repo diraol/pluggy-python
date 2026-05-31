@@ -30,6 +30,7 @@ from pluggy_sdk.models.loan_payments import LoanPayments
 from pluggy_sdk.models.loan_warranty import LoanWarranty
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Loan(BaseModel):
     """
@@ -41,12 +42,13 @@ class Loan(BaseModel):
     ipoc_code: Optional[StrictStr] = Field(default=None, description="Standard contract number - IPOC (Identificação Padronizada da Operação de Crédito)", alias="ipocCode")
     product_name: StrictStr = Field(description="Denomination/Identification of the name of the credit operation disclosed to the customer", alias="productName")
     type: Optional[StrictStr] = Field(default=None, description="Loan type (https://openbanking-brasil.github.io/openapi/swagger-apis/loans/?urls.primaryName=2.0.1#model-EnumContractProductSubTypeLoans)")
+    kind: StrictStr = Field(description="Credit-operation family this contract belongs to.")
     var_date: datetime = Field(description="Date when the loan data was collected", alias="date")
     contract_date: Optional[datetime] = Field(default=None, description="Date when the loan was contracted", alias="contractDate")
     disbursement_dates: Optional[List[date]] = Field(default=None, description="Disbursement date of the contracted amount", alias="disbursementDates")
     settlement_date: Optional[datetime] = Field(default=None, description="Loan settlement date", alias="settlementDate")
     contract_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Loan contracted value", alias="contractAmount")
-    currency_code: StrictStr = Field(description="Code referencing the currency of the loan", alias="currencyCode")
+    currency_code: StrictStr = Field(description="Code referencing the currency of the loan", alias="currencyCode", json_schema_extra={"examples": ["BRL"]})
     due_date: Optional[datetime] = Field(default=None, description="Loan due date", alias="dueDate")
     installment_periodicity: Optional[StrictStr] = Field(default=None, description="Installments regular frequency", alias="installmentPeriodicity")
     installment_periodicity_additional_info: Optional[StrictStr] = Field(default=None, description="Mandatory field to complement the information regarding the regular payment frequency when installmentPeriodicity has value 'OTHERS'", alias="installmentPeriodicityAdditionalInfo")
@@ -61,7 +63,14 @@ class Loan(BaseModel):
     warranties: Optional[List[LoanWarranty]] = None
     installments: Optional[LoanInstallments] = None
     payments: Optional[LoanPayments] = Field(default=None, description="Loan contract payment data")
-    __properties: ClassVar[List[str]] = ["id", "itemId", "contractNumber", "ipocCode", "productName", "type", "date", "contractDate", "disbursementDates", "settlementDate", "contractAmount", "currencyCode", "dueDate", "installmentPeriodicity", "installmentPeriodicityAdditionalInfo", "firstInstallmentDueDate", "CET", "amortizationScheduled", "amortizationScheduledAdditionalInfo", "cnpjConsignee", "interestRates", "contractedFees", "contractedFinanceCharges", "warranties", "installments", "payments"]
+    __properties: ClassVar[List[str]] = ["id", "itemId", "contractNumber", "ipocCode", "productName", "type", "kind", "date", "contractDate", "disbursementDates", "settlementDate", "contractAmount", "currencyCode", "dueDate", "installmentPeriodicity", "installmentPeriodicityAdditionalInfo", "firstInstallmentDueDate", "CET", "amortizationScheduled", "amortizationScheduledAdditionalInfo", "cnpjConsignee", "interestRates", "contractedFees", "contractedFinanceCharges", "warranties", "installments", "payments"]
+
+    @field_validator('kind')
+    def kind_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['LOAN', 'FINANCING', 'INVOICE_FINANCING', 'UNARRANGED_ACCOUNT_OVERDRAFT']):
+            raise ValueError("must be one of enum values ('LOAN', 'FINANCING', 'INVOICE_FINANCING', 'UNARRANGED_ACCOUNT_OVERDRAFT')")
+        return value
 
     @field_validator('installment_periodicity')
     def installment_periodicity_validate_enum(cls, value):
@@ -84,7 +93,8 @@ class Loan(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -96,8 +106,7 @@ class Loan(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -174,6 +183,7 @@ class Loan(BaseModel):
             "ipocCode": obj.get("ipocCode"),
             "productName": obj.get("productName"),
             "type": obj.get("type"),
+            "kind": obj.get("kind"),
             "date": obj.get("date"),
             "contractDate": obj.get("contractDate"),
             "disbursementDates": obj.get("disbursementDates"),

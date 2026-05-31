@@ -20,8 +20,10 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from pluggy_sdk.models.geographic_coordinates import GeographicCoordinates
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Address(BaseModel):
     """
@@ -32,10 +34,14 @@ class Address(BaseModel):
     city: Optional[StrictStr] = Field(default=None, description="The complete city name")
     postal_code: Optional[StrictStr] = Field(default=None, description="The Zip code", alias="postalCode")
     state: Optional[StrictStr] = Field(default=None, description="The state or province")
-    country: Optional[StrictStr] = Field(default=None, description="The complete country name")
+    country: Optional[StrictStr] = Field(default=None, description="The complete country name (free text)")
     type: Optional[StrictStr] = Field(default=None, description="Type of address, Personal or Work")
     additional_info: Optional[StrictStr] = Field(default=None, description="Additional address information such as apartment number, complement, or other details", alias="additionalInfo")
-    __properties: ClassVar[List[str]] = ["fullAddress", "primaryAddress", "city", "postalCode", "state", "country", "type", "additionalInfo"]
+    district: Optional[StrictStr] = Field(default=None, description="District / neighborhood (bairro) — a community or region within a city or municipality based on geographic subdivisions")
+    ibge_town_code: Optional[StrictStr] = Field(default=None, description="IBGE municipality code (7 digits). The IBGE table associates each Brazilian municipality with a 7-digit code; the first two digits identify the Federation Unit", alias="ibgeTownCode")
+    country_code: Optional[StrictStr] = Field(default=None, description="Country code in alpha3 ISO-3166 format (e.g. 'BRA')", alias="countryCode")
+    geographic_coordinates: Optional[GeographicCoordinates] = Field(default=None, alias="geographicCoordinates")
+    __properties: ClassVar[List[str]] = ["fullAddress", "primaryAddress", "city", "postalCode", "state", "country", "type", "additionalInfo", "district", "ibgeTownCode", "countryCode", "geographicCoordinates"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -48,7 +54,8 @@ class Address(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -60,8 +67,7 @@ class Address(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -86,6 +92,9 @@ class Address(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of geographic_coordinates
+        if self.geographic_coordinates:
+            _dict['geographicCoordinates'] = self.geographic_coordinates.to_dict()
         return _dict
 
     @classmethod
@@ -105,7 +114,11 @@ class Address(BaseModel):
             "state": obj.get("state"),
             "country": obj.get("country"),
             "type": obj.get("type"),
-            "additionalInfo": obj.get("additionalInfo")
+            "additionalInfo": obj.get("additionalInfo"),
+            "district": obj.get("district"),
+            "ibgeTownCode": obj.get("ibgeTownCode"),
+            "countryCode": obj.get("countryCode"),
+            "geographicCoordinates": GeographicCoordinates.from_dict(obj["geographicCoordinates"]) if obj.get("geographicCoordinates") is not None else None
         })
         return _obj
 

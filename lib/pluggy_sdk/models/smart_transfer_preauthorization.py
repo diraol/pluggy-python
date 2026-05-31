@@ -24,15 +24,18 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.connector import Connector
 from pluggy_sdk.models.payment_recipient import PaymentRecipient
 from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls
+from pluggy_sdk.models.smart_transfer_preauthorization_configuration import SmartTransferPreauthorizationConfiguration
+from pluggy_sdk.models.smart_transfer_preauthorization_error_detail import SmartTransferPreauthorizationErrorDetail
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class SmartTransferPreauthorization(BaseModel):
     """
     Smart transfer preauthorization
     """ # noqa: E501
     id: StrictStr = Field(description="Preauthorization primary identifier")
-    status: StrictStr = Field(description="Preauthorization status")
+    status: StrictStr = Field(description="Preauthorization status", json_schema_extra={"examples": ["COMPLETED"]})
     consent_url: Optional[StrictStr] = Field(default=None, description="Url to give the consent in the institution", alias="consentUrl")
     client_preauthorization_id: Optional[StrictStr] = Field(default=None, description="Client preauthorization identifier", alias="clientPreauthorizationId")
     callback_urls: Optional[SmartTransferCallbackUrls] = Field(default=None, alias="callbackUrls")
@@ -40,7 +43,9 @@ class SmartTransferPreauthorization(BaseModel):
     connector: Connector
     created_at: datetime = Field(description="Date when the preauthorization was created", alias="createdAt")
     updated_at: datetime = Field(description="Date when the preauthorization was updated", alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["id", "status", "consentUrl", "clientPreauthorizationId", "callbackUrls", "recipients", "connector", "createdAt", "updatedAt"]
+    configuration: Optional[SmartTransferPreauthorizationConfiguration] = None
+    error_detail: Optional[SmartTransferPreauthorizationErrorDetail] = Field(default=None, alias="errorDetail")
+    __properties: ClassVar[List[str]] = ["id", "status", "consentUrl", "clientPreauthorizationId", "callbackUrls", "recipients", "connector", "createdAt", "updatedAt", "configuration", "errorDetail"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -50,7 +55,8 @@ class SmartTransferPreauthorization(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -62,8 +68,7 @@ class SmartTransferPreauthorization(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -101,6 +106,12 @@ class SmartTransferPreauthorization(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of connector
         if self.connector:
             _dict['connector'] = self.connector.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of configuration
+        if self.configuration:
+            _dict['configuration'] = self.configuration.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of error_detail
+        if self.error_detail:
+            _dict['errorDetail'] = self.error_detail.to_dict()
         return _dict
 
     @classmethod
@@ -121,7 +132,9 @@ class SmartTransferPreauthorization(BaseModel):
             "recipients": [PaymentRecipient.from_dict(_item) for _item in obj["recipients"]] if obj.get("recipients") is not None else None,
             "connector": Connector.from_dict(obj["connector"]) if obj.get("connector") is not None else None,
             "createdAt": obj.get("createdAt"),
-            "updatedAt": obj.get("updatedAt")
+            "updatedAt": obj.get("updatedAt"),
+            "configuration": SmartTransferPreauthorizationConfiguration.from_dict(obj["configuration"]) if obj.get("configuration") is not None else None,
+            "errorDetail": SmartTransferPreauthorizationErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None
         })
         return _obj
 

@@ -127,7 +127,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentIntentApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment intent primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment intent primary identifier
 
     try:
         # Retrieve
@@ -145,7 +145,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment intent primary identifier | 
+ **id** | **UUID**| Payment intent primary identifier | 
 
 ### Return type
 
@@ -207,7 +207,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentIntentApi(api_client)
-    payment_request_id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
+    payment_request_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
 
     try:
         # List
@@ -225,7 +225,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **payment_request_id** | **str**| Payment request primary identifier | 
+ **payment_request_id** | **UUID**| Payment request primary identifier | 
 
 ### Return type
 

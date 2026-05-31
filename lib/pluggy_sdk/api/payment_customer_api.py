@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -340,7 +339,7 @@ class PaymentCustomerApi:
         Deletes the payment customer resource by its id
 
         :param id: Payment customer primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -408,7 +407,7 @@ class PaymentCustomerApi:
         Deletes the payment customer resource by its id
 
         :param id: Payment customer primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -476,7 +475,7 @@ class PaymentCustomerApi:
         Deletes the payment customer resource by its id
 
         :param id: Payment customer primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -604,7 +603,7 @@ class PaymentCustomerApi:
         Recovers the payment customer resource by its id
 
         :param id: Payment customer primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -672,7 +671,7 @@ class PaymentCustomerApi:
         Recovers the payment customer resource by its id
 
         :param id: Payment customer primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -740,7 +739,7 @@ class PaymentCustomerApi:
         Recovers the payment customer resource by its id
 
         :param id: Payment customer primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -869,7 +868,7 @@ class PaymentCustomerApi:
         Updates the payment customer resource
 
         :param id: Payment customer primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param create_or_update_payment_customer: (required)
         :type create_or_update_payment_customer: CreateOrUpdatePaymentCustomer
         :param _request_timeout: timeout setting for this request. If one
@@ -940,7 +939,7 @@ class PaymentCustomerApi:
         Updates the payment customer resource
 
         :param id: Payment customer primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param create_or_update_payment_customer: (required)
         :type create_or_update_payment_customer: CreateOrUpdatePaymentCustomer
         :param _request_timeout: timeout setting for this request. If one
@@ -1011,7 +1010,7 @@ class PaymentCustomerApi:
         Updates the payment customer resource
 
         :param id: Payment customer primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param create_or_update_payment_customer: (required)
         :type create_or_update_payment_customer: CreateOrUpdatePaymentCustomer
         :param _request_timeout: timeout setting for this request. If one
@@ -1138,7 +1137,7 @@ class PaymentCustomerApi:
     @validate_call
     def payment_customers_list(
         self,
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter payment customers by name")] = None,
         email: Annotated[Optional[StrictStr], Field(description="Filter payment customers by email")] = None,
@@ -1161,7 +1160,7 @@ class PaymentCustomerApi:
 
         Recovers all created payment customers
 
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -1225,7 +1224,7 @@ class PaymentCustomerApi:
     @validate_call
     def payment_customers_list_with_http_info(
         self,
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter payment customers by name")] = None,
         email: Annotated[Optional[StrictStr], Field(description="Filter payment customers by email")] = None,
@@ -1248,7 +1247,7 @@ class PaymentCustomerApi:
 
         Recovers all created payment customers
 
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -1312,7 +1311,7 @@ class PaymentCustomerApi:
     @validate_call
     def payment_customers_list_without_preload_content(
         self,
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter payment customers by name")] = None,
         email: Annotated[Optional[StrictStr], Field(description="Filter payment customers by email")] = None,
@@ -1335,7 +1334,7 @@ class PaymentCustomerApi:
 
         Recovers all created payment customers
 
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float

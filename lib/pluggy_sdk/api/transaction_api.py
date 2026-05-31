@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -12,16 +10,18 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from datetime import datetime
-from pydantic import Field, StrictFloat, StrictInt
+from pydantic import Field, StrictFloat, StrictInt, StrictStr
 from typing import List, Optional, Union
 from typing_extensions import Annotated
 from uuid import UUID
+from pluggy_sdk.models.cursor_page_response_transactions import CursorPageResponseTransactions
 from pluggy_sdk.models.page_response_transactions import PageResponseTransactions
 from pluggy_sdk.models.transaction import Transaction
 from pluggy_sdk.models.update_transaction import UpdateTransaction
@@ -51,7 +51,7 @@ class TransactionApi:
         ids: Annotated[Optional[List[UUID]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
         var_from: Annotated[Optional[datetime], Field(description="Filter greater than date. Format (yyyy-mm-dd)")] = None,
         to: Annotated[Optional[datetime], Field(description="Filter lower than date. Format (yyyy-mm-dd)")] = None,
-        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         bill_id: Annotated[Optional[UUID], Field(description="Credit Card Bill's primary identifier, if account is a credit card.")] = None,
         created_at_from: Annotated[Optional[datetime], Field(description="Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
@@ -68,24 +68,24 @@ class TransactionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> PageResponseTransactions:
-        """List
+        """(Deprecated) List by Page (deprecated)
 
-        Recovers all transactions collected for the acount provided
+        **Deprecated**: this endpoint is deprecated and will be available only until **2026-12-31**, after which it will be removed. Please migrate to `GET /v2/transactions`, which uses cursor-based pagination.  Recovers all transactions collected for the acount provided.
 
         :param account_id: Account primary identifier (required)
-        :type account_id: str
+        :type account_id: UUID
         :param ids: Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded
-        :type ids: List[str]
+        :type ids: List[UUID]
         :param var_from: Filter greater than date. Format (yyyy-mm-dd)
         :type var_from: datetime
         :param to: Filter lower than date. Format (yyyy-mm-dd)
         :type to: datetime
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
         :param bill_id: Credit Card Bill's primary identifier, if account is a credit card.
-        :type bill_id: str
+        :type bill_id: UUID
         :param created_at_from: Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)
         :type created_at_from: datetime
         :param _request_timeout: timeout setting for this request. If one
@@ -109,6 +109,7 @@ class TransactionApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /transactions is deprecated.", DeprecationWarning)
 
         _param = self._transactions_list_serialize(
             account_id=account_id,
@@ -148,7 +149,7 @@ class TransactionApi:
         ids: Annotated[Optional[List[UUID]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
         var_from: Annotated[Optional[datetime], Field(description="Filter greater than date. Format (yyyy-mm-dd)")] = None,
         to: Annotated[Optional[datetime], Field(description="Filter lower than date. Format (yyyy-mm-dd)")] = None,
-        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         bill_id: Annotated[Optional[UUID], Field(description="Credit Card Bill's primary identifier, if account is a credit card.")] = None,
         created_at_from: Annotated[Optional[datetime], Field(description="Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
@@ -165,24 +166,24 @@ class TransactionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[PageResponseTransactions]:
-        """List
+        """(Deprecated) List by Page (deprecated)
 
-        Recovers all transactions collected for the acount provided
+        **Deprecated**: this endpoint is deprecated and will be available only until **2026-12-31**, after which it will be removed. Please migrate to `GET /v2/transactions`, which uses cursor-based pagination.  Recovers all transactions collected for the acount provided.
 
         :param account_id: Account primary identifier (required)
-        :type account_id: str
+        :type account_id: UUID
         :param ids: Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded
-        :type ids: List[str]
+        :type ids: List[UUID]
         :param var_from: Filter greater than date. Format (yyyy-mm-dd)
         :type var_from: datetime
         :param to: Filter lower than date. Format (yyyy-mm-dd)
         :type to: datetime
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
         :param bill_id: Credit Card Bill's primary identifier, if account is a credit card.
-        :type bill_id: str
+        :type bill_id: UUID
         :param created_at_from: Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)
         :type created_at_from: datetime
         :param _request_timeout: timeout setting for this request. If one
@@ -206,6 +207,7 @@ class TransactionApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /transactions is deprecated.", DeprecationWarning)
 
         _param = self._transactions_list_serialize(
             account_id=account_id,
@@ -245,7 +247,7 @@ class TransactionApi:
         ids: Annotated[Optional[List[UUID]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
         var_from: Annotated[Optional[datetime], Field(description="Filter greater than date. Format (yyyy-mm-dd)")] = None,
         to: Annotated[Optional[datetime], Field(description="Filter lower than date. Format (yyyy-mm-dd)")] = None,
-        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         bill_id: Annotated[Optional[UUID], Field(description="Credit Card Bill's primary identifier, if account is a credit card.")] = None,
         created_at_from: Annotated[Optional[datetime], Field(description="Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
@@ -262,24 +264,24 @@ class TransactionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List
+        """(Deprecated) List by Page (deprecated)
 
-        Recovers all transactions collected for the acount provided
+        **Deprecated**: this endpoint is deprecated and will be available only until **2026-12-31**, after which it will be removed. Please migrate to `GET /v2/transactions`, which uses cursor-based pagination.  Recovers all transactions collected for the acount provided.
 
         :param account_id: Account primary identifier (required)
-        :type account_id: str
+        :type account_id: UUID
         :param ids: Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded
-        :type ids: List[str]
+        :type ids: List[UUID]
         :param var_from: Filter greater than date. Format (yyyy-mm-dd)
         :type var_from: datetime
         :param to: Filter lower than date. Format (yyyy-mm-dd)
         :type to: datetime
-        :param page_size: Page size for the paging request, default: 20
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
         :param bill_id: Credit Card Bill's primary identifier, if account is a credit card.
-        :type bill_id: str
+        :type bill_id: UUID
         :param created_at_from: Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)
         :type created_at_from: datetime
         :param _request_timeout: timeout setting for this request. If one
@@ -303,6 +305,7 @@ class TransactionApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /transactions is deprecated.", DeprecationWarning)
 
         _param = self._transactions_list_serialize(
             account_id=account_id,
@@ -461,6 +464,388 @@ class TransactionApi:
 
 
     @validate_call
+    def transactions_list_by_cursor(
+        self,
+        account_id: Annotated[UUID, Field(description="Account primary identifier")],
+        ids: Annotated[Optional[List[UUID]], Field(description="Comma-separated list of transaction identifiers (UUIDs). Maximum of 500 ids per request.")] = None,
+        date_from: Annotated[Optional[datetime], Field(description="Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom.")] = None,
+        date_to: Annotated[Optional[datetime], Field(description="Filter transactions with date less than or equal to the given date. Format (yyyy-mm-dd).")] = None,
+        created_at_from: Annotated[Optional[datetime], Field(description="Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
+        after: Annotated[Optional[StrictStr], Field(description="Cursor for the next page of results. Obtained from the 'next' field of a previous response.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> CursorPageResponseTransactions:
+        """List
+
+        Recovers all transactions for the account provided using cursor-based pagination.
+
+        :param account_id: Account primary identifier (required)
+        :type account_id: UUID
+        :param ids: Comma-separated list of transaction identifiers (UUIDs). Maximum of 500 ids per request.
+        :type ids: List[UUID]
+        :param date_from: Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom.
+        :type date_from: datetime
+        :param date_to: Filter transactions with date less than or equal to the given date. Format (yyyy-mm-dd).
+        :type date_to: datetime
+        :param created_at_from: Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)
+        :type created_at_from: datetime
+        :param after: Cursor for the next page of results. Obtained from the 'next' field of a previous response.
+        :type after: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._transactions_list_by_cursor_serialize(
+            account_id=account_id,
+            ids=ids,
+            date_from=date_from,
+            date_to=date_to,
+            created_at_from=created_at_from,
+            after=after,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CursorPageResponseTransactions",
+            '400': "GlobalErrorResponse",
+            '500': "GlobalErrorResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def transactions_list_by_cursor_with_http_info(
+        self,
+        account_id: Annotated[UUID, Field(description="Account primary identifier")],
+        ids: Annotated[Optional[List[UUID]], Field(description="Comma-separated list of transaction identifiers (UUIDs). Maximum of 500 ids per request.")] = None,
+        date_from: Annotated[Optional[datetime], Field(description="Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom.")] = None,
+        date_to: Annotated[Optional[datetime], Field(description="Filter transactions with date less than or equal to the given date. Format (yyyy-mm-dd).")] = None,
+        created_at_from: Annotated[Optional[datetime], Field(description="Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
+        after: Annotated[Optional[StrictStr], Field(description="Cursor for the next page of results. Obtained from the 'next' field of a previous response.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[CursorPageResponseTransactions]:
+        """List
+
+        Recovers all transactions for the account provided using cursor-based pagination.
+
+        :param account_id: Account primary identifier (required)
+        :type account_id: UUID
+        :param ids: Comma-separated list of transaction identifiers (UUIDs). Maximum of 500 ids per request.
+        :type ids: List[UUID]
+        :param date_from: Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom.
+        :type date_from: datetime
+        :param date_to: Filter transactions with date less than or equal to the given date. Format (yyyy-mm-dd).
+        :type date_to: datetime
+        :param created_at_from: Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)
+        :type created_at_from: datetime
+        :param after: Cursor for the next page of results. Obtained from the 'next' field of a previous response.
+        :type after: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._transactions_list_by_cursor_serialize(
+            account_id=account_id,
+            ids=ids,
+            date_from=date_from,
+            date_to=date_to,
+            created_at_from=created_at_from,
+            after=after,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CursorPageResponseTransactions",
+            '400': "GlobalErrorResponse",
+            '500': "GlobalErrorResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def transactions_list_by_cursor_without_preload_content(
+        self,
+        account_id: Annotated[UUID, Field(description="Account primary identifier")],
+        ids: Annotated[Optional[List[UUID]], Field(description="Comma-separated list of transaction identifiers (UUIDs). Maximum of 500 ids per request.")] = None,
+        date_from: Annotated[Optional[datetime], Field(description="Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom.")] = None,
+        date_to: Annotated[Optional[datetime], Field(description="Filter transactions with date less than or equal to the given date. Format (yyyy-mm-dd).")] = None,
+        created_at_from: Annotated[Optional[datetime], Field(description="Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
+        after: Annotated[Optional[StrictStr], Field(description="Cursor for the next page of results. Obtained from the 'next' field of a previous response.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List
+
+        Recovers all transactions for the account provided using cursor-based pagination.
+
+        :param account_id: Account primary identifier (required)
+        :type account_id: UUID
+        :param ids: Comma-separated list of transaction identifiers (UUIDs). Maximum of 500 ids per request.
+        :type ids: List[UUID]
+        :param date_from: Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom.
+        :type date_from: datetime
+        :param date_to: Filter transactions with date less than or equal to the given date. Format (yyyy-mm-dd).
+        :type date_to: datetime
+        :param created_at_from: Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)
+        :type created_at_from: datetime
+        :param after: Cursor for the next page of results. Obtained from the 'next' field of a previous response.
+        :type after: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._transactions_list_by_cursor_serialize(
+            account_id=account_id,
+            ids=ids,
+            date_from=date_from,
+            date_to=date_to,
+            created_at_from=created_at_from,
+            after=after,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CursorPageResponseTransactions",
+            '400': "GlobalErrorResponse",
+            '500': "GlobalErrorResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _transactions_list_by_cursor_serialize(
+        self,
+        account_id,
+        ids,
+        date_from,
+        date_to,
+        created_at_from,
+        after,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'ids': 'multi',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if account_id is not None:
+            
+            _query_params.append(('accountId', account_id))
+            
+        if ids is not None:
+            
+            _query_params.append(('ids', ids))
+            
+        if date_from is not None:
+            if isinstance(date_from, datetime):
+                _query_params.append(
+                    (
+                        'dateFrom',
+                        date_from.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('dateFrom', date_from))
+            
+        if date_to is not None:
+            if isinstance(date_to, datetime):
+                _query_params.append(
+                    (
+                        'dateTo',
+                        date_to.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('dateTo', date_to))
+            
+        if created_at_from is not None:
+            if isinstance(created_at_from, datetime):
+                _query_params.append(
+                    (
+                        'createdAtFrom',
+                        created_at_from.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('createdAtFrom', created_at_from))
+            
+        if after is not None:
+            
+            _query_params.append(('after', after))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'default'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v2/transactions',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def transactions_retrieve(
         self,
         id: Annotated[UUID, Field(description="transaction primary identifier")],
@@ -482,7 +867,7 @@ class TransactionApi:
         Recovers the transaction resource by it's id
 
         :param id: transaction primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -551,7 +936,7 @@ class TransactionApi:
         Recovers the transaction resource by it's id
 
         :param id: transaction primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -620,7 +1005,7 @@ class TransactionApi:
         Recovers the transaction resource by it's id
 
         :param id: transaction primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -750,7 +1135,7 @@ class TransactionApi:
         Update the transaction's category by it's id
 
         :param id: transaction primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param update_transaction: New category identifier (required)
         :type update_transaction: UpdateTransaction
         :param _request_timeout: timeout setting for this request. If one
@@ -824,7 +1209,7 @@ class TransactionApi:
         Update the transaction's category by it's id
 
         :param id: transaction primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param update_transaction: New category identifier (required)
         :type update_transaction: UpdateTransaction
         :param _request_timeout: timeout setting for this request. If one
@@ -898,7 +1283,7 @@ class TransactionApi:
         Update the transaction's category by it's id
 
         :param id: transaction primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param update_transaction: New category identifier (required)
         :type update_transaction: UpdateTransaction
         :param _request_timeout: timeout setting for this request. If one

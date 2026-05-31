@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -47,7 +46,7 @@ class InvestmentApi:
     def investment_transactions_list(
         self,
         id: Annotated[UUID, Field(description="Investment primary identifier")],
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
@@ -67,8 +66,8 @@ class InvestmentApi:
         Recovers all investment transactions for the investment provided
 
         :param id: Investment primary identifier (required)
-        :type id: str
-        :param page_size: Page size for the paging request, default: 20
+        :type id: UUID
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -123,7 +122,7 @@ class InvestmentApi:
     def investment_transactions_list_with_http_info(
         self,
         id: Annotated[UUID, Field(description="Investment primary identifier")],
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
@@ -143,8 +142,8 @@ class InvestmentApi:
         Recovers all investment transactions for the investment provided
 
         :param id: Investment primary identifier (required)
-        :type id: str
-        :param page_size: Page size for the paging request, default: 20
+        :type id: UUID
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -199,7 +198,7 @@ class InvestmentApi:
     def investment_transactions_list_without_preload_content(
         self,
         id: Annotated[UUID, Field(description="Investment primary identifier")],
-        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 20")] = None,
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
@@ -219,8 +218,8 @@ class InvestmentApi:
         Recovers all investment transactions for the investment provided
 
         :param id: Investment primary identifier (required)
-        :type id: str
-        :param page_size: Page size for the paging request, default: 20
+        :type id: UUID
+        :param page_size: Page size for the paging request, default: 500
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
@@ -366,7 +365,7 @@ class InvestmentApi:
         Recovers all investments collected for the item provided
 
         :param item_id: Item's primary identifier (required)
-        :type item_id: str
+        :type item_id: UUID
         :param type: Investment's type to filter
         :type type: str
         :param page_size: Page size for the paging request, default: 500
@@ -445,7 +444,7 @@ class InvestmentApi:
         Recovers all investments collected for the item provided
 
         :param item_id: Item's primary identifier (required)
-        :type item_id: str
+        :type item_id: UUID
         :param type: Investment's type to filter
         :type type: str
         :param page_size: Page size for the paging request, default: 500
@@ -524,7 +523,7 @@ class InvestmentApi:
         Recovers all investments collected for the item provided
 
         :param item_id: Item's primary identifier (required)
-        :type item_id: str
+        :type item_id: UUID
         :param type: Investment's type to filter
         :type type: str
         :param page_size: Page size for the paging request, default: 500
@@ -677,7 +676,7 @@ class InvestmentApi:
         Recovers the investment resource by its id
 
         :param id: investment primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -745,7 +744,7 @@ class InvestmentApi:
         Recovers the investment resource by its id
 
         :param id: investment primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -813,7 +812,7 @@ class InvestmentApi:
         Recovers the investment resource by its id
 
         :param id: investment primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of

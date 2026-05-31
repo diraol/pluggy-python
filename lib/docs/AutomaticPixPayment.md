@@ -14,6 +14,9 @@ Name | Type | Description | Notes
 **end_to_end_id** | **str** | Payment end to end identifier | [optional] 
 **error_detail** | [**AutomaticPixPaymentErrorDetail**](AutomaticPixPaymentErrorDetail.md) |  | [optional] 
 **client_payment_id** | **str** | External identifier for the payment | [optional] 
+**recipient_id** | **UUID** | Payment recipient identifier | 
+**is_first_payment** | **bool** | Indicates if this is the first payment | [optional] 
+**attempts** | [**List[AutomaticPixPaymentAttempt]**](AutomaticPixPaymentAttempt.md) |  | [optional] 
 
 ## Example
 

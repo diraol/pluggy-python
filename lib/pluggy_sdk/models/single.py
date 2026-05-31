@@ -23,13 +23,14 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class SINGLE(BaseModel):
     """
     Schedule atribute to generate one payment in the future
     """ # noqa: E501
-    type: StrictStr = Field(description="Scheduled type")
-    var_date: date = Field(alias="date")
+    type: StrictStr = Field(description="Scheduled type", json_schema_extra={"examples": ["SINGLE"]})
+    var_date: date = Field(alias="date", json_schema_extra={"examples": ["2024-06-11"]})
     __properties: ClassVar[List[str]] = ["type", "date"]
 
     @field_validator('type')
@@ -40,7 +41,8 @@ class SINGLE(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -52,8 +54,7 @@ class SINGLE(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

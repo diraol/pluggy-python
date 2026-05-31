@@ -11,9 +11,13 @@ Name | Type | Description | Notes
 **city** | **str** | The complete city name | [optional] 
 **postal_code** | **str** | The Zip code | [optional] 
 **state** | **str** | The state or province | [optional] 
-**country** | **str** | The complete country name | [optional] 
+**country** | **str** | The complete country name (free text) | [optional] 
 **type** | **str** | Type of address, Personal or Work | [optional] 
 **additional_info** | **str** | Additional address information such as apartment number, complement, or other details | [optional] 
+**district** | **str** | District / neighborhood (bairro) — a community or region within a city or municipality based on geographic subdivisions | [optional] 
+**ibge_town_code** | **str** | IBGE municipality code (7 digits). The IBGE table associates each Brazilian municipality with a 7-digit code; the first two digits identify the Federation Unit | [optional] 
+**country_code** | **str** | Country code in alpha3 ISO-3166 format (e.g. &#39;BRA&#39;) | [optional] 
+**geographic_coordinates** | [**GeographicCoordinates**](GeographicCoordinates.md) |  | [optional] 
 
 ## Example
 

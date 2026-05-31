@@ -46,7 +46,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.ConsentApi(api_client)
-    id = '6ec156fe-e8ac-4d9a-a4b3-7770529ab01c' # str | Consent primary identifier
+    id = UUID('6ec156fe-e8ac-4d9a-a4b3-7770529ab01c') # UUID | Consent primary identifier
 
     try:
         # Retrieve
@@ -64,7 +64,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Consent primary identifier | 
+ **id** | **UUID**| Consent primary identifier | 
 
 ### Return type
 
@@ -127,7 +127,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.ConsentApi(api_client)
-    item_id = 'd0f8a8c0-e8e3-11e9-b210-d663bd873d93' # str | Item primary identifier
+    item_id = UUID('d0f8a8c0-e8e3-11e9-b210-d663bd873d93') # UUID | Item primary identifier
 
     try:
         # List
@@ -145,7 +145,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **item_id** | **str**| Item primary identifier | 
+ **item_id** | **UUID**| Item primary identifier | 
 
 ### Return type
 

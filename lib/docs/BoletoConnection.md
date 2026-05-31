@@ -6,7 +6,7 @@ Response with information related to a boleto connection
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Primary identifier | 
+**id** | **UUID** | Primary identifier | 
 **connector_id** | **int** | Primary identifier of the connector associated with this connection | 
 **created_at** | **datetime** | Date when the connection was created | 
 **updated_at** | **datetime** | Date when the connection was last updated | 

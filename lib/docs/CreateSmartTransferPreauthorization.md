@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **recipient_ids** | **List[str]** |  | 
 **callback_urls** | [**SmartTransferCallbackUrls**](SmartTransferCallbackUrls.md) |  | [optional] 
 **client_preauthorization_id** | **str** | Client preauthorization identifier | [optional] 
+**configuration** | [**SmartTransferPreauthorizationConfiguration**](SmartTransferPreauthorizationConfiguration.md) |  | [optional] 
 
 ## Example
 

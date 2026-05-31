@@ -8,8 +8,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **start_date** | **datetime** | Date when the relationship with the institution started | 
 **products_services_type** | **List[str]** | List of products and services that the client consumes | 
+**products_services_type_additional_info** | **str** | Additional info about the products and services. Populated when productsServicesType includes &#39;OUTROS&#39; | [optional] 
 **procurators** | [**List[IdentityResponseFinancialRelationshipsProcuratorsInner]**](IdentityResponseFinancialRelationshipsProcuratorsInner.md) | List of procurators of the client | 
 **accounts** | [**List[IdentityResponseFinancialRelationshipsAccountsInner]**](IdentityResponseFinancialRelationshipsAccountsInner.md) | List of accounts of the client with valid consent. Only accounts that have explicit user consent are returned. | [optional] 
+**portabilities_received** | [**List[PortabilityReceived]**](PortabilityReceived.md) | Salary portabilities received by the institution from the client&#39;s previous paycheck banks (banco-folha). PF-only field | [optional] 
+**paychecks_bank_link** | [**List[PaycheckBankLink]**](PaycheckBankLink.md) | Paycheck-bank (banco-folha) links to employers, active or formerly active. PF-only field | [optional] 
 
 ## Example
 

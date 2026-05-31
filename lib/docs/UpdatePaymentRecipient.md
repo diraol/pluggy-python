@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **tax_number** | **str** | Account owner tax number. Can be CPF or CNPJ (only numbers) | [optional] 
 **name** | **str** | Account owner name. | [optional] 
-**payment_institution_id** | **str** | Primary identifier of the institution associated to the payment recipient. | [optional] 
+**payment_institution_id** | **UUID** | Primary identifier of the institution associated to the payment recipient. | [optional] 
 **account** | [**PaymentRecipientAccount**](PaymentRecipientAccount.md) | Recipient&#39;s bank account destination. | [optional] 
 
 ## Example

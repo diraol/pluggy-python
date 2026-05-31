@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -12,16 +10,17 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field
-from typing import Any, Dict
 from typing_extensions import Annotated
 from uuid import UUID
 from pluggy_sdk.models.automatic_pix_payment import AutomaticPixPayment
+from pluggy_sdk.models.automatic_pix_payment_detail import AutomaticPixPaymentDetail
 from pluggy_sdk.models.create_automatic_pix_payment_request import CreateAutomaticPixPaymentRequest
 from pluggy_sdk.models.payment_request import PaymentRequest
 from pluggy_sdk.models.payment_request_get_automatic_pix_schedules200_response import PaymentRequestGetAutomaticPixSchedules200Response
@@ -69,9 +68,9 @@ class AutomaticPIXApi:
         Cancels an Automatic PIX schedule.
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param schedule_id: Automatic PIX schedule primary identifier (required)
-        :type schedule_id: str
+        :type schedule_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -140,9 +139,9 @@ class AutomaticPIXApi:
         Cancels an Automatic PIX schedule.
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param schedule_id: Automatic PIX schedule primary identifier (required)
-        :type schedule_id: str
+        :type schedule_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -211,9 +210,9 @@ class AutomaticPIXApi:
         Cancels an Automatic PIX schedule.
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param schedule_id: Automatic PIX schedule primary identifier (required)
-        :type schedule_id: str
+        :type schedule_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -337,7 +336,7 @@ class AutomaticPIXApi:
         Cancels an automatic PIX consent
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -404,7 +403,7 @@ class AutomaticPIXApi:
         Cancels an automatic PIX consent
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -471,7 +470,7 @@ class AutomaticPIXApi:
         Cancels an automatic PIX consent
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -866,7 +865,7 @@ class AutomaticPIXApi:
         Schedules an Automatic PIX payment
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param schedule_automatic_pix_payment_request: (required)
         :type schedule_automatic_pix_payment_request: ScheduleAutomaticPixPaymentRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -937,7 +936,7 @@ class AutomaticPIXApi:
         Schedules an Automatic PIX payment
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param schedule_automatic_pix_payment_request: (required)
         :type schedule_automatic_pix_payment_request: ScheduleAutomaticPixPaymentRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -1008,7 +1007,7 @@ class AutomaticPIXApi:
         Schedules an Automatic PIX payment
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param schedule_automatic_pix_payment_request: (required)
         :type schedule_automatic_pix_payment_request: ScheduleAutomaticPixPaymentRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -1149,15 +1148,15 @@ class AutomaticPIXApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AutomaticPixPayment:
+    ) -> AutomaticPixPaymentDetail:
         """Get an automatic PIX scheduled payment
 
         Recovers an automatic PIX scheduled payment by id
 
         :param request_id: Payment request primary identifier (required)
-        :type request_id: str
+        :type request_id: UUID
         :param payment_id: Automatic PIX scheduled payment primary identifier (required)
-        :type payment_id: str
+        :type payment_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1190,7 +1189,7 @@ class AutomaticPIXApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AutomaticPixPayment",
+            '200': "AutomaticPixPaymentDetail",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1220,15 +1219,15 @@ class AutomaticPIXApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AutomaticPixPayment]:
+    ) -> ApiResponse[AutomaticPixPaymentDetail]:
         """Get an automatic PIX scheduled payment
 
         Recovers an automatic PIX scheduled payment by id
 
         :param request_id: Payment request primary identifier (required)
-        :type request_id: str
+        :type request_id: UUID
         :param payment_id: Automatic PIX scheduled payment primary identifier (required)
-        :type payment_id: str
+        :type payment_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1261,7 +1260,7 @@ class AutomaticPIXApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AutomaticPixPayment",
+            '200': "AutomaticPixPaymentDetail",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1297,9 +1296,9 @@ class AutomaticPIXApi:
         Recovers an automatic PIX scheduled payment by id
 
         :param request_id: Payment request primary identifier (required)
-        :type request_id: str
+        :type request_id: UUID
         :param payment_id: Automatic PIX scheduled payment primary identifier (required)
-        :type payment_id: str
+        :type payment_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1332,7 +1331,7 @@ class AutomaticPIXApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AutomaticPixPayment",
+            '200': "AutomaticPixPaymentDetail",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1430,7 +1429,7 @@ class AutomaticPIXApi:
         Lists all Automatic PIX payments from a payment request
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1497,7 +1496,7 @@ class AutomaticPIXApi:
         Lists all Automatic PIX payments from a payment request
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1564,7 +1563,7 @@ class AutomaticPIXApi:
         Lists all Automatic PIX payments from a payment request
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1693,9 +1692,9 @@ class AutomaticPIXApi:
         Retries an Automatic PIX schedule, only if the authorization accepts retries. The system allows up to 3 retry attempts. Requests must be submitted by 10pm on the day before the scheduled payment date.
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param schedule_id: Automatic PIX schedule primary identifier (required)
-        :type schedule_id: str
+        :type schedule_id: UUID
         :param retry_automatic_pix_payment_request: (required)
         :type retry_automatic_pix_payment_request: RetryAutomaticPixPaymentRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -1768,9 +1767,9 @@ class AutomaticPIXApi:
         Retries an Automatic PIX schedule, only if the authorization accepts retries. The system allows up to 3 retry attempts. Requests must be submitted by 10pm on the day before the scheduled payment date.
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param schedule_id: Automatic PIX schedule primary identifier (required)
-        :type schedule_id: str
+        :type schedule_id: UUID
         :param retry_automatic_pix_payment_request: (required)
         :type retry_automatic_pix_payment_request: RetryAutomaticPixPaymentRequest
         :param _request_timeout: timeout setting for this request. If one
@@ -1843,9 +1842,9 @@ class AutomaticPIXApi:
         Retries an Automatic PIX schedule, only if the authorization accepts retries. The system allows up to 3 retry attempts. Requests must be submitted by 10pm on the day before the scheduled payment date.
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param schedule_id: Automatic PIX schedule primary identifier (required)
-        :type schedule_id: str
+        :type schedule_id: UUID
         :param retry_automatic_pix_payment_request: (required)
         :type retry_automatic_pix_payment_request: RetryAutomaticPixPaymentRequest
         :param _request_timeout: timeout setting for this request. If one

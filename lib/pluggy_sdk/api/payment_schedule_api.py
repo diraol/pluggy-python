@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -62,7 +61,7 @@ class PaymentScheduleApi:
         
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -129,7 +128,7 @@ class PaymentScheduleApi:
         
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -196,7 +195,7 @@ class PaymentScheduleApi:
         
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -317,9 +316,9 @@ class PaymentScheduleApi:
         
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param schedule_id: Payment schedule primary identifier (required)
-        :type schedule_id: str
+        :type schedule_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -388,9 +387,9 @@ class PaymentScheduleApi:
         
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param schedule_id: Payment schedule primary identifier (required)
-        :type schedule_id: str
+        :type schedule_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -459,9 +458,9 @@ class PaymentScheduleApi:
         
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param schedule_id: Payment schedule primary identifier (required)
-        :type schedule_id: str
+        :type schedule_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -585,7 +584,7 @@ class PaymentScheduleApi:
         Recovers all scheduled payments from a payment request
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -652,7 +651,7 @@ class PaymentScheduleApi:
         Recovers all scheduled payments from a payment request
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -719,7 +718,7 @@ class PaymentScheduleApi:
         Recovers all scheduled payments from a payment request
 
         :param id: Payment request primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of

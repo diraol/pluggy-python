@@ -47,8 +47,8 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.InvestmentApi(api_client)
-    id = '562b795d-1653-429f-be86-74ead9502813' # str | Investment primary identifier
-    page_size = 50 # float | Page size for the paging request, default: 20 (optional)
+    id = UUID('562b795d-1653-429f-be86-74ead9502813') # UUID | Investment primary identifier
+    page_size = 50 # float | Page size for the paging request, default: 500 (optional)
     page = 1 # float | Page number for the paging request, default: 1 (optional)
 
     try:
@@ -67,8 +67,8 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Investment primary identifier | 
- **page_size** | **float**| Page size for the paging request, default: 20 | [optional] 
+ **id** | **UUID**| Investment primary identifier | 
+ **page_size** | **float**| Page size for the paging request, default: 500 | [optional] 
  **page** | **float**| Page number for the paging request, default: 1 | [optional] 
 
 ### Return type
@@ -131,7 +131,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.InvestmentApi(api_client)
-    item_id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Item's primary identifier
+    item_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Item's primary identifier
     type = 'type_example' # str | Investment's type to filter (optional)
     page_size = 50 # float | Page size for the paging request, default: 500 (optional)
     page = 1 # float | Page number for the paging request, default: 1 (optional)
@@ -152,7 +152,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **item_id** | **str**| Item&#39;s primary identifier | 
+ **item_id** | **UUID**| Item&#39;s primary identifier | 
  **type** | **str**| Investment&#39;s type to filter | [optional] 
  **page_size** | **float**| Page size for the paging request, default: 500 | [optional] 
  **page** | **float**| Page number for the paging request, default: 1 | [optional] 
@@ -216,7 +216,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.InvestmentApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | investment primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | investment primary identifier
 
     try:
         # Retrieve
@@ -234,7 +234,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| investment primary identifier | 
+ **id** | **UUID**| investment primary identifier | 
 
 ### Return type
 

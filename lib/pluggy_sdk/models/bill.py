@@ -22,8 +22,10 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.bill_finance_charge import BillFinanceCharge
+from pluggy_sdk.models.bill_payment import BillPayment
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Bill(BaseModel):
     """
@@ -32,14 +34,16 @@ class Bill(BaseModel):
     id: StrictStr = Field(description="Primary identifier")
     due_date: datetime = Field(description="Due date of the bill, displayed for payment by the customer", alias="dueDate")
     total_amount: Union[StrictFloat, StrictInt] = Field(description="Total bill amount", alias="totalAmount")
-    total_amount_currency_code: StrictStr = Field(description="Code referencing the currency of the bill", alias="totalAmountCurrencyCode")
+    total_amount_currency_code: StrictStr = Field(description="Code referencing the currency of the bill", alias="totalAmountCurrencyCode", json_schema_extra={"examples": ["BRL"]})
     minimum_payment_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Minimum payment amount of the bill", alias="minimumPaymentAmount")
     allows_installments: Optional[StrictBool] = Field(default=None, description="Indicates whether the bill allows installment payments (true) or not (false)", alias="allowsInstallments")
     finance_charges: List[BillFinanceCharge] = Field(description="List of charges associated to the bill", alias="financeCharges")
-    __properties: ClassVar[List[str]] = ["id", "dueDate", "totalAmount", "totalAmountCurrencyCode", "minimumPaymentAmount", "allowsInstallments", "financeCharges"]
+    payments: List[BillPayment] = Field(description="List of payments associated to the bill")
+    __properties: ClassVar[List[str]] = ["id", "dueDate", "totalAmount", "totalAmountCurrencyCode", "minimumPaymentAmount", "allowsInstallments", "financeCharges", "payments"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -51,8 +55,7 @@ class Bill(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -84,6 +87,13 @@ class Bill(BaseModel):
                 if _item_finance_charges:
                     _items.append(_item_finance_charges.to_dict())
             _dict['financeCharges'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in payments (list)
+        _items = []
+        if self.payments:
+            for _item_payments in self.payments:
+                if _item_payments:
+                    _items.append(_item_payments.to_dict())
+            _dict['payments'] = _items
         return _dict
 
     @classmethod
@@ -102,7 +112,8 @@ class Bill(BaseModel):
             "totalAmountCurrencyCode": obj.get("totalAmountCurrencyCode"),
             "minimumPaymentAmount": obj.get("minimumPaymentAmount"),
             "allowsInstallments": obj.get("allowsInstallments"),
-            "financeCharges": [BillFinanceCharge.from_dict(_item) for _item in obj["financeCharges"]] if obj.get("financeCharges") is not None else None
+            "financeCharges": [BillFinanceCharge.from_dict(_item) for _item in obj["financeCharges"]] if obj.get("financeCharges") is not None else None,
+            "payments": [BillPayment.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None
         })
         return _obj
 

@@ -15,6 +15,8 @@ Name | Type | Description | Notes
 **connector** | [**Connector**](Connector.md) |  | 
 **created_at** | **datetime** | Date when the preauthorization was created | 
 **updated_at** | **datetime** | Date when the preauthorization was updated | 
+**configuration** | [**SmartTransferPreauthorizationConfiguration**](SmartTransferPreauthorizationConfiguration.md) |  | [optional] 
+**error_detail** | [**SmartTransferPreauthorizationErrorDetail**](SmartTransferPreauthorizationErrorDetail.md) |  | [optional] 
 
 ## Example
 

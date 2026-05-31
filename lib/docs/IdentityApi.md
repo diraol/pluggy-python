@@ -46,7 +46,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.IdentityApi(api_client)
-    item_id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Item's primary identifier
+    item_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Item's primary identifier
 
     try:
         # Find by item
@@ -64,7 +64,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **item_id** | **str**| Item&#39;s primary identifier | 
+ **item_id** | **UUID**| Item&#39;s primary identifier | 
 
 ### Return type
 
@@ -128,7 +128,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.IdentityApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | identity primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | identity primary identifier
 
     try:
         # Retrieve
@@ -146,7 +146,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| identity primary identifier | 
+ **id** | **UUID**| identity primary identifier | 
 
 ### Return type
 

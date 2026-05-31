@@ -18,13 +18,16 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
+from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.automatic_pix_first_payment import AutomaticPixFirstPayment
+from pluggy_sdk.models.automatic_pix_retries_configuration import AutomaticPixRetriesConfiguration
+from pluggy_sdk.models.automatic_pix_scheduler_configuration import AutomaticPixSchedulerConfiguration
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class CreateAutomaticPixPaymentRequest(BaseModel):
     """
@@ -34,16 +37,18 @@ class CreateAutomaticPixPaymentRequest(BaseModel):
     minimum_variable_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Minimum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it's sent, fixedAmount cannot be provided.", alias="minimumVariableAmount")
     maximum_variable_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Maximum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it's sent, fixedAmount cannot be provided.", alias="maximumVariableAmount")
     description: Optional[StrictStr] = Field(default=None, description="Description for the automatic pix authorization")
-    start_date: datetime = Field(description="Represents the expected date for the first occurrence of a payment associated with the recurrence. Date format must be YYYY-MM-DD (for example: 2025-06-16)", alias="startDate")
-    expires_at: Optional[datetime] = Field(default=None, description="Expiration date for the automatic pix authorization. The date must be in UTC and the format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z).", alias="expiresAt")
+    start_date: date = Field(description="Represents the expected date for the first occurrence of a payment associated with the recurrence. Date format must be YYYY-MM-DD (for example: 2025-06-16)", alias="startDate")
+    expires_at: Optional[date] = Field(default=None, description="Expiration date for the automatic pix authorization. The date must be in UTC and the format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z).", alias="expiresAt")
     is_retry_accepted: Optional[StrictBool] = Field(default=None, description="Indicates whether the receiving customer is allowed to make payment attempts, according to the rules established in the Pix arrangement.", alias="isRetryAccepted")
     first_payment: Optional[AutomaticPixFirstPayment] = Field(default=None, alias="firstPayment")
     interval: StrictStr = Field(description="Defines the permitted frequency for carrying out transactions.")
+    automatic_retries_configuration: Optional[AutomaticPixRetriesConfiguration] = Field(default=None, alias="automaticRetriesConfiguration")
+    scheduler_configuration: Optional[AutomaticPixSchedulerConfiguration] = Field(default=None, alias="schedulerConfiguration")
     callback_urls: Optional[PaymentRequestCallbackUrls] = Field(default=None, alias="callbackUrls")
     recipient_id: StrictStr = Field(description="Primary identifier of the payment recipient", alias="recipientId")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Client payment identifier", alias="clientPaymentId")
     customer_id: Optional[StrictStr] = Field(default=None, description="Primary identifier of the customer", alias="customerId")
-    __properties: ClassVar[List[str]] = ["fixedAmount", "minimumVariableAmount", "maximumVariableAmount", "description", "startDate", "expiresAt", "isRetryAccepted", "firstPayment", "interval", "callbackUrls", "recipientId", "clientPaymentId", "customerId"]
+    __properties: ClassVar[List[str]] = ["fixedAmount", "minimumVariableAmount", "maximumVariableAmount", "description", "startDate", "expiresAt", "isRetryAccepted", "firstPayment", "interval", "automaticRetriesConfiguration", "schedulerConfiguration", "callbackUrls", "recipientId", "clientPaymentId", "customerId"]
 
     @field_validator('interval')
     def interval_validate_enum(cls, value):
@@ -53,7 +58,8 @@ class CreateAutomaticPixPaymentRequest(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -65,8 +71,7 @@ class CreateAutomaticPixPaymentRequest(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -94,6 +99,12 @@ class CreateAutomaticPixPaymentRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of first_payment
         if self.first_payment:
             _dict['firstPayment'] = self.first_payment.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of automatic_retries_configuration
+        if self.automatic_retries_configuration:
+            _dict['automaticRetriesConfiguration'] = self.automatic_retries_configuration.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of scheduler_configuration
+        if self.scheduler_configuration:
+            _dict['schedulerConfiguration'] = self.scheduler_configuration.to_dict()
         # override the default output from pydantic by calling `to_dict()` of callback_urls
         if self.callback_urls:
             _dict['callbackUrls'] = self.callback_urls.to_dict()
@@ -118,6 +129,8 @@ class CreateAutomaticPixPaymentRequest(BaseModel):
             "isRetryAccepted": obj.get("isRetryAccepted"),
             "firstPayment": AutomaticPixFirstPayment.from_dict(obj["firstPayment"]) if obj.get("firstPayment") is not None else None,
             "interval": obj.get("interval"),
+            "automaticRetriesConfiguration": AutomaticPixRetriesConfiguration.from_dict(obj["automaticRetriesConfiguration"]) if obj.get("automaticRetriesConfiguration") is not None else None,
+            "schedulerConfiguration": AutomaticPixSchedulerConfiguration.from_dict(obj["schedulerConfiguration"]) if obj.get("schedulerConfiguration") is not None else None,
             "callbackUrls": PaymentRequestCallbackUrls.from_dict(obj["callbackUrls"]) if obj.get("callbackUrls") is not None else None,
             "recipientId": obj.get("recipientId"),
             "clientPaymentId": obj.get("clientPaymentId"),

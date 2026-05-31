@@ -18,23 +18,32 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class PaymentIntentErrorDetail(BaseModel):
     """
-    Error details when payment intent fails
+    Details about an error that occurred with the payment intent
     """ # noqa: E501
-    code: Optional[StrictStr] = Field(default=None, description="Error code")
-    provider_code: Optional[StrictStr] = Field(default=None, description="Provider error code", alias="providerCode")
-    provider_title: Optional[StrictStr] = Field(default=None, description="Provider error title", alias="providerTitle")
-    provider_detail: Optional[StrictStr] = Field(default=None, description="Provider detailed error description", alias="providerDetail")
+    code: StrictStr = Field(description="Error codes expected during payment intent processing: - TEMPO_EXPIRADO_AUTORIZACAO: Consent expired. - CONNECTION_ERROR: Connection error with the institution. - VALOR_ACIMA_LIMITE: Amount exceeds the limit established by the institution or arrangement to allow the client to perform transactions. - FALHA_INFRAESTRUTURA_DETENTORA: Indicates a failure in the infrastructure of the institution holding the information or resources. - FALHA_INFRAESTRUTURA_DETENTORA_CALLBACK_HYBRID_FLOW: Infrastructure failure in the callback hybrid flow. - SALDO_INSUFICIENTE: The selected account does not have sufficient balance to make the payment. - CONTAS_ORIGEM_DESTINO_IGUAIS: Payment failure due to source and destination accounts being the same. - EXPIRED_PAYMENT_INITIATION: Payment initiation expired. - DATA_PAGAMENTO_INVALIDA: Invalid payment date. The scheduled payment end date must be at most 2 years from the start date. - CONSENTIMENTO_PENDENTE_AUTORIZACAO: Consent pending authorization. - TEMPO_EXPIRADO_CONSUMO: Consent expired. - PAYMENT_INTENT_INVALID_CPF: Invalid CPF. - PAYMENT_INTENT_INVALID_CNPJ: Invalid CNPJ. - FALHA_AGENDAMENTO_PAGAMENTOS: Failed to schedule payments. - PAGAMENTO_DIVERGENTE_CONSENTIMENTO: Payment data differs from consent data. - CONTA_NAO_PERMITE_PAGAMENTO: Account does not allow payments. - REJEITADO_USUARIO: Consent canceled by the user. - TIMEOUT_CONSENTIMENTO: Consent timeout. - PAGAMENTO_RECUSADO_SPI: Payment refused by the Instant Payments System (SPI). - REVOGADO_RECEBEDOR: Consent canceled by the receiver. - NAO_INFORMADO: Not reported/identified by the account-holding institution. - AUTENTICACAO_DIVERGENTE: Invalid consent. - TITULARIDADE_INCONSISTENTE: Account currently not associated with the CPF/CNPJ of the long-term consent. - PAGAMENTO_RECUSADO_DETENTORA: Payment refused by the account-holding institution.")
+    provider_code: StrictStr = Field(description="Provider error code", alias="providerCode")
+    provider_title: StrictStr = Field(description="Provider error title", alias="providerTitle")
+    provider_detail: StrictStr = Field(description="Provider detailed error description", alias="providerDetail")
     __properties: ClassVar[List[str]] = ["code", "providerCode", "providerTitle", "providerDetail"]
 
+    @field_validator('code')
+    def code_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['TEMPO_EXPIRADO_AUTORIZACAO', 'CONNECTION_ERROR', 'VALOR_ACIMA_LIMITE', 'FALHA_INFRAESTRUTURA_DETENTORA', 'FALHA_INFRAESTRUTURA_DETENTORA_CALLBACK_HYBRID_FLOW', 'SALDO_INSUFICIENTE', 'CONTAS_ORIGEM_DESTINO_IGUAIS', 'EXPIRED_PAYMENT_INITIATION', 'DATA_PAGAMENTO_INVALIDA', 'CONSENTIMENTO_PENDENTE_AUTORIZACAO', 'TEMPO_EXPIRADO_CONSUMO', 'PAYMENT_INTENT_INVALID_CPF', 'PAYMENT_INTENT_INVALID_CNPJ', 'FALHA_AGENDAMENTO_PAGAMENTOS', 'PAGAMENTO_DIVERGENTE_CONSENTIMENTO', 'CONTA_NAO_PERMITE_PAGAMENTO', 'REJEITADO_USUARIO', 'TIMEOUT_CONSENTIMENTO', 'PAGAMENTO_RECUSADO_SPI', 'REVOGADO_RECEBEDOR', 'NAO_INFORMADO', 'AUTENTICACAO_DIVERGENTE', 'TITULARIDADE_INCONSISTENTE', 'PAGAMENTO_RECUSADO_DETENTORA']):
+            raise ValueError("must be one of enum values ('TEMPO_EXPIRADO_AUTORIZACAO', 'CONNECTION_ERROR', 'VALOR_ACIMA_LIMITE', 'FALHA_INFRAESTRUTURA_DETENTORA', 'FALHA_INFRAESTRUTURA_DETENTORA_CALLBACK_HYBRID_FLOW', 'SALDO_INSUFICIENTE', 'CONTAS_ORIGEM_DESTINO_IGUAIS', 'EXPIRED_PAYMENT_INITIATION', 'DATA_PAGAMENTO_INVALIDA', 'CONSENTIMENTO_PENDENTE_AUTORIZACAO', 'TEMPO_EXPIRADO_CONSUMO', 'PAYMENT_INTENT_INVALID_CPF', 'PAYMENT_INTENT_INVALID_CNPJ', 'FALHA_AGENDAMENTO_PAGAMENTOS', 'PAGAMENTO_DIVERGENTE_CONSENTIMENTO', 'CONTA_NAO_PERMITE_PAGAMENTO', 'REJEITADO_USUARIO', 'TIMEOUT_CONSENTIMENTO', 'PAGAMENTO_RECUSADO_SPI', 'REVOGADO_RECEBEDOR', 'NAO_INFORMADO', 'AUTENTICACAO_DIVERGENTE', 'TITULARIDADE_INCONSISTENTE', 'PAGAMENTO_RECUSADO_DETENTORA')")
+        return value
+
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -46,8 +55,7 @@ class PaymentIntentErrorDetail(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

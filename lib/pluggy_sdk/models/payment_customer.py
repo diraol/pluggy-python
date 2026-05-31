@@ -20,8 +20,10 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from pluggy_sdk.models.connector import Connector
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class PaymentCustomer(BaseModel):
     """
@@ -33,7 +35,8 @@ class PaymentCustomer(BaseModel):
     email: Optional[StrictStr] = Field(default=None, description="Customer email")
     cpf: Optional[StrictStr] = Field(default=None, description="Customer CPF")
     cnpj: Optional[StrictStr] = Field(default=None, description="Customer CNPJ, if type is `BUSINESS`")
-    __properties: ClassVar[List[str]] = ["id", "type", "name", "email", "cpf", "cnpj"]
+    connector: Optional[Connector] = Field(default=None, description="Default institution to be used in the Pluggy's payment initiation flow (https://pay.pluggy.ai) by the payer.")
+    __properties: ClassVar[List[str]] = ["id", "type", "name", "email", "cpf", "cnpj", "connector"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -43,7 +46,8 @@ class PaymentCustomer(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -55,8 +59,7 @@ class PaymentCustomer(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -81,6 +84,9 @@ class PaymentCustomer(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of connector
+        if self.connector:
+            _dict['connector'] = self.connector.to_dict()
         return _dict
 
     @classmethod
@@ -98,7 +104,8 @@ class PaymentCustomer(BaseModel):
             "name": obj.get("name"),
             "email": obj.get("email"),
             "cpf": obj.get("cpf"),
-            "cnpj": obj.get("cnpj")
+            "cnpj": obj.get("cnpj"),
+            "connector": Connector.from_dict(obj["connector"]) if obj.get("connector") is not None else None
         })
         return _obj
 

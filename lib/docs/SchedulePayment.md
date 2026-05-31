@@ -6,7 +6,7 @@ Information of a schedule payment
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
+**id** | **UUID** |  | 
 **description** | **str** | Scheduled payment description | 
 **status** | **str** | Scheduled payment status | 
 **scheduled_date** | **date** | Date when the payment is scheduled | 

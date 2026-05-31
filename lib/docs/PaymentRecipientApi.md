@@ -131,7 +131,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRecipientApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment recipient primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment recipient primary identifier
 
     try:
         # Delete
@@ -147,7 +147,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment recipient primary identifier | 
+ **id** | **UUID**| Payment recipient primary identifier | 
 
 ### Return type
 
@@ -209,7 +209,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRecipientApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment institution primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment institution primary identifier
 
     try:
         # Retrieve Institution
@@ -227,7 +227,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment institution primary identifier | 
+ **id** | **UUID**| Payment institution primary identifier | 
 
 ### Return type
 
@@ -289,7 +289,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRecipientApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment recipient primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment recipient primary identifier
 
     try:
         # Retrieve
@@ -307,7 +307,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment recipient primary identifier | 
+ **id** | **UUID**| Payment recipient primary identifier | 
 
 ### Return type
 
@@ -370,7 +370,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRecipientApi(api_client)
-    id = 'd0f8a8c0-e8e3-11e9-b210-d663bd873d93' # str | Payment recipient primary identifier
+    id = UUID('d0f8a8c0-e8e3-11e9-b210-d663bd873d93') # UUID | Payment recipient primary identifier
     update_payment_recipient = pluggy_sdk.UpdatePaymentRecipient() # UpdatePaymentRecipient | 
 
     try:
@@ -389,7 +389,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment recipient primary identifier | 
+ **id** | **UUID**| Payment recipient primary identifier | 
  **update_payment_recipient** | [**UpdatePaymentRecipient**](UpdatePaymentRecipient.md)|  | 
 
 ### Return type
@@ -451,7 +451,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRecipientApi(api_client)
-    page_size = 50 # float | Page size for the paging request, default: 20 (optional)
+    page_size = 50 # float | Page size for the paging request, default: 500 (optional)
     page = 1 # float | Page number for the paging request, default: 1 (optional)
     name = 'Itau' # str | Filter institutions by name (optional)
 
@@ -471,7 +471,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page_size** | **float**| Page size for the paging request, default: 20 | [optional] 
+ **page_size** | **float**| Page size for the paging request, default: 500 | [optional] 
  **page** | **float**| Page number for the paging request, default: 1 | [optional] 
  **name** | **str**| Filter institutions by name | [optional] 
 
@@ -497,7 +497,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payment_recipients_list**
-> PaymentRecipientsList200Response payment_recipients_list(page_size=page_size, page=page, is_default=is_default, pix_key=pix_key, name=name)
+> PaymentRecipientsList200Response payment_recipients_list(page_size=page_size, page=page, is_default=is_default, pix_key=pix_key, name=name, tax_number=tax_number)
 
 List
 
@@ -534,15 +534,16 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRecipientApi(api_client)
-    page_size = 50 # float | Page size for the paging request, default: 20 (optional)
+    page_size = 50 # float | Page size for the paging request, default: 500 (optional)
     page = 1 # float | Page number for the paging request, default: 1 (optional)
     is_default = True # bool | Filter connectors by the `isDefault` attribute. If not sent, it won't filter. (optional)
     pix_key = '11111111111' # str | Filter payment recipient by Pix key (optional)
     name = 'John' # str | Filter payment recipient by name (optional)
+    tax_number = '11111111111' # str | Filter payment recipient by tax number (CPF or CNPJ) (optional)
 
     try:
         # List
-        api_response = api_instance.payment_recipients_list(page_size=page_size, page=page, is_default=is_default, pix_key=pix_key, name=name)
+        api_response = api_instance.payment_recipients_list(page_size=page_size, page=page, is_default=is_default, pix_key=pix_key, name=name, tax_number=tax_number)
         print("The response of PaymentRecipientApi->payment_recipients_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -556,11 +557,12 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page_size** | **float**| Page size for the paging request, default: 20 | [optional] 
+ **page_size** | **float**| Page size for the paging request, default: 500 | [optional] 
  **page** | **float**| Page number for the paging request, default: 1 | [optional] 
  **is_default** | **bool**| Filter connectors by the &#x60;isDefault&#x60; attribute. If not sent, it won&#39;t filter. | [optional] 
  **pix_key** | **str**| Filter payment recipient by Pix key | [optional] 
  **name** | **str**| Filter payment recipient by name | [optional] 
+ **tax_number** | **str**| Filter payment recipient by tax number (CPF or CNPJ) | [optional] 
 
 ### Return type
 

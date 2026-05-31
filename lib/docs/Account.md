@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **name** | **str** | Name of the account in a descriptive format | 
 **marketing_name** | **str** | Name of the account as defined externally | [optional] 
 **balance** | **float** | Funds of the account | 
-**item_id** | **str** | Attached item&#39;s primary identifier | 
+**item_id** | **UUID** | Attached item&#39;s primary identifier | 
 **tax_number** | **str** | Tax ID of the corresponding owner | [optional] 
 **owner** | **str** | Name of the owner of the account | [optional] 
 **currency_code** | **str** | Code referencing the currency of the balance | 

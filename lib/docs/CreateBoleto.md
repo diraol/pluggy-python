@@ -6,7 +6,7 @@ Request with information to create a boleto
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boleto_connection_id** | **str** | Primary identifier of the boleto connection | 
+**boleto_connection_id** | **UUID** | Primary identifier of the boleto connection | 
 **boleto** | [**CreateBoletoBoleto**](CreateBoletoBoleto.md) |  | 
 
 ## Example

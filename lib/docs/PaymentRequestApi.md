@@ -209,7 +209,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRequestApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
 
     try:
         # Delete
@@ -225,7 +225,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment request primary identifier | 
+ **id** | **UUID**| Payment request primary identifier | 
 
 ### Return type
 
@@ -287,7 +287,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRequestApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
 
     try:
         # Retrieve
@@ -305,7 +305,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment request primary identifier | 
+ **id** | **UUID**| Payment request primary identifier | 
 
 ### Return type
 
@@ -368,7 +368,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRequestApi(api_client)
-    id = 'd0f8a8c0-e8e3-11e9-b210-d663bd873d93' # str | Payment request primary identifier
+    id = UUID('d0f8a8c0-e8e3-11e9-b210-d663bd873d93') # UUID | Payment request primary identifier
     update_payment_request = {"amount":100.5,"description":"Transferência","isSandbox":false} # UpdatePaymentRequest | 
 
     try:
@@ -387,7 +387,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment request primary identifier | 
+ **id** | **UUID**| Payment request primary identifier | 
  **update_payment_request** | [**UpdatePaymentRequest**](UpdatePaymentRequest.md)|  | 
 
 ### Return type
@@ -412,7 +412,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payment_requests_list**
-> PaymentRequestsList200Response payment_requests_list(page_size=page_size, page=page, var_from=var_from, to=to, customer=customer, pix_key=pix_key)
+> PaymentRequestsList200Response payment_requests_list(page_size=page_size, page=page, var_from=var_from, to=to, customer=customer, pix_key=pix_key, status=status)
 
 List
 
@@ -449,16 +449,17 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentRequestApi(api_client)
-    page_size = 50 # float | Page size for the paging request, default: 20 (optional)
+    page_size = 50 # float | Page size for the paging request, default: 500 (optional)
     page = 1 # float | Page number for the paging request, default: 1 (optional)
     var_from = '2023-01-01' # date | Filter payment requests by start date. Returns only requests created **on or after** this date. (optional)
     to = '2024-01-01' # date | Filter payment requests by end date. Returns only requests created **on or before** this date. (optional)
     customer = 'John' # str | Filter payment requests with one customer attribute (name, email, CPF or CNPJ) (optional)
     pix_key = '11111111111' # str | Filter payment requests by Pix Key (optional)
+    status = 'CREATED' # str | Filter payment requests by status (optional)
 
     try:
         # List
-        api_response = api_instance.payment_requests_list(page_size=page_size, page=page, var_from=var_from, to=to, customer=customer, pix_key=pix_key)
+        api_response = api_instance.payment_requests_list(page_size=page_size, page=page, var_from=var_from, to=to, customer=customer, pix_key=pix_key, status=status)
         print("The response of PaymentRequestApi->payment_requests_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -472,12 +473,13 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page_size** | **float**| Page size for the paging request, default: 20 | [optional] 
+ **page_size** | **float**| Page size for the paging request, default: 500 | [optional] 
  **page** | **float**| Page number for the paging request, default: 1 | [optional] 
  **var_from** | **date**| Filter payment requests by start date. Returns only requests created **on or after** this date. | [optional] 
  **to** | **date**| Filter payment requests by end date. Returns only requests created **on or before** this date. | [optional] 
  **customer** | **str**| Filter payment requests with one customer attribute (name, email, CPF or CNPJ) | [optional] 
  **pix_key** | **str**| Filter payment requests by Pix Key | [optional] 
+ **status** | **str**| Filter payment requests by status | [optional] 
 
 ### Return type
 

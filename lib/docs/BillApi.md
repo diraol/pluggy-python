@@ -46,7 +46,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.BillApi(api_client)
-    account_id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Account's primary identifier
+    account_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Account's primary identifier
 
     try:
         # List
@@ -64,7 +64,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **account_id** | **str**| Account&#39;s primary identifier | 
+ **account_id** | **UUID**| Account&#39;s primary identifier | 
 
 ### Return type
 
@@ -125,7 +125,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.BillApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Bill primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Bill primary identifier
 
     try:
         # Retrieve
@@ -143,7 +143,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Bill primary identifier | 
+ **id** | **UUID**| Bill primary identifier | 
 
 ### Return type
 

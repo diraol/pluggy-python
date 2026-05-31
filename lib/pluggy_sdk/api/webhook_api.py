@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -345,7 +344,7 @@ class WebhookApi:
         Deletes a webhook listener by its id
 
         :param id: webhook primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -414,7 +413,7 @@ class WebhookApi:
         Deletes a webhook listener by its id
 
         :param id: webhook primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -483,7 +482,7 @@ class WebhookApi:
         Deletes a webhook listener by its id
 
         :param id: webhook primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1132,7 +1131,7 @@ class WebhookApi:
         Updates a webhook event and/or url listener. Once updated all events that are triggered will replicate the updated logic
 
         :param id: webhook primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)
         :type create_webhook: CreateWebhook
         :param _request_timeout: timeout setting for this request. If one
@@ -1206,7 +1205,7 @@ class WebhookApi:
         Updates a webhook event and/or url listener. Once updated all events that are triggered will replicate the updated logic
 
         :param id: webhook primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)
         :type create_webhook: CreateWebhook
         :param _request_timeout: timeout setting for this request. If one
@@ -1280,7 +1279,7 @@ class WebhookApi:
         Updates a webhook event and/or url listener. Once updated all events that are triggered will replicate the updated logic
 
         :param id: webhook primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)
         :type create_webhook: CreateWebhook
         :param _request_timeout: timeout setting for this request. If one

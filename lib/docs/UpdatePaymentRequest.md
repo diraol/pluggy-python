@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **amount** | **float** | Requested amount | [optional] 
 **description** | **str** | Payment description | [optional] 
 **callback_urls** | [**PaymentRequestCallbackUrls**](PaymentRequestCallbackUrls.md) |  | [optional] 
-**recipient_id** | **str** | Payment receiver identifier | [optional] 
-**customer_id** | **str** | Customer identifier associated to the payment | [optional] 
+**recipient_id** | **UUID** | Payment receiver identifier | [optional] 
+**customer_id** | **UUID** | Customer identifier associated to the payment | [optional] 
 **client_payment_id** | **str** | Your payment identifier | [optional] 
 **is_sandbox** | **bool** | Indicates if this payment request should be updated as sandbox. Default: false. | [optional] [default to False]
 

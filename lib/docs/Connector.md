@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **supports_scheduled_payments** | **bool** | Indicates if the connector supports scheduled payments | [optional] 
 **supports_smart_transfers** | **bool** | Indicates if the connector supports smart transfers | [optional] 
 **supports_boleto_management** | **bool** | Indicates if the connector supports boleto management | [optional] 
+**supports_automatic_pix** | **bool** | Indicates if the connector supports automatic Pix | [optional] 
 **created_at** | **datetime** | Date of creation | [optional] 
 **updated_at** | **datetime** | Date of last modification | [optional] 
 

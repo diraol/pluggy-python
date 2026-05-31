@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **amount** | **float** | Amount of the informed patrimony | 
 **year** | **float** | Year of the patrimony | 
+**var_date** | **datetime** | Reference date of the patrimony. Returned on the business path of Open Finance, where the source field is a full date rather than just a year | [optional] 
 
 ## Example
 

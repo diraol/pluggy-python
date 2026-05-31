@@ -7,11 +7,12 @@ Response with information related to a loan
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Primary identifier | 
-**item_id** | **str** | Identifier of the item linked to the loan | 
+**item_id** | **UUID** | Identifier of the item linked to the loan | 
 **contract_number** | **str** | Contract number given by the contracting institution | [optional] 
 **ipoc_code** | **str** | Standard contract number - IPOC (Identificação Padronizada da Operação de Crédito) | [optional] 
 **product_name** | **str** | Denomination/Identification of the name of the credit operation disclosed to the customer | 
 **type** | **str** | Loan type (https://openbanking-brasil.github.io/openapi/swagger-apis/loans/?urls.primaryName&#x3D;2.0.1#model-EnumContractProductSubTypeLoans) | [optional] 
+**kind** | **str** | Credit-operation family this contract belongs to. | 
 **var_date** | **datetime** | Date when the loan data was collected | 
 **contract_date** | **datetime** | Date when the loan was contracted | [optional] 
 **disbursement_dates** | **List[date]** | Disbursement date of the contracted amount | [optional] 

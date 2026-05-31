@@ -8,8 +8,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **company_cnpj** | **str** | CNPJ of the company | 
 **occupation_code** | **str** | Occupation code | [optional] 
+**occupation_description** | **str** | Free-text occupation description. When occupationCode is RECEITA_FEDERAL or CBO it holds the standardized list code; when OUTRO it describes the occupation in cases where the institution does not follow the Receita Federal nor the CBO list | [optional] 
 **informed_income** | [**IdentityResponseQualificationsInformedIncome**](IdentityResponseQualificationsInformedIncome.md) |  | [optional] 
 **informed_patrimony** | [**IdentityResponseQualificationsInformedPatrimony**](IdentityResponseQualificationsInformedPatrimony.md) |  | [optional] 
+**economic_activities** | [**List[EconomicActivity]**](EconomicActivity.md) | List of CNAE codes describing the economic activities of the business (Brazilian National Classification of Economic Activities). Only one entry per response should be marked as main | [optional] 
+**informed_revenue** | [**InformedRevenue**](InformedRevenue.md) |  | [optional] 
 
 ## Example
 

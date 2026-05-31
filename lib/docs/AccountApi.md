@@ -4,10 +4,93 @@ All URIs are relative to *https://api.pluggy.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**account_balance_get**](AccountApi.md#account_balance_get) | **GET** /accounts/{id}/balance | Get real-time balance
 [**account_statements_list**](AccountApi.md#account_statements_list) | **GET** /accounts/{id}/statements | List account statements
 [**accounts_list**](AccountApi.md#accounts_list) | **GET** /accounts | List
 [**accounts_retrieve**](AccountApi.md#accounts_retrieve) | **GET** /accounts/{id} | Retrieve
 
+
+# **account_balance_get**
+> AccountBalanceGet200Response account_balance_get(id)
+
+Get real-time balance
+
+Fetches the real-time balance for the account directly from the financial institution connector, without requiring a full item sync.
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.models.account_balance_get200_response import AccountBalanceGet200Response
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.AccountApi(api_client)
+    id = 'a658c848-e475-457b-8565-d1fffba127c4' # str | Account primary identifier
+
+    try:
+        # Get real-time balance
+        api_response = api_instance.account_balance_get(id)
+        print("The response of AccountApi->account_balance_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AccountApi->account_balance_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| Account primary identifier | 
+
+### Return type
+
+[**AccountBalanceGet200Response**](AccountBalanceGet200Response.md)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Real-time account balance |  -  |
+**404** | Account not found |  -  |
+**429** | Rate limited by the financial institution |  -  |
+**500** | Error fetching balance from connector |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **account_statements_list**
 > AccountStatementsList200Response account_statements_list(id)
@@ -128,7 +211,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.AccountApi(api_client)
-    item_id = 'd0f8a8c0-e8e3-11e9-b210-d663bd873d93' # str | Item primary identifier
+    item_id = UUID('d0f8a8c0-e8e3-11e9-b210-d663bd873d93') # UUID | Item primary identifier
     type = 'BANK' # str | Parameter to filter between bank accounts and credit accounts (optional)
 
     try:
@@ -147,7 +230,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **item_id** | **str**| Item primary identifier | 
+ **item_id** | **UUID**| Item primary identifier | 
  **type** | **str**| Parameter to filter between bank accounts and credit accounts | [optional] 
 
 ### Return type

@@ -19,11 +19,14 @@ import re  # noqa: F401
 import json
 
 from datetime import date
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
+from pluggy_sdk.models.automatic_pix_payment_attempt import AutomaticPixPaymentAttempt
 from pluggy_sdk.models.automatic_pix_payment_error_detail import AutomaticPixPaymentErrorDetail
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class AutomaticPixPayment(BaseModel):
     """
@@ -37,7 +40,10 @@ class AutomaticPixPayment(BaseModel):
     end_to_end_id: Optional[StrictStr] = Field(default=None, description="Payment end to end identifier", alias="endToEndId")
     error_detail: Optional[AutomaticPixPaymentErrorDetail] = Field(default=None, alias="errorDetail")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="External identifier for the payment", alias="clientPaymentId")
-    __properties: ClassVar[List[str]] = ["id", "status", "amount", "description", "date", "endToEndId", "errorDetail", "clientPaymentId"]
+    recipient_id: UUID = Field(description="Payment recipient identifier", alias="recipientId")
+    is_first_payment: Optional[StrictBool] = Field(default=None, description="Indicates if this is the first payment", alias="isFirstPayment")
+    attempts: Optional[List[AutomaticPixPaymentAttempt]] = None
+    __properties: ClassVar[List[str]] = ["id", "status", "amount", "description", "date", "endToEndId", "errorDetail", "clientPaymentId", "recipientId", "isFirstPayment", "attempts"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -47,7 +53,8 @@ class AutomaticPixPayment(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -59,8 +66,7 @@ class AutomaticPixPayment(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -88,6 +94,13 @@ class AutomaticPixPayment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of error_detail
         if self.error_detail:
             _dict['errorDetail'] = self.error_detail.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in attempts (list)
+        _items = []
+        if self.attempts:
+            for _item_attempts in self.attempts:
+                if _item_attempts:
+                    _items.append(_item_attempts.to_dict())
+            _dict['attempts'] = _items
         return _dict
 
     @classmethod
@@ -107,7 +120,10 @@ class AutomaticPixPayment(BaseModel):
             "date": obj.get("date"),
             "endToEndId": obj.get("endToEndId"),
             "errorDetail": AutomaticPixPaymentErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None,
-            "clientPaymentId": obj.get("clientPaymentId")
+            "clientPaymentId": obj.get("clientPaymentId"),
+            "recipientId": obj.get("recipientId"),
+            "isFirstPayment": obj.get("isFirstPayment"),
+            "attempts": [AutomaticPixPaymentAttempt.from_dict(_item) for _item in obj["attempts"]] if obj.get("attempts") is not None else None
         })
         return _obj
 

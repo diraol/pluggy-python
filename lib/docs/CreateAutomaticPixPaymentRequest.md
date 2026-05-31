@@ -10,11 +10,13 @@ Name | Type | Description | Notes
 **minimum_variable_amount** | **float** | Minimum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it&#39;s sent, fixedAmount cannot be provided. | [optional] 
 **maximum_variable_amount** | **float** | Maximum amount allowed per charge; if filled in, it represents consent for payments of variable amounts. If it&#39;s sent, fixedAmount cannot be provided. | [optional] 
 **description** | **str** | Description for the automatic pix authorization | [optional] 
-**start_date** | **datetime** | Represents the expected date for the first occurrence of a payment associated with the recurrence. Date format must be YYYY-MM-DD (for example: 2025-06-16) | 
-**expires_at** | **datetime** | Expiration date for the automatic pix authorization. The date must be in UTC and the format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z). | [optional] 
+**start_date** | **date** | Represents the expected date for the first occurrence of a payment associated with the recurrence. Date format must be YYYY-MM-DD (for example: 2025-06-16) | 
+**expires_at** | **date** | Expiration date for the automatic pix authorization. The date must be in UTC and the format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z). | [optional] 
 **is_retry_accepted** | **bool** | Indicates whether the receiving customer is allowed to make payment attempts, according to the rules established in the Pix arrangement. | [optional] 
 **first_payment** | [**AutomaticPixFirstPayment**](AutomaticPixFirstPayment.md) |  | [optional] 
 **interval** | **str** | Defines the permitted frequency for carrying out transactions. | 
+**automatic_retries_configuration** | [**AutomaticPixRetriesConfiguration**](AutomaticPixRetriesConfiguration.md) |  | [optional] 
+**scheduler_configuration** | [**AutomaticPixSchedulerConfiguration**](AutomaticPixSchedulerConfiguration.md) |  | [optional] 
 **callback_urls** | [**PaymentRequestCallbackUrls**](PaymentRequestCallbackUrls.md) |  | [optional] 
 **recipient_id** | **str** | Primary identifier of the payment recipient | 
 **client_payment_id** | **str** | Client payment identifier | [optional] 

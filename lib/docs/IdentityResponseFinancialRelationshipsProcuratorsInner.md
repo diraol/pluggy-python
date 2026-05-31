@@ -5,10 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** | Type of relationship with the client | 
-**cpf_number** | **str** | CPF of the procurator | 
-**civil_name** | **str** | Civil name of the procurator | 
-**social_name** | **str** | Social name of the procurator | [optional] 
+**type** | **str** | Type of relationship with the client. Legal representative — natural person who represents the entity and is named in its incorporation document. Procurator — any person authorized in writing to represent the client in some business | 
+**cpf_number** | **str** | CPF of the procurator. For business links this field may hold a CPF or a CNPJ (kept for backward compatibility — prefer documentNumber + documentType) | 
+**document_number** | **str** | Document number of the procurator (CPF or CNPJ). Mirrors cpfNumber and is the canonical value to read | [optional] 
+**document_type** | **str** | Type of document carried by documentNumber | [optional] 
+**civil_name** | **str** | Civil name of the procurator. For business procurators, may hold the company name | 
+**social_name** | **str** | Social name of the procurator, if any | [optional] 
 
 ## Example
 

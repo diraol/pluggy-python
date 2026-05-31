@@ -22,13 +22,14 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class CreateBoletoBoletoPayer(BaseModel):
     """
     CreateBoletoBoletoPayer
     """ # noqa: E501
-    tax_number: StrictStr = Field(description="Payer tax number (CPF/CNPJ)", alias="taxNumber")
-    name: StrictStr = Field(description="Payer name")
+    tax_number: StrictStr = Field(description="Payer tax number (CPF/CNPJ)", alias="taxNumber", json_schema_extra={"examples": ["41.679.495/0001-00"]})
+    name: StrictStr = Field(description="Payer name", json_schema_extra={"examples": ["NOME LEGAL EMPRESA"]})
     address_street: Optional[StrictStr] = Field(default=None, description="Payer street address", alias="addressStreet")
     address_city: Optional[StrictStr] = Field(default=None, description="Payer city", alias="addressCity")
     address_state: StrictStr = Field(description="Payer state", alias="addressState")
@@ -36,7 +37,8 @@ class CreateBoletoBoletoPayer(BaseModel):
     __properties: ClassVar[List[str]] = ["taxNumber", "name", "addressStreet", "addressCity", "addressState", "addressZipCode"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -48,8 +50,7 @@ class CreateBoletoBoletoPayer(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

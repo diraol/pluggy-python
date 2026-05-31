@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **is_default** | **bool** | Indicates if the recipient is the default one | 
 **account** | [**PaymentRecipientAccount**](PaymentRecipientAccount.md) |  | 
 **pix_key** | **str** | Pix key associated with the payment recipient | [optional] 
+**created_at** | **datetime** | Date when the payment recipient was created | 
+**updated_at** | **datetime** | Date when the payment recipient was last updated | 
 
 ## Example
 

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -349,7 +348,7 @@ class ItemsApi:
         Delete the item by its primary identifier
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -418,7 +417,7 @@ class ItemsApi:
         Delete the item by its primary identifier
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -487,7 +486,7 @@ class ItemsApi:
         Delete the item by its primary identifier
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -616,7 +615,7 @@ class ItemsApi:
         When client disables auto sync, the item will not be updated automatically anymore, until the client force an item update.
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -685,7 +684,7 @@ class ItemsApi:
         When client disables auto sync, the item will not be updated automatically anymore, until the client force an item update.
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -754,7 +753,7 @@ class ItemsApi:
         When client disables auto sync, the item will not be updated automatically anymore, until the client force an item update.
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -883,7 +882,7 @@ class ItemsApi:
         Recovers the item resource by its id
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -952,7 +951,7 @@ class ItemsApi:
         Recovers the item resource by its id
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1021,7 +1020,7 @@ class ItemsApi:
         Recovers the item resource by its id
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1151,7 +1150,7 @@ class ItemsApi:
         When item is Waiting User Input, this method allows to submit multi-factor authentication value
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param request_body: (required)
         :type request_body: Dict[str, str]
         :param _request_timeout: timeout setting for this request. If one
@@ -1224,7 +1223,7 @@ class ItemsApi:
         When item is Waiting User Input, this method allows to submit multi-factor authentication value
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param request_body: (required)
         :type request_body: Dict[str, str]
         :param _request_timeout: timeout setting for this request. If one
@@ -1297,7 +1296,7 @@ class ItemsApi:
         When item is Waiting User Input, this method allows to submit multi-factor authentication value
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param request_body: (required)
         :type request_body: Dict[str, str]
         :param _request_timeout: timeout setting for this request. If one
@@ -1446,7 +1445,7 @@ class ItemsApi:
         Triggers new syncronization for the Item, optionally updating the stored credentials.
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param update_item: Update item request
         :type update_item: UpdateItem
         :param _request_timeout: timeout setting for this request. If one
@@ -1521,7 +1520,7 @@ class ItemsApi:
         Triggers new syncronization for the Item, optionally updating the stored credentials.
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param update_item: Update item request
         :type update_item: UpdateItem
         :param _request_timeout: timeout setting for this request. If one
@@ -1596,7 +1595,7 @@ class ItemsApi:
         Triggers new syncronization for the Item, optionally updating the stored credentials.
 
         :param id: Item primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param update_item: Update item request
         :type update_item: UpdateItem
         :param _request_timeout: timeout setting for this request. If one

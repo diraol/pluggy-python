@@ -23,6 +23,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Webhook(BaseModel):
     """
@@ -39,12 +40,13 @@ class Webhook(BaseModel):
     @field_validator('event')
     def event_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'payment_request/updated']):
-            raise ValueError("must be one of enum values ('all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'payment_request/updated')")
+        if value not in set(['all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'transactions/created', 'transactions/updated', 'transactions/deleted', 'payment_intent/created', 'payment_intent/completed', 'payment_intent/waiting_payer_authorization', 'payment_intent/error', 'payment_request/updated', 'scheduled_payment/created', 'scheduled_payment/completed', 'scheduled_payment/error', 'scheduled_payment/canceled', 'scheduled_payment/all_completed', 'scheduled_payment/all_created', 'boleto/updated', 'automatic_pix_payment/created', 'automatic_pix_payment/completed', 'automatic_pix_payment/error', 'automatic_pix_payment/canceled', 'smart_transfer_preauthorization/completed', 'smart_transfer_preauthorization/error', 'smart_transfer_payment/completed', 'smart_transfer_payment/error']):
+            raise ValueError("must be one of enum values ('all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'transactions/created', 'transactions/updated', 'transactions/deleted', 'payment_intent/created', 'payment_intent/completed', 'payment_intent/waiting_payer_authorization', 'payment_intent/error', 'payment_request/updated', 'scheduled_payment/created', 'scheduled_payment/completed', 'scheduled_payment/error', 'scheduled_payment/canceled', 'scheduled_payment/all_completed', 'scheduled_payment/all_created', 'boleto/updated', 'automatic_pix_payment/created', 'automatic_pix_payment/completed', 'automatic_pix_payment/error', 'automatic_pix_payment/canceled', 'smart_transfer_preauthorization/completed', 'smart_transfer_preauthorization/error', 'smart_transfer_payment/completed', 'smart_transfer_payment/error')")
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -56,8 +58,7 @@ class Webhook(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

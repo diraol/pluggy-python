@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, Stric
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class BillFinanceCharge(BaseModel):
     """
@@ -30,7 +31,7 @@ class BillFinanceCharge(BaseModel):
     id: StrictStr = Field(description="Primary identifier")
     type: StrictStr = Field(description="Denomination of the charges that apply to the postpaid payment account bill")
     amount: Union[StrictFloat, StrictInt] = Field(description="Amount charged for the charge/fee")
-    currency_code: StrictStr = Field(description="Code referencing the currency of the charge", alias="currencyCode")
+    currency_code: StrictStr = Field(description="Code referencing the currency of the charge", alias="currencyCode", json_schema_extra={"examples": ["BRL"]})
     additional_info: Optional[StrictStr] = Field(default=None, description="Free field, mandatory to fill if 'OTHER' type of charge is selected", alias="additionalInfo")
     __properties: ClassVar[List[str]] = ["id", "type", "amount", "currencyCode", "additionalInfo"]
 
@@ -42,7 +43,8 @@ class BillFinanceCharge(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -54,8 +56,7 @@ class BillFinanceCharge(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

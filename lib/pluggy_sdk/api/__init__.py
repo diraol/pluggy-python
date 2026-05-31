@@ -13,6 +13,7 @@ from pluggy_sdk.api.identity_api import IdentityApi
 from pluggy_sdk.api.investment_api import InvestmentApi
 from pluggy_sdk.api.items_api import ItemsApi
 from pluggy_sdk.api.loan_api import LoanApi
+from pluggy_sdk.api.merchant_api import MerchantApi
 from pluggy_sdk.api.payment_customer_api import PaymentCustomerApi
 from pluggy_sdk.api.payment_intent_api import PaymentIntentApi
 from pluggy_sdk.api.payment_recipient_api import PaymentRecipientApi

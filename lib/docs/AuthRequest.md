@@ -6,7 +6,7 @@ Authentication parameters required to get access to Pluggy's API
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**client_id** | **str** | Client id | 
+**client_id** | **UUID** | Client id | 
 **client_secret** | **str** | Client secret | 
 
 ## Example

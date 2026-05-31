@@ -23,17 +23,19 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.parameter_validation_error import ParameterValidationError
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class ParameterValidationResponse(BaseModel):
     """
     Response to parameter's validations
     """ # noqa: E501
     errors: Optional[List[ParameterValidationError]] = None
-    parameters: Optional[Dict[str, StrictStr]] = Field(default=None, description="Key-Value credentials neccesary to create an item")
+    parameters: Optional[Dict[str, StrictStr]] = Field(default=None, description="Key-Value credentials neccesary to create an item", json_schema_extra={"examples": [{"user": "my-user", "password": "my-password"}]})
     __properties: ClassVar[List[str]] = ["errors", "parameters"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +47,7 @@ class ParameterValidationResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

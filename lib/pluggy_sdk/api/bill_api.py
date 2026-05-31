@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -63,7 +62,7 @@ class BillApi:
         Recovers all credit card bills collected for the account provided
 
         :param account_id: Account's primary identifier (required)
-        :type account_id: str
+        :type account_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -130,7 +129,7 @@ class BillApi:
         Recovers all credit card bills collected for the account provided
 
         :param account_id: Account's primary identifier (required)
-        :type account_id: str
+        :type account_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -197,7 +196,7 @@ class BillApi:
         Recovers all credit card bills collected for the account provided
 
         :param account_id: Account's primary identifier (required)
-        :type account_id: str
+        :type account_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -326,7 +325,7 @@ class BillApi:
         Recovers the bill resource by its id
 
         :param id: Bill primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -394,7 +393,7 @@ class BillApi:
         Recovers the bill resource by its id
 
         :param id: Bill primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -462,7 +461,7 @@ class BillApi:
         Recovers the bill resource by its id
 
         :param id: Bill primary identifier (required)
-        :type id: str
+        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of

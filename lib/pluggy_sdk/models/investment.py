@@ -25,6 +25,7 @@ from uuid import UUID
 from pluggy_sdk.models.investment_metadata import InvestmentMetadata
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Investment(BaseModel):
     """
@@ -58,11 +59,12 @@ class Investment(BaseModel):
     issuer: Optional[StrictStr] = Field(default=None, description="The entity that issued the investment")
     issuer_cnpj: Optional[StrictStr] = Field(default=None, description="The entity CNPJ that issued the investment", alias="issuerCNPJ")
     issue_date: Optional[datetime] = Field(default=None, description="The date that the investment was issued", alias="issueDate")
+    purchase_date: Optional[datetime] = Field(default=None, description="The date that the investment was purchased", alias="purchaseDate")
     rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Fixed rate percentage applied to the investment")
     rate_type: Optional[StrictStr] = Field(default=None, description="Type of fixed-rate", alias="rateType")
     fixed_annual_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Fixed income annual rate", alias="fixedAnnualRate")
     status: Optional[StrictStr] = Field(default=None, description="Current status of the investment enum value")
-    __properties: ClassVar[List[str]] = ["id", "itemId", "type", "subtype", "number", "balance", "name", "lastMonthRate", "lastTwelveMonthsRate", "annualRate", "currencyCode", "code", "isin", "value", "quantity", "amount", "taxes", "taxes2", "date", "owner", "amountProfit", "amountWithdrawal", "amountOriginal", "metadata", "dueDate", "issuer", "issuerCNPJ", "issueDate", "rate", "rateType", "fixedAnnualRate", "status"]
+    __properties: ClassVar[List[str]] = ["id", "itemId", "type", "subtype", "number", "balance", "name", "lastMonthRate", "lastTwelveMonthsRate", "annualRate", "currencyCode", "code", "isin", "value", "quantity", "amount", "taxes", "taxes2", "date", "owner", "amountProfit", "amountWithdrawal", "amountOriginal", "metadata", "dueDate", "issuer", "issuerCNPJ", "issueDate", "purchaseDate", "rate", "rateType", "fixedAnnualRate", "status"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -77,8 +79,8 @@ class Investment(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['STRUCTURED_NOTE', 'STOCK', 'ETF', 'REAL_ESTATE_FUND', 'BDR', 'DERIVATIVES', 'OPTION', 'TREASURY', 'LCI', 'LCA', 'LF', 'CDB', 'CRI', 'CRA', 'CORPORATE_DEBT', 'LC', 'DEBENTURES', 'INVESTMENT_FUND', 'MULTIMARKET_FUND', 'FIXED_INCOME_FUND', 'STOCK_FUND', 'ETF_FUND', 'OFFSHORE_FUND', 'FIP_FUND', 'EXCHANGE_FUND', 'RETIREMENT', 'OTHER']):
-            raise ValueError("must be one of enum values ('STRUCTURED_NOTE', 'STOCK', 'ETF', 'REAL_ESTATE_FUND', 'BDR', 'DERIVATIVES', 'OPTION', 'TREASURY', 'LCI', 'LCA', 'LF', 'CDB', 'CRI', 'CRA', 'CORPORATE_DEBT', 'LC', 'DEBENTURES', 'INVESTMENT_FUND', 'MULTIMARKET_FUND', 'FIXED_INCOME_FUND', 'STOCK_FUND', 'ETF_FUND', 'OFFSHORE_FUND', 'FIP_FUND', 'EXCHANGE_FUND', 'RETIREMENT', 'OTHER')")
+        if value not in set(['STRUCTURED_NOTE', 'STOCK', 'ETF', 'REAL_ESTATE_FUND', 'BDR', 'DERIVATIVES', 'OPTION', 'TREASURY', 'LCI', 'LCA', 'LF', 'CDB', 'CRI', 'CRA', 'CORPORATE_DEBT', 'LC', 'DEBENTURES', 'INVESTMENT_FUND', 'MULTIMARKET_FUND', 'FIXED_INCOME_FUND', 'STOCK_FUND', 'ETF_FUND', 'OFFSHORE_FUND', 'FIP_FUND', 'EXCHANGE_FUND', 'FI_INFRA', 'FI_AGRO', 'RETIREMENT', 'OTHER']):
+            raise ValueError("must be one of enum values ('STRUCTURED_NOTE', 'STOCK', 'ETF', 'REAL_ESTATE_FUND', 'BDR', 'DERIVATIVES', 'OPTION', 'TREASURY', 'LCI', 'LCA', 'LF', 'CDB', 'CRI', 'CRA', 'CORPORATE_DEBT', 'LC', 'DEBENTURES', 'INVESTMENT_FUND', 'MULTIMARKET_FUND', 'FIXED_INCOME_FUND', 'STOCK_FUND', 'ETF_FUND', 'OFFSHORE_FUND', 'FIP_FUND', 'EXCHANGE_FUND', 'FI_INFRA', 'FI_AGRO', 'RETIREMENT', 'OTHER')")
         return value
 
     @field_validator('status')
@@ -92,7 +94,8 @@ class Investment(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -104,8 +107,7 @@ class Investment(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -173,6 +175,7 @@ class Investment(BaseModel):
             "issuer": obj.get("issuer"),
             "issuerCNPJ": obj.get("issuerCNPJ"),
             "issueDate": obj.get("issueDate"),
+            "purchaseDate": obj.get("purchaseDate"),
             "rate": obj.get("rate"),
             "rateType": obj.get("rateType"),
             "fixedAnnualRate": obj.get("fixedAnnualRate"),

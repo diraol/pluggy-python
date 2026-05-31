@@ -7,7 +7,7 @@ Response with details personal information related to the owner of the connectio
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | The ID of the identity to retrieve | 
-**item_id** | **str** | Identifier of the item linked to the identity | 
+**item_id** | **UUID** | Identifier of the item linked to the identity | 
 **birth_date** | **datetime** | Date of birth | [optional] 
 **tax_number** | **str** | The tax ID (CNPJ) associated with the business account | [optional] 
 **document** | **str** | Primary document that identifies the owner | [optional] 
@@ -24,6 +24,16 @@ Name | Type | Description | Notes
 **investor_profile** | **str** | Is a rating that indicates the investor personality and motivation for investing | [optional] 
 **qualifications** | [**IdentityResponseQualifications**](IdentityResponseQualifications.md) |  | [optional] 
 **financial_relationships** | [**IdentityResponseFinancialRelationships**](IdentityResponseFinancialRelationships.md) |  | [optional] 
+**social_name** | **str** | Social name of the natural person, if any (the name by which travestis and transsexuals recognize themselves and are recognized in their community). PF-only field | [optional] 
+**sex** | **str** | Sex of the natural person. PF-only field | [optional] 
+**marital_status** | [**MaritalStatus**](MaritalStatus.md) | Marital status of the natural person. PF-only field | [optional] 
+**nationality** | [**Nationality**](Nationality.md) | Nationality of the natural person. PF-only field | [optional] 
+**other_documents** | [**List[OtherDocument]**](OtherDocument.md) | List of other identification documents the natural person holds. PF-only field | [optional] 
+**passport** | [**Passport**](Passport.md) | Passport metadata for the natural person. PF-only field | [optional] 
+**incorporation_date** | **datetime** | Date the business was incorporated. PJ-only field | [optional] 
+**parties** | [**List[BusinessParty]**](BusinessParty.md) | Partners and administrators of the business. PJ-only field | [optional] 
+**business_other_documents** | [**List[BusinessOtherDocument]**](BusinessOtherDocument.md) | List of additional documents for businesses headquartered abroad and not required to register a CNPJ. PJ-only field | [optional] 
+**companies_cnpj** | **List[str]** | CNPJs of the financial institutions responsible for the customer cadastro. Numbers only, no mask | [optional] 
 
 ## Example
 

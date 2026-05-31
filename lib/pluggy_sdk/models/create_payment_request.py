@@ -25,6 +25,7 @@ from pluggy_sdk.models.create_payment_request_schedule import CreatePaymentReque
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class CreatePaymentRequest(BaseModel):
     """
@@ -41,7 +42,8 @@ class CreatePaymentRequest(BaseModel):
     __properties: ClassVar[List[str]] = ["amount", "description", "callbackUrls", "recipientId", "customerId", "clientPaymentId", "schedule", "isSandbox"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -53,8 +55,7 @@ class CreatePaymentRequest(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -85,11 +86,6 @@ class CreatePaymentRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of schedule
         if self.schedule:
             _dict['schedule'] = self.schedule.to_dict()
-        # set to None if schedule (nullable) is None
-        # and model_fields_set contains the field
-        if self.schedule is None and "schedule" in self.model_fields_set:
-            _dict['schedule'] = None
-
         return _dict
 
     @classmethod

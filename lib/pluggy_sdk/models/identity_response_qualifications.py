@@ -20,10 +20,13 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from pluggy_sdk.models.economic_activity import EconomicActivity
 from pluggy_sdk.models.identity_response_qualifications_informed_income import IdentityResponseQualificationsInformedIncome
 from pluggy_sdk.models.identity_response_qualifications_informed_patrimony import IdentityResponseQualificationsInformedPatrimony
+from pluggy_sdk.models.informed_revenue import InformedRevenue
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class IdentityResponseQualifications(BaseModel):
     """
@@ -31,9 +34,12 @@ class IdentityResponseQualifications(BaseModel):
     """ # noqa: E501
     company_cnpj: StrictStr = Field(description="CNPJ of the company", alias="companyCnpj")
     occupation_code: Optional[StrictStr] = Field(default=None, description="Occupation code", alias="occupationCode")
+    occupation_description: Optional[StrictStr] = Field(default=None, description="Free-text occupation description. When occupationCode is RECEITA_FEDERAL or CBO it holds the standardized list code; when OUTRO it describes the occupation in cases where the institution does not follow the Receita Federal nor the CBO list", alias="occupationDescription")
     informed_income: Optional[IdentityResponseQualificationsInformedIncome] = Field(default=None, alias="informedIncome")
     informed_patrimony: Optional[IdentityResponseQualificationsInformedPatrimony] = Field(default=None, alias="informedPatrimony")
-    __properties: ClassVar[List[str]] = ["companyCnpj", "occupationCode", "informedIncome", "informedPatrimony"]
+    economic_activities: Optional[List[EconomicActivity]] = Field(default=None, description="List of CNAE codes describing the economic activities of the business (Brazilian National Classification of Economic Activities). Only one entry per response should be marked as main", alias="economicActivities")
+    informed_revenue: Optional[InformedRevenue] = Field(default=None, alias="informedRevenue")
+    __properties: ClassVar[List[str]] = ["companyCnpj", "occupationCode", "occupationDescription", "informedIncome", "informedPatrimony", "economicActivities", "informedRevenue"]
 
     @field_validator('occupation_code')
     def occupation_code_validate_enum(cls, value):
@@ -46,7 +52,8 @@ class IdentityResponseQualifications(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -58,8 +65,7 @@ class IdentityResponseQualifications(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -90,6 +96,16 @@ class IdentityResponseQualifications(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of informed_patrimony
         if self.informed_patrimony:
             _dict['informedPatrimony'] = self.informed_patrimony.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in economic_activities (list)
+        _items = []
+        if self.economic_activities:
+            for _item_economic_activities in self.economic_activities:
+                if _item_economic_activities:
+                    _items.append(_item_economic_activities.to_dict())
+            _dict['economicActivities'] = _items
+        # override the default output from pydantic by calling `to_dict()` of informed_revenue
+        if self.informed_revenue:
+            _dict['informedRevenue'] = self.informed_revenue.to_dict()
         return _dict
 
     @classmethod
@@ -104,8 +120,11 @@ class IdentityResponseQualifications(BaseModel):
         _obj = cls.model_validate({
             "companyCnpj": obj.get("companyCnpj"),
             "occupationCode": obj.get("occupationCode"),
+            "occupationDescription": obj.get("occupationDescription"),
             "informedIncome": IdentityResponseQualificationsInformedIncome.from_dict(obj["informedIncome"]) if obj.get("informedIncome") is not None else None,
-            "informedPatrimony": IdentityResponseQualificationsInformedPatrimony.from_dict(obj["informedPatrimony"]) if obj.get("informedPatrimony") is not None else None
+            "informedPatrimony": IdentityResponseQualificationsInformedPatrimony.from_dict(obj["informedPatrimony"]) if obj.get("informedPatrimony") is not None else None,
+            "economicActivities": [EconomicActivity.from_dict(_item) for _item in obj["economicActivities"]] if obj.get("economicActivities") is not None else None,
+            "informedRevenue": InformedRevenue.from_dict(obj["informedRevenue"]) if obj.get("informedRevenue") is not None else None
         })
         return _obj
 

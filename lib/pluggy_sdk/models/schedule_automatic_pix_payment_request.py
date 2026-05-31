@@ -21,8 +21,10 @@ import json
 from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class ScheduleAutomaticPixPaymentRequest(BaseModel):
     """
@@ -32,10 +34,12 @@ class ScheduleAutomaticPixPaymentRequest(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="Transaction description")
     var_date: date = Field(description="The payment date, which must fall between D+2 and D+10. Date format must be YYYY-MM-DD (for example: 2025-06-16)", alias="date")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="External identifier for the payment", alias="clientPaymentId")
-    __properties: ClassVar[List[str]] = ["amount", "description", "date", "clientPaymentId"]
+    recipient_id: Optional[UUID] = Field(default=None, description="Payment recipient identifier. It should be sent if you want to use a different recipient from the one consented in the payment request (it must have the same tax number as the consented recipient).", alias="recipientId")
+    __properties: ClassVar[List[str]] = ["amount", "description", "date", "clientPaymentId", "recipientId"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -47,8 +51,7 @@ class ScheduleAutomaticPixPaymentRequest(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -88,7 +91,8 @@ class ScheduleAutomaticPixPaymentRequest(BaseModel):
             "amount": obj.get("amount"),
             "description": obj.get("description"),
             "date": obj.get("date"),
-            "clientPaymentId": obj.get("clientPaymentId")
+            "clientPaymentId": obj.get("clientPaymentId"),
+            "recipientId": obj.get("recipientId")
         })
         return _obj
 

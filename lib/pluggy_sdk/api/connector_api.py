@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pluggy API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -333,6 +332,8 @@ class ConnectorApi:
         health_details: Annotated[Optional[StrictBool], Field(description="Include health details about latest connections and percentage of errors (connection rate)")] = None,
         is_open_finance: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `isOpenFinance` attribute. If not sent, it won't filter.")] = None,
         supports_payment_initiation: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsPaymentInitiation` attribute. If not sent, it won't filter.")] = None,
+        supports_smart_transfers: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsSmartTransfers` attribute. If not sent, it won't filter.")] = None,
+        supports_automatic_pix: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -364,6 +365,10 @@ class ConnectorApi:
         :type is_open_finance: bool
         :param supports_payment_initiation: Filter connectors by the `supportsPaymentInitiation` attribute. If not sent, it won't filter.
         :type supports_payment_initiation: bool
+        :param supports_smart_transfers: Filter connectors by the `supportsSmartTransfers` attribute. If not sent, it won't filter.
+        :type supports_smart_transfers: bool
+        :param supports_automatic_pix: Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.
+        :type supports_automatic_pix: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -394,6 +399,8 @@ class ConnectorApi:
             health_details=health_details,
             is_open_finance=is_open_finance,
             supports_payment_initiation=supports_payment_initiation,
+            supports_smart_transfers=supports_smart_transfers,
+            supports_automatic_pix=supports_automatic_pix,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -424,6 +431,8 @@ class ConnectorApi:
         health_details: Annotated[Optional[StrictBool], Field(description="Include health details about latest connections and percentage of errors (connection rate)")] = None,
         is_open_finance: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `isOpenFinance` attribute. If not sent, it won't filter.")] = None,
         supports_payment_initiation: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsPaymentInitiation` attribute. If not sent, it won't filter.")] = None,
+        supports_smart_transfers: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsSmartTransfers` attribute. If not sent, it won't filter.")] = None,
+        supports_automatic_pix: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -455,6 +464,10 @@ class ConnectorApi:
         :type is_open_finance: bool
         :param supports_payment_initiation: Filter connectors by the `supportsPaymentInitiation` attribute. If not sent, it won't filter.
         :type supports_payment_initiation: bool
+        :param supports_smart_transfers: Filter connectors by the `supportsSmartTransfers` attribute. If not sent, it won't filter.
+        :type supports_smart_transfers: bool
+        :param supports_automatic_pix: Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.
+        :type supports_automatic_pix: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -485,6 +498,8 @@ class ConnectorApi:
             health_details=health_details,
             is_open_finance=is_open_finance,
             supports_payment_initiation=supports_payment_initiation,
+            supports_smart_transfers=supports_smart_transfers,
+            supports_automatic_pix=supports_automatic_pix,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -515,6 +530,8 @@ class ConnectorApi:
         health_details: Annotated[Optional[StrictBool], Field(description="Include health details about latest connections and percentage of errors (connection rate)")] = None,
         is_open_finance: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `isOpenFinance` attribute. If not sent, it won't filter.")] = None,
         supports_payment_initiation: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsPaymentInitiation` attribute. If not sent, it won't filter.")] = None,
+        supports_smart_transfers: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsSmartTransfers` attribute. If not sent, it won't filter.")] = None,
+        supports_automatic_pix: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -546,6 +563,10 @@ class ConnectorApi:
         :type is_open_finance: bool
         :param supports_payment_initiation: Filter connectors by the `supportsPaymentInitiation` attribute. If not sent, it won't filter.
         :type supports_payment_initiation: bool
+        :param supports_smart_transfers: Filter connectors by the `supportsSmartTransfers` attribute. If not sent, it won't filter.
+        :type supports_smart_transfers: bool
+        :param supports_automatic_pix: Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.
+        :type supports_automatic_pix: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -576,6 +597,8 @@ class ConnectorApi:
             health_details=health_details,
             is_open_finance=is_open_finance,
             supports_payment_initiation=supports_payment_initiation,
+            supports_smart_transfers=supports_smart_transfers,
+            supports_automatic_pix=supports_automatic_pix,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -601,6 +624,8 @@ class ConnectorApi:
         health_details,
         is_open_finance,
         supports_payment_initiation,
+        supports_smart_transfers,
+        supports_automatic_pix,
         _request_auth,
         _content_type,
         _headers,
@@ -652,6 +677,14 @@ class ConnectorApi:
         if supports_payment_initiation is not None:
             
             _query_params.append(('supportsPaymentInitiation', supports_payment_initiation))
+            
+        if supports_smart_transfers is not None:
+            
+            _query_params.append(('supportsSmartTransfers', supports_smart_transfers))
+            
+        if supports_automatic_pix is not None:
+            
+            _query_params.append(('supportsAutomaticPix', supports_automatic_pix))
             
         # process the header parameters
         # process the form parameters

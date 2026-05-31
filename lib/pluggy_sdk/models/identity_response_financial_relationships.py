@@ -23,8 +23,11 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.identity_response_financial_relationships_accounts_inner import IdentityResponseFinancialRelationshipsAccountsInner
 from pluggy_sdk.models.identity_response_financial_relationships_procurators_inner import IdentityResponseFinancialRelationshipsProcuratorsInner
+from pluggy_sdk.models.paycheck_bank_link import PaycheckBankLink
+from pluggy_sdk.models.portability_received import PortabilityReceived
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class IdentityResponseFinancialRelationships(BaseModel):
     """
@@ -32,12 +35,16 @@ class IdentityResponseFinancialRelationships(BaseModel):
     """ # noqa: E501
     start_date: datetime = Field(description="Date when the relationship with the institution started", alias="startDate")
     products_services_type: List[StrictStr] = Field(description="List of products and services that the client consumes", alias="productsServicesType")
+    products_services_type_additional_info: Optional[StrictStr] = Field(default=None, description="Additional info about the products and services. Populated when productsServicesType includes 'OUTROS'", alias="productsServicesTypeAdditionalInfo")
     procurators: List[IdentityResponseFinancialRelationshipsProcuratorsInner] = Field(description="List of procurators of the client")
     accounts: Optional[List[IdentityResponseFinancialRelationshipsAccountsInner]] = Field(default=None, description="List of accounts of the client with valid consent. Only accounts that have explicit user consent are returned.")
-    __properties: ClassVar[List[str]] = ["startDate", "productsServicesType", "procurators", "accounts"]
+    portabilities_received: Optional[List[PortabilityReceived]] = Field(default=None, description="Salary portabilities received by the institution from the client's previous paycheck banks (banco-folha). PF-only field", alias="portabilitiesReceived")
+    paychecks_bank_link: Optional[List[PaycheckBankLink]] = Field(default=None, description="Paycheck-bank (banco-folha) links to employers, active or formerly active. PF-only field", alias="paychecksBankLink")
+    __properties: ClassVar[List[str]] = ["startDate", "productsServicesType", "productsServicesTypeAdditionalInfo", "procurators", "accounts", "portabilitiesReceived", "paychecksBankLink"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -49,8 +56,7 @@ class IdentityResponseFinancialRelationships(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -89,6 +95,20 @@ class IdentityResponseFinancialRelationships(BaseModel):
                 if _item_accounts:
                     _items.append(_item_accounts.to_dict())
             _dict['accounts'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in portabilities_received (list)
+        _items = []
+        if self.portabilities_received:
+            for _item_portabilities_received in self.portabilities_received:
+                if _item_portabilities_received:
+                    _items.append(_item_portabilities_received.to_dict())
+            _dict['portabilitiesReceived'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in paychecks_bank_link (list)
+        _items = []
+        if self.paychecks_bank_link:
+            for _item_paychecks_bank_link in self.paychecks_bank_link:
+                if _item_paychecks_bank_link:
+                    _items.append(_item_paychecks_bank_link.to_dict())
+            _dict['paychecksBankLink'] = _items
         return _dict
 
     @classmethod
@@ -103,8 +123,11 @@ class IdentityResponseFinancialRelationships(BaseModel):
         _obj = cls.model_validate({
             "startDate": obj.get("startDate"),
             "productsServicesType": obj.get("productsServicesType"),
+            "productsServicesTypeAdditionalInfo": obj.get("productsServicesTypeAdditionalInfo"),
             "procurators": [IdentityResponseFinancialRelationshipsProcuratorsInner.from_dict(_item) for _item in obj["procurators"]] if obj.get("procurators") is not None else None,
-            "accounts": [IdentityResponseFinancialRelationshipsAccountsInner.from_dict(_item) for _item in obj["accounts"]] if obj.get("accounts") is not None else None
+            "accounts": [IdentityResponseFinancialRelationshipsAccountsInner.from_dict(_item) for _item in obj["accounts"]] if obj.get("accounts") is not None else None,
+            "portabilitiesReceived": [PortabilityReceived.from_dict(_item) for _item in obj["portabilitiesReceived"]] if obj.get("portabilitiesReceived") is not None else None,
+            "paychecksBankLink": [PaycheckBankLink.from_dict(_item) for _item in obj["paychecksBankLink"]] if obj.get("paychecksBankLink") is not None else None
         })
         return _obj
 

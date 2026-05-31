@@ -24,6 +24,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.loan_payment_release_over_parcel import LoanPaymentReleaseOverParcel
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class LoanPaymentRelease(BaseModel):
     """
@@ -32,13 +33,14 @@ class LoanPaymentRelease(BaseModel):
     is_over_parcel_payment: Optional[StrictBool] = Field(default=None, description="Identifies whether it is an agreed payment (false) or a one-time payment (true)", alias="isOverParcelPayment")
     installment_id: Optional[StrictStr] = Field(default=None, description="Installment identifier, responsibility of each transmitting Institution", alias="installmentId")
     paid_date: Optional[datetime] = Field(default=None, description="Effective date of payment referring to the contract of the credit modality consulted", alias="paidDate")
-    currency_code: Optional[StrictStr] = Field(default=None, description="Code referencing the currency of the payment", alias="currencyCode")
+    currency_code: Optional[StrictStr] = Field(default=None, description="Code referencing the currency of the payment", alias="currencyCode", json_schema_extra={"examples": ["BRL"]})
     paid_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Payment amount referring to the contract of the credit modality consulted", alias="paidAmount")
     over_parcel: Optional[LoanPaymentReleaseOverParcel] = Field(default=None, alias="overParcel")
     __properties: ClassVar[List[str]] = ["isOverParcelPayment", "installmentId", "paidDate", "currencyCode", "paidAmount", "overParcel"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -50,8 +52,7 @@ class LoanPaymentRelease(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

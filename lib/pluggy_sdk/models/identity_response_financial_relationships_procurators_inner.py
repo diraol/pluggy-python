@@ -22,16 +22,19 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class IdentityResponseFinancialRelationshipsProcuratorsInner(BaseModel):
     """
     IdentityResponseFinancialRelationshipsProcuratorsInner
     """ # noqa: E501
-    type: StrictStr = Field(description="Type of relationship with the client")
-    cpf_number: StrictStr = Field(description="CPF of the procurator", alias="cpfNumber")
-    civil_name: StrictStr = Field(description="Civil name of the procurator", alias="civilName")
-    social_name: Optional[StrictStr] = Field(default=None, description="Social name of the procurator", alias="socialName")
-    __properties: ClassVar[List[str]] = ["type", "cpfNumber", "civilName", "socialName"]
+    type: StrictStr = Field(description="Type of relationship with the client. Legal representative — natural person who represents the entity and is named in its incorporation document. Procurator — any person authorized in writing to represent the client in some business")
+    cpf_number: StrictStr = Field(description="CPF of the procurator. For business links this field may hold a CPF or a CNPJ (kept for backward compatibility — prefer documentNumber + documentType)", alias="cpfNumber")
+    document_number: Optional[StrictStr] = Field(default=None, description="Document number of the procurator (CPF or CNPJ). Mirrors cpfNumber and is the canonical value to read", alias="documentNumber")
+    document_type: Optional[StrictStr] = Field(default=None, description="Type of document carried by documentNumber", alias="documentType")
+    civil_name: StrictStr = Field(description="Civil name of the procurator. For business procurators, may hold the company name", alias="civilName")
+    social_name: Optional[StrictStr] = Field(default=None, description="Social name of the procurator, if any", alias="socialName")
+    __properties: ClassVar[List[str]] = ["type", "cpfNumber", "documentNumber", "documentType", "civilName", "socialName"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -40,8 +43,19 @@ class IdentityResponseFinancialRelationshipsProcuratorsInner(BaseModel):
             raise ValueError("must be one of enum values ('REPRESENTANTE_LEGAL', 'PROCURADOR')")
         return value
 
+    @field_validator('document_type')
+    def document_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['CPF', 'CNPJ']):
+            raise ValueError("must be one of enum values ('CPF', 'CNPJ')")
+        return value
+
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -53,8 +67,7 @@ class IdentityResponseFinancialRelationshipsProcuratorsInner(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -93,6 +106,8 @@ class IdentityResponseFinancialRelationshipsProcuratorsInner(BaseModel):
         _obj = cls.model_validate({
             "type": obj.get("type"),
             "cpfNumber": obj.get("cpfNumber"),
+            "documentNumber": obj.get("documentNumber"),
+            "documentType": obj.get("documentType"),
             "civilName": obj.get("civilName"),
             "socialName": obj.get("socialName")
         })

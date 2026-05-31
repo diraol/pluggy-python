@@ -47,7 +47,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.BoletoManagementApi(api_client)
-    id = '82da0d63-fbc0-4e20-b191-50e6df030875' # str | Boleto primary identifier
+    id = UUID('82da0d63-fbc0-4e20-b191-50e6df030875') # UUID | Boleto primary identifier
 
     try:
         # Cancel Boleto
@@ -65,7 +65,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Boleto primary identifier | 
+ **id** | **UUID**| Boleto primary identifier | 
 
 ### Return type
 
@@ -359,7 +359,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.BoletoManagementApi(api_client)
-    id = '82da0d63-fbc0-4e20-b191-50e6df030875' # str | Boleto primary identifier
+    id = UUID('82da0d63-fbc0-4e20-b191-50e6df030875') # UUID | Boleto primary identifier
 
     try:
         # Get Boleto
@@ -377,7 +377,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Boleto primary identifier | 
+ **id** | **UUID**| Boleto primary identifier | 
 
 ### Return type
 

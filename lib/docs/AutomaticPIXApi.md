@@ -50,8 +50,8 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.AutomaticPIXApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
-    schedule_id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Automatic PIX schedule primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
+    schedule_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Automatic PIX schedule primary identifier
 
     try:
         # Cancel an Automatic PIX schedule
@@ -67,8 +67,8 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment request primary identifier | 
- **schedule_id** | **str**| Automatic PIX schedule primary identifier | 
+ **id** | **UUID**| Payment request primary identifier | 
+ **schedule_id** | **UUID**| Automatic PIX schedule primary identifier | 
 
 ### Return type
 
@@ -128,7 +128,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.AutomaticPIXApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
 
     try:
         # Cancel an automatic PIX consent
@@ -144,7 +144,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment request primary identifier | 
+ **id** | **UUID**| Payment request primary identifier | 
 
 ### Return type
 
@@ -206,7 +206,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.AutomaticPIXApi(api_client)
-    create_automatic_pix_payment_request = {"fixedAmount":100.5,"startDate":"2025-06-10","expiresAt":"2025-10-01T03:00:00Z","isRetryAccepted":true,"firstPayment":{"date":"2025-06-10","description":"Primeiro pagamento","amount":100.5},"interval":"WEEKLY","callbackUrls":null,"recipientId":"05c693bf-c196-47ea-a28c-8251d6bb8a06","isSandbox":false} # CreateAutomaticPixPaymentRequest | 
+    create_automatic_pix_payment_request = {"fixedAmount":100.5,"startDate":"2025-06-10","expiresAt":"2025-10-01","isRetryAccepted":true,"firstPayment":{"date":"2025-06-10","description":"Primeiro pagamento","amount":100.5},"interval":"WEEKLY","callbackUrls":null,"recipientId":"05c693bf-c196-47ea-a28c-8251d6bb8a06","isSandbox":false} # CreateAutomaticPixPaymentRequest | 
 
     try:
         # Create Automatic PIX payment request
@@ -286,7 +286,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.AutomaticPIXApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
     schedule_automatic_pix_payment_request = {"amount":100.5,"date":"2025-06-10","description":"Transferência","clientPaymentId":"external-ref-456","isSandbox":false} # ScheduleAutomaticPixPaymentRequest | 
 
     try:
@@ -305,7 +305,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment request primary identifier | 
+ **id** | **UUID**| Payment request primary identifier | 
  **schedule_automatic_pix_payment_request** | [**ScheduleAutomaticPixPaymentRequest**](ScheduleAutomaticPixPaymentRequest.md)|  | 
 
 ### Return type
@@ -330,7 +330,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payment_request_get_automatic_pix_schedule**
-> AutomaticPixPayment payment_request_get_automatic_pix_schedule(request_id, payment_id)
+> AutomaticPixPaymentDetail payment_request_get_automatic_pix_schedule(request_id, payment_id)
 
 Get an automatic PIX scheduled payment
 
@@ -342,6 +342,7 @@ Recovers an automatic PIX scheduled payment by id
 
 ```python
 import pluggy_sdk
+from pluggy_sdk.models.automatic_pix_payment_detail import AutomaticPixPaymentDetail
 from pluggy_sdk.rest import ApiException
 from pprint import pprint
 
@@ -366,8 +367,8 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.AutomaticPIXApi(api_client)
-    request_id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
-    payment_id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Automatic PIX scheduled payment primary identifier
+    request_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
+    payment_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Automatic PIX scheduled payment primary identifier
 
     try:
         # Get an automatic PIX scheduled payment
@@ -385,12 +386,12 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request_id** | **str**| Payment request primary identifier | 
- **payment_id** | **str**| Automatic PIX scheduled payment primary identifier | 
+ **request_id** | **UUID**| Payment request primary identifier | 
+ **payment_id** | **UUID**| Automatic PIX scheduled payment primary identifier | 
 
 ### Return type
 
-[**AutomaticPixPayment**](AutomaticPixPayment.md)
+[**AutomaticPixPaymentDetail**](AutomaticPixPaymentDetail.md)
 
 ### Authorization
 
@@ -447,7 +448,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.AutomaticPIXApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
 
     try:
         # List Automatic PIX scheduled payments
@@ -465,7 +466,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment request primary identifier | 
+ **id** | **UUID**| Payment request primary identifier | 
 
 ### Return type
 
@@ -526,8 +527,8 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.AutomaticPIXApi(api_client)
-    id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Payment request primary identifier
-    schedule_id = 'd0e8a7f0-6d86-11ea-b77f-2e728ce88125' # str | Automatic PIX schedule primary identifier
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
+    schedule_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Automatic PIX schedule primary identifier
     retry_automatic_pix_payment_request = {"date":"2025-06-10","isSandbox":false} # RetryAutomaticPixPaymentRequest | 
 
     try:
@@ -544,8 +545,8 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| Payment request primary identifier | 
- **schedule_id** | **str**| Automatic PIX schedule primary identifier | 
+ **id** | **UUID**| Payment request primary identifier | 
+ **schedule_id** | **UUID**| Automatic PIX schedule primary identifier | 
  **retry_automatic_pix_payment_request** | [**RetryAutomaticPixPaymentRequest**](RetryAutomaticPixPaymentRequest.md)|  | 
 
 ### Return type
