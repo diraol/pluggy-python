@@ -28,7 +28,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Download OAS
       id: new-oas
@@ -77,7 +77,7 @@ jobs:
 
     - name: Commit new Spec
       if: steps.has-diff.outputs.changed-files == 1
-      uses: stefanzweifel/git-auto-commit-action@v5
+      uses: stefanzweifel/git-auto-commit-action@v7
       with:
         commit_author: "Diego Rabatone Oliveira <diraol@diraol.eng.br>"
         commit_message: "[ci] Update OAS Spec ${{ steps.new-oas.outputs.NEW_VERSION }}"
@@ -85,7 +85,7 @@ jobs:
 
     - name: Generate OpenAPI Python Client
       if: steps.has-diff.outputs.changed-files == 1
-      uses: openapi-generators/openapitools-generator-action@v1
+      uses: openapi-generators/openapitools-generator-action@v1.5.0
       with:
         command-args: "--skip-validate-spec --output=lib --additional-properties=packageName=pluggy_sdk,packageUrl=https://github.com/diraol/pluggy-python,packageVersion=${{ steps.new-oas.outputs.NEW_VERSION }},projectName=pluggy-sdk"
         generator: python
@@ -93,7 +93,7 @@ jobs:
 
     - name: Commit new SDK
       if: steps.has-diff.outputs.changed-files == 1
-      uses: stefanzweifel/git-auto-commit-action@v5
+      uses: stefanzweifel/git-auto-commit-action@v7
       with:
         commit_author: "Diego Rabatone Oliveira <diraol@diraol.eng.br>"
         commit_message: "[ci] Commit new SDK ${{ steps.new-oas.outputs.NEW_VERSION }}"
@@ -103,7 +103,7 @@ jobs:
 
     - name: Set up Python
       if: steps.has-diff.outputs.changed-files == 1
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: "3.x"
 
@@ -132,7 +132,7 @@ jobs:
 
     - name: Store the distribution packages
       if: steps.has-diff.outputs.changed-files == 1
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: python-package-distributions
         path: lib/dist/
@@ -159,7 +159,7 @@ jobs:
         echo "NEW_VERSION=${{needs.GenerateSDK.outputs.NEW_VERSION}}" >> "${GITHUB_OUTPUT}"
 
     - name: Download all the dists
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: python-package-distributions
         path: dist/
@@ -182,12 +182,12 @@ jobs:
 
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: python-package-distributions
         path: dist/
     - name: Sign the dists with Sigstore
-      uses: sigstore/gh-action-sigstore-python@f7ad0af51a5648d09a20d00370f0a91c3bdf8f84
+      uses: sigstore/gh-action-sigstore-python@04cffa1d795717b140764e8b640de88853c92acc  # v3.3.0
       with:
         inputs: >-
           ./dist/*.tar.gz
