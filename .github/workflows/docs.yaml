@@ -38,23 +38,12 @@ jobs:
 
     - name: Install requirements for documentation generation
       run: |
-        python -m pip install --upgrade pip setuptools wheel
-        python -m pip install docutils pydoctor
+        python -m pip install --upgrade pip
+        python -m pip install pdoc
 
-    - name: Generate API documentation with pydoctor
+    - name: Generate API documentation with pdoc
       run: |
-        # Run pydoctor build
-        pydoctor \
-            --project-name=pluggy-sdk \
-            --project-url=https://github.com/$GITHUB_REPOSITORY \
-            --html-viewsource-base=https://github.com/$GITHUB_REPOSITORY/tree/$GITHUB_SHA \
-            --make-html \
-            --html-output=./apidocs \
-            --project-base-dir="$(pwd)" \
-            --docformat=restructuredtext \
-            --theme=readthedocs \
-            --intersphinx=https://docs.python.org/3/objects.inv \
-            ./lib/pluggy_sdk
+        pdoc --output-dir ./apidocs lib/pluggy_sdk
 
     - name: Push API documentation to Github Pages
       uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453  # v4.1.0
