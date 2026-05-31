@@ -140,7 +140,7 @@ jobs:
   publish-to-pypi:
     name: Publish Python 🐍 distribution 📦 to PyPI
     needs: GenerateSDK
-    if: ${{ needs.GenerateSDK.outputs.has_diff }} == 1
+    if: needs.GenerateSDK.outputs.has_diff == '1'
     runs-on: ubuntu-latest
     environment:
       name: pypi
@@ -174,7 +174,7 @@ jobs:
     needs:
       - GenerateSDK
       - publish-to-pypi
-    if: ${{ needs.GenerateSDK.outputs.has_diff }} == 1
+    if: needs.GenerateSDK.outputs.has_diff == '1'
     runs-on: ubuntu-latest
     permissions:
       contents: write  # IMPORTANT: mandatory for making GitHub Releases
