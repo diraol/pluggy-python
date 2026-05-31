@@ -5,6 +5,11 @@ on:  # yamllint disable-line rule:truthy
   schedule:
   - cron:  '0 0 * * 6'
   workflow_dispatch:
+    inputs:
+      force_release:
+        description: 'Force re-release of the current version even if the spec has not changed'
+        type: boolean
+        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -71,6 +76,9 @@ jobs:
       id: has-diff
       run: |
         CHANGED_FILES=$(git status --short | grep pluggy-oas3.json | wc -l)
+        if [[ "${{ inputs.force_release }}" == "true" && "${CHANGED_FILES}" == "0" ]]; then
+          CHANGED_FILES=1
+        fi
         echo "changed-files=${CHANGED_FILES}" >> "${GITHUB_OUTPUT}"
         echo "Changed Files: ${CHANGED_FILES}"
         echo "git status --short"
