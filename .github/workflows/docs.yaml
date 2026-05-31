@@ -39,7 +39,7 @@ jobs:
     - name: Install requirements for documentation generation
       run: |
         python -m pip install --upgrade pip
-        python -m pip install pdoc
+        python -m pip install pdoc -r lib/requirements.txt
 
     - name: Generate API documentation with pdoc
       run: |
