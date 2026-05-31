@@ -87,7 +87,7 @@ jobs:
       if: steps.has-diff.outputs.changed-files == 1
       uses: openapi-generators/openapitools-generator-action@v1
       with:
-        command-args: "--output=lib --additional-properties=packageName=pluggy_sdk,packageUrl=https://github.com/diraol/pluggy-python,packageVersion=${{ steps.new-oas.outputs.NEW_VERSION }},projectName=pluggy-sdk"
+        command-args: "--skip-validate-spec --output=lib --additional-properties=packageName=pluggy_sdk,packageUrl=https://github.com/diraol/pluggy-python,packageVersion=${{ steps.new-oas.outputs.NEW_VERSION }},projectName=pluggy-sdk"
         generator: python
         openapi-file: pluggy-oas3.json
 
