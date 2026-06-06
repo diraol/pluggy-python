@@ -20,7 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from pluggy_sdk.models.update_item_parameters import UpdateItemParameters
+from pluggy_sdk.models.create_item_parameters import CreateItemParameters
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,7 +29,7 @@ class UpdateItem(BaseModel):
     """
     Update Item Request
     """ # noqa: E501
-    parameters: Optional[UpdateItemParameters] = None
+    parameters: Optional[CreateItemParameters] = None
     client_user_id: Optional[StrictStr] = Field(default=None, description="Client's external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use.", alias="clientUserId")
     webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of item changes", alias="webhookUrl")
     products: Optional[List[StrictStr]] = Field(default=None, description="Products to be collected in the connection")
@@ -100,7 +100,7 @@ class UpdateItem(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "parameters": UpdateItemParameters.from_dict(obj["parameters"]) if obj.get("parameters") is not None else None,
+            "parameters": CreateItemParameters.from_dict(obj["parameters"]) if obj.get("parameters") is not None else None,
             "clientUserId": obj.get("clientUserId"),
             "webhookUrl": obj.get("webhookUrl"),
             "products": obj.get("products")

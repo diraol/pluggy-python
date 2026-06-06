@@ -50,7 +50,7 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.WebhookApi(api_client)
-    create_webhook = pluggy_sdk.CreateWebhook() # CreateWebhook | Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.
+    create_webhook = pluggy_sdk.CreateWebhook() # CreateWebhook | Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event.
 
     try:
         # Create
@@ -68,7 +68,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **create_webhook** | [**CreateWebhook**](CreateWebhook.md)| Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. | 
+ **create_webhook** | [**CreateWebhook**](CreateWebhook.md)| Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. | 
 
 ### Return type
 
@@ -372,7 +372,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.WebhookApi(api_client)
     id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | webhook primary identifier
-    create_webhook = pluggy_sdk.CreateWebhook() # CreateWebhook | Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.
+    create_webhook = pluggy_sdk.CreateWebhook() # CreateWebhook | Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event.
 
     try:
         # Update
@@ -391,7 +391,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **UUID**| webhook primary identifier | 
- **create_webhook** | [**CreateWebhook**](CreateWebhook.md)| Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. | 
+ **create_webhook** | [**CreateWebhook**](CreateWebhook.md)| Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. | 
 
 ### Return type
 

@@ -45,7 +45,7 @@ class WebhookApi:
     @validate_call
     def webhooks_create(
         self,
-        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.")],
+        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -63,7 +63,7 @@ class WebhookApi:
 
         Creates a webhook attached to the specific event and provides the notification url
 
-        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)
+        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. (required)
         :type create_webhook: CreateWebhook
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -114,7 +114,7 @@ class WebhookApi:
     @validate_call
     def webhooks_create_with_http_info(
         self,
-        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.")],
+        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -132,7 +132,7 @@ class WebhookApi:
 
         Creates a webhook attached to the specific event and provides the notification url
 
-        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)
+        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. (required)
         :type create_webhook: CreateWebhook
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -183,7 +183,7 @@ class WebhookApi:
     @validate_call
     def webhooks_create_without_preload_content(
         self,
-        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.")],
+        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -201,7 +201,7 @@ class WebhookApi:
 
         Creates a webhook attached to the specific event and provides the notification url
 
-        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)
+        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. (required)
         :type create_webhook: CreateWebhook
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1112,7 +1112,7 @@ class WebhookApi:
     def webhooks_update(
         self,
         id: Annotated[UUID, Field(description="webhook primary identifier")],
-        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.")],
+        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1132,7 +1132,7 @@ class WebhookApi:
 
         :param id: webhook primary identifier (required)
         :type id: UUID
-        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)
+        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. (required)
         :type create_webhook: CreateWebhook
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1186,7 +1186,7 @@ class WebhookApi:
     def webhooks_update_with_http_info(
         self,
         id: Annotated[UUID, Field(description="webhook primary identifier")],
-        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.")],
+        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1206,7 +1206,7 @@ class WebhookApi:
 
         :param id: webhook primary identifier (required)
         :type id: UUID
-        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)
+        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. (required)
         :type create_webhook: CreateWebhook
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1260,7 +1260,7 @@ class WebhookApi:
     def webhooks_update_without_preload_content(
         self,
         id: Annotated[UUID, Field(description="webhook primary identifier")],
-        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event.")],
+        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1280,7 +1280,7 @@ class WebhookApi:
 
         :param id: webhook primary identifier (required)
         :type id: UUID
-        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. (required)
+        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. (required)
         :type create_webhook: CreateWebhook
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

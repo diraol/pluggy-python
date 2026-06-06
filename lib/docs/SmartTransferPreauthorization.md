@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **created_at** | **datetime** | Date when the preauthorization was created | 
 **updated_at** | **datetime** | Date when the preauthorization was updated | 
 **configuration** | [**SmartTransferPreauthorizationConfiguration**](SmartTransferPreauthorizationConfiguration.md) |  | [optional] 
-**error_detail** | [**SmartTransferPreauthorizationErrorDetail**](SmartTransferPreauthorizationErrorDetail.md) |  | [optional] 
+**error_detail** | [**SchedulePaymentErrorDetail**](SchedulePaymentErrorDetail.md) |  | [optional] 
 
 ## Example
 

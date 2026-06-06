@@ -23,9 +23,9 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.connector import Connector
 from pluggy_sdk.models.payment_recipient import PaymentRecipient
+from pluggy_sdk.models.schedule_payment_error_detail import SchedulePaymentErrorDetail
 from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls
 from pluggy_sdk.models.smart_transfer_preauthorization_configuration import SmartTransferPreauthorizationConfiguration
-from pluggy_sdk.models.smart_transfer_preauthorization_error_detail import SmartTransferPreauthorizationErrorDetail
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -44,7 +44,7 @@ class SmartTransferPreauthorization(BaseModel):
     created_at: datetime = Field(description="Date when the preauthorization was created", alias="createdAt")
     updated_at: datetime = Field(description="Date when the preauthorization was updated", alias="updatedAt")
     configuration: Optional[SmartTransferPreauthorizationConfiguration] = None
-    error_detail: Optional[SmartTransferPreauthorizationErrorDetail] = Field(default=None, alias="errorDetail")
+    error_detail: Optional[SchedulePaymentErrorDetail] = Field(default=None, alias="errorDetail")
     __properties: ClassVar[List[str]] = ["id", "status", "consentUrl", "clientPreauthorizationId", "callbackUrls", "recipients", "connector", "createdAt", "updatedAt", "configuration", "errorDetail"]
 
     @field_validator('status')
@@ -134,7 +134,7 @@ class SmartTransferPreauthorization(BaseModel):
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt"),
             "configuration": SmartTransferPreauthorizationConfiguration.from_dict(obj["configuration"]) if obj.get("configuration") is not None else None,
-            "errorDetail": SmartTransferPreauthorizationErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None
+            "errorDetail": SchedulePaymentErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None
         })
         return _obj
 
