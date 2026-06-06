@@ -3377,6 +3377,48 @@
                       "code": 400
                     }
                   },
+                  "invalidUrl": {
+                    "summary": "Webhook URL is malformed or not https",
+                    "value": {
+                      "message": "Webhook url must be valid URL address and not localhost",
+                      "code": 400
+                    }
+                  },
+                  "nonHttpsUrl": {
+                    "summary": "Webhook URL must use https",
+                    "value": {
+                      "message": "Webhook url must be a https secured url",
+                      "code": 400
+                    }
+                  },
+                  "ipLiteralHost": {
+                    "summary": "Webhook URL host is an IP literal",
+                    "value": {
+                      "message": "Webhook url host can't be an IP address",
+                      "code": 400
+                    }
+                  },
+                  "reservedHost": {
+                    "summary": "Webhook URL host is localhost or a reserved/internal name",
+                    "value": {
+                      "message": "Webhook url host can't be localhost or a reserved/internal name",
+                      "code": 400
+                    }
+                  },
+                  "privateAddress": {
+                    "summary": "Webhook URL host resolves to a non-public address",
+                    "value": {
+                      "message": "Webhook url can't resolve to a private, loopback, link-local or reserved address",
+                      "code": 400
+                    }
+                  },
+                  "unresolvableHost": {
+                    "summary": "Webhook URL host cannot be resolved via DNS",
+                    "value": {
+                      "message": "Webhook url host could not be resolved",
+                      "code": 400
+                    }
+                  },
                   "alreadyExists": {
                     "summary": "Webhook event already created for the specified url",
                     "value": {
@@ -3539,9 +3581,44 @@
                 },
                 "examples": {
                   "invalidUrl": {
-                    "summary": "Invalid webhook URL",
+                    "summary": "Webhook URL is malformed or not https",
                     "value": {
                       "message": "Webhook url must be valid URL address and not localhost",
+                      "code": 400
+                    }
+                  },
+                  "nonHttpsUrl": {
+                    "summary": "Webhook URL must use https",
+                    "value": {
+                      "message": "Webhook url must be a https secured url",
+                      "code": 400
+                    }
+                  },
+                  "ipLiteralHost": {
+                    "summary": "Webhook URL host is an IP literal",
+                    "value": {
+                      "message": "Webhook url host can't be an IP address",
+                      "code": 400
+                    }
+                  },
+                  "reservedHost": {
+                    "summary": "Webhook URL host is localhost or a reserved/internal name",
+                    "value": {
+                      "message": "Webhook url host can't be localhost or a reserved/internal name",
+                      "code": 400
+                    }
+                  },
+                  "privateAddress": {
+                    "summary": "Webhook URL host resolves to a non-public address",
+                    "value": {
+                      "message": "Webhook url can't resolve to a private, loopback, link-local or reserved address",
+                      "code": 400
+                    }
+                  },
+                  "unresolvableHost": {
+                    "summary": "Webhook URL host cannot be resolved via DNS",
+                    "value": {
+                      "message": "Webhook url host could not be resolved",
                       "code": 400
                     }
                   },
@@ -7477,7 +7554,7 @@
             }
           }
         },
-        "description": "Expects the following webhooks parameters:\nevent: One of the event types that are supported.\nurl: An https url that will receive the POST of the event.\nheaders: optional key-value pairs to send with the POST of the event.",
+        "description": "Expects the following webhooks parameters:\nevent: One of the event types that are supported.\nurl: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected.\nheaders: optional key-value pairs to send with the POST of the event.",
         "required": true
       }
     },
