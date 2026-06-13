@@ -3692,7 +3692,7 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/CreateWebhook"
+          "$ref": "#/components/requestBodies/UpdateWebhook"
         },
         "x-readme": {
           "code-samples": [
@@ -7556,6 +7556,17 @@
         },
         "description": "Expects the following webhooks parameters:\nevent: One of the event types that are supported.\nurl: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected.\nheaders: optional key-value pairs to send with the POST of the event.",
         "required": true
+      },
+      "UpdateWebhook": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UpdateWebhook"
+            }
+          }
+        },
+        "description": "All fields are optional. Send only the ones you want to change.\nevent: One of the supported event types.\nurl: An https url that will receive the POST of the event.\nheaders: optional key-value pairs to send with the POST of the event. Send null to clear them.\nenabled: re-enable a webhook that was previously disabled (after repeated delivery failures or via internal cleanup).",
+        "required": true
       }
     },
     "securitySchemes": {
@@ -7597,6 +7608,102 @@
             "type": "number",
             "format": "double",
             "description": "Valor de operação contratada em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite pactuado de cheque especial."
+          },
+          "hasReservedBalance": {
+            "type": "boolean",
+            "nullable": true,
+            "description": "Whether the account has any active reserved balances (\"saldo reservado\"), such as goal-based savings (\"caixinhas\") or judicial holds"
+          },
+          "reservedBalances": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ReservedBalance"
+            },
+            "description": "Funds reserved/earmarked on the account. Only present when hasReservedBalance is true and the institution exposes the data"
+          }
+        },
+        "type": "object"
+      },
+      "ReservedBalance": {
+        "description": "Funds reserved/earmarked on a bank account (for example, goal-based savings or judicial holds)",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User-given name for the reservation (for example, 'Caixinha Para Férias')"
+          },
+          "identification": {
+            "type": "string",
+            "description": "Unique identifier of the reservation"
+          },
+          "availableAmounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReservedBalanceAmount"
+            },
+            "description": "Available amount(s) in the reservation, one entry per remuneration band"
+          }
+        },
+        "type": "object",
+        "required": [
+          "identification",
+          "availableAmounts"
+        ]
+      },
+      "ReservedBalanceAmount": {
+        "description": "A single amount within a reserved balance, optionally with its remuneration",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "description": "Reserved amount"
+          },
+          "currencyCode": {
+            "type": "string",
+            "description": "Amount currency code (for example, BRL)"
+          },
+          "remuneration": {
+            "$ref": "#/components/schemas/ReservedBalanceRemuneration"
+          }
+        },
+        "type": "object",
+        "required": [
+          "amount",
+          "currencyCode"
+        ]
+      },
+      "ReservedBalanceRemuneration": {
+        "description": "Remuneration applied to a reserved balance",
+        "properties": {
+          "preFixedRate": {
+            "type": "number",
+            "format": "double",
+            "description": "Pre-fixed remuneration rate, as a fraction (for example, 0.3 = 30%)"
+          },
+          "postFixedIndexerPercentage": {
+            "type": "number",
+            "format": "double",
+            "description": "Post-fixed indexer percentage, as a fraction (for example, 1.1 = 110% of the indexer)"
+          },
+          "rateType": {
+            "type": "string",
+            "description": "Rate type (LINEAR or EXPONENCIAL)"
+          },
+          "indexer": {
+            "type": "string",
+            "description": "Indexer used as remuneration reference (for example, CDI, IPCA, SELIC)"
+          },
+          "calculation": {
+            "type": "string",
+            "description": "Calculation basis (DIAS_UTEIS or DIAS_CORRIDOS)"
+          },
+          "ratePeriodicity": {
+            "type": "string",
+            "description": "Rate periodicity (MENSAL, ANUAL, DIARIO or SEMESTRAL)"
+          },
+          "indexerAdditionalInfo": {
+            "type": "string",
+            "description": "Additional indexer info, required when indexer is OUTROS"
           }
         },
         "type": "object"
@@ -7641,6 +7748,10 @@
             "type": "number",
             "format": "double",
             "description": "Maximum amount that can be spent"
+          },
+          "isLimitFlexible": {
+            "type": "boolean",
+            "description": "Indicates whether the credit limit can be adjusted (e.g. a customer can request an increase). Only returned when reported by the institution."
           },
           "status": {
             "enum": [
@@ -7768,7 +7879,7 @@
               "CREDIT"
             ],
             "type": "string",
-            "description": "Type of account, may be BANK or CREDIT",
+            "description": "Top-level account category.\n- `BANK`: deposit accounts (checking, savings). The `bankData` object is populated.\n- `CREDIT`: credit-card accounts. The `creditData` object is populated.",
             "example": "BANK"
           },
           "subtype": {
@@ -7778,7 +7889,7 @@
               "CREDIT_CARD"
             ],
             "type": "string",
-            "description": "Subtype of corresponding type of account",
+            "description": "Account subtype within its `type`.\n- `CHECKING_ACCOUNT`: conta corrente (`type=BANK`).\n- `SAVINGS_ACCOUNT`: conta poupança (`type=BANK`).\n- `CREDIT_CARD`: credit card account (`type=CREDIT`). For these the `number` field is masked to the last 4 digits.",
             "example": "SAVINGS_ACCOUNT"
           },
           "number": {
@@ -7828,6 +7939,18 @@
           },
           "creditData": {
             "$ref": "#/components/schemas/CreditData"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the account was first created in Pluggy",
+            "example": "2024-01-15T13:21:08.456Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of the last update of the account data",
+            "example": "2024-07-22T18:05:11.328Z"
           }
         },
         "type": "object",
@@ -7839,7 +7962,9 @@
           "name",
           "balance",
           "itemId",
-          "currencyCode"
+          "currencyCode",
+          "createdAt",
+          "updatedAt"
         ]
       },
       "CredentialSelectOption": {
@@ -8100,7 +8225,8 @@
           "supportsPaymentInitiation": true,
           "supportsScheduledPayments": true,
           "supportsSmartTransfers": true,
-          "supportsBoletoManagement": true
+          "supportsBoletoManagement": true,
+          "supportsAutomaticPix": true
         }
       },
       "ConnectorListResponse": {
@@ -8540,6 +8666,9 @@
           },
           "loans": {
             "$ref": "#/components/schemas/StatusDetailProduct"
+          },
+          "accountStatements": {
+            "$ref": "#/components/schemas/StatusDetailProduct"
           }
         },
         "example": {
@@ -8563,7 +8692,11 @@
             "isUpdated": true,
             "lastUpdatedAt": "2022-03-08T22:43:04.796Z"
           },
-          "paymentData": null
+          "paymentData": null,
+          "accountStatements": {
+            "isUpdated": true,
+            "lastUpdatedAt": "2022-03-08T22:43:04.796Z"
+          }
         }
       },
       "StatusDetailProduct": {
@@ -8641,42 +8774,7 @@
             "description": "Url to be notified of item changes"
           },
           "event": {
-            "enum": [
-              "all",
-              "item/created",
-              "item/updated",
-              "item/error",
-              "item/deleted",
-              "item/waiting_user_input",
-              "item/waiting_user_action",
-              "item/login_succeeded",
-              "connector/status_updated",
-              "transactions/created",
-              "transactions/updated",
-              "transactions/deleted",
-              "payment_intent/created",
-              "payment_intent/completed",
-              "payment_intent/waiting_payer_authorization",
-              "payment_intent/error",
-              "payment_request/updated",
-              "scheduled_payment/created",
-              "scheduled_payment/completed",
-              "scheduled_payment/error",
-              "scheduled_payment/canceled",
-              "scheduled_payment/all_completed",
-              "scheduled_payment/all_created",
-              "boleto/updated",
-              "automatic_pix_payment/created",
-              "automatic_pix_payment/completed",
-              "automatic_pix_payment/error",
-              "automatic_pix_payment/canceled",
-              "smart_transfer_preauthorization/completed",
-              "smart_transfer_preauthorization/error",
-              "smart_transfer_payment/completed",
-              "smart_transfer_payment/error"
-            ],
-            "type": "string",
-            "description": ""
+            "$ref": "#/components/schemas/WebhookEventType"
           },
           "disabledAt": {
             "type": "string",
@@ -8709,42 +8807,7 @@
             "description": ""
           },
           "event": {
-            "enum": [
-              "all",
-              "item/created",
-              "item/updated",
-              "item/error",
-              "item/deleted",
-              "item/waiting_user_input",
-              "item/waiting_user_action",
-              "item/login_succeeded",
-              "connector/status_updated",
-              "transactions/created",
-              "transactions/updated",
-              "transactions/deleted",
-              "payment_intent/created",
-              "payment_intent/completed",
-              "payment_intent/waiting_payer_authorization",
-              "payment_intent/error",
-              "payment_request/updated",
-              "scheduled_payment/created",
-              "scheduled_payment/completed",
-              "scheduled_payment/error",
-              "scheduled_payment/canceled",
-              "scheduled_payment/all_completed",
-              "scheduled_payment/all_created",
-              "boleto/updated",
-              "automatic_pix_payment/created",
-              "automatic_pix_payment/completed",
-              "automatic_pix_payment/error",
-              "automatic_pix_payment/canceled",
-              "smart_transfer_preauthorization/completed",
-              "smart_transfer_preauthorization/error",
-              "smart_transfer_payment/completed",
-              "smart_transfer_payment/error"
-            ],
-            "type": "string",
-            "description": ""
+            "$ref": "#/components/schemas/WebhookEventType"
           },
           "headers": {
             "type": "object",
@@ -8756,6 +8819,33 @@
           "url",
           "event"
         ]
+      },
+      "UpdateWebhook": {
+        "description": "Partial update of a webhook. All fields are optional.",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "New https url that will receive the POST of the event"
+          },
+          "event": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WebhookEventType"
+              }
+            ],
+            "description": "New event the webhook should listen to"
+          },
+          "headers": {
+            "type": "object",
+            "description": "HTTP headers to include in webhook notifications. Send null to clear the existing headers.",
+            "nullable": true
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Re-enable a webhook that was previously disabled. When set to true, clears the disabledAt timestamp."
+          }
+        },
+        "type": "object"
       },
       "ParameterValidationError": {
         "description": "",
@@ -8921,7 +9011,7 @@
           },
           "paymentMethod": {
             "type": "string",
-            "description": "Type of transfer. TED, DOC, PIX, TEV or BOLETO"
+            "description": "Payment rail used for the transaction.\n- `PIX`: instant transfer over the Brazilian Pix system.\n- `TED`: Transferência Eletrônica Disponível (same-day inter-bank transfer).\n- `DOC`: Documento de Ordem de Crédito (D+1 inter-bank transfer, deprecated by the Central Bank).\n- `TEV`: Transferência Eletrônica de Valores (intra-bank transfer between accounts of the same institution).\n- `BOLETO`: Brazilian bank slip payment."
           },
           "boletoMetadata": {
             "$ref": "#/components/schemas/PaymentDataBoletoMetadata"
@@ -8997,6 +9087,11 @@
             "type": "string",
             "description": "Clean description of the transaction"
           },
+          "descriptionRaw": {
+            "type": "string",
+            "nullable": true,
+            "description": "Original transaction description as returned by the institution, before any cleanup or normalization. May be null when not provided by the institution."
+          },
           "currencyCode": {
             "type": "string",
             "description": "Currency ISO code"
@@ -9018,7 +9113,7 @@
           },
           "type": {
             "type": "string",
-            "description": "Type of the transaction. DEBIT (outflow) or CREDIT (inflow)",
+            "description": "Direction of the movement from the account holder's perspective.\n- `CREDIT`: money entered the account (deposits, incoming transfers, refunds).\n- `DEBIT`: money left the account (payments, withdrawals, outgoing transfers, credit-card purchases).\n\nNote: for credit-card accounts the convention is inverted at the institution but Pluggy normalizes the value so purchases are always `DEBIT` and payments to the card statement are `CREDIT`.",
             "enum": [
               "DEBIT",
               "CREDIT"
@@ -9027,15 +9122,19 @@
           "balance": {
             "type": "number",
             "format": "double",
-            "description": "Balance after the transaction"
+            "description": "Account balance immediately after the transaction was posted. May be null when the institution does not return a running balance."
           },
           "providerCode": {
             "type": "string",
-            "description": "Institution provided code"
+            "description": "Institution-provided identifier or code for the transaction (e.g. NSU, transaction number on the bank statement). Format varies per institution."
           },
           "status": {
             "type": "string",
-            "description": "Status of the movement. POSTED / PENDING"
+            "description": "Settlement status of the movement.\n- `POSTED`: the transaction is confirmed/settled at the institution.\n- `PENDING`: the transaction is authorized but not yet settled (typical for credit-card purchases not yet included in a closed bill).",
+            "enum": [
+              "POSTED",
+              "PENDING"
+            ]
           },
           "category": {
             "type": "string",
@@ -9056,11 +9155,37 @@
           },
           "operationType": {
             "type": "string",
-            "description": "Type of operation classified by the institution."
+            "nullable": true,
+            "description": "Type of operation classified by the institution. Only returned for Open Finance connectors."
+          },
+          "operationTypeAdditionalInfo": {
+            "type": "string",
+            "nullable": true,
+            "description": "Complementary, free-form information about the operation type, as provided by the institution. Varies by institution (a sub-type code or a description). Only returned for Open Finance connectors."
           },
           "providerId": {
             "type": "string",
             "description": "Provider's identifier for the transaction. Only returned for Open Finance connectors."
+          },
+          "accountId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifier of the account this transaction belongs to."
+          },
+          "order": {
+            "type": "number",
+            "format": "integer",
+            "description": "Sequential position of the transaction within the same day, used to preserve ordering when multiple transactions share the same date."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the transaction was first ingested by Pluggy."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of the last update of the transaction data."
           }
         },
         "type": "object",
@@ -9069,7 +9194,10 @@
           "description",
           "currencyCode",
           "amount",
-          "date"
+          "date",
+          "accountId",
+          "createdAt",
+          "updatedAt"
         ],
         "example": {
           "id": "6ec156fe-e8ac-4d9a-a4b3-7770529ab01c",
@@ -9370,7 +9498,7 @@
           },
           "type": {
             "type": "string",
-            "description": "Type of transactions",
+            "description": "Operation performed on the investment position.\n- `BUY`: subscription / purchase of new quotas.\n- `SELL`: redemption / sale of quotas.\n- `TRANSFER`: portability or internal transfer between accounts (the `amount` field may be null).\n- `TAX`: tax withholdings such as IR or IOF.\n- `INTEREST`: interest or yield credited to the position.\n- `AMORTIZATION`: principal repayment (typical of fixed-income amortizing bonds).",
             "enum": [
               "BUY",
               "SELL",
@@ -9382,7 +9510,7 @@
           },
           "movementType": {
             "type": "string",
-            "description": "Type of movement of the transaction",
+            "description": "Cash-flow direction of the transaction from the holder's perspective.\n- `CREDIT`: money goes into the position (defaults for `BUY`).\n- `DEBIT`: money leaves the position (defaults for `SELL`, `TAX`, `TRANSFER`, `INTEREST`, `AMORTIZATION`).",
             "enum": [
               "CREDIT",
               "DEBIT"
@@ -9564,7 +9692,7 @@
               "OTHER"
             ],
             "type": "string",
-            "description": "Investment Asset type"
+            "description": "Investment asset class.\n- `MUTUAL_FUND`: actively managed pooled investment funds (FIM, FIA, FIC).\n- `EQUITY`: stocks and equity-like assets traded on a stock exchange.\n- `ETF`: Exchange Traded Funds.\n- `FIXED_INCOME`: fixed income products such as CDB, LCI, LCA, debentures, Tesouro Direto.\n- `COE`: Certificado de Operações Estruturadas (structured notes).\n- `SECURITY`: private pension / previdência products (PGBL, VGBL).\n- `OTHER`: any asset not covered by the categories above."
           },
           "subtype": {
             "enum": [
@@ -9599,7 +9727,7 @@
               "OTHER"
             ],
             "type": "string",
-            "description": "Investment subtype, depends on the type"
+            "description": "Specific instrument within a `type`. Possible groupings:\n\n**EQUITY**: `STOCK` (ação), `BDR` (Brazilian Depositary Receipt), `REAL_ESTATE_FUND` (FII), `DERIVATIVES`, `OPTION`.\n\n**ETF**: `ETF`.\n\n**FIXED_INCOME**: `TREASURY` (Tesouro Direto), `CDB`, `LCI`, `LCA`, `LC`, `LF`, `CRI`, `CRA`, `DEBENTURES`, `CORPORATE_DEBT`.\n\n**MUTUAL_FUND**: `INVESTMENT_FUND`, `MULTIMARKET_FUND`, `FIXED_INCOME_FUND`, `STOCK_FUND`, `ETF_FUND`, `OFFSHORE_FUND`, `FIP_FUND`, `EXCHANGE_FUND`, `FI_INFRA`, `FI_AGRO`.\n\n**COE**: `STRUCTURED_NOTE`.\n\n**SECURITY**: `RETIREMENT` (PGBL/VGBL).\n\n**OTHER**: `OTHER`."
           },
           "number": {
             "type": "string",
@@ -9721,6 +9849,11 @@
             "format": "date-time",
             "description": "The date that the investment was purchased"
           },
+          "gracePeriodDate": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "description": "The date when the grace period ends (fixed-income investments only)"
+          },
           "rate": {
             "type": "number",
             "format": "double",
@@ -9737,7 +9870,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Current status of the investment enum value",
+            "description": "Current lifecycle status of the investment.\n- `ACTIVE`: the investment is open and currently held by the owner.\n- `PENDING`: the operation has been requested but is not yet settled (e.g. a fund subscription within the settlement window).\n- `TOTAL_WITHDRAWAL`: the position has been fully redeemed/withdrawn; balance is zero.",
             "enum": [
               "ACTIVE",
               "PENDING",
@@ -11547,6 +11680,278 @@
         ],
         "example": {}
       },
+      "PaymentRequestStatus": {
+        "type": "string",
+        "description": "Lifecycle of a payment request.\n- `CREATED`: the request was created and is waiting for a payment intent.\n- `IN_PROGRESS`: a payment intent is being processed by the institution.\n- `WAITING_PAYER_AUTHORIZATION`: the payer must authorize the payment at the institution.\n- `AUTHORIZED`: only for Automatic PIX. The recurring consent was authorized; individual payments will be executed under it.\n- `SCHEDULED`: the payment is scheduled for a future date.\n- `COMPLETED`: the payment was confirmed by the institution.\n- `ERROR`: the payment failed (see `errorDetail`).\n- `REFUND_IN_PROGRESS`: a refund was requested and is being processed.\n- `REFUNDED`: the refund was completed.\n- `REFUND_ERROR`: the refund failed.\n- `EXPIRED`: the request expired without being paid.\n- `CANCELED`: the request was canceled.",
+        "enum": [
+          "CREATED",
+          "IN_PROGRESS",
+          "WAITING_PAYER_AUTHORIZATION",
+          "AUTHORIZED",
+          "SCHEDULED",
+          "COMPLETED",
+          "ERROR",
+          "REFUND_IN_PROGRESS",
+          "REFUNDED",
+          "REFUND_ERROR",
+          "EXPIRED",
+          "CANCELED"
+        ]
+      },
+      "PaymentCustomerType": {
+        "type": "string",
+        "enum": [
+          "INDIVIDUAL",
+          "BUSINESS"
+        ],
+        "description": "Customer type.\n- `INDIVIDUAL`: identified by `cpf`.\n- `BUSINESS`: identified by `cnpj`."
+      },
+      "AutomaticPixInterval": {
+        "type": "string",
+        "enum": [
+          "WEEKLY",
+          "MONTHLY",
+          "QUARTERLY",
+          "SEMESTER",
+          "YEARLY"
+        ],
+        "description": "Permitted frequency for recurring PIX payments under a consent."
+      },
+      "AutomaticPixPaymentStatus": {
+        "type": "string",
+        "enum": [
+          "SCHEDULED",
+          "CREATED",
+          "COMPLETED",
+          "CANCELED",
+          "ERROR"
+        ],
+        "description": "Status of an individual recurring PIX payment.\n- `SCHEDULED`: the payment has been scheduled at the institution.\n- `CREATED`: the payment is created and pending execution.\n- `COMPLETED`: the payment was confirmed.\n- `CANCELED`: the payment was canceled.\n- `ERROR`: the payment failed (see `errorDetail`)."
+      },
+      "SmartTransferPaymentStatus": {
+        "type": "string",
+        "description": "Lifecycle of a Smart Transfer payment. Narrower than `PaymentIntentStatus`: Smart Transfer payments operate under an already-authorized preauthorization, so consent-collection statuses (`STARTED`, `ENQUEUED`, `CONSENT_AWAITING_AUTHORIZATION`) and consent-revocation statuses (`REJECTED`, `REVOKED`, `CONSUMED`) do not apply.\n- `CONSENT_AUTHORIZED`: the payment was accepted under the preauthorization and is ready to be processed.\n- `CONSENT_REJECTED`: the preauthorization was rejected at execution time.\n- `PAYMENT_PENDING`: the payment was submitted to the institution and is awaiting confirmation.\n- `PAYMENT_PARTIALLY_ACCEPTED`: the payment was accepted but still needs an additional authorization.\n- `PAYMENT_SETTLEMENT_PROCESSING`: the settlement is being processed.\n- `PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT`: the funds were debited from the payer account; awaiting clearing.\n- `PAYMENT_COMPLETED`: the payment was confirmed by the institution.\n- `PAYMENT_REJECTED`: the payment was rejected after consent was authorized.\n- `ERROR`: an unexpected error occurred during the flow.\n- `CANCELED`: the payment was canceled.",
+        "enum": [
+          "CONSENT_AUTHORIZED",
+          "CONSENT_REJECTED",
+          "PAYMENT_PENDING",
+          "PAYMENT_PARTIALLY_ACCEPTED",
+          "PAYMENT_SETTLEMENT_PROCESSING",
+          "PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT",
+          "PAYMENT_COMPLETED",
+          "PAYMENT_REJECTED",
+          "ERROR",
+          "CANCELED"
+        ]
+      },
+      "PaymentIntentStatus": {
+        "type": "string",
+        "description": "Lifecycle of a payment intent. The flow goes from consent collection (CONSENT_*) to payment execution (PAYMENT_*).\n\n**Consent phase**\n- `STARTED`: the consent process started at Pluggy.\n- `ENQUEUED`: the payment is enqueued waiting for the consent flow to be initiated.\n- `CONSENT_AWAITING_AUTHORIZATION`: the payer must complete the authorization at the institution (see `consentUrl`).\n- `CONSENT_AUTHORIZED`: the consent was granted by the payer.\n- `CONSENT_REJECTED`: the consent was rejected by the payer or the institution.\n\n**Payment phase**\n- `PAYMENT_PENDING`: the payment was submitted to the institution and is waiting confirmation.\n- `PAYMENT_PARTIALLY_ACCEPTED`: the payment was accepted but still needs an additional authorization (e.g. multi-signature accounts).\n- `PAYMENT_SETTLEMENT_PROCESSING`: the settlement is being processed.\n- `PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT`: the funds were debited from the payer account; awaiting clearing.\n- `PAYMENT_COMPLETED`: the payment was confirmed by the institution.\n- `PAYMENT_REJECTED`: the payment was rejected after consent was authorized.\n\n**Terminal / other**\n- `REJECTED`: generic rejected status (institution-specific reason in `errorDetail`).\n- `ERROR`: an unexpected error occurred during the flow.\n- `CANCELED`: the intent was canceled.\n- `REVOKED`: the consent was revoked after authorization (recurring payments only).\n- `CONSUMED`: the consent was fully consumed (recurring payments reached their end).",
+        "enum": [
+          "STARTED",
+          "ENQUEUED",
+          "CONSENT_AWAITING_AUTHORIZATION",
+          "CONSENT_AUTHORIZED",
+          "CONSENT_REJECTED",
+          "PAYMENT_PENDING",
+          "PAYMENT_PARTIALLY_ACCEPTED",
+          "PAYMENT_SETTLEMENT_PROCESSING",
+          "PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT",
+          "PAYMENT_COMPLETED",
+          "PAYMENT_REJECTED",
+          "REJECTED",
+          "ERROR",
+          "CANCELED",
+          "REVOKED",
+          "CONSUMED"
+        ]
+      },
+      "WebhookEventType": {
+        "type": "string",
+        "enum": [
+          "all",
+          "item/created",
+          "item/updated",
+          "item/error",
+          "item/deleted",
+          "item/waiting_user_input",
+          "item/waiting_user_action",
+          "item/login_succeeded",
+          "connector/status_updated",
+          "transactions/created",
+          "transactions/updated",
+          "transactions/deleted",
+          "payment_intent/created",
+          "payment_intent/completed",
+          "payment_intent/waiting_payer_authorization",
+          "payment_intent/error",
+          "payment_request/updated",
+          "scheduled_payment/created",
+          "scheduled_payment/completed",
+          "scheduled_payment/error",
+          "scheduled_payment/canceled",
+          "scheduled_payment/all_completed",
+          "scheduled_payment/all_created",
+          "boleto/updated",
+          "automatic_pix_payment/created",
+          "automatic_pix_payment/completed",
+          "automatic_pix_payment/error",
+          "automatic_pix_payment/canceled",
+          "smart_transfer_preauthorization/completed",
+          "smart_transfer_preauthorization/error",
+          "smart_transfer_payment/completed",
+          "smart_transfer_payment/error"
+        ],
+        "description": "Event the webhook subscribes to. Use `all` to receive every event for the client. Events are grouped by topic:\n\n**item/** – Lifecycle of an item (a connection to a financial institution).\n- `item/created`: a new item was created.\n- `item/updated`: the item finished an execution with new data.\n- `item/error`: the execution finished with an error (see the payload's `error` field).\n- `item/deleted`: the item was deleted.\n- `item/waiting_user_input`: the item needs additional credentials/MFA from the end user.\n- `item/waiting_user_action`: the item needs the end user to perform an action on the institution side.\n- `item/login_succeeded`: the credentials were accepted by the institution (data may still be syncing).\n\n**connector/** – Connector-level events.\n- `connector/status_updated`: a connector's health status changed (ONLINE/OFFLINE/UNSTABLE).\n\n**transactions/** – Account transaction lifecycle.\n- `transactions/created` / `transactions/updated` / `transactions/deleted`: a transaction was inserted, modified or removed during an item execution.\n\n**payment_intent/** – Payment Initiation flow (single PIX).\n- `payment_intent/created`: a payment intent was created.\n- `payment_intent/completed`: the payment was confirmed by the institution.\n- `payment_intent/waiting_payer_authorization`: the payer still needs to authorize the payment.\n- `payment_intent/error`: the payment was rejected or failed.\n\n**payment_request/** – Aggregate payment request state.\n- `payment_request/updated`: the overall status of a payment request changed.\n\n**scheduled_payment/** – Scheduled (recurring or future) payments.\n- `scheduled_payment/created` / `completed` / `error` / `canceled`: lifecycle of a single scheduled payment.\n- `scheduled_payment/all_created` / `scheduled_payment/all_completed`: emitted once when every scheduled payment in a series reaches the same terminal state.\n\n**boleto/** – Boleto status updates.\n- `boleto/updated`: the boleto data was updated (e.g. paid, expired, amount changed).\n\n**automatic_pix_payment/** – Recurring PIX (PIX Automático) individual payments.\n- `automatic_pix_payment/created`: a new recurring payment was scheduled.\n- `automatic_pix_payment/completed`: the recurring payment was confirmed.\n- `automatic_pix_payment/error`: the recurring payment failed.\n- `automatic_pix_payment/canceled`: the recurring payment was canceled (by user, expiration or revoked consent).\n\n**smart_transfer_preauthorization/** – Smart Transfer pre-authorization (consent setup).\n- `smart_transfer_preauthorization/completed`: the pre-authorization was accepted.\n- `smart_transfer_preauthorization/error`: the pre-authorization failed.\n\n**smart_transfer_payment/** – Smart Transfer individual payments executed under an active pre-authorization.\n- `smart_transfer_payment/completed`: the transfer was successful.\n- `smart_transfer_payment/error`: the transfer failed."
+      },
+      "SmartAccount": {
+        "type": "object",
+        "description": "Pluggy Smart Account (escrow account) attached to a payment request. Receives funds and lets the client orchestrate splits and withdrawals.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "agency": {
+            "type": "string",
+            "description": "Bank agency of the smart account"
+          },
+          "number": {
+            "type": "string",
+            "description": "Account number"
+          },
+          "verifyingDigit": {
+            "type": "string",
+            "description": "Account verifying digit"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "CHECKING_ACCOUNT"
+            ],
+            "description": "Smart accounts are always checking accounts"
+          },
+          "isSandbox": {
+            "type": "boolean"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Legal name of the smart account holder. Only returned in detailed views."
+          },
+          "pixKey": {
+            "type": "string",
+            "description": "PIX key associated with the smart account"
+          }
+        },
+        "required": [
+          "id",
+          "agency",
+          "number",
+          "verifyingDigit",
+          "type",
+          "isSandbox"
+        ]
+      },
+      "Debtor": {
+        "type": "object",
+        "description": "Information about the payer's account, as returned by the institution after the payment is completed. Only populated for `PAYMENT_COMPLETED` payment intents on connectors that expose this data.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true,
+            "description": "Holder name"
+          },
+          "taxNumber": {
+            "type": "string",
+            "nullable": true,
+            "description": "Obfuscated CPF/CNPJ of the payer"
+          },
+          "bankAccount": {
+            "type": "object",
+            "properties": {
+              "agency": {
+                "type": "string",
+                "nullable": true,
+                "description": "Branch number"
+              },
+              "account": {
+                "type": "string",
+                "nullable": true,
+                "description": "Account number"
+              },
+              "name": {
+                "type": "string",
+                "nullable": true,
+                "description": "Bank name"
+              }
+            }
+          }
+        }
+      },
+      "PixQrPaymentRecipient": {
+        "type": "object",
+        "description": "Payment recipient inferred from a PIX QR code (only the merchant name is exposed).",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "PIX_QR_CODE"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Merchant name decoded from the PIX QR code"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "BoletoPaymentRecipient": {
+        "type": "object",
+        "description": "Payment recipient inferred from a boleto.",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "BOLETO"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Recipient name from the boleto"
+          },
+          "taxNumber": {
+            "type": "string",
+            "description": "Recipient CPF or CNPJ from the boleto"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "PaymentRequestRecipient": {
+        "description": "Recipient embedded inside a payment request. Polymorphic depending on the kind of payment.\n- `BANK_ACCOUNT`: a registered bank-account recipient (see `PaymentRecipient`).\n- `PIX_QR_CODE`: recipient derived from a PIX QR code attached to the request.\n- `BOLETO`: recipient derived from a boleto attached to the request.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/PaymentRecipient"
+          },
+          {
+            "$ref": "#/components/schemas/PixQrPaymentRecipient"
+          },
+          {
+            "$ref": "#/components/schemas/BoletoPaymentRecipient"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "BANK_ACCOUNT": "#/components/schemas/PaymentRecipient",
+            "PIX_QR_CODE": "#/components/schemas/PixQrPaymentRecipient",
+            "BOLETO": "#/components/schemas/BoletoPaymentRecipient"
+          }
+        }
+      },
       "PaymentRequest": {
         "description": "Response with information related to a payment request",
         "properties": {
@@ -11567,19 +11972,7 @@
             "description": "Payment description"
           },
           "status": {
-            "enum": [
-              "CREATED",
-              "CANCELED",
-              "SCHEDULED",
-              "EXPIRED",
-              "AUTHORIZED",
-              "IN_PROGRESS",
-              "ERROR",
-              "COMPLETED",
-              "WAITING_PAYER_AUTHORIZATION"
-            ],
-            "type": "string",
-            "description": "Payment request status"
+            "$ref": "#/components/schemas/PaymentRequestStatus"
           },
           "clientPaymentId": {
             "type": "string",
@@ -11598,10 +11991,32 @@
           "callbackUrls": {
             "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
           },
-          "recipientId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Payment receiver identifier"
+          "recipient": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentRequestRecipient"
+              }
+            ],
+            "nullable": true,
+            "description": "Recipient of the payment. Shape depends on the recipient `type`."
+          },
+          "customer": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentCustomer"
+              }
+            ],
+            "nullable": true,
+            "description": "Customer associated with the payment request"
+          },
+          "smartAccount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SmartAccount"
+              }
+            ],
+            "nullable": true,
+            "description": "Smart account that receives the funds, when applicable"
           },
           "paymentUrl": {
             "type": "string",
@@ -11673,7 +12088,53 @@
           "updatedAt",
           "paymentUrl"
         ],
-        "example": {}
+        "example": {
+          "id": "c2a6b7d9-3349-435d-8341-44021449ebbc",
+          "amount": 150.5,
+          "fees": 0.45,
+          "description": "Order #4821",
+          "status": "CREATED",
+          "clientPaymentId": "order-4821",
+          "createdAt": "2025-03-12T13:03:45.689Z",
+          "updatedAt": "2025-03-12T13:03:45.689Z",
+          "callbackUrls": {
+            "success": "https://merchant.example.com/orders/4821/success",
+            "error": "https://merchant.example.com/orders/4821/error"
+          },
+          "paymentUrl": "https://pay.pluggy.ai/c2a6b7d9-3349-435d-8341-44021449ebbc",
+          "recipient": {
+            "type": "BANK_ACCOUNT",
+            "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
+            "name": "Conta empresa",
+            "taxNumber": "12345678900",
+            "isDefault": true,
+            "paymentInstitution": {
+              "id": "00000000-0000-0000-0000-000000000000",
+              "name": "Banco J. Safra S.A.",
+              "ispb": "03017677",
+              "tradeName": "Banco Safra",
+              "compe": "074",
+              "createdAt": "2020-04-21T15:00:00.000Z",
+              "updatedAt": "2020-04-21T15:00:00.000Z"
+            },
+            "account": {
+              "branch": "0001",
+              "number": "123456",
+              "type": "CHECKING_ACCOUNT"
+            },
+            "pixKey": null,
+            "createdAt": "2024-01-15T10:30:00.000Z",
+            "updatedAt": "2024-01-15T10:30:00.000Z"
+          },
+          "customer": null,
+          "smartAccount": null,
+          "pixQrCode": null,
+          "boleto": null,
+          "automaticPix": null,
+          "schedule": null,
+          "errorDetail": null,
+          "isSandbox": false
+        }
       },
       "SchedulePayment": {
         "description": "Information of a schedule payment",
@@ -11989,26 +12450,7 @@
             "description": "Primary identifier"
           },
           "status": {
-            "enum": [
-              "PAYMENT_REJECTED",
-              "ERROR",
-              "CANCELED",
-              "CONSENT_REJECTED",
-              "STARTED",
-              "ENQUEUED",
-              "CONSENT_AWAITING_AUTHORIZATION",
-              "CONSENT_AUTHORIZED",
-              "PAYMENT_PENDING",
-              "PAYMENT_PARTIALLY_ACCEPTED",
-              "PAYMENT_SETTLEMENT_PROCESSING",
-              "PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT",
-              "PAYMENT_COMPLETED",
-              "REJECTED",
-              "REVOKED",
-              "CONSUMED"
-            ],
-            "type": "string",
-            "description": "Payment intent status"
+            "$ref": "#/components/schemas/PaymentIntentStatus"
           },
           "createdAt": {
             "type": "string",
@@ -12061,6 +12503,15 @@
             ],
             "description": "Pix data related to the payment intent (only applies for PIX payment method)"
           },
+          "debtor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Debtor"
+              }
+            ],
+            "nullable": true,
+            "description": "Information about the payer's account, returned by the institution after the payment is completed. Null until the institution exposes it."
+          },
           "errorDetail": {
             "allOf": [
               {
@@ -12072,7 +12523,10 @@
         },
         "type": "object",
         "required": [
-          "amount"
+          "id",
+          "status",
+          "createdAt",
+          "updatedAt"
         ],
         "example": {
           "id": "4cfe1f6d-ae71-4c35-aae0-8f8a535ffbbd",
@@ -12168,12 +12622,7 @@
             "description": "Primary identifier"
           },
           "type": {
-            "enum": [
-              "INDIVIDUAL",
-              "BUSINESS"
-            ],
-            "type": "string",
-            "description": "Customer type"
+            "$ref": "#/components/schemas/PaymentCustomerType"
           },
           "name": {
             "type": "string",
@@ -12194,33 +12643,43 @@
           "connector": {
             "$ref": "#/components/schemas/Connector",
             "description": "Default institution to be used in the Pluggy's payment initiation flow (https://pay.pluggy.ai) by the payer."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the customer was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the customer was last updated"
           }
         },
         "type": "object",
         "required": [
           "id",
           "type",
-          "name"
+          "name",
+          "createdAt",
+          "updatedAt"
         ],
         "example": {
           "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
           "type": "INDIVIDUAL",
           "name": "Marco Silva",
           "email": "msilva@pluggy.ai",
-          "cpf": "123456789-00",
-          "connector": null
+          "cpf": "123.456.789-00",
+          "cnpj": null,
+          "connector": null,
+          "createdAt": "2024-01-15T10:30:00.000Z",
+          "updatedAt": "2024-01-15T10:30:00.000Z"
         }
       },
       "CreatePaymentCustomerRequestBody": {
-        "description": "Response with information related to a payment customer",
+        "description": "Body to create a payment customer",
         "properties": {
           "type": {
-            "enum": [
-              "INDIVIDUAL",
-              "BUSINESS"
-            ],
-            "type": "string",
-            "description": "Customer type"
+            "$ref": "#/components/schemas/PaymentCustomerType"
           },
           "name": {
             "type": "string",
@@ -12232,11 +12691,11 @@
           },
           "cpf": {
             "type": "string",
-            "description": "Customer CPF"
+            "description": "Customer CPF. Required when `type=INDIVIDUAL`."
           },
           "cnpj": {
             "type": "string",
-            "description": "Customer CNPJ, if type is `BUSINESS`"
+            "description": "Customer CNPJ. Required when `type=BUSINESS`."
           },
           "connectorId": {
             "type": "number",
@@ -12245,32 +12704,21 @@
         },
         "type": "object",
         "required": [
-          "id",
           "type",
           "name"
         ],
         "example": {
-          "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
           "type": "INDIVIDUAL",
           "name": "Marco Silva",
           "email": "msilva@pluggy.ai",
-          "cpf": "123456789-00"
+          "cpf": "12345678900"
         }
       },
       "CreateOrUpdatePaymentCustomer": {
-        "description": "Response with information related to a payment customer",
+        "description": "Body to update a payment customer. All fields are optional.",
         "properties": {
-          "id": {
-            "type": "string",
-            "description": "Primary identifier"
-          },
           "type": {
-            "enum": [
-              "INDIVIDUAL",
-              "BUSINESS"
-            ],
-            "type": "string",
-            "description": "Customer type"
+            "$ref": "#/components/schemas/PaymentCustomerType"
           },
           "name": {
             "type": "string",
@@ -12290,22 +12738,21 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "type",
-          "name"
-        ],
         "example": {
-          "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
-          "type": "INDIVIDUAL",
           "name": "Marco Silva",
-          "email": "msilva@pluggy.ai",
-          "cpf": "123456789-00"
+          "email": "msilva@pluggy.ai"
         }
       },
       "PaymentRecipient": {
-        "description": "Response with information related to a payment recipient",
+        "description": "Bank-account payment recipient. Returned by `/payments/recipients` endpoints and embedded inside payment requests when the request targets a registered recipient.",
         "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "BANK_ACCOUNT"
+            ],
+            "description": "Recipient discriminator. Always `BANK_ACCOUNT` for this schema."
+          },
           "id": {
             "type": "string",
             "description": "Primary identifier"
@@ -12324,7 +12771,7 @@
                 "$ref": "#/components/schemas/PaymentInstitution"
               }
             ],
-            "description": "Recipient's bank account destination."
+            "description": "Institution that holds the recipient's bank account."
           },
           "isDefault": {
             "type": "boolean",
@@ -12350,6 +12797,7 @@
         },
         "type": "object",
         "required": [
+          "type",
           "id",
           "name",
           "taxNumber",
@@ -12360,9 +12808,10 @@
           "updatedAt"
         ],
         "example": {
+          "type": "BANK_ACCOUNT",
           "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
           "name": "Conta empresa",
-          "taxNumber": "123456789-00",
+          "taxNumber": "12345678900",
           "paymentInstitution": {
             "id": "00000000-0000-0000-0000-000000000000",
             "name": "Banco J. Safra S.A.",
@@ -12590,11 +13039,11 @@
       },
       "SINGLE": {
         "title": "One time option",
-        "description": "Schedule atribute to generate one payment in the future",
+        "description": "Schedule attribute to generate a single payment on a specific future date.",
         "properties": {
           "type": {
             "type": "string",
-            "description": "Scheduled type",
+            "description": "Schedule discriminator. Always `SINGLE` for this variant.",
             "enum": [
               "SINGLE"
             ],
@@ -12603,6 +13052,7 @@
           "date": {
             "type": "string",
             "format": "date",
+            "description": "Settlement date for the payment (YYYY-MM-DD).",
             "example": "2024-06-11"
           }
         },
@@ -12614,11 +13064,11 @@
       },
       "DAILY": {
         "title": "Daily option",
-        "description": "Schedule atribute to generate daily payments",
+        "description": "Schedule attribute to generate daily payments starting from `startDate`.",
         "properties": {
           "type": {
             "type": "string",
-            "description": "Scheduled type",
+            "description": "Schedule discriminator. Always `DAILY` for this variant.",
             "enum": [
               "DAILY"
             ],
@@ -12643,16 +13093,16 @@
         "required": [
           "type",
           "startDate",
-          "quantity"
+          "occurrences"
         ]
       },
       "WEEKLY": {
         "title": "Weekly option",
-        "description": "Schedule atribute to generate weekly payments",
+        "description": "Schedule attribute to generate weekly payments on a specific day of the week.",
         "properties": {
           "type": {
             "type": "string",
-            "description": "Scheduled type",
+            "description": "Schedule discriminator. Always `WEEKLY` for this variant.",
             "enum": [
               "WEEKLY"
             ],
@@ -12666,12 +13116,12 @@
           },
           "dayOfWeek": {
             "type": "string",
-            "description": "Day of the week on which each payment will occur. For instance, if set to 'MONDAY', the first payment will occur on the first monday after the startDate (or the same day, if it is already monday), and every monday after that.",
+            "description": "Day of the week on which each payment will occur. For instance, if set to `MONDAY`, the first payment will occur on the first Monday after `startDate` (or the same day, if it is already Monday), and every Monday after that.",
             "enum": [
               "MONDAY",
               "TUESDAY",
               "WEDNESDAY",
-              "THURDSAY",
+              "THURSDAY",
               "FRIDAY",
               "SATURDAY",
               "SUNDAY"
@@ -12692,16 +13142,16 @@
           "type",
           "startDate",
           "dayOfWeek",
-          "quantity"
+          "occurrences"
         ]
       },
       "MONTHLY": {
         "title": "Monthly option",
-        "description": "Schedule atribute to generate monthly payments",
+        "description": "Schedule attribute to generate monthly payments on a specific day of the month.",
         "properties": {
           "type": {
             "type": "string",
-            "description": "Scheduled type",
+            "description": "Schedule discriminator. Always `MONTHLY` for this variant.",
             "enum": [
               "MONTHLY"
             ],
@@ -12710,11 +13160,12 @@
           "startDate": {
             "type": "string",
             "format": "date",
+            "description": "The start date of the validity of the scheduled payment authorization.",
             "example": "2024-06-11"
           },
           "dayOfMonth": {
             "type": "number",
-            "description": "Day of the month on which each payment will occur. For example, if '10', the first payment will occur on the next 10th day of the month after the start date, or the same day if it is already 10th, and every 10th day after that.",
+            "description": "Day of the month on which each payment will occur. For example, if `10`, the first payment will occur on the next 10th day of the month after `startDate` (or the same day if it is already the 10th), and every 10th day after that.",
             "minimum": 1,
             "maximum": 30,
             "example": 3
@@ -12733,15 +13184,16 @@
           "type",
           "startDate",
           "dayOfMonth",
-          "quantity"
+          "occurrences"
         ]
       },
       "CUSTOM": {
         "title": "Customized option",
-        "description": "Schedule atribute to generate custom payments in the future",
+        "description": "Schedule attribute to generate payments on an explicit list of dates.",
         "properties": {
           "type": {
-            "description": "Scheduled type",
+            "type": "string",
+            "description": "Schedule discriminator. Always `CUSTOM` for this variant.",
             "enum": [
               "CUSTOM"
             ],
@@ -12749,6 +13201,7 @@
           },
           "dates": {
             "type": "array",
+            "description": "Explicit list of dates (YYYY-MM-DD) on which payments will be settled.",
             "items": {
               "type": "string",
               "format": "date",
@@ -12889,7 +13342,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Preauthorization status",
+            "description": "Preauthorization lifecycle status.\n- `CREATED`: the preauthorization was created and is awaiting the payer's consent (see `consentUrl`).\n- `COMPLETED`: the payer authorized the consent. The preauthorization can now be used to execute payments.\n- `REJECTED`: the payer rejected the consent.\n- `REVOKED`: the consent was revoked after being authorized.\n- `ERROR`: the preauthorization flow failed unexpectedly (see `errorDetail`).",
             "enum": [
               "CREATED",
               "COMPLETED",
@@ -13094,20 +13547,7 @@
             "description": "Payment primary identifier"
           },
           "status": {
-            "enum": [
-              "PAYMENT_REJECTED",
-              "ERROR",
-              "CANCELED",
-              "CONSENT_REJECTED",
-              "CONSENT_AUTHORIZED",
-              "PAYMENT_PENDING",
-              "PAYMENT_PARTIALLY_ACCEPTED",
-              "PAYMENT_SETTLEMENT_PROCESSING",
-              "PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT",
-              "PAYMENT_COMPLETED"
-            ],
-            "type": "string",
-            "description": "Payment status"
+            "$ref": "#/components/schemas/SmartTransferPaymentStatus"
           },
           "amount": {
             "type": "number",
@@ -13118,7 +13558,13 @@
             "description": "Payment description"
           },
           "recipient": {
-            "$ref": "#/components/schemas/PaymentRecipient"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentRecipient"
+              }
+            ],
+            "nullable": true,
+            "description": "Recipient of the transfer. May be null until the payment is associated with one."
           },
           "clientPaymentId": {
             "type": "string",
@@ -13127,7 +13573,7 @@
           "createdAt": {
             "type": "string",
             "format": "date-time",
-            "description": "Date when the payemnt was created"
+            "description": "Date when the payment was created"
           },
           "updatedAt": {
             "type": "string",
@@ -13167,8 +13613,6 @@
           "preauthorizationId",
           "status",
           "amount",
-          "date",
-          "recipient",
           "createdAt",
           "updatedAt"
         ]
@@ -13455,12 +13899,13 @@
           },
           "status": {
             "type": "string",
-            "description": "Current status of the boleto",
+            "description": "Current status of the boleto.\n- `OPEN`: the boleto has been issued and is awaiting payment.\n- `PAID`: the boleto has been paid (see `paidAt`, `amountPaid`, `paymentOrigin`).\n- `OVERDUE`: the due date has passed and the boleto has not been paid.\n- `CANCELLED`: the boleto was canceled by the issuer.\n- `PROTESTED`: the boleto was sent to a protesto/credit-bureau process.",
             "enum": [
               "OPEN",
               "PAID",
               "OVERDUE",
-              "CANCELLED"
+              "CANCELLED",
+              "PROTESTED"
             ]
           },
           "seuNumero": {
@@ -13527,18 +13972,6 @@
               "phoneNumber": {
                 "type": "string",
                 "description": "Payer phone number"
-              },
-              "amountPaid": {
-                "type": "number",
-                "description": "Amount paid or null if it hasn't been paid yet"
-              },
-              "paymentOrigin": {
-                "type": "string",
-                "description": "Payment origin for the boleto",
-                "enum": [
-                  "PIX",
-                  "BOLETO"
-                ]
               }
             },
             "required": [
@@ -13640,7 +14073,6 @@
         },
         "required": [
           "id",
-          "providerId",
           "amount",
           "status",
           "createdAt",
@@ -13690,15 +14122,7 @@
             "$ref": "#/components/schemas/AutomaticPixFirstPayment"
           },
           "interval": {
-            "type": "string",
-            "enum": [
-              "WEEKLY",
-              "MONTHLY",
-              "QUARTERLY",
-              "SEMESTER",
-              "YEARLY"
-            ],
-            "description": "Defines the permitted frequency for carrying out transactions."
+            "$ref": "#/components/schemas/AutomaticPixInterval"
           },
           "automaticRetriesConfiguration": {
             "$ref": "#/components/schemas/AutomaticPixRetriesConfiguration"
@@ -13808,15 +14232,7 @@
             "$ref": "#/components/schemas/AutomaticPixFirstPayment"
           },
           "interval": {
-            "type": "string",
-            "enum": [
-              "WEEKLY",
-              "MONTHLY",
-              "QUARTERLY",
-              "SEMESTER",
-              "YEARLY"
-            ],
-            "description": "Defines the permitted frequency for carrying out transactions."
+            "$ref": "#/components/schemas/AutomaticPixInterval"
           },
           "automaticRetriesConfiguration": {
             "$ref": "#/components/schemas/AutomaticPixRetriesConfiguration"
@@ -13862,15 +14278,7 @@
             "description": "Payment primary identifier"
           },
           "status": {
-            "type": "string",
-            "description": "Payment status",
-            "enum": [
-              "SCHEDULED",
-              "CREATED",
-              "COMPLETED",
-              "CANCELED",
-              "ERROR"
-            ]
+            "$ref": "#/components/schemas/AutomaticPixPaymentStatus"
           },
           "amount": {
             "type": "number",
@@ -13950,7 +14358,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Attempt status",
+            "description": "Attempt status. Each attempt has an independent lifecycle within the parent payment.\n- `IN_PROGRESS`: the attempt was submitted and is awaiting confirmation.\n- `COMPLETED`: the attempt was confirmed (the parent payment also becomes `COMPLETED`).\n- `CANCELED`: the attempt was canceled.\n- `ERROR`: the attempt failed (see `errorDetail`). The parent payment may be retried with a new attempt.",
             "enum": [
               "IN_PROGRESS",
               "COMPLETED",
