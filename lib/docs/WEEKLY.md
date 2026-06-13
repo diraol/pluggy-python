@@ -1,15 +1,15 @@
 # WEEKLY
 
-Schedule atribute to generate weekly payments
+Schedule attribute to generate weekly payments on a specific day of the week.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** | Scheduled type | 
+**type** | **str** | Schedule discriminator. Always &#x60;WEEKLY&#x60; for this variant. | 
 **start_date** | **date** | The start date of the validity of the scheduled payment authorization. | 
-**day_of_week** | **str** | Day of the week on which each payment will occur. For instance, if set to &#39;MONDAY&#39;, the first payment will occur on the first monday after the startDate (or the same day, if it is already monday), and every monday after that. | 
-**occurrences** | **float** | Under the specified schedule frequency, how many payments will be scheduled to occur. | [optional] 
+**day_of_week** | **str** | Day of the week on which each payment will occur. For instance, if set to &#x60;MONDAY&#x60;, the first payment will occur on the first Monday after &#x60;startDate&#x60; (or the same day, if it is already Monday), and every Monday after that. | 
+**occurrences** | **float** | Under the specified schedule frequency, how many payments will be scheduled to occur. | 
 
 ## Example
 

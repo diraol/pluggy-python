@@ -1,13 +1,13 @@
 # CUSTOM
 
-Schedule atribute to generate custom payments in the future
+Schedule attribute to generate payments on an explicit list of dates.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** | Scheduled type | 
-**dates** | **List[date]** |  | 
+**type** | **str** | Schedule discriminator. Always &#x60;CUSTOM&#x60; for this variant. | 
+**dates** | **List[date]** | Explicit list of dates (YYYY-MM-DD) on which payments will be settled. | 
 **additional_information** | **str** | Additional information about the custom schedule | [optional] 
 
 ## Example

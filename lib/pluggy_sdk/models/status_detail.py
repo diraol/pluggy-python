@@ -37,7 +37,8 @@ class StatusDetail(BaseModel):
     investments_transactions: Optional[StatusDetailProduct] = Field(default=None, alias="investmentsTransactions")
     payment_data: Optional[StatusDetailProduct] = Field(default=None, alias="paymentData")
     loans: Optional[StatusDetailProduct] = None
-    __properties: ClassVar[List[str]] = ["accounts", "creditCards", "transactions", "investments", "identity", "investmentsTransactions", "paymentData", "loans"]
+    account_statements: Optional[StatusDetailProduct] = Field(default=None, alias="accountStatements")
+    __properties: ClassVar[List[str]] = ["accounts", "creditCards", "transactions", "investments", "identity", "investmentsTransactions", "paymentData", "loans", "accountStatements"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -102,6 +103,9 @@ class StatusDetail(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of loans
         if self.loans:
             _dict['loans'] = self.loans.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of account_statements
+        if self.account_statements:
+            _dict['accountStatements'] = self.account_statements.to_dict()
         return _dict
 
     @classmethod
@@ -121,7 +125,8 @@ class StatusDetail(BaseModel):
             "identity": StatusDetailProduct.from_dict(obj["identity"]) if obj.get("identity") is not None else None,
             "investmentsTransactions": StatusDetailProduct.from_dict(obj["investmentsTransactions"]) if obj.get("investmentsTransactions") is not None else None,
             "paymentData": StatusDetailProduct.from_dict(obj["paymentData"]) if obj.get("paymentData") is not None else None,
-            "loans": StatusDetailProduct.from_dict(obj["loans"]) if obj.get("loans") is not None else None
+            "loans": StatusDetailProduct.from_dict(obj["loans"]) if obj.get("loans") is not None else None,
+            "accountStatements": StatusDetailProduct.from_dict(obj["accountStatements"]) if obj.get("accountStatements") is not None else None
         })
         return _obj
 

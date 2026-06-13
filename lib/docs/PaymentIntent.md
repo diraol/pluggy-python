@@ -6,16 +6,17 @@ Request with information related to a payment intent
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Primary identifier | [optional] 
-**status** | **str** | Payment intent status | [optional] 
-**created_at** | **datetime** | Date when the payment intent was created | [optional] 
-**updated_at** | **datetime** | Date when the payment intent was updated | [optional] 
+**id** | **str** | Primary identifier | 
+**status** | [**PaymentIntentStatus**](PaymentIntentStatus.md) |  | 
+**created_at** | **datetime** | Date when the payment intent was created | 
+**updated_at** | **datetime** | Date when the payment intent was updated | 
 **payment_request** | [**PaymentRequest**](PaymentRequest.md) | Payment request associated to the payment intent | [optional] 
 **connector** | [**Connector**](Connector.md) | Connector associated to the payment intent | [optional] 
 **consent_url** | **str** | Url to authorize the payment intent | [optional] 
 **reference_id** | **str** | Pix id related to the payment intent | [optional] 
 **payment_method** | **str** | Payment method can be PIS (Payment Initiation) or PIX | [optional] [default to 'PIS']
 **pix_data** | [**PixData**](PixData.md) | Pix data related to the payment intent (only applies for PIX payment method) | [optional] 
+**debtor** | [**Debtor**](Debtor.md) | Information about the payer&#39;s account, returned by the institution after the payment is completed. Null until the institution exposes it. | [optional] 
 **error_detail** | [**PaymentIntentErrorDetail**](PaymentIntentErrorDetail.md) | Error details when payment intent fails | [optional] 
 
 ## Example

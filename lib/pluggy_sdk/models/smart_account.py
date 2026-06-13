@@ -19,23 +19,25 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class SmartAccount(BaseModel):
     """
-    Smart account product
+    Pluggy Smart Account (escrow account) attached to a payment request. Receives funds and lets the client orchestrate splits and withdrawals.
     """ # noqa: E501
-    id: StrictStr = Field(description="Primary identifier of the Smart account")
-    ispb: StrictStr = Field(description="Smart account ISP number")
-    agency: StrictStr = Field(description="Smart account agency number")
-    number: StrictStr = Field(description="Smart account number")
-    verifying_digit: StrictStr = Field(description="Smart account verifying digit", alias="verifyingDigit")
-    type: StrictStr = Field(description="Smart account type")
-    is_sandbox: StrictBool = Field(description="Indicates if the smart account is a sandbox account", alias="isSandbox")
-    pix_key: StrictStr = Field(description="Smart account PIX key", alias="pixKey")
-    __properties: ClassVar[List[str]] = ["id", "ispb", "agency", "number", "verifyingDigit", "type", "isSandbox", "pixKey"]
+    id: UUID
+    agency: StrictStr = Field(description="Bank agency of the smart account")
+    number: StrictStr = Field(description="Account number")
+    verifying_digit: StrictStr = Field(description="Account verifying digit", alias="verifyingDigit")
+    type: StrictStr = Field(description="Smart accounts are always checking accounts")
+    is_sandbox: StrictBool = Field(alias="isSandbox")
+    owner: Optional[StrictStr] = Field(default=None, description="Legal name of the smart account holder. Only returned in detailed views.")
+    pix_key: Optional[StrictStr] = Field(default=None, description="PIX key associated with the smart account", alias="pixKey")
+    __properties: ClassVar[List[str]] = ["id", "agency", "number", "verifyingDigit", "type", "isSandbox", "owner", "pixKey"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -45,7 +47,8 @@ class SmartAccount(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -57,8 +60,7 @@ class SmartAccount(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -96,12 +98,12 @@ class SmartAccount(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
-            "ispb": obj.get("ispb"),
             "agency": obj.get("agency"),
             "number": obj.get("number"),
             "verifyingDigit": obj.get("verifyingDigit"),
             "type": obj.get("type"),
             "isSandbox": obj.get("isSandbox"),
+            "owner": obj.get("owner"),
             "pixKey": obj.get("pixKey")
         })
         return _obj

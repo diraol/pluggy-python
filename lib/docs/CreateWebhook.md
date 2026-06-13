@@ -7,7 +7,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **url** | **str** |  | 
-**event** | **str** |  | 
+**event** | [**WebhookEventType**](WebhookEventType.md) |  | 
 **headers** | **object** | HTTP headers that will be included in the webhook notifications (useful for things like authorization) | [optional] 
 
 ## Example

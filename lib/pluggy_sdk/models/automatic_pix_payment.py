@@ -19,11 +19,12 @@ import re  # noqa: F401
 import json
 
 from datetime import date
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
 from pluggy_sdk.models.automatic_pix_payment_attempt import AutomaticPixPaymentAttempt
 from pluggy_sdk.models.automatic_pix_payment_error_detail import AutomaticPixPaymentErrorDetail
+from pluggy_sdk.models.automatic_pix_payment_status import AutomaticPixPaymentStatus
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,7 +34,7 @@ class AutomaticPixPayment(BaseModel):
     Automatic PIX payment
     """ # noqa: E501
     id: StrictStr = Field(description="Payment primary identifier")
-    status: StrictStr = Field(description="Payment status")
+    status: AutomaticPixPaymentStatus
     amount: Union[StrictFloat, StrictInt] = Field(description="Payment amount")
     description: Optional[StrictStr] = Field(default=None, description="Payment description")
     var_date: date = Field(description="Payment scheduled date", alias="date")
@@ -44,13 +45,6 @@ class AutomaticPixPayment(BaseModel):
     is_first_payment: Optional[StrictBool] = Field(default=None, description="Indicates if this is the first payment", alias="isFirstPayment")
     attempts: Optional[List[AutomaticPixPaymentAttempt]] = None
     __properties: ClassVar[List[str]] = ["id", "status", "amount", "description", "date", "endToEndId", "errorDetail", "clientPaymentId", "recipientId", "isFirstPayment", "attempts"]
-
-    @field_validator('status')
-    def status_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['SCHEDULED', 'CREATED', 'COMPLETED', 'CANCELED', 'ERROR']):
-            raise ValueError("must be one of enum values ('SCHEDULED', 'CREATED', 'COMPLETED', 'CANCELED', 'ERROR')")
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

@@ -7,7 +7,7 @@ Automatic PIX payment detail with additional fields
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Payment primary identifier | 
-**status** | **str** | Payment status | 
+**status** | [**AutomaticPixPaymentStatus**](AutomaticPixPaymentStatus.md) |  | 
 **amount** | **float** | Payment amount | 
 **description** | **str** | Payment description | [optional] 
 **var_date** | **date** | Payment scheduled date | 

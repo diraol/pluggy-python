@@ -21,6 +21,7 @@ from typing_extensions import Annotated
 from uuid import UUID
 from pluggy_sdk.models.create_webhook import CreateWebhook
 from pluggy_sdk.models.i_count_response import ICountResponse
+from pluggy_sdk.models.update_webhook import UpdateWebhook
 from pluggy_sdk.models.webhook import Webhook
 from pluggy_sdk.models.webhooks_list200_response import WebhooksList200Response
 
@@ -1112,7 +1113,7 @@ class WebhookApi:
     def webhooks_update(
         self,
         id: Annotated[UUID, Field(description="webhook primary identifier")],
-        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event.")],
+        update_webhook: Annotated[UpdateWebhook, Field(description="All fields are optional. Send only the ones you want to change. event: One of the supported event types. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. Send null to clear them. enabled: re-enable a webhook that was previously disabled (after repeated delivery failures or via internal cleanup).")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1132,8 +1133,8 @@ class WebhookApi:
 
         :param id: webhook primary identifier (required)
         :type id: UUID
-        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. (required)
-        :type create_webhook: CreateWebhook
+        :param update_webhook: All fields are optional. Send only the ones you want to change. event: One of the supported event types. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. Send null to clear them. enabled: re-enable a webhook that was previously disabled (after repeated delivery failures or via internal cleanup). (required)
+        :type update_webhook: UpdateWebhook
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1158,7 +1159,7 @@ class WebhookApi:
 
         _param = self._webhooks_update_serialize(
             id=id,
-            create_webhook=create_webhook,
+            update_webhook=update_webhook,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1186,7 +1187,7 @@ class WebhookApi:
     def webhooks_update_with_http_info(
         self,
         id: Annotated[UUID, Field(description="webhook primary identifier")],
-        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event.")],
+        update_webhook: Annotated[UpdateWebhook, Field(description="All fields are optional. Send only the ones you want to change. event: One of the supported event types. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. Send null to clear them. enabled: re-enable a webhook that was previously disabled (after repeated delivery failures or via internal cleanup).")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1206,8 +1207,8 @@ class WebhookApi:
 
         :param id: webhook primary identifier (required)
         :type id: UUID
-        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. (required)
-        :type create_webhook: CreateWebhook
+        :param update_webhook: All fields are optional. Send only the ones you want to change. event: One of the supported event types. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. Send null to clear them. enabled: re-enable a webhook that was previously disabled (after repeated delivery failures or via internal cleanup). (required)
+        :type update_webhook: UpdateWebhook
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1232,7 +1233,7 @@ class WebhookApi:
 
         _param = self._webhooks_update_serialize(
             id=id,
-            create_webhook=create_webhook,
+            update_webhook=update_webhook,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1260,7 +1261,7 @@ class WebhookApi:
     def webhooks_update_without_preload_content(
         self,
         id: Annotated[UUID, Field(description="webhook primary identifier")],
-        create_webhook: Annotated[CreateWebhook, Field(description="Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event.")],
+        update_webhook: Annotated[UpdateWebhook, Field(description="All fields are optional. Send only the ones you want to change. event: One of the supported event types. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. Send null to clear them. enabled: re-enable a webhook that was previously disabled (after repeated delivery failures or via internal cleanup).")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1280,8 +1281,8 @@ class WebhookApi:
 
         :param id: webhook primary identifier (required)
         :type id: UUID
-        :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. (required)
-        :type create_webhook: CreateWebhook
+        :param update_webhook: All fields are optional. Send only the ones you want to change. event: One of the supported event types. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. Send null to clear them. enabled: re-enable a webhook that was previously disabled (after repeated delivery failures or via internal cleanup). (required)
+        :type update_webhook: UpdateWebhook
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1306,7 +1307,7 @@ class WebhookApi:
 
         _param = self._webhooks_update_serialize(
             id=id,
-            create_webhook=create_webhook,
+            update_webhook=update_webhook,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1329,7 +1330,7 @@ class WebhookApi:
     def _webhooks_update_serialize(
         self,
         id,
-        create_webhook,
+        update_webhook,
         _request_auth,
         _content_type,
         _headers,
@@ -1357,8 +1358,8 @@ class WebhookApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if create_webhook is not None:
-            _body_params = create_webhook
+        if update_webhook is not None:
+            _body_params = update_webhook
 
 
         # set the HTTP header `Accept`

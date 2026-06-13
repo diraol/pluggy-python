@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **expires_at** | **datetime** | Expiration date for the automatic pix authorization | [optional] 
 **is_retry_accepted** | **bool** | Indicates whether the receiving customer is allowed to make payment attempts, according to the rules established in the Pix arrangement. | [optional] 
 **first_payment** | [**AutomaticPixFirstPayment**](AutomaticPixFirstPayment.md) |  | [optional] 
-**interval** | **str** | Defines the permitted frequency for carrying out transactions. | 
+**interval** | [**AutomaticPixInterval**](AutomaticPixInterval.md) |  | 
 **automatic_retries_configuration** | [**AutomaticPixRetriesConfiguration**](AutomaticPixRetriesConfiguration.md) |  | [optional] 
 **scheduler_configuration** | [**AutomaticPixSchedulerConfiguration**](AutomaticPixSchedulerConfiguration.md) |  | [optional] 
 

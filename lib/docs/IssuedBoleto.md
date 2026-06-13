@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Primary identifier | 
 **amount** | **float** | Boleto amount | 
-**status** | **str** | Current status of the boleto | 
+**status** | **str** | Current status of the boleto. - &#x60;OPEN&#x60;: the boleto has been issued and is awaiting payment. - &#x60;PAID&#x60;: the boleto has been paid (see &#x60;paidAt&#x60;, &#x60;amountPaid&#x60;, &#x60;paymentOrigin&#x60;). - &#x60;OVERDUE&#x60;: the due date has passed and the boleto has not been paid. - &#x60;CANCELLED&#x60;: the boleto was canceled by the issuer. - &#x60;PROTESTED&#x60;: the boleto was sent to a protesto/credit-bureau process. | 
 **seu_numero** | **str** | Your identifier for this boleto | 
 **due_date** | **datetime** | Due date of the boleto | 
 **payer** | [**IssuedBoletoPayer**](IssuedBoletoPayer.md) |  | 

@@ -27,10 +27,10 @@ from pydantic_core import to_jsonable_python
 
 class SINGLE(BaseModel):
     """
-    Schedule atribute to generate one payment in the future
+    Schedule attribute to generate a single payment on a specific future date.
     """ # noqa: E501
-    type: StrictStr = Field(description="Scheduled type", json_schema_extra={"examples": ["SINGLE"]})
-    var_date: date = Field(alias="date", json_schema_extra={"examples": ["2024-06-11"]})
+    type: StrictStr = Field(description="Schedule discriminator. Always `SINGLE` for this variant.", json_schema_extra={"examples": ["SINGLE"]})
+    var_date: date = Field(description="Settlement date for the payment (YYYY-MM-DD).", alias="date", json_schema_extra={"examples": ["2024-06-11"]})
     __properties: ClassVar[List[str]] = ["type", "date"]
 
     @field_validator('type')

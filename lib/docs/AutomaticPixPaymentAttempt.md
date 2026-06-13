@@ -7,7 +7,7 @@ Payment attempt. It represents an attempt to complete this payment. Useful for t
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Attempt primary identifier | 
-**status** | **str** | Attempt status | 
+**status** | **str** | Attempt status. Each attempt has an independent lifecycle within the parent payment. - &#x60;IN_PROGRESS&#x60;: the attempt was submitted and is awaiting confirmation. - &#x60;COMPLETED&#x60;: the attempt was confirmed (the parent payment also becomes &#x60;COMPLETED&#x60;). - &#x60;CANCELED&#x60;: the attempt was canceled. - &#x60;ERROR&#x60;: the attempt failed (see &#x60;errorDetail&#x60;). The parent payment may be retried with a new attempt. | 
 **end_to_end_id** | **str** | Attempt end to end identifier | [optional] 
 **var_date** | **date** | Attempt date | 
 **error_detail** | [**AutomaticPixPaymentErrorDetail**](AutomaticPixPaymentErrorDetail.md) |  | [optional] 

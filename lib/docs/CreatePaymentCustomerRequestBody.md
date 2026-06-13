@@ -1,16 +1,16 @@
 # CreatePaymentCustomerRequestBody
 
-Response with information related to a payment customer
+Body to create a payment customer
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** | Customer type | 
+**type** | [**PaymentCustomerType**](PaymentCustomerType.md) |  | 
 **name** | **str** | Customer name | 
 **email** | **str** | Customer email | [optional] 
-**cpf** | **str** | Customer CPF | [optional] 
-**cnpj** | **str** | Customer CNPJ, if type is &#x60;BUSINESS&#x60; | [optional] 
+**cpf** | **str** | Customer CPF. Required when &#x60;type&#x3D;INDIVIDUAL&#x60;. | [optional] 
+**cnpj** | **str** | Customer CNPJ. Required when &#x60;type&#x3D;BUSINESS&#x60;. | [optional] 
 **connector_id** | **float** | Default connector id to be used in the Pluggy&#39;s payment initiation flow (https://pay.pluggy.ai) by the payer. | [optional] 
 
 ## Example

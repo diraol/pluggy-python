@@ -18,6 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
@@ -32,8 +33,8 @@ class Account(BaseModel):
     Account of type bank
     """ # noqa: E501
     id: StrictStr = Field(description="Primary account identifier", json_schema_extra={"examples": ["a658c848-e475-457b-8565-d1fffba127c4"]})
-    type: StrictStr = Field(description="Type of account, may be BANK or CREDIT", json_schema_extra={"examples": ["BANK"]})
-    subtype: StrictStr = Field(description="Subtype of corresponding type of account", json_schema_extra={"examples": ["SAVINGS_ACCOUNT"]})
+    type: StrictStr = Field(description="Top-level account category. - `BANK`: deposit accounts (checking, savings). The `bankData` object is populated. - `CREDIT`: credit-card accounts. The `creditData` object is populated.", json_schema_extra={"examples": ["BANK"]})
+    subtype: StrictStr = Field(description="Account subtype within its `type`. - `CHECKING_ACCOUNT`: conta corrente (`type=BANK`). - `SAVINGS_ACCOUNT`: conta poupança (`type=BANK`). - `CREDIT_CARD`: credit card account (`type=CREDIT`). For these the `number` field is masked to the last 4 digits.", json_schema_extra={"examples": ["SAVINGS_ACCOUNT"]})
     number: StrictStr = Field(description="External identifier of the account", json_schema_extra={"examples": ["40114687/1234"]})
     name: StrictStr = Field(description="Name of the account in a descriptive format", json_schema_extra={"examples": ["Conta Corrente"]})
     marketing_name: Optional[StrictStr] = Field(default=None, description="Name of the account as defined externally", alias="marketingName", json_schema_extra={"examples": ["SIGNATURE CJA. AHORRO PESOS"]})
@@ -44,7 +45,9 @@ class Account(BaseModel):
     currency_code: StrictStr = Field(description="Code referencing the currency of the balance", alias="currencyCode", json_schema_extra={"examples": ["BRL"]})
     bank_data: Optional[BankData] = Field(default=None, alias="bankData")
     credit_data: Optional[CreditData] = Field(default=None, alias="creditData")
-    __properties: ClassVar[List[str]] = ["id", "type", "subtype", "number", "name", "marketingName", "balance", "itemId", "taxNumber", "owner", "currencyCode", "bankData", "creditData"]
+    created_at: datetime = Field(description="Date when the account was first created in Pluggy", alias="createdAt", json_schema_extra={"examples": ["2024-01-15T13:21:08.456Z"]})
+    updated_at: datetime = Field(description="Date of the last update of the account data", alias="updatedAt", json_schema_extra={"examples": ["2024-07-22T18:05:11.328Z"]})
+    __properties: ClassVar[List[str]] = ["id", "type", "subtype", "number", "name", "marketingName", "balance", "itemId", "taxNumber", "owner", "currencyCode", "bankData", "creditData", "createdAt", "updatedAt"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -129,7 +132,9 @@ class Account(BaseModel):
             "owner": obj.get("owner"),
             "currencyCode": obj.get("currencyCode"),
             "bankData": BankData.from_dict(obj["bankData"]) if obj.get("bankData") is not None else None,
-            "creditData": CreditData.from_dict(obj["creditData"]) if obj.get("creditData") is not None else None
+            "creditData": CreditData.from_dict(obj["creditData"]) if obj.get("creditData") is not None else None,
+            "createdAt": obj.get("createdAt"),
+            "updatedAt": obj.get("updatedAt")
         })
         return _obj
 

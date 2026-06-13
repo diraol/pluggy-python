@@ -31,8 +31,8 @@ class InvestmentTransaction(BaseModel):
     Movement of the investment
     """ # noqa: E501
     id: StrictStr = Field(description="Primary investment transaction identifier")
-    type: StrictStr = Field(description="Type of transactions")
-    movement_type: Optional[StrictStr] = Field(default=None, description="Type of movement of the transaction", alias="movementType")
+    type: StrictStr = Field(description="Operation performed on the investment position. - `BUY`: subscription / purchase of new quotas. - `SELL`: redemption / sale of quotas. - `TRANSFER`: portability or internal transfer between accounts (the `amount` field may be null). - `TAX`: tax withholdings such as IR or IOF. - `INTEREST`: interest or yield credited to the position. - `AMORTIZATION`: principal repayment (typical of fixed-income amortizing bonds).")
+    movement_type: Optional[StrictStr] = Field(default=None, description="Cash-flow direction of the transaction from the holder's perspective. - `CREDIT`: money goes into the position (defaults for `BUY`). - `DEBIT`: money leaves the position (defaults for `SELL`, `TAX`, `TRANSFER`, `INTEREST`, `AMORTIZATION`).", alias="movementType")
     quantity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Quantity of the transaction")
     value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Value on the transaction's Date")
     amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gross amount of the operation. May be null only if type is TRANSFER")

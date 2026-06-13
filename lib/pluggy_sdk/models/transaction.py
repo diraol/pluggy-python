@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from pluggy_sdk.models.credit_card_metadata import CreditCardMetadata
 from pluggy_sdk.models.merchant import Merchant
 from pluggy_sdk.models.payment_data import PaymentData
@@ -34,22 +35,28 @@ class Transaction(BaseModel):
     """ # noqa: E501
     id: StrictStr = Field(description="Primary identifier of the transaction")
     description: StrictStr = Field(description="Clean description of the transaction")
+    description_raw: Optional[StrictStr] = Field(default=None, description="Original transaction description as returned by the institution, before any cleanup or normalization. May be null when not provided by the institution.", alias="descriptionRaw")
     currency_code: StrictStr = Field(description="Currency ISO code", alias="currencyCode")
     amount: Union[StrictFloat, StrictInt] = Field(description="Transaction amount")
     amount_in_account_currency: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Transaction amount in Account's Currency. Only present if the transaction is in a different currency than the account's currency", alias="amountInAccountCurrency")
     var_date: datetime = Field(description="Date when the transaction was made", alias="date")
-    type: Optional[StrictStr] = Field(default=None, description="Type of the transaction. DEBIT (outflow) or CREDIT (inflow)")
-    balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Balance after the transaction")
-    provider_code: Optional[StrictStr] = Field(default=None, description="Institution provided code", alias="providerCode")
-    status: Optional[StrictStr] = Field(default=None, description="Status of the movement. POSTED / PENDING")
+    type: Optional[StrictStr] = Field(default=None, description="Direction of the movement from the account holder's perspective. - `CREDIT`: money entered the account (deposits, incoming transfers, refunds). - `DEBIT`: money left the account (payments, withdrawals, outgoing transfers, credit-card purchases).  Note: for credit-card accounts the convention is inverted at the institution but Pluggy normalizes the value so purchases are always `DEBIT` and payments to the card statement are `CREDIT`.")
+    balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Account balance immediately after the transaction was posted. May be null when the institution does not return a running balance.")
+    provider_code: Optional[StrictStr] = Field(default=None, description="Institution-provided identifier or code for the transaction (e.g. NSU, transaction number on the bank statement). Format varies per institution.", alias="providerCode")
+    status: Optional[StrictStr] = Field(default=None, description="Settlement status of the movement. - `POSTED`: the transaction is confirmed/settled at the institution. - `PENDING`: the transaction is authorized but not yet settled (typical for credit-card purchases not yet included in a closed bill).")
     category: Optional[StrictStr] = Field(default=None, description="Category of the transaction (e.g. Restaurants, Education). See the Transaction Categorization section in our guides.")
     category_id: Optional[StrictStr] = Field(default=None, description="Id of the transaction category. Can be used to identify the category in the Categories endpoint", alias="categoryId")
     payment_data: Optional[PaymentData] = Field(default=None, alias="paymentData")
     credit_card_metadata: Optional[CreditCardMetadata] = Field(default=None, alias="creditCardMetadata")
     merchant: Optional[Merchant] = None
-    operation_type: Optional[StrictStr] = Field(default=None, description="Type of operation classified by the institution.", alias="operationType")
+    operation_type: Optional[StrictStr] = Field(default=None, description="Type of operation classified by the institution. Only returned for Open Finance connectors.", alias="operationType")
+    operation_type_additional_info: Optional[StrictStr] = Field(default=None, description="Complementary, free-form information about the operation type, as provided by the institution. Varies by institution (a sub-type code or a description). Only returned for Open Finance connectors.", alias="operationTypeAdditionalInfo")
     provider_id: Optional[StrictStr] = Field(default=None, description="Provider's identifier for the transaction. Only returned for Open Finance connectors.", alias="providerId")
-    __properties: ClassVar[List[str]] = ["id", "description", "currencyCode", "amount", "amountInAccountCurrency", "date", "type", "balance", "providerCode", "status", "category", "categoryId", "paymentData", "creditCardMetadata", "merchant", "operationType", "providerId"]
+    account_id: UUID = Field(description="Identifier of the account this transaction belongs to.", alias="accountId")
+    order: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Sequential position of the transaction within the same day, used to preserve ordering when multiple transactions share the same date.")
+    created_at: datetime = Field(description="Date when the transaction was first ingested by Pluggy.", alias="createdAt")
+    updated_at: datetime = Field(description="Date of the last update of the transaction data.", alias="updatedAt")
+    __properties: ClassVar[List[str]] = ["id", "description", "descriptionRaw", "currencyCode", "amount", "amountInAccountCurrency", "date", "type", "balance", "providerCode", "status", "category", "categoryId", "paymentData", "creditCardMetadata", "merchant", "operationType", "operationTypeAdditionalInfo", "providerId", "accountId", "order", "createdAt", "updatedAt"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -59,6 +66,16 @@ class Transaction(BaseModel):
 
         if value not in set(['DEBIT', 'CREDIT']):
             raise ValueError("must be one of enum values ('DEBIT', 'CREDIT')")
+        return value
+
+    @field_validator('status')
+    def status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['POSTED', 'PENDING']):
+            raise ValueError("must be one of enum values ('POSTED', 'PENDING')")
         return value
 
     model_config = ConfigDict(
@@ -123,6 +140,7 @@ class Transaction(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "description": obj.get("description"),
+            "descriptionRaw": obj.get("descriptionRaw"),
             "currencyCode": obj.get("currencyCode"),
             "amount": obj.get("amount"),
             "amountInAccountCurrency": obj.get("amountInAccountCurrency"),
@@ -137,7 +155,12 @@ class Transaction(BaseModel):
             "creditCardMetadata": CreditCardMetadata.from_dict(obj["creditCardMetadata"]) if obj.get("creditCardMetadata") is not None else None,
             "merchant": Merchant.from_dict(obj["merchant"]) if obj.get("merchant") is not None else None,
             "operationType": obj.get("operationType"),
-            "providerId": obj.get("providerId")
+            "operationTypeAdditionalInfo": obj.get("operationTypeAdditionalInfo"),
+            "providerId": obj.get("providerId"),
+            "accountId": obj.get("accountId"),
+            "order": obj.get("order"),
+            "createdAt": obj.get("createdAt"),
+            "updatedAt": obj.get("updatedAt")
         })
         return _obj
 

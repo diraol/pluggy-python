@@ -8,12 +8,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Payment primary identifier | 
 **preauthorization_id** | **str** | Payment primary identifier | 
-**status** | **str** | Payment status | 
+**status** | [**SmartTransferPaymentStatus**](SmartTransferPaymentStatus.md) |  | 
 **amount** | **float** | Payment amount | 
 **description** | **str** | Payment description | [optional] 
-**recipient** | [**PaymentRecipient**](PaymentRecipient.md) |  | 
+**recipient** | [**PaymentRecipient**](PaymentRecipient.md) | Recipient of the transfer. May be null until the payment is associated with one. | [optional] 
 **client_payment_id** | **str** | Client payment identifier | [optional] 
-**created_at** | **datetime** | Date when the payemnt was created | 
+**created_at** | **datetime** | Date when the payment was created | 
 **updated_at** | **datetime** | Date when the payment was updated | 
 **error_detail** | [**SmartTransferPaymentErrorDetail**](SmartTransferPaymentErrorDetail.md) |  | [optional] 
 

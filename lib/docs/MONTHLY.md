@@ -1,15 +1,15 @@
 # MONTHLY
 
-Schedule atribute to generate monthly payments
+Schedule attribute to generate monthly payments on a specific day of the month.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** | Scheduled type | 
-**start_date** | **date** |  | 
-**day_of_month** | **float** | Day of the month on which each payment will occur. For example, if &#39;10&#39;, the first payment will occur on the next 10th day of the month after the start date, or the same day if it is already 10th, and every 10th day after that. | 
-**occurrences** | **float** | Under the specified schedule frequency, how many payments will be scheduled to occur. | [optional] 
+**type** | **str** | Schedule discriminator. Always &#x60;MONTHLY&#x60; for this variant. | 
+**start_date** | **date** | The start date of the validity of the scheduled payment authorization. | 
+**day_of_month** | **float** | Day of the month on which each payment will occur. For example, if &#x60;10&#x60;, the first payment will occur on the next 10th day of the month after &#x60;startDate&#x60; (or the same day if it is already the 10th), and every 10th day after that. | 
+**occurrences** | **float** | Under the specified schedule frequency, how many payments will be scheduled to occur. | 
 
 ## Example
 

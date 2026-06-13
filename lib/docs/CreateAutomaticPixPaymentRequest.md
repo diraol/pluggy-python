@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **expires_at** | **date** | Expiration date for the automatic pix authorization. The date must be in UTC and the format must follow the following pattern: YYYY-MM-DDTHH:MM:SSZ (for example: 2025-06-16T03:00:00Z). | [optional] 
 **is_retry_accepted** | **bool** | Indicates whether the receiving customer is allowed to make payment attempts, according to the rules established in the Pix arrangement. | [optional] 
 **first_payment** | [**AutomaticPixFirstPayment**](AutomaticPixFirstPayment.md) |  | [optional] 
-**interval** | **str** | Defines the permitted frequency for carrying out transactions. | 
+**interval** | [**AutomaticPixInterval**](AutomaticPixInterval.md) |  | 
 **automatic_retries_configuration** | [**AutomaticPixRetriesConfiguration**](AutomaticPixRetriesConfiguration.md) |  | [optional] 
 **scheduler_configuration** | [**AutomaticPixSchedulerConfiguration**](AutomaticPixSchedulerConfiguration.md) |  | [optional] 
 **callback_urls** | [**PaymentRequestCallbackUrls**](PaymentRequestCallbackUrls.md) |  | [optional] 

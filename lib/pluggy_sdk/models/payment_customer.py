@@ -18,9 +18,11 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.connector import Connector
+from pluggy_sdk.models.payment_customer_type import PaymentCustomerType
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,20 +32,15 @@ class PaymentCustomer(BaseModel):
     Response with information related to a payment customer
     """ # noqa: E501
     id: StrictStr = Field(description="Primary identifier")
-    type: StrictStr = Field(description="Customer type")
+    type: PaymentCustomerType
     name: StrictStr = Field(description="Customer name")
     email: Optional[StrictStr] = Field(default=None, description="Customer email")
     cpf: Optional[StrictStr] = Field(default=None, description="Customer CPF")
     cnpj: Optional[StrictStr] = Field(default=None, description="Customer CNPJ, if type is `BUSINESS`")
     connector: Optional[Connector] = Field(default=None, description="Default institution to be used in the Pluggy's payment initiation flow (https://pay.pluggy.ai) by the payer.")
-    __properties: ClassVar[List[str]] = ["id", "type", "name", "email", "cpf", "cnpj", "connector"]
-
-    @field_validator('type')
-    def type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['INDIVIDUAL', 'BUSINESS']):
-            raise ValueError("must be one of enum values ('INDIVIDUAL', 'BUSINESS')")
-        return value
+    created_at: datetime = Field(description="Date when the customer was created", alias="createdAt")
+    updated_at: datetime = Field(description="Date when the customer was last updated", alias="updatedAt")
+    __properties: ClassVar[List[str]] = ["id", "type", "name", "email", "cpf", "cnpj", "connector", "createdAt", "updatedAt"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -105,7 +102,9 @@ class PaymentCustomer(BaseModel):
             "email": obj.get("email"),
             "cpf": obj.get("cpf"),
             "cnpj": obj.get("cnpj"),
-            "connector": Connector.from_dict(obj["connector"]) if obj.get("connector") is not None else None
+            "connector": Connector.from_dict(obj["connector"]) if obj.get("connector") is not None else None,
+            "createdAt": obj.get("createdAt"),
+            "updatedAt": obj.get("updatedAt")
         })
         return _obj
 

@@ -35,7 +35,7 @@ class SmartTransferPreauthorization(BaseModel):
     Smart transfer preauthorization
     """ # noqa: E501
     id: StrictStr = Field(description="Preauthorization primary identifier")
-    status: StrictStr = Field(description="Preauthorization status", json_schema_extra={"examples": ["COMPLETED"]})
+    status: StrictStr = Field(description="Preauthorization lifecycle status. - `CREATED`: the preauthorization was created and is awaiting the payer's consent (see `consentUrl`). - `COMPLETED`: the payer authorized the consent. The preauthorization can now be used to execute payments. - `REJECTED`: the payer rejected the consent. - `REVOKED`: the consent was revoked after being authorized. - `ERROR`: the preauthorization flow failed unexpectedly (see `errorDetail`).", json_schema_extra={"examples": ["COMPLETED"]})
     consent_url: Optional[StrictStr] = Field(default=None, description="Url to give the consent in the institution", alias="consentUrl")
     client_preauthorization_id: Optional[StrictStr] = Field(default=None, description="Client preauthorization identifier", alias="clientPreauthorizationId")
     callback_urls: Optional[SmartTransferCallbackUrls] = Field(default=None, alias="callbackUrls")

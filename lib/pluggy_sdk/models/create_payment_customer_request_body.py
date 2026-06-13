@@ -18,30 +18,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from pluggy_sdk.models.payment_customer_type import PaymentCustomerType
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
 class CreatePaymentCustomerRequestBody(BaseModel):
     """
-    Response with information related to a payment customer
+    Body to create a payment customer
     """ # noqa: E501
-    type: StrictStr = Field(description="Customer type")
+    type: PaymentCustomerType
     name: StrictStr = Field(description="Customer name")
     email: Optional[StrictStr] = Field(default=None, description="Customer email")
-    cpf: Optional[StrictStr] = Field(default=None, description="Customer CPF")
-    cnpj: Optional[StrictStr] = Field(default=None, description="Customer CNPJ, if type is `BUSINESS`")
+    cpf: Optional[StrictStr] = Field(default=None, description="Customer CPF. Required when `type=INDIVIDUAL`.")
+    cnpj: Optional[StrictStr] = Field(default=None, description="Customer CNPJ. Required when `type=BUSINESS`.")
     connector_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Default connector id to be used in the Pluggy's payment initiation flow (https://pay.pluggy.ai) by the payer.", alias="connectorId")
     __properties: ClassVar[List[str]] = ["type", "name", "email", "cpf", "cnpj", "connectorId"]
-
-    @field_validator('type')
-    def type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['INDIVIDUAL', 'BUSINESS']):
-            raise ValueError("must be one of enum values ('INDIVIDUAL', 'BUSINESS')")
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

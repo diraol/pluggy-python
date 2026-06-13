@@ -31,7 +31,7 @@ class AutomaticPixPaymentAttempt(BaseModel):
     Payment attempt. It represents an attempt to complete this payment. Useful for tracking the payment history.
     """ # noqa: E501
     id: StrictStr = Field(description="Attempt primary identifier")
-    status: StrictStr = Field(description="Attempt status")
+    status: StrictStr = Field(description="Attempt status. Each attempt has an independent lifecycle within the parent payment. - `IN_PROGRESS`: the attempt was submitted and is awaiting confirmation. - `COMPLETED`: the attempt was confirmed (the parent payment also becomes `COMPLETED`). - `CANCELED`: the attempt was canceled. - `ERROR`: the attempt failed (see `errorDetail`). The parent payment may be retried with a new attempt.")
     end_to_end_id: Optional[StrictStr] = Field(default=None, description="Attempt end to end identifier", alias="endToEndId")
     var_date: date = Field(description="Attempt date", alias="date")
     error_detail: Optional[AutomaticPixPaymentErrorDetail] = Field(default=None, alias="errorDetail")

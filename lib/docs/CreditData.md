@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **balance_foreign_currency** | **float** | Balance in USD | [optional] 
 **minimum_payment** | **float** | Minimum payment due | [optional] 
 **credit_limit** | **float** | Maximum amount that can be spent | [optional] 
+**is_limit_flexible** | **bool** | Indicates whether the credit limit can be adjusted (e.g. a customer can request an increase). Only returned when reported by the institution. | [optional] 
 **status** | **str** | Credit card status | [optional] 
 **holder_type** | **str** | Credit card holder type | [optional] 
 **disaggregated_credit_limits** | [**List[DisaggregatedCreditLimit]**](DisaggregatedCreditLimit.md) | Disaggregated credit card limits | [optional] 

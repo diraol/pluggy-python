@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | UUID identifier for the entity | 
 **url** | **str** | Url to be notified of item changes | 
-**event** | **str** |  | 
+**event** | [**WebhookEventType**](WebhookEventType.md) |  | 
 **disabled_at** | **datetime** | Date when the webhook was disabled | [optional] 
 **created_at** | **datetime** | Date when it was created | [optional] 
 **updated_at** | **datetime** | Date of the last update | [optional] 

@@ -7,8 +7,8 @@ Account of type bank
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Primary account identifier | 
-**type** | **str** | Type of account, may be BANK or CREDIT | 
-**subtype** | **str** | Subtype of corresponding type of account | 
+**type** | **str** | Top-level account category. - &#x60;BANK&#x60;: deposit accounts (checking, savings). The &#x60;bankData&#x60; object is populated. - &#x60;CREDIT&#x60;: credit-card accounts. The &#x60;creditData&#x60; object is populated. | 
+**subtype** | **str** | Account subtype within its &#x60;type&#x60;. - &#x60;CHECKING_ACCOUNT&#x60;: conta corrente (&#x60;type&#x3D;BANK&#x60;). - &#x60;SAVINGS_ACCOUNT&#x60;: conta poupança (&#x60;type&#x3D;BANK&#x60;). - &#x60;CREDIT_CARD&#x60;: credit card account (&#x60;type&#x3D;CREDIT&#x60;). For these the &#x60;number&#x60; field is masked to the last 4 digits. | 
 **number** | **str** | External identifier of the account | 
 **name** | **str** | Name of the account in a descriptive format | 
 **marketing_name** | **str** | Name of the account as defined externally | [optional] 
@@ -19,6 +19,8 @@ Name | Type | Description | Notes
 **currency_code** | **str** | Code referencing the currency of the balance | 
 **bank_data** | [**BankData**](BankData.md) |  | [optional] 
 **credit_data** | [**CreditData**](CreditData.md) |  | [optional] 
+**created_at** | **datetime** | Date when the account was first created in Pluggy | 
+**updated_at** | **datetime** | Date of the last update of the account data | 
 
 ## Example
 

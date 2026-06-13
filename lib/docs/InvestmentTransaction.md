@@ -7,8 +7,8 @@ Movement of the investment
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Primary investment transaction identifier | 
-**type** | **str** | Type of transactions | 
-**movement_type** | **str** | Type of movement of the transaction | [optional] 
+**type** | **str** | Operation performed on the investment position. - &#x60;BUY&#x60;: subscription / purchase of new quotas. - &#x60;SELL&#x60;: redemption / sale of quotas. - &#x60;TRANSFER&#x60;: portability or internal transfer between accounts (the &#x60;amount&#x60; field may be null). - &#x60;TAX&#x60;: tax withholdings such as IR or IOF. - &#x60;INTEREST&#x60;: interest or yield credited to the position. - &#x60;AMORTIZATION&#x60;: principal repayment (typical of fixed-income amortizing bonds). | 
+**movement_type** | **str** | Cash-flow direction of the transaction from the holder&#39;s perspective. - &#x60;CREDIT&#x60;: money goes into the position (defaults for &#x60;BUY&#x60;). - &#x60;DEBIT&#x60;: money leaves the position (defaults for &#x60;SELL&#x60;, &#x60;TAX&#x60;, &#x60;TRANSFER&#x60;, &#x60;INTEREST&#x60;, &#x60;AMORTIZATION&#x60;). | [optional] 
 **quantity** | **float** | Quantity of the transaction | [optional] 
 **value** | **float** | Value on the transaction&#39;s Date | [optional] 
 **amount** | **float** | Gross amount of the operation. May be null only if type is TRANSFER | [optional] 

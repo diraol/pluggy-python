@@ -22,7 +22,9 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.connector import Connector
+from pluggy_sdk.models.debtor import Debtor
 from pluggy_sdk.models.payment_intent_error_detail import PaymentIntentErrorDetail
+from pluggy_sdk.models.payment_intent_status import PaymentIntentStatus
 from pluggy_sdk.models.payment_request import PaymentRequest
 from pluggy_sdk.models.pix_data import PixData
 from typing import Optional, Set
@@ -33,28 +35,19 @@ class PaymentIntent(BaseModel):
     """
     Request with information related to a payment intent
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="Primary identifier")
-    status: Optional[StrictStr] = Field(default=None, description="Payment intent status")
-    created_at: Optional[datetime] = Field(default=None, description="Date when the payment intent was created", alias="createdAt")
-    updated_at: Optional[datetime] = Field(default=None, description="Date when the payment intent was updated", alias="updatedAt")
+    id: StrictStr = Field(description="Primary identifier")
+    status: PaymentIntentStatus
+    created_at: datetime = Field(description="Date when the payment intent was created", alias="createdAt")
+    updated_at: datetime = Field(description="Date when the payment intent was updated", alias="updatedAt")
     payment_request: Optional[PaymentRequest] = Field(default=None, description="Payment request associated to the payment intent", alias="paymentRequest")
     connector: Optional[Connector] = Field(default=None, description="Connector associated to the payment intent")
     consent_url: Optional[StrictStr] = Field(default=None, description="Url to authorize the payment intent", alias="consentUrl")
     reference_id: Optional[StrictStr] = Field(default=None, description="Pix id related to the payment intent", alias="referenceId")
     payment_method: Optional[StrictStr] = Field(default='PIS', description="Payment method can be PIS (Payment Initiation) or PIX", alias="paymentMethod")
     pix_data: Optional[PixData] = Field(default=None, description="Pix data related to the payment intent (only applies for PIX payment method)", alias="pixData")
+    debtor: Optional[Debtor] = Field(default=None, description="Information about the payer's account, returned by the institution after the payment is completed. Null until the institution exposes it.")
     error_detail: Optional[PaymentIntentErrorDetail] = Field(default=None, description="Error details when payment intent fails", alias="errorDetail")
-    __properties: ClassVar[List[str]] = ["id", "status", "createdAt", "updatedAt", "paymentRequest", "connector", "consentUrl", "referenceId", "paymentMethod", "pixData", "errorDetail"]
-
-    @field_validator('status')
-    def status_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['PAYMENT_REJECTED', 'ERROR', 'CANCELED', 'CONSENT_REJECTED', 'STARTED', 'ENQUEUED', 'CONSENT_AWAITING_AUTHORIZATION', 'CONSENT_AUTHORIZED', 'PAYMENT_PENDING', 'PAYMENT_PARTIALLY_ACCEPTED', 'PAYMENT_SETTLEMENT_PROCESSING', 'PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT', 'PAYMENT_COMPLETED', 'REJECTED', 'REVOKED', 'CONSUMED']):
-            raise ValueError("must be one of enum values ('PAYMENT_REJECTED', 'ERROR', 'CANCELED', 'CONSENT_REJECTED', 'STARTED', 'ENQUEUED', 'CONSENT_AWAITING_AUTHORIZATION', 'CONSENT_AUTHORIZED', 'PAYMENT_PENDING', 'PAYMENT_PARTIALLY_ACCEPTED', 'PAYMENT_SETTLEMENT_PROCESSING', 'PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT', 'PAYMENT_COMPLETED', 'REJECTED', 'REVOKED', 'CONSUMED')")
-        return value
+    __properties: ClassVar[List[str]] = ["id", "status", "createdAt", "updatedAt", "paymentRequest", "connector", "consentUrl", "referenceId", "paymentMethod", "pixData", "debtor", "errorDetail"]
 
     @field_validator('payment_method')
     def payment_method_validate_enum(cls, value):
@@ -114,6 +107,9 @@ class PaymentIntent(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of pix_data
         if self.pix_data:
             _dict['pixData'] = self.pix_data.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of debtor
+        if self.debtor:
+            _dict['debtor'] = self.debtor.to_dict()
         # override the default output from pydantic by calling `to_dict()` of error_detail
         if self.error_detail:
             _dict['errorDetail'] = self.error_detail.to_dict()
@@ -139,6 +135,7 @@ class PaymentIntent(BaseModel):
             "referenceId": obj.get("referenceId"),
             "paymentMethod": obj.get("paymentMethod") if obj.get("paymentMethod") is not None else 'PIS',
             "pixData": PixData.from_dict(obj["pixData"]) if obj.get("pixData") is not None else None,
+            "debtor": Debtor.from_dict(obj["debtor"]) if obj.get("debtor") is not None else None,
             "errorDetail": PaymentIntentErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None
         })
         return _obj

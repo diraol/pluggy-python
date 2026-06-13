@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.additional_card import AdditionalCard
 from pluggy_sdk.models.disaggregated_credit_limit import DisaggregatedCreditLimit
@@ -39,11 +39,12 @@ class CreditData(BaseModel):
     balance_foreign_currency: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Balance in USD", alias="balanceForeignCurrency")
     minimum_payment: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Minimum payment due", alias="minimumPayment")
     credit_limit: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Maximum amount that can be spent", alias="creditLimit")
+    is_limit_flexible: Optional[StrictBool] = Field(default=None, description="Indicates whether the credit limit can be adjusted (e.g. a customer can request an increase). Only returned when reported by the institution.", alias="isLimitFlexible")
     status: Optional[StrictStr] = Field(default=None, description="Credit card status")
     holder_type: Optional[StrictStr] = Field(default=None, description="Credit card holder type", alias="holderType")
     disaggregated_credit_limits: Optional[List[DisaggregatedCreditLimit]] = Field(default=None, description="Disaggregated credit card limits", alias="disaggregatedCreditLimits")
     additional_cards: Optional[List[AdditionalCard]] = Field(default=None, description="Additional credit cards associated with the main one", alias="additionalCards")
-    __properties: ClassVar[List[str]] = ["level", "brand", "balanceCloseDate", "balanceDueDate", "availableCreditLimit", "balanceForeignCurrency", "minimumPayment", "creditLimit", "status", "holderType", "disaggregatedCreditLimits", "additionalCards"]
+    __properties: ClassVar[List[str]] = ["level", "brand", "balanceCloseDate", "balanceDueDate", "availableCreditLimit", "balanceForeignCurrency", "minimumPayment", "creditLimit", "isLimitFlexible", "status", "holderType", "disaggregatedCreditLimits", "additionalCards"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -138,6 +139,7 @@ class CreditData(BaseModel):
             "balanceForeignCurrency": obj.get("balanceForeignCurrency"),
             "minimumPayment": obj.get("minimumPayment"),
             "creditLimit": obj.get("creditLimit"),
+            "isLimitFlexible": obj.get("isLimitFlexible"),
             "status": obj.get("status"),
             "holderType": obj.get("holderType"),
             "disaggregatedCreditLimits": [DisaggregatedCreditLimit.from_dict(_item) for _item in obj["disaggregatedCreditLimits"]] if obj.get("disaggregatedCreditLimits") is not None else None,

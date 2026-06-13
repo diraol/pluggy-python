@@ -7,7 +7,7 @@ Smart transfer preauthorization
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Preauthorization primary identifier | 
-**status** | **str** | Preauthorization status | 
+**status** | **str** | Preauthorization lifecycle status. - &#x60;CREATED&#x60;: the preauthorization was created and is awaiting the payer&#39;s consent (see &#x60;consentUrl&#x60;). - &#x60;COMPLETED&#x60;: the payer authorized the consent. The preauthorization can now be used to execute payments. - &#x60;REJECTED&#x60;: the payer rejected the consent. - &#x60;REVOKED&#x60;: the consent was revoked after being authorized. - &#x60;ERROR&#x60;: the preauthorization flow failed unexpectedly (see &#x60;errorDetail&#x60;). | 
 **consent_url** | **str** | Url to give the consent in the institution | [optional] 
 **client_preauthorization_id** | **str** | Client preauthorization identifier | [optional] 
 **callback_urls** | [**SmartTransferCallbackUrls**](SmartTransferCallbackUrls.md) |  | [optional] 

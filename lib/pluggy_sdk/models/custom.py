@@ -27,10 +27,10 @@ from pydantic_core import to_jsonable_python
 
 class CUSTOM(BaseModel):
     """
-    Schedule atribute to generate custom payments in the future
+    Schedule attribute to generate payments on an explicit list of dates.
     """ # noqa: E501
-    type: StrictStr = Field(description="Scheduled type", json_schema_extra={"examples": ["CUSTOM"]})
-    dates: List[date]
+    type: StrictStr = Field(description="Schedule discriminator. Always `CUSTOM` for this variant.", json_schema_extra={"examples": ["CUSTOM"]})
+    dates: List[date] = Field(description="Explicit list of dates (YYYY-MM-DD) on which payments will be settled.")
     additional_information: Optional[StrictStr] = Field(default=None, description="Additional information about the custom schedule", alias="additionalInformation")
     __properties: ClassVar[List[str]] = ["type", "dates", "additionalInformation"]
 

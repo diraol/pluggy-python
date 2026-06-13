@@ -19,9 +19,10 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.automatic_pix_first_payment import AutomaticPixFirstPayment
+from pluggy_sdk.models.automatic_pix_interval import AutomaticPixInterval
 from pluggy_sdk.models.automatic_pix_retries_configuration import AutomaticPixRetriesConfiguration
 from pluggy_sdk.models.automatic_pix_scheduler_configuration import AutomaticPixSchedulerConfiguration
 from typing import Optional, Set
@@ -39,17 +40,10 @@ class AutomaticPix(BaseModel):
     expires_at: Optional[datetime] = Field(default=None, description="Expiration date for the automatic pix authorization", alias="expiresAt")
     is_retry_accepted: Optional[StrictBool] = Field(default=None, description="Indicates whether the receiving customer is allowed to make payment attempts, according to the rules established in the Pix arrangement.", alias="isRetryAccepted")
     first_payment: Optional[AutomaticPixFirstPayment] = Field(default=None, alias="firstPayment")
-    interval: StrictStr = Field(description="Defines the permitted frequency for carrying out transactions.")
+    interval: AutomaticPixInterval
     automatic_retries_configuration: Optional[AutomaticPixRetriesConfiguration] = Field(default=None, alias="automaticRetriesConfiguration")
     scheduler_configuration: Optional[AutomaticPixSchedulerConfiguration] = Field(default=None, alias="schedulerConfiguration")
     __properties: ClassVar[List[str]] = ["fixedAmount", "minimumVariableAmount", "maximumVariableAmount", "startDate", "expiresAt", "isRetryAccepted", "firstPayment", "interval", "automaticRetriesConfiguration", "schedulerConfiguration"]
-
-    @field_validator('interval')
-    def interval_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['WEEKLY', 'MONTHLY', 'QUARTERLY', 'SEMESTER', 'YEARLY']):
-            raise ValueError("must be one of enum values ('WEEKLY', 'MONTHLY', 'QUARTERLY', 'SEMESTER', 'YEARLY')")
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

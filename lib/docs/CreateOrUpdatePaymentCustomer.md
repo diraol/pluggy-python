@@ -1,14 +1,13 @@
 # CreateOrUpdatePaymentCustomer
 
-Response with information related to a payment customer
+Body to update a payment customer. All fields are optional.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Primary identifier | 
-**type** | **str** | Customer type | 
-**name** | **str** | Customer name | 
+**type** | [**PaymentCustomerType**](PaymentCustomerType.md) |  | [optional] 
+**name** | **str** | Customer name | [optional] 
 **email** | **str** | Customer email | [optional] 
 **cpf** | **str** | Customer CPF | [optional] 
 **cnpj** | **str** | Customer CNPJ, if type is &#x60;BUSINESS&#x60; | [optional] 

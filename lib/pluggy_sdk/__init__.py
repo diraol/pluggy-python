@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post56"
+__version__ = "1.0.0.post57"
 
 # Define package exports
 __all__ = [
@@ -60,10 +60,12 @@ __all__ = [
     "AuthResponse",
     "AutomaticPix",
     "AutomaticPixFirstPayment",
+    "AutomaticPixInterval",
     "AutomaticPixPayment",
     "AutomaticPixPaymentAttempt",
     "AutomaticPixPaymentDetail",
     "AutomaticPixPaymentErrorDetail",
+    "AutomaticPixPaymentStatus",
     "AutomaticPixRetriesConfiguration",
     "AutomaticPixSchedulerConfiguration",
     "BankData",
@@ -74,6 +76,7 @@ __all__ = [
     "Boleto",
     "BoletoConnection",
     "BoletoPayer",
+    "BoletoPaymentRecipient",
     "BoletoRecipient",
     "BusinessOtherDocument",
     "BusinessParty",
@@ -116,6 +119,8 @@ __all__ = [
     "CreditData",
     "CursorPageResponseTransactions",
     "DAILY",
+    "Debtor",
+    "DebtorBankAccount",
     "DisaggregatedCreditLimit",
     "Document",
     "EconomicActivity",
@@ -177,6 +182,7 @@ __all__ = [
     "Passport",
     "PaycheckBankLink",
     "PaymentCustomer",
+    "PaymentCustomerType",
     "PaymentCustomersList200Response",
     "PaymentData",
     "PaymentDataBoletoMetadata",
@@ -185,6 +191,7 @@ __all__ = [
     "PaymentIntent",
     "PaymentIntentErrorDetail",
     "PaymentIntentParameter",
+    "PaymentIntentStatus",
     "PaymentIntentsList200Response",
     "PaymentRecipient",
     "PaymentRecipientAccount",
@@ -194,21 +201,29 @@ __all__ = [
     "PaymentRequestCallbackUrls",
     "PaymentRequestErrorDetail",
     "PaymentRequestGetAutomaticPixSchedules200Response",
+    "PaymentRequestRecipient",
     "PaymentRequestSchedule",
+    "PaymentRequestStatus",
     "PaymentRequestsList200Response",
     "PaymentSchedulesList200Response",
     "PhoneNumber",
     "PixData",
+    "PixQrPaymentRecipient",
     "PortabilityReceived",
+    "ReservedBalance",
+    "ReservedBalanceAmount",
+    "ReservedBalanceRemuneration",
     "RetryAutomaticPixPaymentRequest",
     "SINGLE",
     "ScheduleAutomaticPixPaymentRequest",
     "SchedulePayment",
     "SchedulePaymentErrorDetail",
+    "SmartAccount",
     "SmartTranfersPreauthorizationsList200Response",
     "SmartTransferCallbackUrls",
     "SmartTransferPayment",
     "SmartTransferPaymentErrorDetail",
+    "SmartTransferPaymentStatus",
     "SmartTransferPreauthorization",
     "SmartTransferPreauthorizationConfiguration",
     "SmartTransferPreauthorizationConfigurationPeriodicLimit",
@@ -223,9 +238,11 @@ __all__ = [
     "UpdatePaymentRecipient",
     "UpdatePaymentRequest",
     "UpdateTransaction",
+    "UpdateWebhook",
     "WEEKLY",
     "Webhook",
     "WebhookCreationErrorResponse",
+    "WebhookEventType",
     "WebhooksList200Response",
 ]
 
@@ -275,10 +292,12 @@ from pluggy_sdk.models.auth_request import AuthRequest as AuthRequest
 from pluggy_sdk.models.auth_response import AuthResponse as AuthResponse
 from pluggy_sdk.models.automatic_pix import AutomaticPix as AutomaticPix
 from pluggy_sdk.models.automatic_pix_first_payment import AutomaticPixFirstPayment as AutomaticPixFirstPayment
+from pluggy_sdk.models.automatic_pix_interval import AutomaticPixInterval as AutomaticPixInterval
 from pluggy_sdk.models.automatic_pix_payment import AutomaticPixPayment as AutomaticPixPayment
 from pluggy_sdk.models.automatic_pix_payment_attempt import AutomaticPixPaymentAttempt as AutomaticPixPaymentAttempt
 from pluggy_sdk.models.automatic_pix_payment_detail import AutomaticPixPaymentDetail as AutomaticPixPaymentDetail
 from pluggy_sdk.models.automatic_pix_payment_error_detail import AutomaticPixPaymentErrorDetail as AutomaticPixPaymentErrorDetail
+from pluggy_sdk.models.automatic_pix_payment_status import AutomaticPixPaymentStatus as AutomaticPixPaymentStatus
 from pluggy_sdk.models.automatic_pix_retries_configuration import AutomaticPixRetriesConfiguration as AutomaticPixRetriesConfiguration
 from pluggy_sdk.models.automatic_pix_scheduler_configuration import AutomaticPixSchedulerConfiguration as AutomaticPixSchedulerConfiguration
 from pluggy_sdk.models.bank_data import BankData as BankData
@@ -289,6 +308,7 @@ from pluggy_sdk.models.bills_list200_response import BillsList200Response as Bil
 from pluggy_sdk.models.boleto import Boleto as Boleto
 from pluggy_sdk.models.boleto_connection import BoletoConnection as BoletoConnection
 from pluggy_sdk.models.boleto_payer import BoletoPayer as BoletoPayer
+from pluggy_sdk.models.boleto_payment_recipient import BoletoPaymentRecipient as BoletoPaymentRecipient
 from pluggy_sdk.models.boleto_recipient import BoletoRecipient as BoletoRecipient
 from pluggy_sdk.models.business_other_document import BusinessOtherDocument as BusinessOtherDocument
 from pluggy_sdk.models.business_party import BusinessParty as BusinessParty
@@ -331,6 +351,8 @@ from pluggy_sdk.models.credit_card_metadata import CreditCardMetadata as CreditC
 from pluggy_sdk.models.credit_data import CreditData as CreditData
 from pluggy_sdk.models.cursor_page_response_transactions import CursorPageResponseTransactions as CursorPageResponseTransactions
 from pluggy_sdk.models.daily import DAILY as DAILY
+from pluggy_sdk.models.debtor import Debtor as Debtor
+from pluggy_sdk.models.debtor_bank_account import DebtorBankAccount as DebtorBankAccount
 from pluggy_sdk.models.disaggregated_credit_limit import DisaggregatedCreditLimit as DisaggregatedCreditLimit
 from pluggy_sdk.models.document import Document as Document
 from pluggy_sdk.models.economic_activity import EconomicActivity as EconomicActivity
@@ -392,6 +414,7 @@ from pluggy_sdk.models.parameter_validation_response import ParameterValidationR
 from pluggy_sdk.models.passport import Passport as Passport
 from pluggy_sdk.models.paycheck_bank_link import PaycheckBankLink as PaycheckBankLink
 from pluggy_sdk.models.payment_customer import PaymentCustomer as PaymentCustomer
+from pluggy_sdk.models.payment_customer_type import PaymentCustomerType as PaymentCustomerType
 from pluggy_sdk.models.payment_customers_list200_response import PaymentCustomersList200Response as PaymentCustomersList200Response
 from pluggy_sdk.models.payment_data import PaymentData as PaymentData
 from pluggy_sdk.models.payment_data_boleto_metadata import PaymentDataBoletoMetadata as PaymentDataBoletoMetadata
@@ -400,6 +423,7 @@ from pluggy_sdk.models.payment_institution import PaymentInstitution as PaymentI
 from pluggy_sdk.models.payment_intent import PaymentIntent as PaymentIntent
 from pluggy_sdk.models.payment_intent_error_detail import PaymentIntentErrorDetail as PaymentIntentErrorDetail
 from pluggy_sdk.models.payment_intent_parameter import PaymentIntentParameter as PaymentIntentParameter
+from pluggy_sdk.models.payment_intent_status import PaymentIntentStatus as PaymentIntentStatus
 from pluggy_sdk.models.payment_intents_list200_response import PaymentIntentsList200Response as PaymentIntentsList200Response
 from pluggy_sdk.models.payment_recipient import PaymentRecipient as PaymentRecipient
 from pluggy_sdk.models.payment_recipient_account import PaymentRecipientAccount as PaymentRecipientAccount
@@ -409,21 +433,29 @@ from pluggy_sdk.models.payment_request import PaymentRequest as PaymentRequest
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls as PaymentRequestCallbackUrls
 from pluggy_sdk.models.payment_request_error_detail import PaymentRequestErrorDetail as PaymentRequestErrorDetail
 from pluggy_sdk.models.payment_request_get_automatic_pix_schedules200_response import PaymentRequestGetAutomaticPixSchedules200Response as PaymentRequestGetAutomaticPixSchedules200Response
+from pluggy_sdk.models.payment_request_recipient import PaymentRequestRecipient as PaymentRequestRecipient
 from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule as PaymentRequestSchedule
+from pluggy_sdk.models.payment_request_status import PaymentRequestStatus as PaymentRequestStatus
 from pluggy_sdk.models.payment_requests_list200_response import PaymentRequestsList200Response as PaymentRequestsList200Response
 from pluggy_sdk.models.payment_schedules_list200_response import PaymentSchedulesList200Response as PaymentSchedulesList200Response
 from pluggy_sdk.models.phone_number import PhoneNumber as PhoneNumber
 from pluggy_sdk.models.pix_data import PixData as PixData
+from pluggy_sdk.models.pix_qr_payment_recipient import PixQrPaymentRecipient as PixQrPaymentRecipient
 from pluggy_sdk.models.portability_received import PortabilityReceived as PortabilityReceived
+from pluggy_sdk.models.reserved_balance import ReservedBalance as ReservedBalance
+from pluggy_sdk.models.reserved_balance_amount import ReservedBalanceAmount as ReservedBalanceAmount
+from pluggy_sdk.models.reserved_balance_remuneration import ReservedBalanceRemuneration as ReservedBalanceRemuneration
 from pluggy_sdk.models.retry_automatic_pix_payment_request import RetryAutomaticPixPaymentRequest as RetryAutomaticPixPaymentRequest
 from pluggy_sdk.models.single import SINGLE as SINGLE
 from pluggy_sdk.models.schedule_automatic_pix_payment_request import ScheduleAutomaticPixPaymentRequest as ScheduleAutomaticPixPaymentRequest
 from pluggy_sdk.models.schedule_payment import SchedulePayment as SchedulePayment
 from pluggy_sdk.models.schedule_payment_error_detail import SchedulePaymentErrorDetail as SchedulePaymentErrorDetail
+from pluggy_sdk.models.smart_account import SmartAccount as SmartAccount
 from pluggy_sdk.models.smart_tranfers_preauthorizations_list200_response import SmartTranfersPreauthorizationsList200Response as SmartTranfersPreauthorizationsList200Response
 from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls as SmartTransferCallbackUrls
 from pluggy_sdk.models.smart_transfer_payment import SmartTransferPayment as SmartTransferPayment
 from pluggy_sdk.models.smart_transfer_payment_error_detail import SmartTransferPaymentErrorDetail as SmartTransferPaymentErrorDetail
+from pluggy_sdk.models.smart_transfer_payment_status import SmartTransferPaymentStatus as SmartTransferPaymentStatus
 from pluggy_sdk.models.smart_transfer_preauthorization import SmartTransferPreauthorization as SmartTransferPreauthorization
 from pluggy_sdk.models.smart_transfer_preauthorization_configuration import SmartTransferPreauthorizationConfiguration as SmartTransferPreauthorizationConfiguration
 from pluggy_sdk.models.smart_transfer_preauthorization_configuration_periodic_limit import SmartTransferPreauthorizationConfigurationPeriodicLimit as SmartTransferPreauthorizationConfigurationPeriodicLimit
@@ -438,8 +470,10 @@ from pluggy_sdk.models.update_item import UpdateItem as UpdateItem
 from pluggy_sdk.models.update_payment_recipient import UpdatePaymentRecipient as UpdatePaymentRecipient
 from pluggy_sdk.models.update_payment_request import UpdatePaymentRequest as UpdatePaymentRequest
 from pluggy_sdk.models.update_transaction import UpdateTransaction as UpdateTransaction
+from pluggy_sdk.models.update_webhook import UpdateWebhook as UpdateWebhook
 from pluggy_sdk.models.weekly import WEEKLY as WEEKLY
 from pluggy_sdk.models.webhook import Webhook as Webhook
 from pluggy_sdk.models.webhook_creation_error_response import WebhookCreationErrorResponse as WebhookCreationErrorResponse
+from pluggy_sdk.models.webhook_event_type import WebhookEventType as WebhookEventType
 from pluggy_sdk.models.webhooks_list200_response import WebhooksList200Response as WebhooksList200Response
 

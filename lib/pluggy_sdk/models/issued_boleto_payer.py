@@ -18,8 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -41,19 +41,7 @@ class IssuedBoletoPayer(BaseModel):
     email: Optional[StrictStr] = Field(default=None, description="Payer email")
     ddd: Optional[StrictStr] = Field(default=None, description="Payer area code")
     phone_number: Optional[StrictStr] = Field(default=None, description="Payer phone number", alias="phoneNumber")
-    amount_paid: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount paid or null if it hasn't been paid yet", alias="amountPaid")
-    payment_origin: Optional[StrictStr] = Field(default=None, description="Payment origin for the boleto", alias="paymentOrigin")
-    __properties: ClassVar[List[str]] = ["taxNumber", "personType", "name", "addressStreet", "addressNumber", "addressComplement", "addressNeighborhood", "addressCity", "addressState", "addressZipCode", "email", "ddd", "phoneNumber", "amountPaid", "paymentOrigin"]
-
-    @field_validator('payment_origin')
-    def payment_origin_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['PIX', 'BOLETO']):
-            raise ValueError("must be one of enum values ('PIX', 'BOLETO')")
-        return value
+    __properties: ClassVar[List[str]] = ["taxNumber", "personType", "name", "addressStreet", "addressNumber", "addressComplement", "addressNeighborhood", "addressCity", "addressState", "addressZipCode", "email", "ddd", "phoneNumber"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -118,9 +106,7 @@ class IssuedBoletoPayer(BaseModel):
             "addressZipCode": obj.get("addressZipCode"),
             "email": obj.get("email"),
             "ddd": obj.get("ddd"),
-            "phoneNumber": obj.get("phoneNumber"),
-            "amountPaid": obj.get("amountPaid"),
-            "paymentOrigin": obj.get("paymentOrigin")
+            "phoneNumber": obj.get("phoneNumber")
         })
         return _obj
 

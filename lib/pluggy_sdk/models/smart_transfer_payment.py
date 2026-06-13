@@ -19,10 +19,11 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.payment_recipient import PaymentRecipient
 from pluggy_sdk.models.smart_transfer_payment_error_detail import SmartTransferPaymentErrorDetail
+from pluggy_sdk.models.smart_transfer_payment_status import SmartTransferPaymentStatus
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,22 +34,15 @@ class SmartTransferPayment(BaseModel):
     """ # noqa: E501
     id: StrictStr = Field(description="Payment primary identifier")
     preauthorization_id: StrictStr = Field(description="Payment primary identifier", alias="preauthorizationId")
-    status: StrictStr = Field(description="Payment status")
+    status: SmartTransferPaymentStatus
     amount: Union[StrictFloat, StrictInt] = Field(description="Payment amount")
     description: Optional[StrictStr] = Field(default=None, description="Payment description")
-    recipient: PaymentRecipient
+    recipient: Optional[PaymentRecipient] = Field(default=None, description="Recipient of the transfer. May be null until the payment is associated with one.")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Client payment identifier", alias="clientPaymentId")
-    created_at: datetime = Field(description="Date when the payemnt was created", alias="createdAt")
+    created_at: datetime = Field(description="Date when the payment was created", alias="createdAt")
     updated_at: datetime = Field(description="Date when the payment was updated", alias="updatedAt")
     error_detail: Optional[SmartTransferPaymentErrorDetail] = Field(default=None, alias="errorDetail")
     __properties: ClassVar[List[str]] = ["id", "preauthorizationId", "status", "amount", "description", "recipient", "clientPaymentId", "createdAt", "updatedAt", "errorDetail"]
-
-    @field_validator('status')
-    def status_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['PAYMENT_REJECTED', 'ERROR', 'CANCELED', 'CONSENT_REJECTED', 'CONSENT_AUTHORIZED', 'PAYMENT_PENDING', 'PAYMENT_PARTIALLY_ACCEPTED', 'PAYMENT_SETTLEMENT_PROCESSING', 'PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT', 'PAYMENT_COMPLETED']):
-            raise ValueError("must be one of enum values ('PAYMENT_REJECTED', 'ERROR', 'CANCELED', 'CONSENT_REJECTED', 'CONSENT_AUTHORIZED', 'PAYMENT_PENDING', 'PAYMENT_PARTIALLY_ACCEPTED', 'PAYMENT_SETTLEMENT_PROCESSING', 'PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT', 'PAYMENT_COMPLETED')")
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

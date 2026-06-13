@@ -1,19 +1,19 @@
 # SmartAccount
 
-Smart account product
+Pluggy Smart Account (escrow account) attached to a payment request. Receives funds and lets the client orchestrate splits and withdrawals.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Primary identifier of the Smart account | 
-**ispb** | **str** | Smart account ISP number | 
-**agency** | **str** | Smart account agency number | 
-**number** | **str** | Smart account number | 
-**verifying_digit** | **str** | Smart account verifying digit | 
-**type** | **str** | Smart account type | 
-**is_sandbox** | **bool** | Indicates if the smart account is a sandbox account | 
-**pix_key** | **str** | Smart account PIX key | 
+**id** | **UUID** |  | 
+**agency** | **str** | Bank agency of the smart account | 
+**number** | **str** | Account number | 
+**verifying_digit** | **str** | Account verifying digit | 
+**type** | **str** | Smart accounts are always checking accounts | 
+**is_sandbox** | **bool** |  | 
+**owner** | **str** | Legal name of the smart account holder. Only returned in detailed views. | [optional] 
+**pix_key** | **str** | PIX key associated with the smart account | [optional] 
 
 ## Example
 

@@ -20,7 +20,7 @@ import json
 
 from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Any, ClassVar, Dict, List, Union
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,12 +28,12 @@ from pydantic_core import to_jsonable_python
 
 class WEEKLY(BaseModel):
     """
-    Schedule atribute to generate weekly payments
+    Schedule attribute to generate weekly payments on a specific day of the week.
     """ # noqa: E501
-    type: StrictStr = Field(description="Scheduled type", json_schema_extra={"examples": ["WEEKLY"]})
+    type: StrictStr = Field(description="Schedule discriminator. Always `WEEKLY` for this variant.", json_schema_extra={"examples": ["WEEKLY"]})
     start_date: date = Field(description="The start date of the validity of the scheduled payment authorization.", alias="startDate", json_schema_extra={"examples": ["2024-06-11"]})
-    day_of_week: StrictStr = Field(description="Day of the week on which each payment will occur. For instance, if set to 'MONDAY', the first payment will occur on the first monday after the startDate (or the same day, if it is already monday), and every monday after that.", alias="dayOfWeek", json_schema_extra={"examples": ["MONDAY"]})
-    occurrences: Optional[Union[Annotated[float, Field(le=59, strict=True, ge=3)], Annotated[int, Field(le=59, strict=True, ge=3)]]] = Field(default=None, description="Under the specified schedule frequency, how many payments will be scheduled to occur.", json_schema_extra={"examples": [3]})
+    day_of_week: StrictStr = Field(description="Day of the week on which each payment will occur. For instance, if set to `MONDAY`, the first payment will occur on the first Monday after `startDate` (or the same day, if it is already Monday), and every Monday after that.", alias="dayOfWeek", json_schema_extra={"examples": ["MONDAY"]})
+    occurrences: Union[Annotated[float, Field(le=59, strict=True, ge=3)], Annotated[int, Field(le=59, strict=True, ge=3)]] = Field(description="Under the specified schedule frequency, how many payments will be scheduled to occur.", json_schema_extra={"examples": [3]})
     __properties: ClassVar[List[str]] = ["type", "startDate", "dayOfWeek", "occurrences"]
 
     @field_validator('type')
@@ -46,8 +46,8 @@ class WEEKLY(BaseModel):
     @field_validator('day_of_week')
     def day_of_week_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURDSAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']):
-            raise ValueError("must be one of enum values ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURDSAY', 'FRIDAY', 'SATURDAY', 'SUNDAY')")
+        if value not in set(['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']):
+            raise ValueError("must be one of enum values ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY')")
         return value
 
     model_config = ConfigDict(

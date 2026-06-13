@@ -20,7 +20,7 @@ import json
 
 from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Any, ClassVar, Dict, List, Union
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,11 +28,11 @@ from pydantic_core import to_jsonable_python
 
 class DAILY(BaseModel):
     """
-    Schedule atribute to generate daily payments
+    Schedule attribute to generate daily payments starting from `startDate`.
     """ # noqa: E501
-    type: StrictStr = Field(description="Scheduled type", json_schema_extra={"examples": ["DAILY"]})
+    type: StrictStr = Field(description="Schedule discriminator. Always `DAILY` for this variant.", json_schema_extra={"examples": ["DAILY"]})
     start_date: date = Field(description="The start date of the validity of the scheduled payment authorization.", alias="startDate", json_schema_extra={"examples": ["2024-06-11"]})
-    occurrences: Optional[Union[Annotated[float, Field(le=59, strict=True, ge=3)], Annotated[int, Field(le=59, strict=True, ge=3)]]] = Field(default=None, description="Under the specified schedule frequency, how many payments will be scheduled to occur.", json_schema_extra={"examples": [3]})
+    occurrences: Union[Annotated[float, Field(le=59, strict=True, ge=3)], Annotated[int, Field(le=59, strict=True, ge=3)]] = Field(description="Under the specified schedule frequency, how many payments will be scheduled to occur.", json_schema_extra={"examples": [3]})
     __properties: ClassVar[List[str]] = ["type", "startDate", "occurrences"]
 
     @field_validator('type')

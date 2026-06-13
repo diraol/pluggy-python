@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Primary identifier | 
 **item_id** | **UUID** | Identifier of the item linked to the investment | 
-**type** | **str** | Investment Asset type | 
-**subtype** | **str** | Investment subtype, depends on the type | [optional] 
+**type** | **str** | Investment asset class. - &#x60;MUTUAL_FUND&#x60;: actively managed pooled investment funds (FIM, FIA, FIC). - &#x60;EQUITY&#x60;: stocks and equity-like assets traded on a stock exchange. - &#x60;ETF&#x60;: Exchange Traded Funds. - &#x60;FIXED_INCOME&#x60;: fixed income products such as CDB, LCI, LCA, debentures, Tesouro Direto. - &#x60;COE&#x60;: Certificado de Operações Estruturadas (structured notes). - &#x60;SECURITY&#x60;: private pension / previdência products (PGBL, VGBL). - &#x60;OTHER&#x60;: any asset not covered by the categories above. | 
+**subtype** | **str** | Specific instrument within a &#x60;type&#x60;. Possible groupings:  **EQUITY**: &#x60;STOCK&#x60; (ação), &#x60;BDR&#x60; (Brazilian Depositary Receipt), &#x60;REAL_ESTATE_FUND&#x60; (FII), &#x60;DERIVATIVES&#x60;, &#x60;OPTION&#x60;.  **ETF**: &#x60;ETF&#x60;.  **FIXED_INCOME**: &#x60;TREASURY&#x60; (Tesouro Direto), &#x60;CDB&#x60;, &#x60;LCI&#x60;, &#x60;LCA&#x60;, &#x60;LC&#x60;, &#x60;LF&#x60;, &#x60;CRI&#x60;, &#x60;CRA&#x60;, &#x60;DEBENTURES&#x60;, &#x60;CORPORATE_DEBT&#x60;.  **MUTUAL_FUND**: &#x60;INVESTMENT_FUND&#x60;, &#x60;MULTIMARKET_FUND&#x60;, &#x60;FIXED_INCOME_FUND&#x60;, &#x60;STOCK_FUND&#x60;, &#x60;ETF_FUND&#x60;, &#x60;OFFSHORE_FUND&#x60;, &#x60;FIP_FUND&#x60;, &#x60;EXCHANGE_FUND&#x60;, &#x60;FI_INFRA&#x60;, &#x60;FI_AGRO&#x60;.  **COE**: &#x60;STRUCTURED_NOTE&#x60;.  **SECURITY**: &#x60;RETIREMENT&#x60; (PGBL/VGBL).  **OTHER**: &#x60;OTHER&#x60;. | [optional] 
 **number** | **str** | Reference number for this holder&#39;s asset | [optional] 
 **balance** | **float** | The current net balance amount of the investment | 
 **name** | **str** | Name on the provider | 
@@ -35,10 +35,11 @@ Name | Type | Description | Notes
 **issuer_cnpj** | **str** | The entity CNPJ that issued the investment | [optional] 
 **issue_date** | **datetime** | The date that the investment was issued | [optional] 
 **purchase_date** | **datetime** | The date that the investment was purchased | [optional] 
+**grace_period_date** | **datetime** | The date when the grace period ends (fixed-income investments only) | [optional] 
 **rate** | **float** | Fixed rate percentage applied to the investment | [optional] 
 **rate_type** | **str** | Type of fixed-rate | [optional] 
 **fixed_annual_rate** | **float** | Fixed income annual rate | [optional] 
-**status** | **str** | Current status of the investment enum value | [optional] 
+**status** | **str** | Current lifecycle status of the investment. - &#x60;ACTIVE&#x60;: the investment is open and currently held by the owner. - &#x60;PENDING&#x60;: the operation has been requested but is not yet settled (e.g. a fund subscription within the settlement window). - &#x60;TOTAL_WITHDRAWAL&#x60;: the position has been fully redeemed/withdrawn; balance is zero. | [optional] 
 
 ## Example
 

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **investments_transactions** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
 **payment_data** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
 **loans** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
+**account_statements** | [**StatusDetailProduct**](StatusDetailProduct.md) |  | [optional] 
 
 ## Example
 

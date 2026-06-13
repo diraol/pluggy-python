@@ -1,14 +1,14 @@
 # DAILY
 
-Schedule atribute to generate daily payments
+Schedule attribute to generate daily payments starting from `startDate`.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** | Scheduled type | 
+**type** | **str** | Schedule discriminator. Always &#x60;DAILY&#x60; for this variant. | 
 **start_date** | **date** | The start date of the validity of the scheduled payment authorization. | 
-**occurrences** | **float** | Under the specified schedule frequency, how many payments will be scheduled to occur. | [optional] 
+**occurrences** | **float** | Under the specified schedule frequency, how many payments will be scheduled to occur. | 
 
 ## Example
 

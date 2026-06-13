@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from pluggy_sdk.models.reserved_balance import ReservedBalance
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -34,7 +35,9 @@ class BankData(BaseModel):
     overdraft_contracted_limit: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Overdraft contracted limit", alias="overdraftContractedLimit")
     overdraft_used_limit: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Overdraft used limit", alias="overdraftUsedLimit")
     unarranged_overdraft_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Valor de operação contratada em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite pactuado de cheque especial.", alias="unarrangedOverdraftAmount")
-    __properties: ClassVar[List[str]] = ["transferNumber", "closingBalance", "automaticallyInvestedBalance", "overdraftContractedLimit", "overdraftUsedLimit", "unarrangedOverdraftAmount"]
+    has_reserved_balance: Optional[StrictBool] = Field(default=None, description="Whether the account has any active reserved balances (\"saldo reservado\"), such as goal-based savings (\"caixinhas\") or judicial holds", alias="hasReservedBalance")
+    reserved_balances: Optional[List[ReservedBalance]] = Field(default=None, description="Funds reserved/earmarked on the account. Only present when hasReservedBalance is true and the institution exposes the data", alias="reservedBalances")
+    __properties: ClassVar[List[str]] = ["transferNumber", "closingBalance", "automaticallyInvestedBalance", "overdraftContractedLimit", "overdraftUsedLimit", "unarrangedOverdraftAmount", "hasReservedBalance", "reservedBalances"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -75,6 +78,13 @@ class BankData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in reserved_balances (list)
+        _items = []
+        if self.reserved_balances:
+            for _item_reserved_balances in self.reserved_balances:
+                if _item_reserved_balances:
+                    _items.append(_item_reserved_balances.to_dict())
+            _dict['reservedBalances'] = _items
         return _dict
 
     @classmethod
@@ -92,7 +102,9 @@ class BankData(BaseModel):
             "automaticallyInvestedBalance": obj.get("automaticallyInvestedBalance"),
             "overdraftContractedLimit": obj.get("overdraftContractedLimit"),
             "overdraftUsedLimit": obj.get("overdraftUsedLimit"),
-            "unarrangedOverdraftAmount": obj.get("unarrangedOverdraftAmount")
+            "unarrangedOverdraftAmount": obj.get("unarrangedOverdraftAmount"),
+            "hasReservedBalance": obj.get("hasReservedBalance"),
+            "reservedBalances": [ReservedBalance.from_dict(_item) for _item in obj["reservedBalances"]] if obj.get("reservedBalances") is not None else None
         })
         return _obj
 

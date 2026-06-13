@@ -33,8 +33,8 @@ class Investment(BaseModel):
     """ # noqa: E501
     id: StrictStr = Field(description="Primary identifier")
     item_id: UUID = Field(description="Identifier of the item linked to the investment", alias="itemId")
-    type: StrictStr = Field(description="Investment Asset type")
-    subtype: Optional[StrictStr] = Field(default=None, description="Investment subtype, depends on the type")
+    type: StrictStr = Field(description="Investment asset class. - `MUTUAL_FUND`: actively managed pooled investment funds (FIM, FIA, FIC). - `EQUITY`: stocks and equity-like assets traded on a stock exchange. - `ETF`: Exchange Traded Funds. - `FIXED_INCOME`: fixed income products such as CDB, LCI, LCA, debentures, Tesouro Direto. - `COE`: Certificado de Operações Estruturadas (structured notes). - `SECURITY`: private pension / previdência products (PGBL, VGBL). - `OTHER`: any asset not covered by the categories above.")
+    subtype: Optional[StrictStr] = Field(default=None, description="Specific instrument within a `type`. Possible groupings:  **EQUITY**: `STOCK` (ação), `BDR` (Brazilian Depositary Receipt), `REAL_ESTATE_FUND` (FII), `DERIVATIVES`, `OPTION`.  **ETF**: `ETF`.  **FIXED_INCOME**: `TREASURY` (Tesouro Direto), `CDB`, `LCI`, `LCA`, `LC`, `LF`, `CRI`, `CRA`, `DEBENTURES`, `CORPORATE_DEBT`.  **MUTUAL_FUND**: `INVESTMENT_FUND`, `MULTIMARKET_FUND`, `FIXED_INCOME_FUND`, `STOCK_FUND`, `ETF_FUND`, `OFFSHORE_FUND`, `FIP_FUND`, `EXCHANGE_FUND`, `FI_INFRA`, `FI_AGRO`.  **COE**: `STRUCTURED_NOTE`.  **SECURITY**: `RETIREMENT` (PGBL/VGBL).  **OTHER**: `OTHER`.")
     number: Optional[StrictStr] = Field(default=None, description="Reference number for this holder's asset")
     balance: Union[StrictFloat, StrictInt] = Field(description="The current net balance amount of the investment")
     name: StrictStr = Field(description="Name on the provider")
@@ -60,11 +60,12 @@ class Investment(BaseModel):
     issuer_cnpj: Optional[StrictStr] = Field(default=None, description="The entity CNPJ that issued the investment", alias="issuerCNPJ")
     issue_date: Optional[datetime] = Field(default=None, description="The date that the investment was issued", alias="issueDate")
     purchase_date: Optional[datetime] = Field(default=None, description="The date that the investment was purchased", alias="purchaseDate")
+    grace_period_date: Optional[datetime] = Field(default=None, description="The date when the grace period ends (fixed-income investments only)", alias="gracePeriodDate")
     rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Fixed rate percentage applied to the investment")
     rate_type: Optional[StrictStr] = Field(default=None, description="Type of fixed-rate", alias="rateType")
     fixed_annual_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Fixed income annual rate", alias="fixedAnnualRate")
-    status: Optional[StrictStr] = Field(default=None, description="Current status of the investment enum value")
-    __properties: ClassVar[List[str]] = ["id", "itemId", "type", "subtype", "number", "balance", "name", "lastMonthRate", "lastTwelveMonthsRate", "annualRate", "currencyCode", "code", "isin", "value", "quantity", "amount", "taxes", "taxes2", "date", "owner", "amountProfit", "amountWithdrawal", "amountOriginal", "metadata", "dueDate", "issuer", "issuerCNPJ", "issueDate", "purchaseDate", "rate", "rateType", "fixedAnnualRate", "status"]
+    status: Optional[StrictStr] = Field(default=None, description="Current lifecycle status of the investment. - `ACTIVE`: the investment is open and currently held by the owner. - `PENDING`: the operation has been requested but is not yet settled (e.g. a fund subscription within the settlement window). - `TOTAL_WITHDRAWAL`: the position has been fully redeemed/withdrawn; balance is zero.")
+    __properties: ClassVar[List[str]] = ["id", "itemId", "type", "subtype", "number", "balance", "name", "lastMonthRate", "lastTwelveMonthsRate", "annualRate", "currencyCode", "code", "isin", "value", "quantity", "amount", "taxes", "taxes2", "date", "owner", "amountProfit", "amountWithdrawal", "amountOriginal", "metadata", "dueDate", "issuer", "issuerCNPJ", "issueDate", "purchaseDate", "gracePeriodDate", "rate", "rateType", "fixedAnnualRate", "status"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -135,6 +136,11 @@ class Investment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of metadata
         if self.metadata:
             _dict['metadata'] = self.metadata.to_dict()
+        # set to None if grace_period_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.grace_period_date is None and "grace_period_date" in self.model_fields_set:
+            _dict['gracePeriodDate'] = None
+
         return _dict
 
     @classmethod
@@ -176,6 +182,7 @@ class Investment(BaseModel):
             "issuerCNPJ": obj.get("issuerCNPJ"),
             "issueDate": obj.get("issueDate"),
             "purchaseDate": obj.get("purchaseDate"),
+            "gracePeriodDate": obj.get("gracePeriodDate"),
             "rate": obj.get("rate"),
             "rateType": obj.get("rateType"),
             "fixedAnnualRate": obj.get("fixedAnnualRate"),

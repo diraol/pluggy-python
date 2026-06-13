@@ -18,30 +18,23 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from pluggy_sdk.models.payment_customer_type import PaymentCustomerType
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
 class CreateOrUpdatePaymentCustomer(BaseModel):
     """
-    Response with information related to a payment customer
+    Body to update a payment customer. All fields are optional.
     """ # noqa: E501
-    id: StrictStr = Field(description="Primary identifier")
-    type: StrictStr = Field(description="Customer type")
-    name: StrictStr = Field(description="Customer name")
+    type: Optional[PaymentCustomerType] = None
+    name: Optional[StrictStr] = Field(default=None, description="Customer name")
     email: Optional[StrictStr] = Field(default=None, description="Customer email")
     cpf: Optional[StrictStr] = Field(default=None, description="Customer CPF")
     cnpj: Optional[StrictStr] = Field(default=None, description="Customer CNPJ, if type is `BUSINESS`")
-    __properties: ClassVar[List[str]] = ["id", "type", "name", "email", "cpf", "cnpj"]
-
-    @field_validator('type')
-    def type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['INDIVIDUAL', 'BUSINESS']):
-            raise ValueError("must be one of enum values ('INDIVIDUAL', 'BUSINESS')")
-        return value
+    __properties: ClassVar[List[str]] = ["type", "name", "email", "cpf", "cnpj"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -94,7 +87,6 @@ class CreateOrUpdatePaymentCustomer(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
             "type": obj.get("type"),
             "name": obj.get("name"),
             "email": obj.get("email"),

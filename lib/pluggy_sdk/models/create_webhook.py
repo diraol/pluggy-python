@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from pluggy_sdk.models.webhook_event_type import WebhookEventType
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,16 +30,9 @@ class CreateWebhook(BaseModel):
     
     """ # noqa: E501
     url: StrictStr
-    event: StrictStr
+    event: WebhookEventType
     headers: Optional[Dict[str, Any]] = Field(default=None, description="HTTP headers that will be included in the webhook notifications (useful for things like authorization)")
     __properties: ClassVar[List[str]] = ["url", "event", "headers"]
-
-    @field_validator('event')
-    def event_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'transactions/created', 'transactions/updated', 'transactions/deleted', 'payment_intent/created', 'payment_intent/completed', 'payment_intent/waiting_payer_authorization', 'payment_intent/error', 'payment_request/updated', 'scheduled_payment/created', 'scheduled_payment/completed', 'scheduled_payment/error', 'scheduled_payment/canceled', 'scheduled_payment/all_completed', 'scheduled_payment/all_created', 'boleto/updated', 'automatic_pix_payment/created', 'automatic_pix_payment/completed', 'automatic_pix_payment/error', 'automatic_pix_payment/canceled', 'smart_transfer_preauthorization/completed', 'smart_transfer_preauthorization/error', 'smart_transfer_payment/completed', 'smart_transfer_payment/error']):
-            raise ValueError("must be one of enum values ('all', 'item/created', 'item/updated', 'item/error', 'item/deleted', 'item/waiting_user_input', 'item/waiting_user_action', 'item/login_succeeded', 'connector/status_updated', 'transactions/created', 'transactions/updated', 'transactions/deleted', 'payment_intent/created', 'payment_intent/completed', 'payment_intent/waiting_payer_authorization', 'payment_intent/error', 'payment_request/updated', 'scheduled_payment/created', 'scheduled_payment/completed', 'scheduled_payment/error', 'scheduled_payment/canceled', 'scheduled_payment/all_completed', 'scheduled_payment/all_created', 'boleto/updated', 'automatic_pix_payment/created', 'automatic_pix_payment/completed', 'automatic_pix_payment/error', 'automatic_pix_payment/canceled', 'smart_transfer_preauthorization/completed', 'smart_transfer_preauthorization/error', 'smart_transfer_payment/completed', 'smart_transfer_payment/error')")
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **overdraft_contracted_limit** | **float** | Overdraft contracted limit | [optional] 
 **overdraft_used_limit** | **float** | Overdraft used limit | [optional] 
 **unarranged_overdraft_amount** | **float** | Valor de operação contratada em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite pactuado de cheque especial. | [optional] 
+**has_reserved_balance** | **bool** | Whether the account has any active reserved balances (\&quot;saldo reservado\&quot;), such as goal-based savings (\&quot;caixinhas\&quot;) or judicial holds | [optional] 
+**reserved_balances** | [**List[ReservedBalance]**](ReservedBalance.md) | Funds reserved/earmarked on the account. Only present when hasReservedBalance is true and the institution exposes the data | [optional] 
 
 ## Example
 

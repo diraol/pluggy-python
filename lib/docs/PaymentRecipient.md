@@ -1,15 +1,16 @@
 # PaymentRecipient
 
-Response with information related to a payment recipient
+Bank-account payment recipient. Returned by `/payments/recipients` endpoints and embedded inside payment requests when the request targets a registered recipient.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**type** | **str** | Recipient discriminator. Always &#x60;BANK_ACCOUNT&#x60; for this schema. | 
 **id** | **str** | Primary identifier | 
 **tax_number** | **str** | Account owner tax number. Can be CPF or CNPJ (only numbers). | 
 **name** | **str** | Account owner name. | 
-**payment_institution** | [**PaymentInstitution**](PaymentInstitution.md) | Recipient&#39;s bank account destination. | 
+**payment_institution** | [**PaymentInstitution**](PaymentInstitution.md) | Institution that holds the recipient&#39;s bank account. | 
 **is_default** | **bool** | Indicates if the recipient is the default one | 
 **account** | [**PaymentRecipientAccount**](PaymentRecipientAccount.md) |  | 
 **pix_key** | **str** | Pix key associated with the payment recipient | [optional] 

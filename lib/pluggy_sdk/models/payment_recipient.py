@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.payment_institution import PaymentInstitution
 from pluggy_sdk.models.payment_recipient_account import PaymentRecipientAccount
@@ -29,18 +29,26 @@ from pydantic_core import to_jsonable_python
 
 class PaymentRecipient(BaseModel):
     """
-    Response with information related to a payment recipient
+    Bank-account payment recipient. Returned by `/payments/recipients` endpoints and embedded inside payment requests when the request targets a registered recipient.
     """ # noqa: E501
+    type: StrictStr = Field(description="Recipient discriminator. Always `BANK_ACCOUNT` for this schema.")
     id: StrictStr = Field(description="Primary identifier")
     tax_number: StrictStr = Field(description="Account owner tax number. Can be CPF or CNPJ (only numbers).", alias="taxNumber")
     name: StrictStr = Field(description="Account owner name.")
-    payment_institution: PaymentInstitution = Field(description="Recipient's bank account destination.", alias="paymentInstitution")
+    payment_institution: PaymentInstitution = Field(description="Institution that holds the recipient's bank account.", alias="paymentInstitution")
     is_default: StrictBool = Field(description="Indicates if the recipient is the default one", alias="isDefault")
     account: PaymentRecipientAccount
     pix_key: Optional[StrictStr] = Field(default=None, description="Pix key associated with the payment recipient", alias="pixKey")
     created_at: datetime = Field(description="Date when the payment recipient was created", alias="createdAt")
     updated_at: datetime = Field(description="Date when the payment recipient was last updated", alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["id", "taxNumber", "name", "paymentInstitution", "isDefault", "account", "pixKey", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["type", "id", "taxNumber", "name", "paymentInstitution", "isDefault", "account", "pixKey", "createdAt", "updatedAt"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['BANK_ACCOUNT']):
+            raise ValueError("must be one of enum values ('BANK_ACCOUNT')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -99,6 +107,7 @@ class PaymentRecipient(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "type": obj.get("type"),
             "id": obj.get("id"),
             "taxNumber": obj.get("taxNumber"),
             "name": obj.get("name"),

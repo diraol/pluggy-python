@@ -1,13 +1,13 @@
 # SINGLE
 
-Schedule atribute to generate one payment in the future
+Schedule attribute to generate a single payment on a specific future date.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** | Scheduled type | 
-**var_date** | **date** |  | 
+**type** | **str** | Schedule discriminator. Always &#x60;SINGLE&#x60; for this variant. | 
+**var_date** | **date** | Settlement date for the payment (YYYY-MM-DD). | 
 
 ## Example
 

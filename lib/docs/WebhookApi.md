@@ -333,7 +333,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **webhooks_update**
-> Webhook webhooks_update(id, create_webhook)
+> Webhook webhooks_update(id, update_webhook)
 
 Update
 
@@ -345,7 +345,7 @@ Updates a webhook event and/or url listener. Once updated all events that are tr
 
 ```python
 import pluggy_sdk
-from pluggy_sdk.models.create_webhook import CreateWebhook
+from pluggy_sdk.models.update_webhook import UpdateWebhook
 from pluggy_sdk.models.webhook import Webhook
 from pluggy_sdk.rest import ApiException
 from pprint import pprint
@@ -372,11 +372,11 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.WebhookApi(api_client)
     id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | webhook primary identifier
-    create_webhook = pluggy_sdk.CreateWebhook() # CreateWebhook | Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event.
+    update_webhook = pluggy_sdk.UpdateWebhook() # UpdateWebhook | All fields are optional. Send only the ones you want to change. event: One of the supported event types. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. Send null to clear them. enabled: re-enable a webhook that was previously disabled (after repeated delivery failures or via internal cleanup).
 
     try:
         # Update
-        api_response = api_instance.webhooks_update(id, create_webhook)
+        api_response = api_instance.webhooks_update(id, update_webhook)
         print("The response of WebhookApi->webhooks_update:\n")
         pprint(api_response)
     except Exception as e:
@@ -391,7 +391,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **UUID**| webhook primary identifier | 
- **create_webhook** | [**CreateWebhook**](CreateWebhook.md)| Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. | 
+ **update_webhook** | [**UpdateWebhook**](UpdateWebhook.md)| All fields are optional. Send only the ones you want to change. event: One of the supported event types. url: An https url that will receive the POST of the event. headers: optional key-value pairs to send with the POST of the event. Send null to clear them. enabled: re-enable a webhook that was previously disabled (after repeated delivery failures or via internal cleanup). | 
 
 ### Return type
 

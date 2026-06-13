@@ -36,7 +36,7 @@ class IssuedBoleto(BaseModel):
     """ # noqa: E501
     id: StrictStr = Field(description="Primary identifier")
     amount: Union[Annotated[float, Field(strict=True, ge=2.5)], Annotated[int, Field(strict=True, ge=3)]] = Field(description="Boleto amount")
-    status: StrictStr = Field(description="Current status of the boleto")
+    status: StrictStr = Field(description="Current status of the boleto. - `OPEN`: the boleto has been issued and is awaiting payment. - `PAID`: the boleto has been paid (see `paidAt`, `amountPaid`, `paymentOrigin`). - `OVERDUE`: the due date has passed and the boleto has not been paid. - `CANCELLED`: the boleto was canceled by the issuer. - `PROTESTED`: the boleto was sent to a protesto/credit-bureau process.")
     seu_numero: Annotated[str, Field(strict=True, max_length=10)] = Field(description="Your identifier for this boleto", alias="seuNumero")
     due_date: datetime = Field(description="Due date of the boleto", alias="dueDate")
     payer: IssuedBoletoPayer
@@ -56,8 +56,8 @@ class IssuedBoleto(BaseModel):
     @field_validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['OPEN', 'PAID', 'OVERDUE', 'CANCELLED']):
-            raise ValueError("must be one of enum values ('OPEN', 'PAID', 'OVERDUE', 'CANCELLED')")
+        if value not in set(['OPEN', 'PAID', 'OVERDUE', 'CANCELLED', 'PROTESTED']):
+            raise ValueError("must be one of enum values ('OPEN', 'PAID', 'OVERDUE', 'CANCELLED', 'PROTESTED')")
         return value
 
     @field_validator('payment_origin')
