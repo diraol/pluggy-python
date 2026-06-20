@@ -33,6 +33,7 @@ class CreditData(BaseModel):
     """ # noqa: E501
     level: Optional[StrictStr] = Field(default=None, description="Card level (Black, Signature)")
     brand: Optional[StrictStr] = Field(default=None, description="Card Brand (Visa, Mastercard, Elo)")
+    brand_additional_info: Optional[StrictStr] = Field(default=None, description="Free text describing the brand category when brand is 'OTHER'", alias="brandAdditionalInfo")
     balance_close_date: Optional[datetime] = Field(default=None, description="Date when the balance was closed", alias="balanceCloseDate")
     balance_due_date: Optional[datetime] = Field(default=None, description="Date when the balance is dued", alias="balanceDueDate")
     available_credit_limit: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Credit limit available to spent", alias="availableCreditLimit")
@@ -44,7 +45,7 @@ class CreditData(BaseModel):
     holder_type: Optional[StrictStr] = Field(default=None, description="Credit card holder type", alias="holderType")
     disaggregated_credit_limits: Optional[List[DisaggregatedCreditLimit]] = Field(default=None, description="Disaggregated credit card limits", alias="disaggregatedCreditLimits")
     additional_cards: Optional[List[AdditionalCard]] = Field(default=None, description="Additional credit cards associated with the main one", alias="additionalCards")
-    __properties: ClassVar[List[str]] = ["level", "brand", "balanceCloseDate", "balanceDueDate", "availableCreditLimit", "balanceForeignCurrency", "minimumPayment", "creditLimit", "isLimitFlexible", "status", "holderType", "disaggregatedCreditLimits", "additionalCards"]
+    __properties: ClassVar[List[str]] = ["level", "brand", "brandAdditionalInfo", "balanceCloseDate", "balanceDueDate", "availableCreditLimit", "balanceForeignCurrency", "minimumPayment", "creditLimit", "isLimitFlexible", "status", "holderType", "disaggregatedCreditLimits", "additionalCards"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -133,6 +134,7 @@ class CreditData(BaseModel):
         _obj = cls.model_validate({
             "level": obj.get("level"),
             "brand": obj.get("brand"),
+            "brandAdditionalInfo": obj.get("brandAdditionalInfo"),
             "balanceCloseDate": obj.get("balanceCloseDate"),
             "balanceDueDate": obj.get("balanceDueDate"),
             "availableCreditLimit": obj.get("availableCreditLimit"),

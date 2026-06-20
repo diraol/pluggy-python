@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **level** | **str** | Card level (Black, Signature) | [optional] 
 **brand** | **str** | Card Brand (Visa, Mastercard, Elo) | [optional] 
+**brand_additional_info** | **str** | Free text describing the brand category when brand is &#39;OTHER&#39; | [optional] 
 **balance_close_date** | **datetime** | Date when the balance was closed | [optional] 
 **balance_due_date** | **datetime** | Date when the balance is dued | [optional] 
 **available_credit_limit** | **float** | Credit limit available to spent | [optional] 

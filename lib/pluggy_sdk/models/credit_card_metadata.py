@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
@@ -32,11 +32,35 @@ class CreditCardMetadata(BaseModel):
     installment_number: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Number of the current installment of the purchase", alias="installmentNumber")
     total_installments: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total number of installments of the purchase", alias="totalInstallments")
     total_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of the purchase", alias="totalAmount")
+    fee_type: Optional[StrictStr] = Field(default=None, description="Type of fee charged. Present when the operation is a fee (TARIFA)", alias="feeType")
+    fee_type_additional_info: Optional[StrictStr] = Field(default=None, description="Free text describing the fee type when feeType is 'OTHER'", alias="feeTypeAdditionalInfo")
+    other_credits_type: Optional[StrictStr] = Field(default=None, description="Other type of credit contracted on the card. Present when the operation is a contracted credit operation", alias="otherCreditsType")
+    other_credits_additional_info: Optional[StrictStr] = Field(default=None, description="Free text describing the other credit type when otherCreditsType is 'OTHER'", alias="otherCreditsAdditionalInfo")
     purchase_date: Optional[datetime] = Field(default=None, description="Original Date of the purchase", alias="purchaseDate")
     payee_mcc: Optional[StrictStr] = Field(default=None, description="Merchant Category Code of the merchant", alias="payeeMCC")
     card_number: Optional[StrictStr] = Field(default=None, description="Credit Card Number associated with transaction, can be different from the account if its done by an additional or virtual card.", alias="cardNumber")
     bill_id: Optional[StrictStr] = Field(default=None, description="Id of the bill associated to this transaction", alias="billId")
-    __properties: ClassVar[List[str]] = ["installmentNumber", "totalInstallments", "totalAmount", "purchaseDate", "payeeMCC", "cardNumber", "billId"]
+    __properties: ClassVar[List[str]] = ["installmentNumber", "totalInstallments", "totalAmount", "feeType", "feeTypeAdditionalInfo", "otherCreditsType", "otherCreditsAdditionalInfo", "purchaseDate", "payeeMCC", "cardNumber", "billId"]
+
+    @field_validator('fee_type')
+    def fee_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['ANNUAL_FEE', 'ATM_WITHDRAWAL_DOMESTIC', 'ATM_WITHDRAWAL_INTERNATIONAL', 'EMERGENCY_CREDIT_EVALUATION', 'CARD_REISSUE', 'BILL_PAYMENT_FEE', 'SMS', 'OTHER']):
+            raise ValueError("must be one of enum values ('ANNUAL_FEE', 'ATM_WITHDRAWAL_DOMESTIC', 'ATM_WITHDRAWAL_INTERNATIONAL', 'EMERGENCY_CREDIT_EVALUATION', 'CARD_REISSUE', 'BILL_PAYMENT_FEE', 'SMS', 'OTHER')")
+        return value
+
+    @field_validator('other_credits_type')
+    def other_credits_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['REVOLVING_CREDIT', 'BILL_INSTALLMENT', 'LOAN', 'OTHER']):
+            raise ValueError("must be one of enum values ('REVOLVING_CREDIT', 'BILL_INSTALLMENT', 'LOAN', 'OTHER')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -92,6 +116,10 @@ class CreditCardMetadata(BaseModel):
             "installmentNumber": obj.get("installmentNumber"),
             "totalInstallments": obj.get("totalInstallments"),
             "totalAmount": obj.get("totalAmount"),
+            "feeType": obj.get("feeType"),
+            "feeTypeAdditionalInfo": obj.get("feeTypeAdditionalInfo"),
+            "otherCreditsType": obj.get("otherCreditsType"),
+            "otherCreditsAdditionalInfo": obj.get("otherCreditsAdditionalInfo"),
             "purchaseDate": obj.get("purchaseDate"),
             "payeeMCC": obj.get("payeeMCC"),
             "cardNumber": obj.get("cardNumber"),

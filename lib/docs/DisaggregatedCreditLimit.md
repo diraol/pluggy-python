@@ -12,10 +12,13 @@ Name | Type | Description | Notes
 **is_limit_flexible** | **bool** | Indicates if the limit is flexible | 
 **used_amount** | **float** | Used amount of the additional credit card | 
 **used_amount_currency_code** | **str** | Used amount currency code (for example, BRL) | 
-**line_name** | **str** | Name of the line (for example, &#39;Limite de Crédito&#39;) | [optional] 
-**line_name_additional_info** | **str** | Additional information about the line name | [optional] 
+**line_name** | **str** | Name of the credit limit line | [optional] 
+**line_name_additional_info** | **str** | Free text describing the line name when lineName is &#39;OUTROS&#39; | [optional] 
 **limit_amount** | **float** | Limit amount of the additional credit card | [optional] 
 **limit_amount_currency_code** | **str** | Limit amount currency code (for example, BRL) | [optional] 
+**limit_amount_reason** | **str** | Reason why the reported total limit amount is equal to zero | [optional] 
+**customized_limit_amount** | **float** | Total limit amount customized by the customer through the institution&#39;s electronic channels | [optional] 
+**customized_limit_amount_currency_code** | **str** | Customized limit amount currency code (for example, BRL) | [optional] 
 **available_amount** | **float** | Available amount of the additional credit card | [optional] 
 **available_amount_currency_code** | **str** | Available amount currency code (for example, BRL) | [optional] 
 

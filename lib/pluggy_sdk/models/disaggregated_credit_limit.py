@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
@@ -34,13 +34,26 @@ class DisaggregatedCreditLimit(BaseModel):
     is_limit_flexible: StrictBool = Field(description="Indicates if the limit is flexible", alias="isLimitFlexible")
     used_amount: Union[StrictFloat, StrictInt] = Field(description="Used amount of the additional credit card", alias="usedAmount")
     used_amount_currency_code: StrictStr = Field(description="Used amount currency code (for example, BRL)", alias="usedAmountCurrencyCode")
-    line_name: Optional[StrictStr] = Field(default=None, description="Name of the line (for example, 'Limite de Crédito')", alias="lineName")
-    line_name_additional_info: Optional[StrictStr] = Field(default=None, description="Additional information about the line name", alias="lineNameAdditionalInfo")
+    line_name: Optional[StrictStr] = Field(default=None, description="Name of the credit limit line", alias="lineName")
+    line_name_additional_info: Optional[StrictStr] = Field(default=None, description="Free text describing the line name when lineName is 'OUTROS'", alias="lineNameAdditionalInfo")
     limit_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Limit amount of the additional credit card", alias="limitAmount")
     limit_amount_currency_code: Optional[StrictStr] = Field(default=None, description="Limit amount currency code (for example, BRL)", alias="limitAmountCurrencyCode")
+    limit_amount_reason: Optional[StrictStr] = Field(default=None, description="Reason why the reported total limit amount is equal to zero", alias="limitAmountReason")
+    customized_limit_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total limit amount customized by the customer through the institution's electronic channels", alias="customizedLimitAmount")
+    customized_limit_amount_currency_code: Optional[StrictStr] = Field(default=None, description="Customized limit amount currency code (for example, BRL)", alias="customizedLimitAmountCurrencyCode")
     available_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Available amount of the additional credit card", alias="availableAmount")
     available_amount_currency_code: Optional[StrictStr] = Field(default=None, description="Available amount currency code (for example, BRL)", alias="availableAmountCurrencyCode")
-    __properties: ClassVar[List[str]] = ["creditLineLimitType", "consolidationType", "identificationNumber", "isLimitFlexible", "usedAmount", "usedAmountCurrencyCode", "lineName", "lineNameAdditionalInfo", "limitAmount", "limitAmountCurrencyCode", "availableAmount", "availableAmountCurrencyCode"]
+    __properties: ClassVar[List[str]] = ["creditLineLimitType", "consolidationType", "identificationNumber", "isLimitFlexible", "usedAmount", "usedAmountCurrencyCode", "lineName", "lineNameAdditionalInfo", "limitAmount", "limitAmountCurrencyCode", "limitAmountReason", "customizedLimitAmount", "customizedLimitAmountCurrencyCode", "availableAmount", "availableAmountCurrencyCode"]
+
+    @field_validator('line_name')
+    def line_name_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['CREDITO_A_VISTA', 'CREDITO_PARCELADO', 'SAQUE_CREDITO_BRASIL', 'SAQUE_CREDITO_EXTERIOR', 'EMPRESTIMO_CARTAO_CONSIGNADO', 'OUTROS']):
+            raise ValueError("must be one of enum values ('CREDITO_A_VISTA', 'CREDITO_PARCELADO', 'SAQUE_CREDITO_BRASIL', 'SAQUE_CREDITO_EXTERIOR', 'EMPRESTIMO_CARTAO_CONSIGNADO', 'OUTROS')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -103,6 +116,9 @@ class DisaggregatedCreditLimit(BaseModel):
             "lineNameAdditionalInfo": obj.get("lineNameAdditionalInfo"),
             "limitAmount": obj.get("limitAmount"),
             "limitAmountCurrencyCode": obj.get("limitAmountCurrencyCode"),
+            "limitAmountReason": obj.get("limitAmountReason"),
+            "customizedLimitAmount": obj.get("customizedLimitAmount"),
+            "customizedLimitAmountCurrencyCode": obj.get("customizedLimitAmountCurrencyCode"),
             "availableAmount": obj.get("availableAmount"),
             "availableAmountCurrencyCode": obj.get("availableAmountCurrencyCode")
         })
