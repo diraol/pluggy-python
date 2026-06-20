@@ -7719,6 +7719,10 @@
             "type": "string",
             "description": "Card Brand (Visa, Mastercard, Elo)"
           },
+          "brandAdditionalInfo": {
+            "type": "string",
+            "description": "Free text describing the brand category when brand is 'OTHER'"
+          },
           "balanceCloseDate": {
             "type": "string",
             "format": "date-time",
@@ -7829,12 +7833,20 @@
             "description": "Used amount currency code (for example, BRL)"
           },
           "lineName": {
+            "enum": [
+              "CREDITO_A_VISTA",
+              "CREDITO_PARCELADO",
+              "SAQUE_CREDITO_BRASIL",
+              "SAQUE_CREDITO_EXTERIOR",
+              "EMPRESTIMO_CARTAO_CONSIGNADO",
+              "OUTROS"
+            ],
             "type": "string",
-            "description": "Name of the line (for example, 'Limite de Crédito')"
+            "description": "Name of the credit limit line"
           },
           "lineNameAdditionalInfo": {
             "type": "string",
-            "description": "Additional information about the line name"
+            "description": "Free text describing the line name when lineName is 'OUTROS'"
           },
           "limitAmount": {
             "type": "number",
@@ -7844,6 +7856,19 @@
           "limitAmountCurrencyCode": {
             "type": "string",
             "description": "Limit amount currency code (for example, BRL)"
+          },
+          "limitAmountReason": {
+            "type": "string",
+            "description": "Reason why the reported total limit amount is equal to zero"
+          },
+          "customizedLimitAmount": {
+            "type": "number",
+            "format": "double",
+            "description": "Total limit amount customized by the customer through the institution's electronic channels"
+          },
+          "customizedLimitAmountCurrencyCode": {
+            "type": "string",
+            "description": "Customized limit amount currency code (for example, BRL)"
           },
           "availableAmount": {
             "type": "number",
@@ -9055,6 +9080,38 @@
           "totalAmount": {
             "type": "number",
             "description": "Total amount of the purchase"
+          },
+          "feeType": {
+            "enum": [
+              "ANNUAL_FEE",
+              "ATM_WITHDRAWAL_DOMESTIC",
+              "ATM_WITHDRAWAL_INTERNATIONAL",
+              "EMERGENCY_CREDIT_EVALUATION",
+              "CARD_REISSUE",
+              "BILL_PAYMENT_FEE",
+              "SMS",
+              "OTHER"
+            ],
+            "type": "string",
+            "description": "Type of fee charged. Present when the operation is a fee (TARIFA)"
+          },
+          "feeTypeAdditionalInfo": {
+            "type": "string",
+            "description": "Free text describing the fee type when feeType is 'OTHER'"
+          },
+          "otherCreditsType": {
+            "enum": [
+              "REVOLVING_CREDIT",
+              "BILL_INSTALLMENT",
+              "LOAN",
+              "OTHER"
+            ],
+            "type": "string",
+            "description": "Other type of credit contracted on the card. Present when the operation is a contracted credit operation"
+          },
+          "otherCreditsAdditionalInfo": {
+            "type": "string",
+            "description": "Free text describing the other credit type when otherCreditsType is 'OTHER'"
           },
           "purchaseDate": {
             "type": "string",
