@@ -1832,16 +1832,57 @@
               }
             }
           },
-          "404": {
-            "description": "Account not found",
+          "400": {
+            "description": "The balance request was rejected as invalid by the financial institution",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GlobalErrorResponse"
                 },
                 "example": {
-                  "message": "account not found for the given id",
-                  "code": 404
+                  "message": "The balance request was rejected as invalid by the financial institution.",
+                  "code": 400,
+                  "codeDescription": "BALANCE_INVALID_REQUEST"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The financial institution denied access to the account balance (consent expired or missing the required permission)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "message": "The financial institution denied access to the account balance. The consent may be expired or missing the required permission.",
+                  "code": 403,
+                  "codeDescription": "BALANCE_CONSENT_ERROR"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Account not found, or the balance was not found at the financial institution",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "examples": {
+                  "accountNotFound": {
+                    "value": {
+                      "message": "account not found for the given id",
+                      "code": 404
+                    }
+                  },
+                  "balanceNotFound": {
+                    "value": {
+                      "message": "The account balance was not found at the financial institution.",
+                      "code": 404,
+                      "codeDescription": "BALANCE_NOT_FOUND"
+                    }
+                  }
                 }
               }
             }
@@ -1855,13 +1896,14 @@
                 },
                 "example": {
                   "message": "The financial institution rate-limited the balance request. Please try again later.",
-                  "code": 429
+                  "code": 429,
+                  "codeDescription": "BALANCE_OPEN_FINANCE_RATE_LIMIT"
                 }
               }
             }
           },
           "500": {
-            "description": "Error fetching balance from connector",
+            "description": "Unexpected error fetching balance from connector",
             "content": {
               "application/json": {
                 "schema": {
@@ -1869,7 +1911,23 @@
                 },
                 "example": {
                   "message": "An error occurred while fetching the account balance from the connector",
-                  "code": 500
+                  "code": 500,
+                  "codeDescription": "BALANCE_FETCH_ERROR"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "The financial institution is temporarily unavailable to provide the balance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "message": "The financial institution is temporarily unavailable to provide the balance. Please try again later.",
+                  "code": 502,
+                  "codeDescription": "BALANCE_CONNECTOR_UNAVAILABLE"
                 }
               }
             }
@@ -9542,6 +9600,16 @@
             "type": "number",
             "format": "double",
             "description": "Sum of other not defined expenses"
+          },
+          "iof": {
+            "type": "number",
+            "format": "double",
+            "description": "(IOF) Tax on financial operations charged on the transaction"
+          },
+          "iofProvision": {
+            "type": "number",
+            "format": "double",
+            "description": "Provisioned (accrued, not yet paid) IOF"
           }
         },
         "type": "object"
@@ -9592,6 +9660,16 @@
             "type": "number",
             "format": "double",
             "description": "Agreed rate for treasury applications"
+          },
+          "indexerPercentage": {
+            "type": "number",
+            "format": "double",
+            "description": "Max percentage of the indexer agreed at contracting (e.g. 110% of CDI)"
+          },
+          "priceFactor": {
+            "type": "number",
+            "format": "double",
+            "description": "B3 lot/price conversion factor (variable income transactions)"
           },
           "date": {
             "type": "string",
@@ -9708,6 +9786,18 @@
               }
             ],
             "description": "Insurer of the Security Investment"
+          },
+          "anbimaClass": {
+            "type": "string",
+            "description": "Anbima class (CVM 175). Funds."
+          },
+          "anbimaSubclass": {
+            "type": "string",
+            "description": "Anbima subclass (CVM 175). Funds."
+          },
+          "anbimaCategory": {
+            "type": "string",
+            "description": "Legacy Anbima category (FIXED_INCOME, STOCK, MULTIMARKET, EXCHANGE). Funds."
           }
         },
         "type": "object"
@@ -9924,6 +10014,51 @@
             "type": "number",
             "format": "double",
             "description": "Fixed income annual rate"
+          },
+          "taxExempt": {
+            "type": "boolean",
+            "description": "Whether the product is tax-exempt (LCI, LCA, CRI, CRA, debêntures incentivadas)"
+          },
+          "ratePeriodicity": {
+            "type": "string",
+            "description": "Periodicity of the remuneration rate (DAILY, MONTHLY, SEMESTERLY, YEARLY)"
+          },
+          "indexerAdditionalInfo": {
+            "type": "string",
+            "description": "Free-text indexer description when the indexer is non-standard"
+          },
+          "priceFactor": {
+            "type": "number",
+            "format": "double",
+            "description": "B3 lot/price conversion factor (variable income)"
+          },
+          "debtor": {
+            "type": "object",
+            "description": "Underlying debtor of receivables-backed paper (CRI / CRA)",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the underlying debtor"
+              }
+            }
+          },
+          "couponPayment": {
+            "type": "object",
+            "description": "Coupon-payment schedule for coupon-bearing fixed income / Treasury bonds",
+            "properties": {
+              "hasCoupon": {
+                "type": "boolean",
+                "description": "Whether the paper pays periodic coupons"
+              },
+              "periodicity": {
+                "type": "string",
+                "description": "Frequency of coupon payments (MONTHLY, QUARTERLY, SEMESTERLY, YEARLY, IRREGULAR)"
+              },
+              "additionalInfo": {
+                "type": "string",
+                "description": "Free-text detail when periodicity is IRREGULAR"
+              }
+            }
           },
           "status": {
             "type": "string",
