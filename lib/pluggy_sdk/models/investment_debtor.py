@@ -20,24 +20,16 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pluggy_sdk.models.company import Company
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class InvestmentMetadata(BaseModel):
+class InvestmentDebtor(BaseModel):
     """
-    Investment metadata for Previdencia migrations
+    Underlying debtor of receivables-backed paper (CRI / CRA)
     """ # noqa: E501
-    tax_regime: Optional[StrictStr] = Field(default=None, description="Description of the type of tax applied to previdencia", alias="taxRegime")
-    proposal_number: Optional[StrictStr] = Field(default=None, description="Previdencial proposal number", alias="proposalNumber")
-    process_number: Optional[StrictStr] = Field(default=None, description="Number of the process of a previdencia", alias="processNumber")
-    fund_name: Optional[StrictStr] = Field(default=None, description="Name of the fund associated with the previdencia.", alias="fundName")
-    insurer: Optional[Company] = Field(default=None, description="Insurer of the Security Investment")
-    anbima_class: Optional[StrictStr] = Field(default=None, description="Anbima class (CVM 175). Funds.", alias="anbimaClass")
-    anbima_subclass: Optional[StrictStr] = Field(default=None, description="Anbima subclass (CVM 175). Funds.", alias="anbimaSubclass")
-    anbima_category: Optional[StrictStr] = Field(default=None, description="Legacy Anbima category (FIXED_INCOME, STOCK, MULTIMARKET, EXCHANGE). Funds.", alias="anbimaCategory")
-    __properties: ClassVar[List[str]] = ["taxRegime", "proposalNumber", "processNumber", "fundName", "insurer", "anbimaClass", "anbimaSubclass", "anbimaCategory"]
+    name: Optional[StrictStr] = Field(default=None, description="Name of the underlying debtor")
+    __properties: ClassVar[List[str]] = ["name"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -57,7 +49,7 @@ class InvestmentMetadata(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of InvestmentMetadata from a JSON string"""
+        """Create an instance of InvestmentDebtor from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -78,14 +70,11 @@ class InvestmentMetadata(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of insurer
-        if self.insurer:
-            _dict['insurer'] = self.insurer.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of InvestmentMetadata from a dict"""
+        """Create an instance of InvestmentDebtor from a dict"""
         if obj is None:
             return None
 
@@ -93,14 +82,7 @@ class InvestmentMetadata(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "taxRegime": obj.get("taxRegime"),
-            "proposalNumber": obj.get("proposalNumber"),
-            "processNumber": obj.get("processNumber"),
-            "fundName": obj.get("fundName"),
-            "insurer": Company.from_dict(obj["insurer"]) if obj.get("insurer") is not None else None,
-            "anbimaClass": obj.get("anbimaClass"),
-            "anbimaSubclass": obj.get("anbimaSubclass"),
-            "anbimaCategory": obj.get("anbimaCategory")
+            "name": obj.get("name")
         })
         return _obj
 

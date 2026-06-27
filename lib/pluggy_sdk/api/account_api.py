@@ -98,9 +98,12 @@ class AccountApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "AccountBalanceGet200Response",
+            '400': "GlobalErrorResponse",
+            '403': "GlobalErrorResponse",
             '404': "GlobalErrorResponse",
             '429': "GlobalErrorResponse",
             '500': "GlobalErrorResponse",
+            '502': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -168,9 +171,12 @@ class AccountApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "AccountBalanceGet200Response",
+            '400': "GlobalErrorResponse",
+            '403': "GlobalErrorResponse",
             '404': "GlobalErrorResponse",
             '429': "GlobalErrorResponse",
             '500': "GlobalErrorResponse",
+            '502': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -238,9 +244,12 @@ class AccountApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "AccountBalanceGet200Response",
+            '400': "GlobalErrorResponse",
+            '403': "GlobalErrorResponse",
             '404': "GlobalErrorResponse",
             '429': "GlobalErrorResponse",
             '500': "GlobalErrorResponse",
+            '502': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,

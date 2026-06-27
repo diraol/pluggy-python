@@ -11,6 +11,9 @@ Name | Type | Description | Notes
 **process_number** | **str** | Number of the process of a previdencia | [optional] 
 **fund_name** | **str** | Name of the fund associated with the previdencia. | [optional] 
 **insurer** | [**Company**](Company.md) | Insurer of the Security Investment | [optional] 
+**anbima_class** | **str** | Anbima class (CVM 175). Funds. | [optional] 
+**anbima_subclass** | **str** | Anbima subclass (CVM 175). Funds. | [optional] 
+**anbima_category** | **str** | Legacy Anbima category (FIXED_INCOME, STOCK, MULTIMARKET, EXCHANGE). Funds. | [optional] 
 
 ## Example
 

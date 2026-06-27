@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **value** | **float** | Value on the transaction&#39;s Date | [optional] 
 **amount** | **float** | Gross amount of the operation. May be null only if type is TRANSFER | [optional] 
 **agreed_rate** | **float** | Agreed rate for treasury applications | [optional] 
+**indexer_percentage** | **float** | Max percentage of the indexer agreed at contracting (e.g. 110% of CDI) | [optional] 
+**price_factor** | **float** | B3 lot/price conversion factor (variable income transactions) | [optional] 
 **var_date** | **datetime** | Date when the transaction was made | 
 **trade_date** | **datetime** | Date when the transaction was confirmed | [optional] 
 **expenses** | [**InvestmentExpenses**](InvestmentExpenses.md) |  | [optional] 

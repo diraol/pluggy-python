@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 **custody_fee** | **float** | Fee by brokers to keep recordsin their home broker systems or on the trading desk | [optional] 
 **operating_fee** | **float** | Amount paid to the Operator for the intermediation service | [optional] 
 **other** | **float** | Sum of other not defined expenses | [optional] 
+**iof** | **float** | (IOF) Tax on financial operations charged on the transaction | [optional] 
+**iof_provision** | **float** | Provisioned (accrued, not yet paid) IOF | [optional] 
 
 ## Example
 

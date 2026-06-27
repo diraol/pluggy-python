@@ -103,6 +103,8 @@ from pluggy_sdk.models.identity_response_qualifications_informed_income import I
 from pluggy_sdk.models.identity_response_qualifications_informed_patrimony import IdentityResponseQualificationsInformedPatrimony
 from pluggy_sdk.models.informed_revenue import InformedRevenue
 from pluggy_sdk.models.investment import Investment
+from pluggy_sdk.models.investment_coupon_payment import InvestmentCouponPayment
+from pluggy_sdk.models.investment_debtor import InvestmentDebtor
 from pluggy_sdk.models.investment_expenses import InvestmentExpenses
 from pluggy_sdk.models.investment_metadata import InvestmentMetadata
 from pluggy_sdk.models.investment_transaction import InvestmentTransaction

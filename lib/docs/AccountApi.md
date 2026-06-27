@@ -86,9 +86,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Real-time account balance |  -  |
-**404** | Account not found |  -  |
+**400** | The balance request was rejected as invalid by the financial institution |  -  |
+**403** | The financial institution denied access to the account balance (consent expired or missing the required permission) |  -  |
+**404** | Account not found, or the balance was not found at the financial institution |  -  |
 **429** | Rate limited by the financial institution |  -  |
-**500** | Error fetching balance from connector |  -  |
+**500** | Unexpected error fetching balance from connector |  -  |
+**502** | The financial institution is temporarily unavailable to provide the balance |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

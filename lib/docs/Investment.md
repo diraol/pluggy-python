@@ -39,6 +39,12 @@ Name | Type | Description | Notes
 **rate** | **float** | Fixed rate percentage applied to the investment | [optional] 
 **rate_type** | **str** | Type of fixed-rate | [optional] 
 **fixed_annual_rate** | **float** | Fixed income annual rate | [optional] 
+**tax_exempt** | **bool** | Whether the product is tax-exempt (LCI, LCA, CRI, CRA, debêntures incentivadas) | [optional] 
+**rate_periodicity** | **str** | Periodicity of the remuneration rate (DAILY, MONTHLY, SEMESTERLY, YEARLY) | [optional] 
+**indexer_additional_info** | **str** | Free-text indexer description when the indexer is non-standard | [optional] 
+**price_factor** | **float** | B3 lot/price conversion factor (variable income) | [optional] 
+**debtor** | [**InvestmentDebtor**](InvestmentDebtor.md) |  | [optional] 
+**coupon_payment** | [**InvestmentCouponPayment**](InvestmentCouponPayment.md) |  | [optional] 
 **status** | **str** | Current lifecycle status of the investment. - &#x60;ACTIVE&#x60;: the investment is open and currently held by the owner. - &#x60;PENDING&#x60;: the operation has been requested but is not yet settled (e.g. a fund subscription within the settlement window). - &#x60;TOTAL_WITHDRAWAL&#x60;: the position has been fully redeemed/withdrawn; balance is zero. | [optional] 
 
 ## Example

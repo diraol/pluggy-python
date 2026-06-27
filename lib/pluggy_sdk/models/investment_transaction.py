@@ -37,10 +37,12 @@ class InvestmentTransaction(BaseModel):
     value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Value on the transaction's Date")
     amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gross amount of the operation. May be null only if type is TRANSFER")
     agreed_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Agreed rate for treasury applications", alias="agreedRate")
+    indexer_percentage: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Max percentage of the indexer agreed at contracting (e.g. 110% of CDI)", alias="indexerPercentage")
+    price_factor: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="B3 lot/price conversion factor (variable income transactions)", alias="priceFactor")
     var_date: datetime = Field(description="Date when the transaction was made", alias="date")
     trade_date: Optional[datetime] = Field(default=None, description="Date when the transaction was confirmed", alias="tradeDate")
     expenses: Optional[InvestmentExpenses] = None
-    __properties: ClassVar[List[str]] = ["id", "type", "movementType", "quantity", "value", "amount", "agreedRate", "date", "tradeDate", "expenses"]
+    __properties: ClassVar[List[str]] = ["id", "type", "movementType", "quantity", "value", "amount", "agreedRate", "indexerPercentage", "priceFactor", "date", "tradeDate", "expenses"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -120,6 +122,8 @@ class InvestmentTransaction(BaseModel):
             "value": obj.get("value"),
             "amount": obj.get("amount"),
             "agreedRate": obj.get("agreedRate"),
+            "indexerPercentage": obj.get("indexerPercentage"),
+            "priceFactor": obj.get("priceFactor"),
             "date": obj.get("date"),
             "tradeDate": obj.get("tradeDate"),
             "expenses": InvestmentExpenses.from_dict(obj["expenses"]) if obj.get("expenses") is not None else None

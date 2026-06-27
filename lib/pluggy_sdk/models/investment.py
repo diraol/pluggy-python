@@ -19,9 +19,11 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
+from pluggy_sdk.models.investment_coupon_payment import InvestmentCouponPayment
+from pluggy_sdk.models.investment_debtor import InvestmentDebtor
 from pluggy_sdk.models.investment_metadata import InvestmentMetadata
 from typing import Optional, Set
 from typing_extensions import Self
@@ -64,8 +66,14 @@ class Investment(BaseModel):
     rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Fixed rate percentage applied to the investment")
     rate_type: Optional[StrictStr] = Field(default=None, description="Type of fixed-rate", alias="rateType")
     fixed_annual_rate: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Fixed income annual rate", alias="fixedAnnualRate")
+    tax_exempt: Optional[StrictBool] = Field(default=None, description="Whether the product is tax-exempt (LCI, LCA, CRI, CRA, debêntures incentivadas)", alias="taxExempt")
+    rate_periodicity: Optional[StrictStr] = Field(default=None, description="Periodicity of the remuneration rate (DAILY, MONTHLY, SEMESTERLY, YEARLY)", alias="ratePeriodicity")
+    indexer_additional_info: Optional[StrictStr] = Field(default=None, description="Free-text indexer description when the indexer is non-standard", alias="indexerAdditionalInfo")
+    price_factor: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="B3 lot/price conversion factor (variable income)", alias="priceFactor")
+    debtor: Optional[InvestmentDebtor] = None
+    coupon_payment: Optional[InvestmentCouponPayment] = Field(default=None, alias="couponPayment")
     status: Optional[StrictStr] = Field(default=None, description="Current lifecycle status of the investment. - `ACTIVE`: the investment is open and currently held by the owner. - `PENDING`: the operation has been requested but is not yet settled (e.g. a fund subscription within the settlement window). - `TOTAL_WITHDRAWAL`: the position has been fully redeemed/withdrawn; balance is zero.")
-    __properties: ClassVar[List[str]] = ["id", "itemId", "type", "subtype", "number", "balance", "name", "lastMonthRate", "lastTwelveMonthsRate", "annualRate", "currencyCode", "code", "isin", "value", "quantity", "amount", "taxes", "taxes2", "date", "owner", "amountProfit", "amountWithdrawal", "amountOriginal", "metadata", "dueDate", "issuer", "issuerCNPJ", "issueDate", "purchaseDate", "gracePeriodDate", "rate", "rateType", "fixedAnnualRate", "status"]
+    __properties: ClassVar[List[str]] = ["id", "itemId", "type", "subtype", "number", "balance", "name", "lastMonthRate", "lastTwelveMonthsRate", "annualRate", "currencyCode", "code", "isin", "value", "quantity", "amount", "taxes", "taxes2", "date", "owner", "amountProfit", "amountWithdrawal", "amountOriginal", "metadata", "dueDate", "issuer", "issuerCNPJ", "issueDate", "purchaseDate", "gracePeriodDate", "rate", "rateType", "fixedAnnualRate", "taxExempt", "ratePeriodicity", "indexerAdditionalInfo", "priceFactor", "debtor", "couponPayment", "status"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -136,6 +144,12 @@ class Investment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of metadata
         if self.metadata:
             _dict['metadata'] = self.metadata.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of debtor
+        if self.debtor:
+            _dict['debtor'] = self.debtor.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of coupon_payment
+        if self.coupon_payment:
+            _dict['couponPayment'] = self.coupon_payment.to_dict()
         # set to None if grace_period_date (nullable) is None
         # and model_fields_set contains the field
         if self.grace_period_date is None and "grace_period_date" in self.model_fields_set:
@@ -186,6 +200,12 @@ class Investment(BaseModel):
             "rate": obj.get("rate"),
             "rateType": obj.get("rateType"),
             "fixedAnnualRate": obj.get("fixedAnnualRate"),
+            "taxExempt": obj.get("taxExempt"),
+            "ratePeriodicity": obj.get("ratePeriodicity"),
+            "indexerAdditionalInfo": obj.get("indexerAdditionalInfo"),
+            "priceFactor": obj.get("priceFactor"),
+            "debtor": InvestmentDebtor.from_dict(obj["debtor"]) if obj.get("debtor") is not None else None,
+            "couponPayment": InvestmentCouponPayment.from_dict(obj["couponPayment"]) if obj.get("couponPayment") is not None else None,
             "status": obj.get("status")
         })
         return _obj

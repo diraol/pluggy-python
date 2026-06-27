@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post58"
+__version__ = "1.0.0.post59"
 
 # Define package exports
 __all__ = [
@@ -138,6 +138,8 @@ __all__ = [
     "IdentityResponseQualificationsInformedPatrimony",
     "InformedRevenue",
     "Investment",
+    "InvestmentCouponPayment",
+    "InvestmentDebtor",
     "InvestmentExpenses",
     "InvestmentMetadata",
     "InvestmentTransaction",
@@ -370,6 +372,8 @@ from pluggy_sdk.models.identity_response_qualifications_informed_income import I
 from pluggy_sdk.models.identity_response_qualifications_informed_patrimony import IdentityResponseQualificationsInformedPatrimony as IdentityResponseQualificationsInformedPatrimony
 from pluggy_sdk.models.informed_revenue import InformedRevenue as InformedRevenue
 from pluggy_sdk.models.investment import Investment as Investment
+from pluggy_sdk.models.investment_coupon_payment import InvestmentCouponPayment as InvestmentCouponPayment
+from pluggy_sdk.models.investment_debtor import InvestmentDebtor as InvestmentDebtor
 from pluggy_sdk.models.investment_expenses import InvestmentExpenses as InvestmentExpenses
 from pluggy_sdk.models.investment_metadata import InvestmentMetadata as InvestmentMetadata
 from pluggy_sdk.models.investment_transaction import InvestmentTransaction as InvestmentTransaction

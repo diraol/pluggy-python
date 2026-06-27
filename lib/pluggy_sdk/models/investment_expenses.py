@@ -39,7 +39,9 @@ class InvestmentExpenses(BaseModel):
     custody_fee: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Fee by brokers to keep recordsin their home broker systems or on the trading desk", alias="custodyFee")
     operating_fee: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount paid to the Operator for the intermediation service", alias="operatingFee")
     other: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Sum of other not defined expenses")
-    __properties: ClassVar[List[str]] = ["serviceTax", "brokerageFee", "incomeTax", "tradingAssetsNoticeFee", "maintenanceFee", "settlementFee", "clearingFee", "stockExchangeFee", "custodyFee", "operatingFee", "other"]
+    iof: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="(IOF) Tax on financial operations charged on the transaction")
+    iof_provision: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Provisioned (accrued, not yet paid) IOF", alias="iofProvision")
+    __properties: ClassVar[List[str]] = ["serviceTax", "brokerageFee", "incomeTax", "tradingAssetsNoticeFee", "maintenanceFee", "settlementFee", "clearingFee", "stockExchangeFee", "custodyFee", "operatingFee", "other", "iof", "iofProvision"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -102,7 +104,9 @@ class InvestmentExpenses(BaseModel):
             "stockExchangeFee": obj.get("stockExchangeFee"),
             "custodyFee": obj.get("custodyFee"),
             "operatingFee": obj.get("operatingFee"),
-            "other": obj.get("other")
+            "other": obj.get("other"),
+            "iof": obj.get("iof"),
+            "iofProvision": obj.get("iofProvision")
         })
         return _obj
 

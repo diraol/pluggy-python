@@ -102,6 +102,8 @@ docs/IdentityResponseQualificationsInformedPatrimony.md
 docs/InformedRevenue.md
 docs/Investment.md
 docs/InvestmentApi.md
+docs/InvestmentCouponPayment.md
+docs/InvestmentDebtor.md
 docs/InvestmentExpenses.md
 docs/InvestmentMetadata.md
 docs/InvestmentTransaction.md
@@ -337,6 +339,8 @@ pluggy_sdk/models/identity_response_qualifications_informed_income.py
 pluggy_sdk/models/identity_response_qualifications_informed_patrimony.py
 pluggy_sdk/models/informed_revenue.py
 pluggy_sdk/models/investment.py
+pluggy_sdk/models/investment_coupon_payment.py
+pluggy_sdk/models/investment_debtor.py
 pluggy_sdk/models/investment_expenses.py
 pluggy_sdk/models/investment_metadata.py
 pluggy_sdk/models/investment_transaction.py
@@ -451,4 +455,6 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_investment_coupon_payment.py
+test/test_investment_debtor.py
 tox.ini
