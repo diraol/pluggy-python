@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**categories_list**](CategoryApi.md#categories_list) | **GET** /categories | List
 [**categories_retrieve**](CategoryApi.md#categories_retrieve) | **GET** /categories/{id} | Retrieve
 [**client_category_rules_create**](CategoryApi.md#client_category_rules_create) | **POST** /categories/rules | Create Category Rule
+[**client_category_rules_delete**](CategoryApi.md#client_category_rules_delete) | **DELETE** /categories/rules/{id} | Delete Category Rule
 [**client_category_rules_list**](CategoryApi.md#client_category_rules_list) | **GET** /categories/rules | List Category Rules
 
 
@@ -249,6 +250,85 @@ Name | Type | Description  | Notes
 **200** | Creates a Category Rule and recover the result |  -  |
 **404** | Category not found |  -  |
 **400** | Invalid description |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **client_category_rules_delete**
+> client_category_rules_delete(id)
+
+Delete Category Rule
+
+Deletes a category rule by its id. Clients can only delete their own rules.
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.CategoryApi(api_client)
+    id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Category rule primary identifier
+
+    try:
+        # Delete Category Rule
+        api_instance.client_category_rules_delete(id)
+    except Exception as e:
+        print("Exception when calling CategoryApi->client_category_rules_delete: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Category rule primary identifier | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Category rule deleted successfully |  -  |
+**403** | Rule belongs to another client |  -  |
+**404** | Category rule not found |  -  |
+**400** | Invalid category rule id |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

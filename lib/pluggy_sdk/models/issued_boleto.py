@@ -128,6 +128,11 @@ class IssuedBoleto(BaseModel):
         if self.payment_origin is None and "payment_origin" in self.model_fields_set:
             _dict['paymentOrigin'] = None
 
+        # set to None if fine (nullable) is None
+        # and model_fields_set contains the field
+        if self.fine is None and "fine" in self.model_fields_set:
+            _dict['fine'] = None
+
         return _dict
 
     @classmethod

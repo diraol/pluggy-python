@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post59"
+__version__ = "1.0.0.post60"
 
 # Define package exports
 __all__ = [
@@ -230,6 +230,7 @@ __all__ = [
     "SmartTransferPreauthorizationConfiguration",
     "SmartTransferPreauthorizationConfigurationPeriodicLimit",
     "SmartTransferPreauthorizationConfigurationPeriodicLimits",
+    "SmartTransferPreauthorizationErrorDetail",
     "SmartTransferPreauthorizationParameter",
     "SmartTransferPreauthorizationPaymentsList200Response",
     "StatusDetail",
@@ -237,6 +238,7 @@ __all__ = [
     "StatusDetailProductWarning",
     "Transaction",
     "UpdateItem",
+    "UpdateItemParameters",
     "UpdatePaymentRecipient",
     "UpdatePaymentRequest",
     "UpdateTransaction",
@@ -464,6 +466,7 @@ from pluggy_sdk.models.smart_transfer_preauthorization import SmartTransferPreau
 from pluggy_sdk.models.smart_transfer_preauthorization_configuration import SmartTransferPreauthorizationConfiguration as SmartTransferPreauthorizationConfiguration
 from pluggy_sdk.models.smart_transfer_preauthorization_configuration_periodic_limit import SmartTransferPreauthorizationConfigurationPeriodicLimit as SmartTransferPreauthorizationConfigurationPeriodicLimit
 from pluggy_sdk.models.smart_transfer_preauthorization_configuration_periodic_limits import SmartTransferPreauthorizationConfigurationPeriodicLimits as SmartTransferPreauthorizationConfigurationPeriodicLimits
+from pluggy_sdk.models.smart_transfer_preauthorization_error_detail import SmartTransferPreauthorizationErrorDetail as SmartTransferPreauthorizationErrorDetail
 from pluggy_sdk.models.smart_transfer_preauthorization_parameter import SmartTransferPreauthorizationParameter as SmartTransferPreauthorizationParameter
 from pluggy_sdk.models.smart_transfer_preauthorization_payments_list200_response import SmartTransferPreauthorizationPaymentsList200Response as SmartTransferPreauthorizationPaymentsList200Response
 from pluggy_sdk.models.status_detail import StatusDetail as StatusDetail
@@ -471,6 +474,7 @@ from pluggy_sdk.models.status_detail_product import StatusDetailProduct as Statu
 from pluggy_sdk.models.status_detail_product_warning import StatusDetailProductWarning as StatusDetailProductWarning
 from pluggy_sdk.models.transaction import Transaction as Transaction
 from pluggy_sdk.models.update_item import UpdateItem as UpdateItem
+from pluggy_sdk.models.update_item_parameters import UpdateItemParameters as UpdateItemParameters
 from pluggy_sdk.models.update_payment_recipient import UpdatePaymentRecipient as UpdatePaymentRecipient
 from pluggy_sdk.models.update_payment_request import UpdatePaymentRequest as UpdatePaymentRequest
 from pluggy_sdk.models.update_transaction import UpdateTransaction as UpdateTransaction

@@ -203,6 +203,7 @@ docs/SmartTransferPreauthorization.md
 docs/SmartTransferPreauthorizationConfiguration.md
 docs/SmartTransferPreauthorizationConfigurationPeriodicLimit.md
 docs/SmartTransferPreauthorizationConfigurationPeriodicLimits.md
+docs/SmartTransferPreauthorizationErrorDetail.md
 docs/SmartTransferPreauthorizationParameter.md
 docs/SmartTransferPreauthorizationPaymentsList200Response.md
 docs/StatusDetail.md
@@ -211,6 +212,7 @@ docs/StatusDetailProductWarning.md
 docs/Transaction.md
 docs/TransactionApi.md
 docs/UpdateItem.md
+docs/UpdateItemParameters.md
 docs/UpdatePaymentRecipient.md
 docs/UpdatePaymentRequest.md
 docs/UpdateTransaction.md
@@ -431,6 +433,7 @@ pluggy_sdk/models/smart_transfer_preauthorization.py
 pluggy_sdk/models/smart_transfer_preauthorization_configuration.py
 pluggy_sdk/models/smart_transfer_preauthorization_configuration_periodic_limit.py
 pluggy_sdk/models/smart_transfer_preauthorization_configuration_periodic_limits.py
+pluggy_sdk/models/smart_transfer_preauthorization_error_detail.py
 pluggy_sdk/models/smart_transfer_preauthorization_parameter.py
 pluggy_sdk/models/smart_transfer_preauthorization_payments_list200_response.py
 pluggy_sdk/models/status_detail.py
@@ -438,6 +441,7 @@ pluggy_sdk/models/status_detail_product.py
 pluggy_sdk/models/status_detail_product_warning.py
 pluggy_sdk/models/transaction.py
 pluggy_sdk/models/update_item.py
+pluggy_sdk/models/update_item_parameters.py
 pluggy_sdk/models/update_payment_recipient.py
 pluggy_sdk/models/update_payment_request.py
 pluggy_sdk/models/update_transaction.py
@@ -455,6 +459,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_investment_coupon_payment.py
-test/test_investment_debtor.py
 tox.ini
