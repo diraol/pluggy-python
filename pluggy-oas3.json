@@ -4086,6 +4086,82 @@
         ]
       }
     },
+    "/categories/rules/{id}": {
+      "delete": {
+        "operationId": "client-category-rules-delete",
+        "summary": "Delete Category Rule",
+        "description": "Deletes a category rule by its id. Clients can only delete their own rules.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Category rule primary identifier"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Category rule deleted successfully"
+          },
+          "403": {
+            "description": "Rule belongs to another client",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 403,
+                  "codeDescription": "CATEGORY_RULE_FORBIDDEN",
+                  "message": "You do not have permission to delete this category rule"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category rule not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "CATEGORY_RULE_NOT_FOUND",
+                  "message": "Category rule not found"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid category rule id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 400,
+                  "message": "id must be a UUID"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Category"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      }
+    },
     "/loans": {
       "get": {
         "operationId": "loans-list",
