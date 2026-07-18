@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **payee_mcc** | **str** | Merchant Category Code of the merchant | [optional] 
 **card_number** | **str** | Credit Card Number associated with transaction, can be different from the account if its done by an additional or virtual card. | [optional] 
 **bill_id** | **str** | Id of the bill associated to this transaction | [optional] 
+**bill_forecast_date** | **str** | Forecasted bill period (formatted as YYYY-MM) in which this transaction is expected to be charged. Unlike billId, it is provided for pending and future transactions too. Only returned for Open Finance connectors | [optional] 
 
 ## Example
 

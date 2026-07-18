@@ -33,13 +33,14 @@ class Bill(BaseModel):
     """ # noqa: E501
     id: StrictStr = Field(description="Primary identifier")
     due_date: datetime = Field(description="Due date of the bill, displayed for payment by the customer", alias="dueDate")
+    bill_closing_date: Optional[datetime] = Field(default=None, description="Date when the bill was closed", alias="billClosingDate")
     total_amount: Union[StrictFloat, StrictInt] = Field(description="Total bill amount", alias="totalAmount")
     total_amount_currency_code: StrictStr = Field(description="Code referencing the currency of the bill", alias="totalAmountCurrencyCode", json_schema_extra={"examples": ["BRL"]})
     minimum_payment_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Minimum payment amount of the bill", alias="minimumPaymentAmount")
     allows_installments: Optional[StrictBool] = Field(default=None, description="Indicates whether the bill allows installment payments (true) or not (false)", alias="allowsInstallments")
     finance_charges: List[BillFinanceCharge] = Field(description="List of charges associated to the bill", alias="financeCharges")
     payments: List[BillPayment] = Field(description="List of payments associated to the bill")
-    __properties: ClassVar[List[str]] = ["id", "dueDate", "totalAmount", "totalAmountCurrencyCode", "minimumPaymentAmount", "allowsInstallments", "financeCharges", "payments"]
+    __properties: ClassVar[List[str]] = ["id", "dueDate", "billClosingDate", "totalAmount", "totalAmountCurrencyCode", "minimumPaymentAmount", "allowsInstallments", "financeCharges", "payments"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -94,6 +95,11 @@ class Bill(BaseModel):
                 if _item_payments:
                     _items.append(_item_payments.to_dict())
             _dict['payments'] = _items
+        # set to None if bill_closing_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.bill_closing_date is None and "bill_closing_date" in self.model_fields_set:
+            _dict['billClosingDate'] = None
+
         return _dict
 
     @classmethod
@@ -108,6 +114,7 @@ class Bill(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "dueDate": obj.get("dueDate"),
+            "billClosingDate": obj.get("billClosingDate"),
             "totalAmount": obj.get("totalAmount"),
             "totalAmountCurrencyCode": obj.get("totalAmountCurrencyCode"),
             "minimumPaymentAmount": obj.get("minimumPaymentAmount"),

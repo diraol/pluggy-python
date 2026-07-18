@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Primary identifier | 
 **due_date** | **datetime** | Due date of the bill, displayed for payment by the customer | 
+**bill_closing_date** | **datetime** | Date when the bill was closed | [optional] 
 **total_amount** | **float** | Total bill amount | 
 **total_amount_currency_code** | **str** | Code referencing the currency of the bill | 
 **minimum_payment_amount** | **float** | Minimum payment amount of the bill | [optional] 

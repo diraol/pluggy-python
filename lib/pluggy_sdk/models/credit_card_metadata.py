@@ -40,7 +40,8 @@ class CreditCardMetadata(BaseModel):
     payee_mcc: Optional[StrictStr] = Field(default=None, description="Merchant Category Code of the merchant", alias="payeeMCC")
     card_number: Optional[StrictStr] = Field(default=None, description="Credit Card Number associated with transaction, can be different from the account if its done by an additional or virtual card.", alias="cardNumber")
     bill_id: Optional[StrictStr] = Field(default=None, description="Id of the bill associated to this transaction", alias="billId")
-    __properties: ClassVar[List[str]] = ["installmentNumber", "totalInstallments", "totalAmount", "feeType", "feeTypeAdditionalInfo", "otherCreditsType", "otherCreditsAdditionalInfo", "purchaseDate", "payeeMCC", "cardNumber", "billId"]
+    bill_forecast_date: Optional[StrictStr] = Field(default=None, description="Forecasted bill period (formatted as YYYY-MM) in which this transaction is expected to be charged. Unlike billId, it is provided for pending and future transactions too. Only returned for Open Finance connectors", alias="billForecastDate")
+    __properties: ClassVar[List[str]] = ["installmentNumber", "totalInstallments", "totalAmount", "feeType", "feeTypeAdditionalInfo", "otherCreditsType", "otherCreditsAdditionalInfo", "purchaseDate", "payeeMCC", "cardNumber", "billId", "billForecastDate"]
 
     @field_validator('fee_type')
     def fee_type_validate_enum(cls, value):
@@ -123,7 +124,8 @@ class CreditCardMetadata(BaseModel):
             "purchaseDate": obj.get("purchaseDate"),
             "payeeMCC": obj.get("payeeMCC"),
             "cardNumber": obj.get("cardNumber"),
-            "billId": obj.get("billId")
+            "billId": obj.get("billId"),
+            "billForecastDate": obj.get("billForecastDate")
         })
         return _obj
 
