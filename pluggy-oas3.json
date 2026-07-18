@@ -2068,7 +2068,8 @@
                             "purchaseDate": "2020-09-14T00:00:00.000Z",
                             "payeeMCC": 1234,
                             "cardNumber": "0597",
-                            "billId": "abced929-edc4-408c-a959-d51f79ab1123"
+                            "billId": "abced929-edc4-408c-a959-d51f79ab1123",
+                            "billForecastDate": "2020-10"
                           },
                           "providerId": null
                         },
@@ -4641,6 +4642,7 @@
                         {
                           "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
                           "dueDate": "2023-07-20T00:00:00",
+                          "billClosingDate": "2023-07-13T00:00:00",
                           "totalAmount": 50000,
                           "totalAmountCurrencyCode": "BRL",
                           "minimumPaymentAmount": 50000,
@@ -4704,6 +4706,7 @@
                       "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
                       "accountId": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
                       "dueDate": "2023-07-20T00:00:00",
+                      "billClosingDate": "2023-07-13T00:00:00",
                       "totalAmount": 50000,
                       "totalAmountCurrencyCode": "BRL",
                       "minimumPaymentAmount": 50000,
@@ -9263,6 +9266,10 @@
           "billId": {
             "type": "string",
             "description": "Id of the bill associated to this transaction"
+          },
+          "billForecastDate": {
+            "type": "string",
+            "description": "Forecasted bill period (formatted as YYYY-MM) in which this transaction is expected to be charged. Unlike billId, it is provided for pending and future transactions too. Only returned for Open Finance connectors"
           }
         },
         "type": "object"
@@ -11809,6 +11816,11 @@
             "type": "string",
             "format": "date-time",
             "description": "Due date of the bill, displayed for payment by the customer"
+          },
+          "billClosingDate": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "description": "Date when the bill was closed"
           },
           "totalAmount": {
             "type": "number",
