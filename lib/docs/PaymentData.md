@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **reason** | **str** | User&#39;s motive submitted while making the transfer | [optional] 
 **reference_number** | **str** | Reference number for the transfer/payment | [optional] 
 **receiver_reference_id** | **str** | String submitted by the receiver associated with the payment when generating the payment request. | [optional] 
+**authentication_code** | **str** | Authentication code of the payment receipt, as printed by the institution on the proof of payment. It identifies the operation itself rather than the payment instrument, so it can be present for any payment method (PIX, TED, DOC, BOLETO). | [optional] 
 **payment_method** | **str** | Payment rail used for the transaction. - &#x60;PIX&#x60;: instant transfer over the Brazilian Pix system. - &#x60;TED&#x60;: Transferência Eletrônica Disponível (same-day inter-bank transfer). - &#x60;DOC&#x60;: Documento de Ordem de Crédito (D+1 inter-bank transfer, deprecated by the Central Bank). - &#x60;TEV&#x60;: Transferência Eletrônica de Valores (intra-bank transfer between accounts of the same institution). - &#x60;BOLETO&#x60;: Brazilian bank slip payment. | [optional] 
 **boleto_metadata** | [**PaymentDataBoletoMetadata**](PaymentDataBoletoMetadata.md) |  | [optional] 
 

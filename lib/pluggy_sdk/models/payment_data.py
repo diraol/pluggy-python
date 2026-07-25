@@ -35,9 +35,10 @@ class PaymentData(BaseModel):
     reason: Optional[StrictStr] = Field(default=None, description="User's motive submitted while making the transfer")
     reference_number: Optional[StrictStr] = Field(default=None, description="Reference number for the transfer/payment", alias="referenceNumber")
     receiver_reference_id: Optional[StrictStr] = Field(default=None, description="String submitted by the receiver associated with the payment when generating the payment request.", alias="receiverReferenceId")
+    authentication_code: Optional[StrictStr] = Field(default=None, description="Authentication code of the payment receipt, as printed by the institution on the proof of payment. It identifies the operation itself rather than the payment instrument, so it can be present for any payment method (PIX, TED, DOC, BOLETO).", alias="authenticationCode")
     payment_method: Optional[StrictStr] = Field(default=None, description="Payment rail used for the transaction. - `PIX`: instant transfer over the Brazilian Pix system. - `TED`: Transferência Eletrônica Disponível (same-day inter-bank transfer). - `DOC`: Documento de Ordem de Crédito (D+1 inter-bank transfer, deprecated by the Central Bank). - `TEV`: Transferência Eletrônica de Valores (intra-bank transfer between accounts of the same institution). - `BOLETO`: Brazilian bank slip payment.", alias="paymentMethod")
     boleto_metadata: Optional[PaymentDataBoletoMetadata] = Field(default=None, alias="boletoMetadata")
-    __properties: ClassVar[List[str]] = ["payer", "receiver", "reason", "referenceNumber", "receiverReferenceId", "paymentMethod", "boletoMetadata"]
+    __properties: ClassVar[List[str]] = ["payer", "receiver", "reason", "referenceNumber", "receiverReferenceId", "authenticationCode", "paymentMethod", "boletoMetadata"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -104,6 +105,7 @@ class PaymentData(BaseModel):
             "reason": obj.get("reason"),
             "referenceNumber": obj.get("referenceNumber"),
             "receiverReferenceId": obj.get("receiverReferenceId"),
+            "authenticationCode": obj.get("authenticationCode"),
             "paymentMethod": obj.get("paymentMethod"),
             "boletoMetadata": PaymentDataBoletoMetadata.from_dict(obj["boletoMetadata"]) if obj.get("boletoMetadata") is not None else None
         })
