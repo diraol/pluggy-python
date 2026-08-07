@@ -109,8 +109,7 @@ class Connector(BaseModel):
         _items = []
         if self.credentials:
             for _item_credentials in self.credentials:
-                if _item_credentials:
-                    _items.append(_item_credentials.to_dict())
+                _items.append(_item_credentials.to_dict() if _item_credentials is not None else None)
             _dict['credentials'] = _items
         # override the default output from pydantic by calling `to_dict()` of health
         if self.health:

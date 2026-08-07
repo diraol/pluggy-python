@@ -77,8 +77,7 @@ class MerchantsGetByCnpj200Response(BaseModel):
         _items = []
         if self.found_merchants:
             for _item_found_merchants in self.found_merchants:
-                if _item_found_merchants:
-                    _items.append(_item_found_merchants.to_dict())
+                _items.append(_item_found_merchants.to_dict() if _item_found_merchants is not None else None)
             _dict['foundMerchants'] = _items
         return _dict
 

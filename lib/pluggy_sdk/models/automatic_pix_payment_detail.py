@@ -93,8 +93,7 @@ class AutomaticPixPaymentDetail(BaseModel):
         _items = []
         if self.attempts:
             for _item_attempts in self.attempts:
-                if _item_attempts:
-                    _items.append(_item_attempts.to_dict())
+                _items.append(_item_attempts.to_dict() if _item_attempts is not None else None)
             _dict['attempts'] = _items
         return _dict
 

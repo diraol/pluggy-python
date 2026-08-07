@@ -16,6 +16,7 @@ import http.client as httplib
 import logging
 from logging import FileHandler
 import multiprocessing
+import ssl
 import sys
 from typing import Any, ClassVar, Dict, List, Literal, Optional, TypedDict, Union
 from urllib.parse import urlparse
@@ -174,6 +175,7 @@ class Configuration:
     :param proxy: Proxy URL.
     :param no_proxy: Comma-separated hosts that bypass the proxy.
     :param proxy_headers: Proxy headers.
+    :param proxy_ssl_context: SSL context used only for the TLS handshake with the proxy itself, independent of the destination TLS settings.
     :param safe_chars_for_path_param: Safe characters for path parameter encoding.
     :param client_side_validation: Enable client-side validation. Default True.
     :param socket_options: Options to pass down to the underlying urllib3 socket.
@@ -229,6 +231,7 @@ conf = pluggy_sdk.Configuration(
         proxy: Optional[str]=None,
         no_proxy: Optional[str]=None,
         proxy_headers: Optional[Any]=None,
+        proxy_ssl_context: Optional[ssl.SSLContext]=None,
         safe_chars_for_path_param: str='',
         client_side_validation: bool=True,
         socket_options: Optional[Any]=None,
@@ -352,6 +355,11 @@ conf = pluggy_sdk.Configuration(
         self.proxy_headers = proxy_headers
         """Proxy headers
         """
+        self.proxy_ssl_context = proxy_ssl_context
+        """SSL context used only for the TLS handshake with the proxy itself
+        (e.g. an HTTPS CONNECT tunnel), independent of the destination TLS
+        settings above.
+        """
         self.safe_chars_for_path_param = safe_chars_for_path_param
         """Safe chars for path_param
         """
@@ -378,6 +386,10 @@ conf = pluggy_sdk.Configuration(
         result = cls.__new__(cls)
         memo[id(self)] = result
         for k, v in self.__dict__.items():
+            if k == 'proxy_ssl_context':
+                # ssl.SSLContext holds unpicklable C state and can't be deepcopied.
+                setattr(result, k, v)
+                continue
             if k not in ('logger', 'logger_file_handler'):
                 setattr(result, k, copy.deepcopy(v, memo))
         # shallow copy of loggers
@@ -572,7 +584,7 @@ conf = pluggy_sdk.Configuration(
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: 1.0.0\n"\
-               "SDK Package Version: 1.0.0.post62".\
+               "SDK Package Version: 1.0.0.post63".\
                format(env=sys.platform, pyversion=sys.version)
 
     def get_host_settings(self) -> List[HostSetting]:

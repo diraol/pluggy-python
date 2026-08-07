@@ -77,8 +77,7 @@ class ReservedBalance(BaseModel):
         _items = []
         if self.available_amounts:
             for _item_available_amounts in self.available_amounts:
-                if _item_available_amounts:
-                    _items.append(_item_available_amounts.to_dict())
+                _items.append(_item_available_amounts.to_dict() if _item_available_amounts is not None else None)
             _dict['availableAmounts'] = _items
         return _dict
 

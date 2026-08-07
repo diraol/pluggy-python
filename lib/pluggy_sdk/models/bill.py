@@ -85,15 +85,13 @@ class Bill(BaseModel):
         _items = []
         if self.finance_charges:
             for _item_finance_charges in self.finance_charges:
-                if _item_finance_charges:
-                    _items.append(_item_finance_charges.to_dict())
+                _items.append(_item_finance_charges.to_dict() if _item_finance_charges is not None else None)
             _dict['financeCharges'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in payments (list)
         _items = []
         if self.payments:
             for _item_payments in self.payments:
-                if _item_payments:
-                    _items.append(_item_payments.to_dict())
+                _items.append(_item_payments.to_dict() if _item_payments is not None else None)
             _dict['payments'] = _items
         # set to None if bill_closing_date (nullable) is None
         # and model_fields_set contains the field

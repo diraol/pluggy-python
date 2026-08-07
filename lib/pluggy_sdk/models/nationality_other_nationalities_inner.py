@@ -76,8 +76,7 @@ class NationalityOtherNationalitiesInner(BaseModel):
         _items = []
         if self.documents:
             for _item_documents in self.documents:
-                if _item_documents:
-                    _items.append(_item_documents.to_dict())
+                _items.append(_item_documents.to_dict() if _item_documents is not None else None)
             _dict['documents'] = _items
         return _dict
 

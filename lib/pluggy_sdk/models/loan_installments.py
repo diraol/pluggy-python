@@ -102,8 +102,7 @@ class LoanInstallments(BaseModel):
         _items = []
         if self.balloon_payments:
             for _item_balloon_payments in self.balloon_payments:
-                if _item_balloon_payments:
-                    _items.append(_item_balloon_payments.to_dict())
+                _items.append(_item_balloon_payments.to_dict() if _item_balloon_payments is not None else None)
             _dict['balloonPayments'] = _items
         return _dict
 

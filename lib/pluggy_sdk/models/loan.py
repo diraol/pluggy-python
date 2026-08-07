@@ -135,29 +135,25 @@ class Loan(BaseModel):
         _items = []
         if self.interest_rates:
             for _item_interest_rates in self.interest_rates:
-                if _item_interest_rates:
-                    _items.append(_item_interest_rates.to_dict())
+                _items.append(_item_interest_rates.to_dict() if _item_interest_rates is not None else None)
             _dict['interestRates'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in contracted_fees (list)
         _items = []
         if self.contracted_fees:
             for _item_contracted_fees in self.contracted_fees:
-                if _item_contracted_fees:
-                    _items.append(_item_contracted_fees.to_dict())
+                _items.append(_item_contracted_fees.to_dict() if _item_contracted_fees is not None else None)
             _dict['contractedFees'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in contracted_finance_charges (list)
         _items = []
         if self.contracted_finance_charges:
             for _item_contracted_finance_charges in self.contracted_finance_charges:
-                if _item_contracted_finance_charges:
-                    _items.append(_item_contracted_finance_charges.to_dict())
+                _items.append(_item_contracted_finance_charges.to_dict() if _item_contracted_finance_charges is not None else None)
             _dict['contractedFinanceCharges'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in warranties (list)
         _items = []
         if self.warranties:
             for _item_warranties in self.warranties:
-                if _item_warranties:
-                    _items.append(_item_warranties.to_dict())
+                _items.append(_item_warranties.to_dict() if _item_warranties is not None else None)
             _dict['warranties'] = _items
         # override the default output from pydantic by calling `to_dict()` of installments
         if self.installments:

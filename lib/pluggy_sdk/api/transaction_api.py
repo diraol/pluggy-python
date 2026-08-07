@@ -48,7 +48,7 @@ class TransactionApi:
     def transactions_list(
         self,
         account_id: Annotated[UUID, Field(description="Account primary identifier")],
-        ids: Annotated[Optional[List[UUID]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
+        ids: Annotated[Optional[List[UUID]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded. Maximum of 500 ids per request.")] = None,
         var_from: Annotated[Optional[datetime], Field(description="Filter greater than date. Format (yyyy-mm-dd)")] = None,
         to: Annotated[Optional[datetime], Field(description="Filter lower than date. Format (yyyy-mm-dd)")] = None,
         page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500")] = None,
@@ -74,7 +74,7 @@ class TransactionApi:
 
         :param account_id: Account primary identifier (required)
         :type account_id: UUID
-        :param ids: Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded
+        :param ids: Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded. Maximum of 500 ids per request.
         :type ids: List[UUID]
         :param var_from: Filter greater than date. Format (yyyy-mm-dd)
         :type var_from: datetime
@@ -146,7 +146,7 @@ class TransactionApi:
     def transactions_list_with_http_info(
         self,
         account_id: Annotated[UUID, Field(description="Account primary identifier")],
-        ids: Annotated[Optional[List[UUID]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
+        ids: Annotated[Optional[List[UUID]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded. Maximum of 500 ids per request.")] = None,
         var_from: Annotated[Optional[datetime], Field(description="Filter greater than date. Format (yyyy-mm-dd)")] = None,
         to: Annotated[Optional[datetime], Field(description="Filter lower than date. Format (yyyy-mm-dd)")] = None,
         page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500")] = None,
@@ -172,7 +172,7 @@ class TransactionApi:
 
         :param account_id: Account primary identifier (required)
         :type account_id: UUID
-        :param ids: Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded
+        :param ids: Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded. Maximum of 500 ids per request.
         :type ids: List[UUID]
         :param var_from: Filter greater than date. Format (yyyy-mm-dd)
         :type var_from: datetime
@@ -244,7 +244,7 @@ class TransactionApi:
     def transactions_list_without_preload_content(
         self,
         account_id: Annotated[UUID, Field(description="Account primary identifier")],
-        ids: Annotated[Optional[List[UUID]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded")] = None,
+        ids: Annotated[Optional[List[UUID]], Field(description="Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded. Maximum of 500 ids per request.")] = None,
         var_from: Annotated[Optional[datetime], Field(description="Filter greater than date. Format (yyyy-mm-dd)")] = None,
         to: Annotated[Optional[datetime], Field(description="Filter lower than date. Format (yyyy-mm-dd)")] = None,
         page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500")] = None,
@@ -270,7 +270,7 @@ class TransactionApi:
 
         :param account_id: Account primary identifier (required)
         :type account_id: UUID
-        :param ids: Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded
+        :param ids: Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded. Maximum of 500 ids per request.
         :type ids: List[UUID]
         :param var_from: Filter greater than date. Format (yyyy-mm-dd)
         :type var_from: datetime

@@ -51,7 +51,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.TransactionApi(api_client)
     account_id = UUID('562b795d-1653-429f-be86-74ead9502813') # UUID | Account primary identifier
-    ids = [a8534c85-53ce-4f21-94d7-50e9d2ee4957, 05c693bf-c196-47ea-a28c-8251d6bb8a06] # List[UUID] | Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded (optional)
+    ids = [a8534c85-53ce-4f21-94d7-50e9d2ee4957, 05c693bf-c196-47ea-a28c-8251d6bb8a06] # List[UUID] | Array of transaction identifiers. If defined, 'from' and 'to' parameters will be discarded. Maximum of 500 ids per request. (optional)
     var_from = '2020-10-13' # datetime | Filter greater than date. Format (yyyy-mm-dd) (optional)
     to = '2020-10-15' # datetime | Filter lower than date. Format (yyyy-mm-dd) (optional)
     page_size = 50 # float | Page size for the paging request, default: 500 (optional)
@@ -76,7 +76,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **account_id** | **UUID**| Account primary identifier | 
- **ids** | [**List[UUID]**](UUID.md)| Array of transaction identifiers. If defined, &#39;from&#39; and &#39;to&#39; parameters will be discarded | [optional] 
+ **ids** | [**List[UUID]**](UUID.md)| Array of transaction identifiers. If defined, &#39;from&#39; and &#39;to&#39; parameters will be discarded. Maximum of 500 ids per request. | [optional] 
  **var_from** | **datetime**| Filter greater than date. Format (yyyy-mm-dd) | [optional] 
  **to** | **datetime**| Filter lower than date. Format (yyyy-mm-dd) | [optional] 
  **page_size** | **float**| Page size for the paging request, default: 500 | [optional] 
@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Retrieve a list of all transactions for an account |  -  |
-**400** | Missing parameter |  -  |
+**400** | Missing or invalid parameter |  -  |
 **500** | Server Internal Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

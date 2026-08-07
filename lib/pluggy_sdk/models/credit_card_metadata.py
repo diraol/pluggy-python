@@ -37,7 +37,7 @@ class CreditCardMetadata(BaseModel):
     other_credits_type: Optional[StrictStr] = Field(default=None, description="Other type of credit contracted on the card. Present when the operation is a contracted credit operation", alias="otherCreditsType")
     other_credits_additional_info: Optional[StrictStr] = Field(default=None, description="Free text describing the other credit type when otherCreditsType is 'OTHER'", alias="otherCreditsAdditionalInfo")
     purchase_date: Optional[datetime] = Field(default=None, description="Original Date of the purchase", alias="purchaseDate")
-    payee_mcc: Optional[StrictStr] = Field(default=None, description="Merchant Category Code of the merchant", alias="payeeMCC")
+    payee_mcc: Optional[StrictInt] = Field(default=None, description="Merchant Category Code of the merchant", alias="payeeMCC")
     card_number: Optional[StrictStr] = Field(default=None, description="Credit Card Number associated with transaction, can be different from the account if its done by an additional or virtual card.", alias="cardNumber")
     bill_id: Optional[StrictStr] = Field(default=None, description="Id of the bill associated to this transaction", alias="billId")
     bill_forecast_date: Optional[StrictStr] = Field(default=None, description="Forecasted bill period (formatted as YYYY-MM) in which this transaction is expected to be charged. Unlike billId, it is provided for pending and future transactions too. Only returned for Open Finance connectors", alias="billForecastDate")

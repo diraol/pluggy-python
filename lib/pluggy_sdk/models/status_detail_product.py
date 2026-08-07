@@ -78,8 +78,7 @@ class StatusDetailProduct(BaseModel):
         _items = []
         if self.warnings:
             for _item_warnings in self.warnings:
-                if _item_warnings:
-                    _items.append(_item_warnings.to_dict())
+                _items.append(_item_warnings.to_dict() if _item_warnings is not None else None)
             _dict['warnings'] = _items
         return _dict
 

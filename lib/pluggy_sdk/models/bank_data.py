@@ -82,8 +82,7 @@ class BankData(BaseModel):
         _items = []
         if self.reserved_balances:
             for _item_reserved_balances in self.reserved_balances:
-                if _item_reserved_balances:
-                    _items.append(_item_reserved_balances.to_dict())
+                _items.append(_item_reserved_balances.to_dict() if _item_reserved_balances is not None else None)
             _dict['reservedBalances'] = _items
         return _dict
 

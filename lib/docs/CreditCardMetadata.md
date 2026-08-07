@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **other_credits_type** | **str** | Other type of credit contracted on the card. Present when the operation is a contracted credit operation | [optional] 
 **other_credits_additional_info** | **str** | Free text describing the other credit type when otherCreditsType is &#39;OTHER&#39; | [optional] 
 **purchase_date** | **datetime** | Original Date of the purchase | [optional] 
-**payee_mcc** | **str** | Merchant Category Code of the merchant | [optional] 
+**payee_mcc** | **int** | Merchant Category Code of the merchant | [optional] 
 **card_number** | **str** | Credit Card Number associated with transaction, can be different from the account if its done by an additional or virtual card. | [optional] 
 **bill_id** | **str** | Id of the bill associated to this transaction | [optional] 
 **bill_forecast_date** | **str** | Forecasted bill period (formatted as YYYY-MM) in which this transaction is expected to be charged. Unlike billId, it is provided for pending and future transactions too. Only returned for Open Finance connectors | [optional] 

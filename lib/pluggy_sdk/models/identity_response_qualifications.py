@@ -100,8 +100,7 @@ class IdentityResponseQualifications(BaseModel):
         _items = []
         if self.economic_activities:
             for _item_economic_activities in self.economic_activities:
-                if _item_economic_activities:
-                    _items.append(_item_economic_activities.to_dict())
+                _items.append(_item_economic_activities.to_dict() if _item_economic_activities is not None else None)
             _dict['economicActivities'] = _items
         # override the default output from pydantic by calling `to_dict()` of informed_revenue
         if self.informed_revenue:

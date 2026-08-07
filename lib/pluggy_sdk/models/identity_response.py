@@ -135,29 +135,25 @@ class IdentityResponse(BaseModel):
         _items = []
         if self.phone_numbers:
             for _item_phone_numbers in self.phone_numbers:
-                if _item_phone_numbers:
-                    _items.append(_item_phone_numbers.to_dict())
+                _items.append(_item_phone_numbers.to_dict() if _item_phone_numbers is not None else None)
             _dict['phoneNumbers'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in emails (list)
         _items = []
         if self.emails:
             for _item_emails in self.emails:
-                if _item_emails:
-                    _items.append(_item_emails.to_dict())
+                _items.append(_item_emails.to_dict() if _item_emails is not None else None)
             _dict['emails'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in addresses (list)
         _items = []
         if self.addresses:
             for _item_addresses in self.addresses:
-                if _item_addresses:
-                    _items.append(_item_addresses.to_dict())
+                _items.append(_item_addresses.to_dict() if _item_addresses is not None else None)
             _dict['addresses'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in relations (list)
         _items = []
         if self.relations:
             for _item_relations in self.relations:
-                if _item_relations:
-                    _items.append(_item_relations.to_dict())
+                _items.append(_item_relations.to_dict() if _item_relations is not None else None)
             _dict['relations'] = _items
         # override the default output from pydantic by calling `to_dict()` of qualifications
         if self.qualifications:
@@ -175,8 +171,7 @@ class IdentityResponse(BaseModel):
         _items = []
         if self.other_documents:
             for _item_other_documents in self.other_documents:
-                if _item_other_documents:
-                    _items.append(_item_other_documents.to_dict())
+                _items.append(_item_other_documents.to_dict() if _item_other_documents is not None else None)
             _dict['otherDocuments'] = _items
         # override the default output from pydantic by calling `to_dict()` of passport
         if self.passport:
@@ -185,15 +180,13 @@ class IdentityResponse(BaseModel):
         _items = []
         if self.parties:
             for _item_parties in self.parties:
-                if _item_parties:
-                    _items.append(_item_parties.to_dict())
+                _items.append(_item_parties.to_dict() if _item_parties is not None else None)
             _dict['parties'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in business_other_documents (list)
         _items = []
         if self.business_other_documents:
             for _item_business_other_documents in self.business_other_documents:
-                if _item_business_other_documents:
-                    _items.append(_item_business_other_documents.to_dict())
+                _items.append(_item_business_other_documents.to_dict() if _item_business_other_documents is not None else None)
             _dict['businessOtherDocuments'] = _items
         return _dict
 

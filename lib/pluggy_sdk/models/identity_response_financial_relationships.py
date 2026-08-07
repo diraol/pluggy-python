@@ -85,29 +85,25 @@ class IdentityResponseFinancialRelationships(BaseModel):
         _items = []
         if self.procurators:
             for _item_procurators in self.procurators:
-                if _item_procurators:
-                    _items.append(_item_procurators.to_dict())
+                _items.append(_item_procurators.to_dict() if _item_procurators is not None else None)
             _dict['procurators'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in accounts (list)
         _items = []
         if self.accounts:
             for _item_accounts in self.accounts:
-                if _item_accounts:
-                    _items.append(_item_accounts.to_dict())
+                _items.append(_item_accounts.to_dict() if _item_accounts is not None else None)
             _dict['accounts'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in portabilities_received (list)
         _items = []
         if self.portabilities_received:
             for _item_portabilities_received in self.portabilities_received:
-                if _item_portabilities_received:
-                    _items.append(_item_portabilities_received.to_dict())
+                _items.append(_item_portabilities_received.to_dict() if _item_portabilities_received is not None else None)
             _dict['portabilitiesReceived'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in paychecks_bank_link (list)
         _items = []
         if self.paychecks_bank_link:
             for _item_paychecks_bank_link in self.paychecks_bank_link:
-                if _item_paychecks_bank_link:
-                    _items.append(_item_paychecks_bank_link.to_dict())
+                _items.append(_item_paychecks_bank_link.to_dict() if _item_paychecks_bank_link is not None else None)
             _dict['paychecksBankLink'] = _items
         return _dict
 

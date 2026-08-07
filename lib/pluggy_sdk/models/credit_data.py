@@ -110,15 +110,13 @@ class CreditData(BaseModel):
         _items = []
         if self.disaggregated_credit_limits:
             for _item_disaggregated_credit_limits in self.disaggregated_credit_limits:
-                if _item_disaggregated_credit_limits:
-                    _items.append(_item_disaggregated_credit_limits.to_dict())
+                _items.append(_item_disaggregated_credit_limits.to_dict() if _item_disaggregated_credit_limits is not None else None)
             _dict['disaggregatedCreditLimits'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in additional_cards (list)
         _items = []
         if self.additional_cards:
             for _item_additional_cards in self.additional_cards:
-                if _item_additional_cards:
-                    _items.append(_item_additional_cards.to_dict())
+                _items.append(_item_additional_cards.to_dict() if _item_additional_cards is not None else None)
             _dict['additionalCards'] = _items
         return _dict
 

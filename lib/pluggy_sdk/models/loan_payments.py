@@ -76,8 +76,7 @@ class LoanPayments(BaseModel):
         _items = []
         if self.releases:
             for _item_releases in self.releases:
-                if _item_releases:
-                    _items.append(_item_releases.to_dict())
+                _items.append(_item_releases.to_dict() if _item_releases is not None else None)
             _dict['releases'] = _items
         return _dict
 
