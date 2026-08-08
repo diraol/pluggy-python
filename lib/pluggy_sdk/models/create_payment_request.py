@@ -86,6 +86,11 @@ class CreatePaymentRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of schedule
         if self.schedule:
             _dict['schedule'] = self.schedule.to_dict()
+        # set to None if callback_urls (nullable) is None
+        # and model_fields_set contains the field
+        if self.callback_urls is None and "callback_urls" in self.model_fields_set:
+            _dict['callbackUrls'] = None
+
         return _dict
 
     @classmethod

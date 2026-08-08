@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.transaction import Transaction
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,7 +30,7 @@ class CursorPageResponseTransactions(BaseModel):
     Cursor-based paginated response for transactions
     """ # noqa: E501
     results: List[Transaction] = Field(description="List of transactions for the current page")
-    next: StrictStr = Field(description="Query string for the next page of results. Null if there are no more results.")
+    next: Optional[StrictStr] = Field(description="Query string for the next page of results. Null if there are no more results.")
     __properties: ClassVar[List[str]] = ["results", "next"]
 
     model_config = ConfigDict(
@@ -78,6 +78,11 @@ class CursorPageResponseTransactions(BaseModel):
             for _item_results in self.results:
                 _items.append(_item_results.to_dict() if _item_results is not None else None)
             _dict['results'] = _items
+        # set to None if next (nullable) is None
+        # and model_fields_set contains the field
+        if self.next is None and "next" in self.model_fields_set:
+            _dict['next'] = None
+
         return _dict
 
     @classmethod

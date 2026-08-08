@@ -122,6 +122,56 @@ class PaymentRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of error_detail
         if self.error_detail:
             _dict['errorDetail'] = self.error_detail.to_dict()
+        # set to None if fees (nullable) is None
+        # and model_fields_set contains the field
+        if self.fees is None and "fees" in self.model_fields_set:
+            _dict['fees'] = None
+
+        # set to None if client_payment_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.client_payment_id is None and "client_payment_id" in self.model_fields_set:
+            _dict['clientPaymentId'] = None
+
+        # set to None if callback_urls (nullable) is None
+        # and model_fields_set contains the field
+        if self.callback_urls is None and "callback_urls" in self.model_fields_set:
+            _dict['callbackUrls'] = None
+
+        # set to None if recipient (nullable) is None
+        # and model_fields_set contains the field
+        if self.recipient is None and "recipient" in self.model_fields_set:
+            _dict['recipient'] = None
+
+        # set to None if customer (nullable) is None
+        # and model_fields_set contains the field
+        if self.customer is None and "customer" in self.model_fields_set:
+            _dict['customer'] = None
+
+        # set to None if smart_account (nullable) is None
+        # and model_fields_set contains the field
+        if self.smart_account is None and "smart_account" in self.model_fields_set:
+            _dict['smartAccount'] = None
+
+        # set to None if pix_qr_code (nullable) is None
+        # and model_fields_set contains the field
+        if self.pix_qr_code is None and "pix_qr_code" in self.model_fields_set:
+            _dict['pixQrCode'] = None
+
+        # set to None if boleto (nullable) is None
+        # and model_fields_set contains the field
+        if self.boleto is None and "boleto" in self.model_fields_set:
+            _dict['boleto'] = None
+
+        # set to None if schedule (nullable) is None
+        # and model_fields_set contains the field
+        if self.schedule is None and "schedule" in self.model_fields_set:
+            _dict['schedule'] = None
+
+        # set to None if error_detail (nullable) is None
+        # and model_fields_set contains the field
+        if self.error_detail is None and "error_detail" in self.model_fields_set:
+            _dict['errorDetail'] = None
+
         return _dict
 
     @classmethod

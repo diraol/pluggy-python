@@ -94,6 +94,16 @@ class AutomaticPixPayment(BaseModel):
             for _item_attempts in self.attempts:
                 _items.append(_item_attempts.to_dict() if _item_attempts is not None else None)
             _dict['attempts'] = _items
+        # set to None if end_to_end_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.end_to_end_id is None and "end_to_end_id" in self.model_fields_set:
+            _dict['endToEndId'] = None
+
+        # set to None if error_detail (nullable) is None
+        # and model_fields_set contains the field
+        if self.error_detail is None and "error_detail" in self.model_fields_set:
+            _dict['errorDetail'] = None
+
         return _dict
 
     @classmethod

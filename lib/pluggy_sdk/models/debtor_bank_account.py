@@ -72,6 +72,21 @@ class DebtorBankAccount(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if agency (nullable) is None
+        # and model_fields_set contains the field
+        if self.agency is None and "agency" in self.model_fields_set:
+            _dict['agency'] = None
+
+        # set to None if account (nullable) is None
+        # and model_fields_set contains the field
+        if self.account is None and "account" in self.model_fields_set:
+            _dict['account'] = None
+
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
         return _dict
 
     @classmethod

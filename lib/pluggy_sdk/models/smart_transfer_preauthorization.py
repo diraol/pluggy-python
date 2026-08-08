@@ -111,6 +111,16 @@ class SmartTransferPreauthorization(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of error_detail
         if self.error_detail:
             _dict['errorDetail'] = self.error_detail.to_dict()
+        # set to None if client_preauthorization_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.client_preauthorization_id is None and "client_preauthorization_id" in self.model_fields_set:
+            _dict['clientPreauthorizationId'] = None
+
+        # set to None if callback_urls (nullable) is None
+        # and model_fields_set contains the field
+        if self.callback_urls is None and "callback_urls" in self.model_fields_set:
+            _dict['callbackUrls'] = None
+
         return _dict
 
     @classmethod

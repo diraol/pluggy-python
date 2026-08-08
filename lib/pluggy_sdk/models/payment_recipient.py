@@ -95,6 +95,11 @@ class PaymentRecipient(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of account
         if self.account:
             _dict['account'] = self.account.to_dict()
+        # set to None if pix_key (nullable) is None
+        # and model_fields_set contains the field
+        if self.pix_key is None and "pix_key" in self.model_fields_set:
+            _dict['pixKey'] = None
+
         return _dict
 
     @classmethod

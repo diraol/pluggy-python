@@ -76,6 +76,11 @@ class ConnectorHealth(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
             _dict['details'] = self.details.to_dict()
+        # set to None if stage (nullable) is None
+        # and model_fields_set contains the field
+        if self.stage is None and "stage" in self.model_fields_set:
+            _dict['stage'] = None
+
         return _dict
 
     @classmethod

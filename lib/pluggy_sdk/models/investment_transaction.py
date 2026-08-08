@@ -103,6 +103,51 @@ class InvestmentTransaction(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of expenses
         if self.expenses:
             _dict['expenses'] = self.expenses.to_dict()
+        # set to None if movement_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.movement_type is None and "movement_type" in self.model_fields_set:
+            _dict['movementType'] = None
+
+        # set to None if quantity (nullable) is None
+        # and model_fields_set contains the field
+        if self.quantity is None and "quantity" in self.model_fields_set:
+            _dict['quantity'] = None
+
+        # set to None if value (nullable) is None
+        # and model_fields_set contains the field
+        if self.value is None and "value" in self.model_fields_set:
+            _dict['value'] = None
+
+        # set to None if amount (nullable) is None
+        # and model_fields_set contains the field
+        if self.amount is None and "amount" in self.model_fields_set:
+            _dict['amount'] = None
+
+        # set to None if agreed_rate (nullable) is None
+        # and model_fields_set contains the field
+        if self.agreed_rate is None and "agreed_rate" in self.model_fields_set:
+            _dict['agreedRate'] = None
+
+        # set to None if indexer_percentage (nullable) is None
+        # and model_fields_set contains the field
+        if self.indexer_percentage is None and "indexer_percentage" in self.model_fields_set:
+            _dict['indexerPercentage'] = None
+
+        # set to None if price_factor (nullable) is None
+        # and model_fields_set contains the field
+        if self.price_factor is None and "price_factor" in self.model_fields_set:
+            _dict['priceFactor'] = None
+
+        # set to None if trade_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.trade_date is None and "trade_date" in self.model_fields_set:
+            _dict['tradeDate'] = None
+
+        # set to None if expenses (nullable) is None
+        # and model_fields_set contains the field
+        if self.expenses is None and "expenses" in self.model_fields_set:
+            _dict['expenses'] = None
+
         return _dict
 
     @classmethod

@@ -113,6 +113,11 @@ class PaymentIntent(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of error_detail
         if self.error_detail:
             _dict['errorDetail'] = self.error_detail.to_dict()
+        # set to None if debtor (nullable) is None
+        # and model_fields_set contains the field
+        if self.debtor is None and "debtor" in self.model_fields_set:
+            _dict['debtor'] = None
+
         return _dict
 
     @classmethod

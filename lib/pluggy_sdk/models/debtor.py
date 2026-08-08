@@ -76,6 +76,16 @@ class Debtor(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of bank_account
         if self.bank_account:
             _dict['bankAccount'] = self.bank_account.to_dict()
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
+        # set to None if tax_number (nullable) is None
+        # and model_fields_set contains the field
+        if self.tax_number is None and "tax_number" in self.model_fields_set:
+            _dict['taxNumber'] = None
+
         return _dict
 
     @classmethod

@@ -150,10 +150,170 @@ class Investment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of coupon_payment
         if self.coupon_payment:
             _dict['couponPayment'] = self.coupon_payment.to_dict()
+        # set to None if subtype (nullable) is None
+        # and model_fields_set contains the field
+        if self.subtype is None and "subtype" in self.model_fields_set:
+            _dict['subtype'] = None
+
+        # set to None if number (nullable) is None
+        # and model_fields_set contains the field
+        if self.number is None and "number" in self.model_fields_set:
+            _dict['number'] = None
+
+        # set to None if last_month_rate (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_month_rate is None and "last_month_rate" in self.model_fields_set:
+            _dict['lastMonthRate'] = None
+
+        # set to None if last_twelve_months_rate (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_twelve_months_rate is None and "last_twelve_months_rate" in self.model_fields_set:
+            _dict['lastTwelveMonthsRate'] = None
+
+        # set to None if annual_rate (nullable) is None
+        # and model_fields_set contains the field
+        if self.annual_rate is None and "annual_rate" in self.model_fields_set:
+            _dict['annualRate'] = None
+
+        # set to None if code (nullable) is None
+        # and model_fields_set contains the field
+        if self.code is None and "code" in self.model_fields_set:
+            _dict['code'] = None
+
+        # set to None if isin (nullable) is None
+        # and model_fields_set contains the field
+        if self.isin is None and "isin" in self.model_fields_set:
+            _dict['isin'] = None
+
+        # set to None if value (nullable) is None
+        # and model_fields_set contains the field
+        if self.value is None and "value" in self.model_fields_set:
+            _dict['value'] = None
+
+        # set to None if quantity (nullable) is None
+        # and model_fields_set contains the field
+        if self.quantity is None and "quantity" in self.model_fields_set:
+            _dict['quantity'] = None
+
+        # set to None if amount (nullable) is None
+        # and model_fields_set contains the field
+        if self.amount is None and "amount" in self.model_fields_set:
+            _dict['amount'] = None
+
+        # set to None if taxes (nullable) is None
+        # and model_fields_set contains the field
+        if self.taxes is None and "taxes" in self.model_fields_set:
+            _dict['taxes'] = None
+
+        # set to None if taxes2 (nullable) is None
+        # and model_fields_set contains the field
+        if self.taxes2 is None and "taxes2" in self.model_fields_set:
+            _dict['taxes2'] = None
+
+        # set to None if owner (nullable) is None
+        # and model_fields_set contains the field
+        if self.owner is None and "owner" in self.model_fields_set:
+            _dict['owner'] = None
+
+        # set to None if amount_profit (nullable) is None
+        # and model_fields_set contains the field
+        if self.amount_profit is None and "amount_profit" in self.model_fields_set:
+            _dict['amountProfit'] = None
+
+        # set to None if amount_withdrawal (nullable) is None
+        # and model_fields_set contains the field
+        if self.amount_withdrawal is None and "amount_withdrawal" in self.model_fields_set:
+            _dict['amountWithdrawal'] = None
+
+        # set to None if amount_original (nullable) is None
+        # and model_fields_set contains the field
+        if self.amount_original is None and "amount_original" in self.model_fields_set:
+            _dict['amountOriginal'] = None
+
+        # set to None if metadata (nullable) is None
+        # and model_fields_set contains the field
+        if self.metadata is None and "metadata" in self.model_fields_set:
+            _dict['metadata'] = None
+
+        # set to None if due_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.due_date is None and "due_date" in self.model_fields_set:
+            _dict['dueDate'] = None
+
+        # set to None if issuer (nullable) is None
+        # and model_fields_set contains the field
+        if self.issuer is None and "issuer" in self.model_fields_set:
+            _dict['issuer'] = None
+
+        # set to None if issuer_cnpj (nullable) is None
+        # and model_fields_set contains the field
+        if self.issuer_cnpj is None and "issuer_cnpj" in self.model_fields_set:
+            _dict['issuerCNPJ'] = None
+
+        # set to None if issue_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.issue_date is None and "issue_date" in self.model_fields_set:
+            _dict['issueDate'] = None
+
+        # set to None if purchase_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.purchase_date is None and "purchase_date" in self.model_fields_set:
+            _dict['purchaseDate'] = None
+
         # set to None if grace_period_date (nullable) is None
         # and model_fields_set contains the field
         if self.grace_period_date is None and "grace_period_date" in self.model_fields_set:
             _dict['gracePeriodDate'] = None
+
+        # set to None if rate (nullable) is None
+        # and model_fields_set contains the field
+        if self.rate is None and "rate" in self.model_fields_set:
+            _dict['rate'] = None
+
+        # set to None if rate_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.rate_type is None and "rate_type" in self.model_fields_set:
+            _dict['rateType'] = None
+
+        # set to None if fixed_annual_rate (nullable) is None
+        # and model_fields_set contains the field
+        if self.fixed_annual_rate is None and "fixed_annual_rate" in self.model_fields_set:
+            _dict['fixedAnnualRate'] = None
+
+        # set to None if tax_exempt (nullable) is None
+        # and model_fields_set contains the field
+        if self.tax_exempt is None and "tax_exempt" in self.model_fields_set:
+            _dict['taxExempt'] = None
+
+        # set to None if rate_periodicity (nullable) is None
+        # and model_fields_set contains the field
+        if self.rate_periodicity is None and "rate_periodicity" in self.model_fields_set:
+            _dict['ratePeriodicity'] = None
+
+        # set to None if indexer_additional_info (nullable) is None
+        # and model_fields_set contains the field
+        if self.indexer_additional_info is None and "indexer_additional_info" in self.model_fields_set:
+            _dict['indexerAdditionalInfo'] = None
+
+        # set to None if price_factor (nullable) is None
+        # and model_fields_set contains the field
+        if self.price_factor is None and "price_factor" in self.model_fields_set:
+            _dict['priceFactor'] = None
+
+        # set to None if debtor (nullable) is None
+        # and model_fields_set contains the field
+        if self.debtor is None and "debtor" in self.model_fields_set:
+            _dict['debtor'] = None
+
+        # set to None if coupon_payment (nullable) is None
+        # and model_fields_set contains the field
+        if self.coupon_payment is None and "coupon_payment" in self.model_fields_set:
+            _dict['couponPayment'] = None
+
+        # set to None if status (nullable) is None
+        # and model_fields_set contains the field
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['status'] = None
 
         return _dict
 

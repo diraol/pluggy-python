@@ -74,6 +74,11 @@ class UpdateWebhook(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if headers (nullable) is None
+        # and model_fields_set contains the field
+        if self.headers is None and "headers" in self.model_fields_set:
+            _dict['headers'] = None
+
         return _dict
 
     @classmethod

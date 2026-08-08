@@ -118,6 +118,76 @@ class CreditData(BaseModel):
             for _item_additional_cards in self.additional_cards:
                 _items.append(_item_additional_cards.to_dict() if _item_additional_cards is not None else None)
             _dict['additionalCards'] = _items
+        # set to None if level (nullable) is None
+        # and model_fields_set contains the field
+        if self.level is None and "level" in self.model_fields_set:
+            _dict['level'] = None
+
+        # set to None if brand (nullable) is None
+        # and model_fields_set contains the field
+        if self.brand is None and "brand" in self.model_fields_set:
+            _dict['brand'] = None
+
+        # set to None if brand_additional_info (nullable) is None
+        # and model_fields_set contains the field
+        if self.brand_additional_info is None and "brand_additional_info" in self.model_fields_set:
+            _dict['brandAdditionalInfo'] = None
+
+        # set to None if balance_close_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.balance_close_date is None and "balance_close_date" in self.model_fields_set:
+            _dict['balanceCloseDate'] = None
+
+        # set to None if balance_due_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.balance_due_date is None and "balance_due_date" in self.model_fields_set:
+            _dict['balanceDueDate'] = None
+
+        # set to None if available_credit_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.available_credit_limit is None and "available_credit_limit" in self.model_fields_set:
+            _dict['availableCreditLimit'] = None
+
+        # set to None if balance_foreign_currency (nullable) is None
+        # and model_fields_set contains the field
+        if self.balance_foreign_currency is None and "balance_foreign_currency" in self.model_fields_set:
+            _dict['balanceForeignCurrency'] = None
+
+        # set to None if minimum_payment (nullable) is None
+        # and model_fields_set contains the field
+        if self.minimum_payment is None and "minimum_payment" in self.model_fields_set:
+            _dict['minimumPayment'] = None
+
+        # set to None if credit_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.credit_limit is None and "credit_limit" in self.model_fields_set:
+            _dict['creditLimit'] = None
+
+        # set to None if is_limit_flexible (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_limit_flexible is None and "is_limit_flexible" in self.model_fields_set:
+            _dict['isLimitFlexible'] = None
+
+        # set to None if status (nullable) is None
+        # and model_fields_set contains the field
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['status'] = None
+
+        # set to None if holder_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.holder_type is None and "holder_type" in self.model_fields_set:
+            _dict['holderType'] = None
+
+        # set to None if disaggregated_credit_limits (nullable) is None
+        # and model_fields_set contains the field
+        if self.disaggregated_credit_limits is None and "disaggregated_credit_limits" in self.model_fields_set:
+            _dict['disaggregatedCreditLimits'] = None
+
+        # set to None if additional_cards (nullable) is None
+        # and model_fields_set contains the field
+        if self.additional_cards is None and "additional_cards" in self.model_fields_set:
+            _dict['additionalCards'] = None
+
         return _dict
 
     @classmethod

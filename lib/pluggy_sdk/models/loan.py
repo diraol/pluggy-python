@@ -43,7 +43,7 @@ class Loan(BaseModel):
     product_name: StrictStr = Field(description="Denomination/Identification of the name of the credit operation disclosed to the customer", alias="productName")
     type: Optional[StrictStr] = Field(default=None, description="Loan type (https://openbanking-brasil.github.io/openapi/swagger-apis/loans/?urls.primaryName=2.0.1#model-EnumContractProductSubTypeLoans)")
     kind: StrictStr = Field(description="Credit-operation family this contract belongs to.")
-    var_date: datetime = Field(description="Date when the loan data was collected", alias="date")
+    var_date: Optional[datetime] = Field(description="Date when the loan data was collected", alias="date")
     contract_date: Optional[datetime] = Field(default=None, description="Date when the loan was contracted", alias="contractDate")
     disbursement_dates: Optional[List[date]] = Field(default=None, description="Disbursement date of the contracted amount", alias="disbursementDates")
     settlement_date: Optional[datetime] = Field(default=None, description="Loan settlement date", alias="settlementDate")
@@ -161,6 +161,11 @@ class Loan(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of payments
         if self.payments:
             _dict['payments'] = self.payments.to_dict()
+        # set to None if var_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.var_date is None and "var_date" in self.model_fields_set:
+            _dict['date'] = None
+
         return _dict
 
     @classmethod

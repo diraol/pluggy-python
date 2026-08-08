@@ -77,6 +77,11 @@ class Webhook(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if disabled_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.disabled_at is None and "disabled_at" in self.model_fields_set:
+            _dict['disabledAt'] = None
+
         return _dict
 
     @classmethod

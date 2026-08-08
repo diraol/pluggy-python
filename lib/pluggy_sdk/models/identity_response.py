@@ -188,6 +188,136 @@ class IdentityResponse(BaseModel):
             for _item_business_other_documents in self.business_other_documents:
                 _items.append(_item_business_other_documents.to_dict() if _item_business_other_documents is not None else None)
             _dict['businessOtherDocuments'] = _items
+        # set to None if birth_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.birth_date is None and "birth_date" in self.model_fields_set:
+            _dict['birthDate'] = None
+
+        # set to None if tax_number (nullable) is None
+        # and model_fields_set contains the field
+        if self.tax_number is None and "tax_number" in self.model_fields_set:
+            _dict['taxNumber'] = None
+
+        # set to None if document (nullable) is None
+        # and model_fields_set contains the field
+        if self.document is None and "document" in self.model_fields_set:
+            _dict['document'] = None
+
+        # set to None if document_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.document_type is None and "document_type" in self.model_fields_set:
+            _dict['documentType'] = None
+
+        # set to None if job_title (nullable) is None
+        # and model_fields_set contains the field
+        if self.job_title is None and "job_title" in self.model_fields_set:
+            _dict['jobTitle'] = None
+
+        # set to None if full_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.full_name is None and "full_name" in self.model_fields_set:
+            _dict['fullName'] = None
+
+        # set to None if establishment_code (nullable) is None
+        # and model_fields_set contains the field
+        if self.establishment_code is None and "establishment_code" in self.model_fields_set:
+            _dict['establishmentCode'] = None
+
+        # set to None if establishment_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.establishment_name is None and "establishment_name" in self.model_fields_set:
+            _dict['establishmentName'] = None
+
+        # set to None if company_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.company_name is None and "company_name" in self.model_fields_set:
+            _dict['companyName'] = None
+
+        # set to None if phone_numbers (nullable) is None
+        # and model_fields_set contains the field
+        if self.phone_numbers is None and "phone_numbers" in self.model_fields_set:
+            _dict['phoneNumbers'] = None
+
+        # set to None if emails (nullable) is None
+        # and model_fields_set contains the field
+        if self.emails is None and "emails" in self.model_fields_set:
+            _dict['emails'] = None
+
+        # set to None if addresses (nullable) is None
+        # and model_fields_set contains the field
+        if self.addresses is None and "addresses" in self.model_fields_set:
+            _dict['addresses'] = None
+
+        # set to None if relations (nullable) is None
+        # and model_fields_set contains the field
+        if self.relations is None and "relations" in self.model_fields_set:
+            _dict['relations'] = None
+
+        # set to None if investor_profile (nullable) is None
+        # and model_fields_set contains the field
+        if self.investor_profile is None and "investor_profile" in self.model_fields_set:
+            _dict['investorProfile'] = None
+
+        # set to None if qualifications (nullable) is None
+        # and model_fields_set contains the field
+        if self.qualifications is None and "qualifications" in self.model_fields_set:
+            _dict['qualifications'] = None
+
+        # set to None if financial_relationships (nullable) is None
+        # and model_fields_set contains the field
+        if self.financial_relationships is None and "financial_relationships" in self.model_fields_set:
+            _dict['financialRelationships'] = None
+
+        # set to None if social_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.social_name is None and "social_name" in self.model_fields_set:
+            _dict['socialName'] = None
+
+        # set to None if sex (nullable) is None
+        # and model_fields_set contains the field
+        if self.sex is None and "sex" in self.model_fields_set:
+            _dict['sex'] = None
+
+        # set to None if marital_status (nullable) is None
+        # and model_fields_set contains the field
+        if self.marital_status is None and "marital_status" in self.model_fields_set:
+            _dict['maritalStatus'] = None
+
+        # set to None if nationality (nullable) is None
+        # and model_fields_set contains the field
+        if self.nationality is None and "nationality" in self.model_fields_set:
+            _dict['nationality'] = None
+
+        # set to None if other_documents (nullable) is None
+        # and model_fields_set contains the field
+        if self.other_documents is None and "other_documents" in self.model_fields_set:
+            _dict['otherDocuments'] = None
+
+        # set to None if passport (nullable) is None
+        # and model_fields_set contains the field
+        if self.passport is None and "passport" in self.model_fields_set:
+            _dict['passport'] = None
+
+        # set to None if incorporation_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.incorporation_date is None and "incorporation_date" in self.model_fields_set:
+            _dict['incorporationDate'] = None
+
+        # set to None if parties (nullable) is None
+        # and model_fields_set contains the field
+        if self.parties is None and "parties" in self.model_fields_set:
+            _dict['parties'] = None
+
+        # set to None if business_other_documents (nullable) is None
+        # and model_fields_set contains the field
+        if self.business_other_documents is None and "business_other_documents" in self.model_fields_set:
+            _dict['businessOtherDocuments'] = None
+
+        # set to None if companies_cnpj (nullable) is None
+        # and model_fields_set contains the field
+        if self.companies_cnpj is None and "companies_cnpj" in self.model_fields_set:
+            _dict['companiesCnpj'] = None
+
         return _dict
 
     @classmethod

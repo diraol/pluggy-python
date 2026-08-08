@@ -126,6 +126,36 @@ class Transaction(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of merchant
         if self.merchant:
             _dict['merchant'] = self.merchant.to_dict()
+        # set to None if description_raw (nullable) is None
+        # and model_fields_set contains the field
+        if self.description_raw is None and "description_raw" in self.model_fields_set:
+            _dict['descriptionRaw'] = None
+
+        # set to None if provider_code (nullable) is None
+        # and model_fields_set contains the field
+        if self.provider_code is None and "provider_code" in self.model_fields_set:
+            _dict['providerCode'] = None
+
+        # set to None if payment_data (nullable) is None
+        # and model_fields_set contains the field
+        if self.payment_data is None and "payment_data" in self.model_fields_set:
+            _dict['paymentData'] = None
+
+        # set to None if operation_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.operation_type is None and "operation_type" in self.model_fields_set:
+            _dict['operationType'] = None
+
+        # set to None if operation_type_additional_info (nullable) is None
+        # and model_fields_set contains the field
+        if self.operation_type_additional_info is None and "operation_type_additional_info" in self.model_fields_set:
+            _dict['operationTypeAdditionalInfo'] = None
+
+        # set to None if provider_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.provider_id is None and "provider_id" in self.model_fields_set:
+            _dict['providerId'] = None
+
         return _dict
 
     @classmethod

@@ -84,6 +84,46 @@ class BankData(BaseModel):
             for _item_reserved_balances in self.reserved_balances:
                 _items.append(_item_reserved_balances.to_dict() if _item_reserved_balances is not None else None)
             _dict['reservedBalances'] = _items
+        # set to None if transfer_number (nullable) is None
+        # and model_fields_set contains the field
+        if self.transfer_number is None and "transfer_number" in self.model_fields_set:
+            _dict['transferNumber'] = None
+
+        # set to None if closing_balance (nullable) is None
+        # and model_fields_set contains the field
+        if self.closing_balance is None and "closing_balance" in self.model_fields_set:
+            _dict['closingBalance'] = None
+
+        # set to None if automatically_invested_balance (nullable) is None
+        # and model_fields_set contains the field
+        if self.automatically_invested_balance is None and "automatically_invested_balance" in self.model_fields_set:
+            _dict['automaticallyInvestedBalance'] = None
+
+        # set to None if overdraft_contracted_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.overdraft_contracted_limit is None and "overdraft_contracted_limit" in self.model_fields_set:
+            _dict['overdraftContractedLimit'] = None
+
+        # set to None if overdraft_used_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.overdraft_used_limit is None and "overdraft_used_limit" in self.model_fields_set:
+            _dict['overdraftUsedLimit'] = None
+
+        # set to None if unarranged_overdraft_amount (nullable) is None
+        # and model_fields_set contains the field
+        if self.unarranged_overdraft_amount is None and "unarranged_overdraft_amount" in self.model_fields_set:
+            _dict['unarrangedOverdraftAmount'] = None
+
+        # set to None if has_reserved_balance (nullable) is None
+        # and model_fields_set contains the field
+        if self.has_reserved_balance is None and "has_reserved_balance" in self.model_fields_set:
+            _dict['hasReservedBalance'] = None
+
+        # set to None if reserved_balances (nullable) is None
+        # and model_fields_set contains the field
+        if self.reserved_balances is None and "reserved_balances" in self.model_fields_set:
+            _dict['reservedBalances'] = None
+
         return _dict
 
     @classmethod
