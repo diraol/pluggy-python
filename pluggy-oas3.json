@@ -7731,45 +7731,65 @@
         "description": "Bank account additional fields",
         "properties": {
           "transferNumber": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Complete number of the bank account `(agency code / account number)`"
           },
           "closingBalance": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Balance including not posted transactions"
           },
           "automaticallyInvestedBalance": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Balance automatically invested in the account by the FI"
           },
           "overdraftContractedLimit": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Overdraft contracted limit"
           },
           "overdraftUsedLimit": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Overdraft used limit"
           },
           "unarrangedOverdraftAmount": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Valor de operação contratada em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite pactuado de cheque especial."
           },
           "hasReservedBalance": {
-            "type": "boolean",
-            "nullable": true,
+            "type": [
+              "boolean",
+              "null"
+            ],
             "description": "Whether the account has any active reserved balances (\"saldo reservado\"), such as goal-based savings (\"caixinhas\") or judicial holds"
           },
           "reservedBalances": {
-            "type": "array",
-            "nullable": true,
-            "items": {
-              "$ref": "#/components/schemas/ReservedBalance"
-            },
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {"$ref": "#/components/schemas/ReservedBalance"},
             "description": "Funds reserved/earmarked on the account. Only present when hasReservedBalance is true and the institution exposes the data"
           }
         },
@@ -7862,77 +7882,121 @@
         "description": "Credit account additional fields",
         "properties": {
           "level": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Card level (Black, Signature)"
           },
           "brand": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Card Brand (Visa, Mastercard, Elo)"
           },
           "brandAdditionalInfo": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Free text describing the brand category when brand is 'OTHER'"
           },
           "balanceCloseDate": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "Date when the balance was closed"
           },
           "balanceDueDate": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "Date when the balance is dued"
           },
           "availableCreditLimit": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Credit limit available to spent"
           },
           "balanceForeignCurrency": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Balance in USD"
           },
           "minimumPayment": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Minimum payment due"
           },
           "creditLimit": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Maximum amount that can be spent"
           },
           "isLimitFlexible": {
-            "type": "boolean",
+            "type": [
+              "boolean",
+              "null"
+            ],
             "description": "Indicates whether the credit limit can be adjusted (e.g. a customer can request an increase). Only returned when reported by the institution."
           },
           "status": {
             "enum": [
               "ACTIVE",
               "BLOCKED",
-              "CANCELLED"
+              "CANCELLED",
+              null
             ],
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Credit card status"
           },
           "holderType": {
             "enum": [
               "MAIN",
-              "ADDITIONAL"
+              "ADDITIONAL",
+              null
             ],
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Credit card holder type"
           },
           "disaggregatedCreditLimits": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "$ref": "#/components/schemas/DisaggregatedCreditLimit"
             },
             "description": "Disaggregated credit card limits"
           },
           "additionalCards": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "$ref": "#/components/schemas/AdditionalCard"
             },
@@ -8490,7 +8554,10 @@
             "description": "'ONLINE' | 'OFFLINE' | 'UNSTABLE'"
           },
           "stage": {
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "details": {
             "type": "object",
@@ -8952,7 +9019,10 @@
             "$ref": "#/components/schemas/WebhookEventType"
           },
           "disabledAt": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "Date when the webhook was disabled"
           },
@@ -9011,9 +9081,11 @@
             "description": "New event the webhook should listen to"
           },
           "headers": {
-            "type": "object",
-            "description": "HTTP headers to include in webhook notifications. Send null to clear the existing headers.",
-            "nullable": true
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "HTTP headers to include in webhook notifications. Send null to clear the existing headers."
           },
           "enabled": {
             "type": "boolean",
@@ -9303,8 +9375,10 @@
             "description": "Clean description of the transaction"
           },
           "descriptionRaw": {
-            "type": "string",
-            "nullable": true,
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Original transaction description as returned by the institution, before any cleanup or normalization. May be null when not provided by the institution."
           },
           "currencyCode": {
@@ -9340,7 +9414,10 @@
             "description": "Account balance immediately after the transaction was posted. May be null when the institution does not return a running balance."
           },
           "providerCode": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Institution-provided identifier or code for the transaction (e.g. NSU, transaction number on the bank statement). Format varies per institution."
           },
           "status": {
@@ -9360,7 +9437,14 @@
             "description": "Id of the transaction category. Can be used to identify the category in the Categories endpoint"
           },
           "paymentData": {
-            "$ref": "#/components/schemas/PaymentData"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PaymentData"
+              },
+              {
+                "type": "null"
+              }
+          ]
           },
           "creditCardMetadata": {
             "$ref": "#/components/schemas/CreditCardMetadata"
@@ -9369,17 +9453,24 @@
             "$ref": "#/components/schemas/Merchant"
           },
           "operationType": {
-            "type": "string",
-            "nullable": true,
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Type of operation classified by the institution. Only returned for Open Finance connectors."
           },
           "operationTypeAdditionalInfo": {
-            "type": "string",
-            "nullable": true,
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Complementary, free-form information about the operation type, as provided by the institution. Varies by institution (a sub-type code or a description). Only returned for Open Finance connectors."
           },
           "providerId": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Provider's identifier for the transaction. Only returned for Open Finance connectors."
           },
           "accountId": {
@@ -9502,8 +9593,10 @@
             "description": "List of transactions for the current page"
           },
           "next": {
-            "type": "string",
-            "nullable": true,
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Query string for the next page of results. Null if there are no more results."
           }
         },
@@ -9734,40 +9827,62 @@
             ]
           },
           "movementType": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Cash-flow direction of the transaction from the holder's perspective.\n- `CREDIT`: money goes into the position (defaults for `BUY`).\n- `DEBIT`: money leaves the position (defaults for `SELL`, `TAX`, `TRANSFER`, `INTEREST`, `AMORTIZATION`).",
             "enum": [
               "CREDIT",
-              "DEBIT"
+              "DEBIT",
+              null
             ]
           },
           "quantity": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Quantity of the transaction"
           },
           "value": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Value on the transaction's Date"
           },
           "amount": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Gross amount of the operation. May be null only if type is TRANSFER"
           },
           "agreedRate": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Agreed rate for treasury applications"
           },
           "indexerPercentage": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Max percentage of the indexer agreed at contracting (e.g. 110% of CDI)"
           },
           "priceFactor": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "B3 lot/price conversion factor (variable income transactions)"
           },
@@ -9777,12 +9892,22 @@
             "description": "Date when the transaction was made"
           },
           "tradeDate": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "Date when the transaction was confirmed"
           },
           "expenses": {
-            "$ref": "#/components/schemas/InvestmentExpenses"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InvestmentExpenses"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -9971,13 +10096,20 @@
               "FI_INFRA",
               "FI_AGRO",
               "RETIREMENT",
-              "OTHER"
+              "OTHER",
+              null
             ],
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Specific instrument within a `type`. Possible groupings:\n\n**EQUITY**: `STOCK` (ação), `BDR` (Brazilian Depositary Receipt), `REAL_ESTATE_FUND` (FII), `DERIVATIVES`, `OPTION`.\n\n**ETF**: `ETF`.\n\n**FIXED_INCOME**: `TREASURY` (Tesouro Direto), `CDB`, `LCI`, `LCA`, `LC`, `LF`, `CRI`, `CRA`, `DEBENTURES`, `CORPORATE_DEBT`.\n\n**MUTUAL_FUND**: `INVESTMENT_FUND`, `MULTIMARKET_FUND`, `FIXED_INCOME_FUND`, `STOCK_FUND`, `ETF_FUND`, `OFFSHORE_FUND`, `FIP_FUND`, `EXCHANGE_FUND`, `FI_INFRA`, `FI_AGRO`.\n\n**COE**: `STRUCTURED_NOTE`.\n\n**SECURITY**: `RETIREMENT` (PGBL/VGBL).\n\n**OTHER**: `OTHER`."
           },
           "number": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Reference number for this holder's asset"
           },
           "balance": {
@@ -9990,17 +10122,26 @@
             "description": "Name on the provider"
           },
           "lastMonthRate": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "The performance rate of the investment in the last month"
           },
           "lastTwelveMonthsRate": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "The performance rate of the investment in the last 12 months"
           },
           "annualRate": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "The performance rate of the investment in the last year"
           },
@@ -10009,35 +10150,56 @@
             "description": "Currency ISO code for the amounts"
           },
           "code": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Associated Code for the investment. For example, the code for a mutual fund is the CNPJ"
           },
           "isin": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "12-character ISIN, a globally unique identifier"
           },
           "value": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Quota's current value at \"date\""
           },
           "quantity": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Quantity of quota at disposal"
           },
           "amount": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Gross amount of the investment"
           },
           "taxes": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Income taxes applied to the investment"
           },
           "taxes2": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Financial taxes applied to the investment"
           },
@@ -10047,52 +10209,82 @@
             "description": "Value's quota date"
           },
           "owner": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Owner/beneficiary associated with the investment"
           },
           "amountProfit": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Profit/Loss to date over the investment"
           },
           "amountWithdrawal": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "The amount available to withdraw"
           },
           "amountOriginal": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Amount originally invested"
           },
           "metadata": {
-            "allOf": [
+            "description": "Security Portability details",
+            "anyOf": [
               {
                 "$ref": "#/components/schemas/InvestmentMetadata"
+              },
+              {
+                "type": "null"
               }
-            ],
-            "description": "Security Portability details"
+            ]
           },
           "dueDate": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "Expiration Date"
           },
           "issuer": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "The entity that issued the investment"
           },
           "issuerCNPJ": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "The entity CNPJ that issued the investment"
           },
           "issueDate": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "The date that the investment was issued"
           },
           "purchaseDate": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "The date that the investment was purchased"
           },
@@ -10102,38 +10294,62 @@
             "description": "The date when the grace period ends (fixed-income investments only)"
           },
           "rate": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Fixed rate percentage applied to the investment"
           },
           "rateType": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Type of fixed-rate"
           },
           "fixedAnnualRate": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "Fixed income annual rate"
           },
           "taxExempt": {
-            "type": "boolean",
+            "type": [
+              "boolean",
+              "null"
+            ],
             "description": "Whether the product is tax-exempt (LCI, LCA, CRI, CRA, debêntures incentivadas)"
           },
           "ratePeriodicity": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Periodicity of the remuneration rate (DAILY, MONTHLY, SEMESTERLY, YEARLY)"
           },
           "indexerAdditionalInfo": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Free-text indexer description when the indexer is non-standard"
           },
           "priceFactor": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "double",
             "description": "B3 lot/price conversion factor (variable income)"
           },
           "debtor": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "description": "Underlying debtor of receivables-backed paper (CRI / CRA)",
             "properties": {
               "name": {
@@ -10143,7 +10359,10 @@
             }
           },
           "couponPayment": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "description": "Coupon-payment schedule for coupon-bearing fixed income / Treasury bonds",
             "properties": {
               "hasCoupon": {
@@ -10161,12 +10380,16 @@
             }
           },
           "status": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Current lifecycle status of the investment.\n- `ACTIVE`: the investment is open and currently held by the owner.\n- `PENDING`: the operation has been requested but is not yet settled (e.g. a fund subscription within the settlement window).\n- `TOTAL_WITHDRAWAL`: the position has been fully redeemed/withdrawn; balance is zero.",
             "enum": [
               "ACTIVE",
               "PENDING",
-              "TOTAL_WITHDRAWAL"
+              "TOTAL_WITHDRAWAL",
+              null
             ]
           }
         },
@@ -10792,65 +11015,104 @@
             "format": "uuid"
           },
           "birthDate": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "Date of birth"
           },
           "taxNumber": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "The tax ID (CNPJ) associated with the business account"
           },
           "document": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Primary document that identifies the owner"
           },
           "documentType": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Type of document collected"
           },
           "jobTitle": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Profession or Job information"
           },
           "fullName": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Name of the owner of the account"
           },
           "establishmentCode": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Establishment code (only for PAYMENT_ACCOUNT connectors)"
           },
           "establishmentName": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Name of the establishment (only for PAYMENT_ACCOUNT connectors)"
           },
           "companyName": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "For business connector, the name of the business"
           },
           "phoneNumbers": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "$ref": "#/components/schemas/PhoneNumber"
             },
             "description": "List of phone numbers related to the account"
           },
           "emails": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "$ref": "#/components/schemas/Email"
             },
             "description": "List of email addresses related to the account"
           },
           "addresses": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "$ref": "#/components/schemas/Address"
             },
             "description": "List of addresses related to the account"
           },
           "relations": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "$ref": "#/components/schemas/IdentityRelation"
             },
@@ -10860,13 +11122,20 @@
             "enum": [
               "Conservative",
               "Moderate",
-              "Aggressive"
+              "Aggressive",
+              null
             ],
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Is a rating that indicates the investor personality and motivation for investing"
           },
           "qualifications": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "description": "Information that allows understanding since when the consulted person has been a client of the institution, as well as an indicator of the products and services they currently consume and their representatives",
             "required": [
               "companyCnpj"
@@ -10960,7 +11229,10 @@
             }
           },
           "financialRelationships": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "required": [
               "startDate",
               "productsServicesType",
@@ -11088,64 +11360,101 @@
             "description": "Information that allows institutions to assess, evaluate, characterize, and classify the client with the purpose of understanding their risk profile and their economic-financial capacity"
           },
           "socialName": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Social name of the natural person, if any (the name by which travestis and transsexuals recognize themselves and are recognized in their community). PF-only field"
           },
           "sex": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "enum": [
               "FEMALE",
               "MALE",
-              "OTHER"
+              "OTHER",
+              null
             ],
             "description": "Sex of the natural person. PF-only field"
           },
           "maritalStatus": {
-            "allOf": [
-              { "$ref": "#/components/schemas/MaritalStatus" }
-            ],
-            "description": "Marital status of the natural person. PF-only field"
+            "description": "Marital status of the natural person. PF-only field",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MaritalStatus"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "nationality": {
-            "allOf": [
-              { "$ref": "#/components/schemas/Nationality" }
-            ],
-            "description": "Nationality of the natural person. PF-only field"
+            "description": "Nationality of the natural person. PF-only field",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Nationality"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "otherDocuments": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "List of other identification documents the natural person holds. PF-only field",
             "items": {
               "$ref": "#/components/schemas/OtherDocument"
             }
           },
           "passport": {
-            "allOf": [
-              { "$ref": "#/components/schemas/Passport" }
-            ],
-            "description": "Passport metadata for the natural person. PF-only field"
+            "description": "Passport metadata for the natural person. PF-only field",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Passport"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "incorporationDate": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "Date the business was incorporated. PJ-only field"
           },
           "parties": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Partners and administrators of the business. PJ-only field",
             "items": {
               "$ref": "#/components/schemas/BusinessParty"
             }
           },
           "businessOtherDocuments": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "List of additional documents for businesses headquartered abroad and not required to register a CNPJ. PJ-only field",
             "items": {
               "$ref": "#/components/schemas/BusinessOtherDocument"
             }
           },
           "companiesCnpj": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "CNPJs of the financial institutions responsible for the customer cadastro. Numbers only, no mask",
             "items": {
               "type": "string"
@@ -11382,7 +11691,10 @@
             ]
           },
           "date": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "Date when the loan data was collected"
           },
@@ -11905,14 +12217,17 @@
             "description": "Date when the payment was made"
           },
           "paymentMode": {
+            "type": [
+              "string",
+              "null"
+            ],
             "enum": [
               "DEBIT_ACCOUNT",
               "BANK_SLIP",
               "PAYROLL_DEDUCTION",
-              "PIX"
+              "PIX",
+              null
             ],
-            "type": "string",
-            "nullable": true,
             "description": "Payment mode used"
           },
           "amount": {
@@ -12154,31 +12469,41 @@
         "description": "Information about the payer's account, as returned by the institution after the payment is completed. Only populated for `PAYMENT_COMPLETED` payment intents on connectors that expose this data.",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true,
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Holder name"
           },
           "taxNumber": {
-            "type": "string",
-            "nullable": true,
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Obfuscated CPF/CNPJ of the payer"
           },
           "bankAccount": {
             "type": "object",
             "properties": {
               "agency": {
-                "type": "string",
-                "nullable": true,
+                "type": [
+                  "string",
+                  "null"
+                ],
                 "description": "Branch number"
               },
               "account": {
-                "type": "string",
-                "nullable": true,
+                "type": [
+                  "string",
+                  "null"
+                ],
                 "description": "Account number"
               },
               "name": {
-                "type": "string",
-                "nullable": true,
+                "type": [
+                  "string",
+                  "null"
+                ],
                 "description": "Bank name"
               }
             }
@@ -12261,7 +12586,10 @@
             "description": "Requested amount. For automatic pix it won't be returned"
           },
           "fees": {
-            "type": "number",
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Fees charged for the payment request. This includes both Pluggy's fees and any customer-specific fees. Fees are calculated based on the payment method (PIX or Boleto) and the client's pricing configuration. For sandbox accounts, fees are set to 0."
           },
           "description": {
@@ -12272,7 +12600,10 @@
             "$ref": "#/components/schemas/PaymentRequestStatus"
           },
           "clientPaymentId": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Client payment identifier"
           },
           "createdAt": {
@@ -12286,45 +12617,68 @@
             "description": "Date when the payment request was updated"
           },
           "callbackUrls": {
-            "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
+              },
+              {
+                "type": "null"
+              }
+          ]
           },
           "recipient": {
-            "allOf": [
+            "description": "Recipient of the payment. Shape depends on the recipient `type`.",
+            "anyOf": [
               {
                 "$ref": "#/components/schemas/PaymentRequestRecipient"
+              },
+              {
+                "type": "null"
               }
-            ],
-            "nullable": true,
-            "description": "Recipient of the payment. Shape depends on the recipient `type`."
+          ]
           },
           "customer": {
-            "allOf": [
+            "description": "Customer associated with the payment request",
+            "anyOf": [
               {
                 "$ref": "#/components/schemas/PaymentCustomer"
+              },
+              {
+                "type": "null"
               }
-            ],
-            "nullable": true,
-            "description": "Customer associated with the payment request"
+          ]
           },
           "smartAccount": {
-            "allOf": [
+            "description": "Smart account that receives the funds, when applicable",
+            "anyOf": [
               {
                 "$ref": "#/components/schemas/SmartAccount"
+              },
+              {
+                "type": "null"
               }
-            ],
-            "nullable": true,
-            "description": "Smart account that receives the funds, when applicable"
+          ]
           },
           "paymentUrl": {
             "type": "string",
             "description": "URL to begin the payment intent creation flow for this payment request"
           },
           "pixQrCode": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Pix QR code generated by the payment receiver"
           },
           "boleto": {
-            "$ref": "#/components/schemas/Boleto"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Boleto"
+              },
+              {
+                "type": "null"
+              }
+          ]
           },
           "automaticPix": {
             "$ref": "#/components/schemas/AutomaticPix"
@@ -12345,6 +12699,9 @@
               },
               {
                 "$ref": "#/components/schemas/CUSTOM"
+              },
+              {
+                "type": "null"
               }
             ],
             "discriminator": {
@@ -12358,18 +12715,12 @@
             }
           },
           "errorDetail": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "description": "Error details when payment request fails",
-            "properties": {
-              "code": {
-                "type": "string",
-                "description": "Error code"
-              },
-              "providerMessage": {
-                "type": "string",
-                "description": "Error message returned by the institution"
-              }
-            }
+            "properties": {"code": {"type": "string", "description": "Error code"}, "providerMessage": {"type": "string", "description": "Error message returned by the institution"}}
           },
           "isSandbox": {
             "type": "boolean",
@@ -12463,22 +12814,12 @@
             "description": "Identifier for the payment, used to link the scheduled payment with the corresponding payment received"
           },
           "errorDetail": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "description": "Details about an error that occurred with the scheduled payment",
-            "properties": {
-              "code": {
-                "type": "string",
-                "description": "Error code"
-              },
-              "description": {
-                "type": "string",
-                "description": "Human-readable description of the error"
-              },
-              "detail": {
-                "type": "string",
-                "description": "Additional details about the error in the provider's language"
-              }
-            }
+            "properties": {"code": {"type": "string", "description": "Error code"}, "description": {"type": "string", "description": "Human-readable description of the error"}, "detail": {"type": "string", "description": "Additional details about the error in the provider's language"}}
           }
         },
         "type": "object",
@@ -12501,7 +12842,14 @@
             "description": "Payment description"
           },
           "callbackUrls": {
-            "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
+              },
+              {
+                "type": "null"
+              }
+          ]
           },
           "recipientId": {
             "type": "string",
@@ -12574,7 +12922,14 @@
             "description": "Pix QR code"
           },
           "callbackUrls": {
-            "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
+              },
+              {
+                "type": "null"
+              }
+          ]
           },
           "customerId": {
             "type": "string",
@@ -12801,13 +13156,15 @@
             "description": "Pix data related to the payment intent (only applies for PIX payment method)"
           },
           "debtor": {
-            "allOf": [
+            "description": "Information about the payer's account, returned by the institution after the payment is completed. Null until the institution exposes it.",
+            "anyOf": [
               {
                 "$ref": "#/components/schemas/Debtor"
+              },
+              {
+                "type": "null"
               }
-            ],
-            "nullable": true,
-            "description": "Information about the payer's account, returned by the institution after the payment is completed. Null until the institution exposes it."
+          ]
           },
           "errorDetail": {
             "allOf": [
@@ -13078,7 +13435,10 @@
             "$ref": "#/components/schemas/PaymentRecipientAccount"
           },
           "pixKey": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Pix key associated with the payment recipient"
           },
           "createdAt": {
@@ -13245,7 +13605,10 @@
             "$ref": "#/components/schemas/BoletoRecipient"
           },
           "date": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "Boleto issue date"
           },
@@ -13255,7 +13618,10 @@
             "description": "Boleto due date"
           },
           "expirationDate": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "After this date, the boleto cannot be paid"
           },
@@ -13617,7 +13983,10 @@
             "description": "Date when the consent expires. Null if the consent doesn't expire"
           },
           "revokedAt": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time",
             "description": "Date when the consent was revoked"
           }
@@ -13654,11 +14023,21 @@
             "description": "Url to give the consent in the institution"
           },
           "clientPreauthorizationId": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Client preauthorization identifier"
           },
           "callbackUrls": {
-            "$ref": "#/components/schemas/SmartTransferCallbackUrls"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SmartTransferCallbackUrls"
+              },
+              {
+                "type": "null"
+              }
+          ]
           },
           "recipients": {
             "type": "array",
@@ -13855,13 +14234,15 @@
             "description": "Payment description"
           },
           "recipient": {
-            "allOf": [
+            "description": "Recipient of the transfer. May be null until the payment is associated with one.",
+            "anyOf": [
               {
                 "$ref": "#/components/schemas/PaymentRecipient"
+              },
+              {
+                "type": "null"
               }
-            ],
-            "nullable": true,
-            "description": "Recipient of the transfer. May be null until the payment is associated with one."
+          ]
           },
           "clientPaymentId": {
             "type": "string",
@@ -14318,7 +14699,8 @@
             ],
             "enum": [
               "PIX",
-              "BOLETO"
+              "BOLETO",
+              null
             ],
             "description": "Origin of the payment when the boleto is paid"
           },
@@ -14428,7 +14810,14 @@
             "$ref": "#/components/schemas/AutomaticPixSchedulerConfiguration"
           },
           "callbackUrls": {
-            "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
+              },
+              {
+                "type": "null"
+              }
+          ]
           },
           "recipientId": {
             "type": "string",
@@ -14591,11 +14980,21 @@
             "description": "Payment scheduled date"
           },
           "endToEndId": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Payment end to end identifier"
           },
           "errorDetail": {
-            "$ref": "#/components/schemas/AutomaticPixPaymentErrorDetail"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AutomaticPixPaymentErrorDetail"
+              },
+              {
+                "type": "null"
+              }
+          ]
           },
           "clientPaymentId": {
             "type": "string",
