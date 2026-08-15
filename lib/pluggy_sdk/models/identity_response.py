@@ -70,7 +70,9 @@ class IdentityResponse(BaseModel):
     parties: Optional[List[BusinessParty]] = Field(default=None, description="Partners and administrators of the business. PJ-only field")
     business_other_documents: Optional[List[BusinessOtherDocument]] = Field(default=None, description="List of additional documents for businesses headquartered abroad and not required to register a CNPJ. PJ-only field", alias="businessOtherDocuments")
     companies_cnpj: Optional[List[StrictStr]] = Field(default=None, description="CNPJs of the financial institutions responsible for the customer cadastro. Numbers only, no mask", alias="companiesCnpj")
-    __properties: ClassVar[List[str]] = ["id", "itemId", "birthDate", "taxNumber", "document", "documentType", "jobTitle", "fullName", "establishmentCode", "establishmentName", "companyName", "phoneNumbers", "emails", "addresses", "relations", "investorProfile", "qualifications", "financialRelationships", "socialName", "sex", "maritalStatus", "nationality", "otherDocuments", "passport", "incorporationDate", "parties", "businessOtherDocuments", "companiesCnpj"]
+    created_at: Optional[datetime] = Field(default=None, description="Date when the identity was first ingested by Pluggy.", alias="createdAt")
+    updated_at: Optional[datetime] = Field(default=None, description="Date of the last update of the identity data.", alias="updatedAt")
+    __properties: ClassVar[List[str]] = ["id", "itemId", "birthDate", "taxNumber", "document", "documentType", "jobTitle", "fullName", "establishmentCode", "establishmentName", "companyName", "phoneNumbers", "emails", "addresses", "relations", "investorProfile", "qualifications", "financialRelationships", "socialName", "sex", "maritalStatus", "nationality", "otherDocuments", "passport", "incorporationDate", "parties", "businessOtherDocuments", "companiesCnpj", "createdAt", "updatedAt"]
 
     @field_validator('investor_profile')
     def investor_profile_validate_enum(cls, value):
@@ -357,7 +359,9 @@ class IdentityResponse(BaseModel):
             "incorporationDate": obj.get("incorporationDate"),
             "parties": [BusinessParty.from_dict(_item) for _item in obj["parties"]] if obj.get("parties") is not None else None,
             "businessOtherDocuments": [BusinessOtherDocument.from_dict(_item) for _item in obj["businessOtherDocuments"]] if obj.get("businessOtherDocuments") is not None else None,
-            "companiesCnpj": obj.get("companiesCnpj")
+            "companiesCnpj": obj.get("companiesCnpj"),
+            "createdAt": obj.get("createdAt"),
+            "updatedAt": obj.get("updatedAt")
         })
         return _obj
 

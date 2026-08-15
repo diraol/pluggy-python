@@ -42,7 +42,10 @@ class InvestmentTransaction(BaseModel):
     var_date: datetime = Field(description="Date when the transaction was made", alias="date")
     trade_date: Optional[datetime] = Field(default=None, description="Date when the transaction was confirmed", alias="tradeDate")
     expenses: Optional[InvestmentExpenses] = None
-    __properties: ClassVar[List[str]] = ["id", "type", "movementType", "quantity", "value", "amount", "agreedRate", "indexerPercentage", "priceFactor", "date", "tradeDate", "expenses"]
+    description: Optional[StrictStr] = Field(default=None, description="Description of the transaction as reported by the institution")
+    net_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount of the operation after expenses and taxes", alias="netAmount")
+    brokerage_number: Optional[StrictStr] = Field(default=None, description="Brokerage note number the transaction belongs to", alias="brokerageNumber")
+    __properties: ClassVar[List[str]] = ["id", "type", "movementType", "quantity", "value", "amount", "agreedRate", "indexerPercentage", "priceFactor", "date", "tradeDate", "expenses", "description", "netAmount", "brokerageNumber"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -148,6 +151,21 @@ class InvestmentTransaction(BaseModel):
         if self.expenses is None and "expenses" in self.model_fields_set:
             _dict['expenses'] = None
 
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
+        # set to None if net_amount (nullable) is None
+        # and model_fields_set contains the field
+        if self.net_amount is None and "net_amount" in self.model_fields_set:
+            _dict['netAmount'] = None
+
+        # set to None if brokerage_number (nullable) is None
+        # and model_fields_set contains the field
+        if self.brokerage_number is None and "brokerage_number" in self.model_fields_set:
+            _dict['brokerageNumber'] = None
+
         return _dict
 
     @classmethod
@@ -171,7 +189,10 @@ class InvestmentTransaction(BaseModel):
             "priceFactor": obj.get("priceFactor"),
             "date": obj.get("date"),
             "tradeDate": obj.get("tradeDate"),
-            "expenses": InvestmentExpenses.from_dict(obj["expenses"]) if obj.get("expenses") is not None else None
+            "expenses": InvestmentExpenses.from_dict(obj["expenses"]) if obj.get("expenses") is not None else None,
+            "description": obj.get("description"),
+            "netAmount": obj.get("netAmount"),
+            "brokerageNumber": obj.get("brokerageNumber")
         })
         return _obj
 

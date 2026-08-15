@@ -46,6 +46,10 @@ Name | Type | Description | Notes
 **debtor** | [**InvestmentDebtor**](InvestmentDebtor.md) |  | [optional] 
 **coupon_payment** | [**InvestmentCouponPayment**](InvestmentCouponPayment.md) |  | [optional] 
 **status** | **str** | Current lifecycle status of the investment. - &#x60;ACTIVE&#x60;: the investment is open and currently held by the owner. - &#x60;PENDING&#x60;: the operation has been requested but is not yet settled (e.g. a fund subscription within the settlement window). - &#x60;TOTAL_WITHDRAWAL&#x60;: the position has been fully redeemed/withdrawn; balance is zero. | [optional] 
+**created_at** | **datetime** | Date when the investment was first ingested by Pluggy. | [optional] 
+**updated_at** | **datetime** | Date of the last update of the investment data. | [optional] 
+**institution** | [**InvestmentInstitution**](InvestmentInstitution.md) | Financial institution holding the investment. | [optional] 
+**transactions** | [**List[InvestmentTransaction]**](InvestmentTransaction.md) | Movements of the investment. Only present on endpoints that return transactions inline; use &#x60;GET /investments/{id}/transactions&#x60; otherwise. | [optional] 
 
 ## Example
 

@@ -26,7 +26,7 @@ from pydantic_core import to_jsonable_python
 
 class BoletoPayer(BaseModel):
     """
-    Boleto payer information
+    Payer of a boleto being paid. Only identity data — this is not the payer of an issued boleto, which carries the full address block under `IssuedBoleto.payer`.
     """ # noqa: E501
     tax_number: StrictStr = Field(description="Payer CPF or CNPJ", alias="taxNumber")
     name: StrictStr = Field(description="Payer name")

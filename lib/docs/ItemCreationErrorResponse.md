@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **code_description** | **str** | Distinctive code description, useful to identify the error. | [optional] 
 **message** | **str** |  | [optional] 
 **errors** | [**List[ParameterValidationError]**](ParameterValidationError.md) | List of errors related to parameter validations | [optional] 
+**details** | [**List[ParameterValidationError]**](ParameterValidationError.md) | Parameter validation failures. This is the field the API actually populates for a 400; &#x60;errors&#x60; is kept for backwards compatibility. | [optional] 
+**error_id** | **str** | Identifier of the request that produced the error. Quote it when contacting support. | [optional] 
 
 ## Example
 

@@ -33,7 +33,9 @@ class ItemCreationErrorResponse(BaseModel):
     code_description: Optional[StrictStr] = Field(default=None, description="Distinctive code description, useful to identify the error.", alias="codeDescription")
     message: Optional[StrictStr] = None
     errors: Optional[List[ParameterValidationError]] = Field(default=None, description="List of errors related to parameter validations")
-    __properties: ClassVar[List[str]] = ["code", "codeDescription", "message", "errors"]
+    details: Optional[List[ParameterValidationError]] = Field(default=None, description="Parameter validation failures. This is the field the API actually populates for a 400; `errors` is kept for backwards compatibility.")
+    error_id: Optional[StrictStr] = Field(default=None, description="Identifier of the request that produced the error. Quote it when contacting support.", alias="errorId")
+    __properties: ClassVar[List[str]] = ["code", "codeDescription", "message", "errors", "details", "errorId"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -80,6 +82,12 @@ class ItemCreationErrorResponse(BaseModel):
             for _item_errors in self.errors:
                 _items.append(_item_errors.to_dict() if _item_errors is not None else None)
             _dict['errors'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in details (list)
+        _items = []
+        if self.details:
+            for _item_details in self.details:
+                _items.append(_item_details.to_dict() if _item_details is not None else None)
+            _dict['details'] = _items
         return _dict
 
     @classmethod
@@ -95,7 +103,9 @@ class ItemCreationErrorResponse(BaseModel):
             "code": obj.get("code"),
             "codeDescription": obj.get("codeDescription"),
             "message": obj.get("message"),
-            "errors": [ParameterValidationError.from_dict(_item) for _item in obj["errors"]] if obj.get("errors") is not None else None
+            "errors": [ParameterValidationError.from_dict(_item) for _item in obj["errors"]] if obj.get("errors") is not None else None,
+            "details": [ParameterValidationError.from_dict(_item) for _item in obj["details"]] if obj.get("details") is not None else None,
+            "errorId": obj.get("errorId")
         })
         return _obj
 

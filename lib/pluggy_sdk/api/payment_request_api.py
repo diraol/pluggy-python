@@ -1138,7 +1138,7 @@ class PaymentRequestApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> CreatePaymentRequest:
+    ) -> PaymentRequest:
         """Update
 
         Updates the payment request resource
@@ -1179,7 +1179,7 @@ class PaymentRequestApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "CreatePaymentRequest",
+            '200': "PaymentRequest",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1209,7 +1209,7 @@ class PaymentRequestApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[CreatePaymentRequest]:
+    ) -> ApiResponse[PaymentRequest]:
         """Update
 
         Updates the payment request resource
@@ -1250,7 +1250,7 @@ class PaymentRequestApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "CreatePaymentRequest",
+            '200': "PaymentRequest",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1321,7 +1321,7 @@ class PaymentRequestApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "CreatePaymentRequest",
+            '200': "PaymentRequest",
         }
         response_data = self.api_client.call_api(
             *_param,

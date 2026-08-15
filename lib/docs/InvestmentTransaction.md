@@ -18,6 +18,9 @@ Name | Type | Description | Notes
 **var_date** | **datetime** | Date when the transaction was made | 
 **trade_date** | **datetime** | Date when the transaction was confirmed | [optional] 
 **expenses** | [**InvestmentExpenses**](InvestmentExpenses.md) |  | [optional] 
+**description** | **str** | Description of the transaction as reported by the institution | [optional] 
+**net_amount** | **float** | Amount of the operation after expenses and taxes | [optional] 
+**brokerage_number** | **str** | Brokerage note number the transaction belongs to | [optional] 
 
 ## Example
 

@@ -16,6 +16,9 @@ Name | Type | Description | Notes
 **validation_message** | **str** | Validation message when input doesn&#39;t match the regex | [optional] 
 **mfa** | **bool** | Credential is an MFA parameter and must be refreshed on each execution | [optional] 
 **options** | [**List[CredentialSelectOption]**](CredentialSelectOption.md) | List of possible values for the input | [optional] 
+**optional** | **bool** | Whether the credential can be left empty. Always present; defaults to false | 
+**instructions** | **str** | Instructions to help the user obtain this credential | [optional] 
+**expires_at** | **datetime** | Expiration date of the credential value, when the institution sets one | [optional] 
 
 ## Example
 

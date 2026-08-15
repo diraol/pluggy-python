@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **instructions** | **str** | Instructions related to the user action | 
 **attributes** | **object** | &#39;{ [key]:[value] }&#39;. Additional information related to the user action, for exampke in some device authorization flow | [optional] 
 **expires_at** | **datetime** | User action expiration date | [optional] 
+**type** | **str** | Kind of action the user has to take: scan a QR code, or authorize access in the institution&#39;s app | 
 
 ## Example
 

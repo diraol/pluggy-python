@@ -330,7 +330,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payment_request_update**
-> CreatePaymentRequest payment_request_update(id, update_payment_request)
+> PaymentRequest payment_request_update(id, update_payment_request)
 
 Update
 
@@ -342,7 +342,7 @@ Updates the payment request resource
 
 ```python
 import pluggy_sdk
-from pluggy_sdk.models.create_payment_request import CreatePaymentRequest
+from pluggy_sdk.models.payment_request import PaymentRequest
 from pluggy_sdk.models.update_payment_request import UpdatePaymentRequest
 from pluggy_sdk.rest import ApiException
 from pprint import pprint
@@ -392,7 +392,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreatePaymentRequest**](CreatePaymentRequest.md)
+[**PaymentRequest**](PaymentRequest.md)
 
 ### Authorization
 

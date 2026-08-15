@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post64"
+__version__ = "1.0.0.post65"
 
 # Define package exports
 __all__ = [
@@ -109,7 +109,6 @@ __all__ = [
     "CreatePaymentIntent",
     "CreatePaymentRecipient",
     "CreatePaymentRequest",
-    "CreatePaymentRequestSchedule",
     "CreatePixQrPaymentRequest",
     "CreateSmartTransferPayment",
     "CreateSmartTransferPreauthorization",
@@ -141,6 +140,7 @@ __all__ = [
     "InvestmentCouponPayment",
     "InvestmentDebtor",
     "InvestmentExpenses",
+    "InvestmentInstitution",
     "InvestmentMetadata",
     "InvestmentTransaction",
     "InvestmentsList200Response",
@@ -175,6 +175,7 @@ __all__ = [
     "NationalityOtherNationalitiesInner",
     "NotAuthenticatedResponse",
     "OtherDocument",
+    "PageResponseCategories",
     "PageResponseCategoryRules",
     "PageResponseConsents",
     "PageResponseInvestmentTransactions",
@@ -345,7 +346,6 @@ from pluggy_sdk.models.create_payment_customer_request_body import CreatePayment
 from pluggy_sdk.models.create_payment_intent import CreatePaymentIntent as CreatePaymentIntent
 from pluggy_sdk.models.create_payment_recipient import CreatePaymentRecipient as CreatePaymentRecipient
 from pluggy_sdk.models.create_payment_request import CreatePaymentRequest as CreatePaymentRequest
-from pluggy_sdk.models.create_payment_request_schedule import CreatePaymentRequestSchedule as CreatePaymentRequestSchedule
 from pluggy_sdk.models.create_pix_qr_payment_request import CreatePixQrPaymentRequest as CreatePixQrPaymentRequest
 from pluggy_sdk.models.create_smart_transfer_payment import CreateSmartTransferPayment as CreateSmartTransferPayment
 from pluggy_sdk.models.create_smart_transfer_preauthorization import CreateSmartTransferPreauthorization as CreateSmartTransferPreauthorization
@@ -377,6 +377,7 @@ from pluggy_sdk.models.investment import Investment as Investment
 from pluggy_sdk.models.investment_coupon_payment import InvestmentCouponPayment as InvestmentCouponPayment
 from pluggy_sdk.models.investment_debtor import InvestmentDebtor as InvestmentDebtor
 from pluggy_sdk.models.investment_expenses import InvestmentExpenses as InvestmentExpenses
+from pluggy_sdk.models.investment_institution import InvestmentInstitution as InvestmentInstitution
 from pluggy_sdk.models.investment_metadata import InvestmentMetadata as InvestmentMetadata
 from pluggy_sdk.models.investment_transaction import InvestmentTransaction as InvestmentTransaction
 from pluggy_sdk.models.investments_list200_response import InvestmentsList200Response as InvestmentsList200Response
@@ -411,6 +412,7 @@ from pluggy_sdk.models.nationality_document import NationalityDocument as Nation
 from pluggy_sdk.models.nationality_other_nationalities_inner import NationalityOtherNationalitiesInner as NationalityOtherNationalitiesInner
 from pluggy_sdk.models.not_authenticated_response import NotAuthenticatedResponse as NotAuthenticatedResponse
 from pluggy_sdk.models.other_document import OtherDocument as OtherDocument
+from pluggy_sdk.models.page_response_categories import PageResponseCategories as PageResponseCategories
 from pluggy_sdk.models.page_response_category_rules import PageResponseCategoryRules as PageResponseCategoryRules
 from pluggy_sdk.models.page_response_consents import PageResponseConsents as PageResponseConsents
 from pluggy_sdk.models.page_response_investment_transactions import PageResponseInvestmentTransactions as PageResponseInvestmentTransactions

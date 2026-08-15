@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **business_name** | **str** | Merchant legal business name | [optional] 
 **cnpj** | **str** | Document number related to the merchant | [optional] 
 **cnae** | **str** | Economic activity classification number related to the merchant | [optional] 
+**category** | **str** | Category derived from the merchant&#39;s CNAE, when one can be resolved | [optional] 
 
 ## Example
 

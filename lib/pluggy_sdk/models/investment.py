@@ -24,7 +24,9 @@ from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
 from pluggy_sdk.models.investment_coupon_payment import InvestmentCouponPayment
 from pluggy_sdk.models.investment_debtor import InvestmentDebtor
+from pluggy_sdk.models.investment_institution import InvestmentInstitution
 from pluggy_sdk.models.investment_metadata import InvestmentMetadata
+from pluggy_sdk.models.investment_transaction import InvestmentTransaction
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -73,7 +75,11 @@ class Investment(BaseModel):
     debtor: Optional[InvestmentDebtor] = None
     coupon_payment: Optional[InvestmentCouponPayment] = Field(default=None, alias="couponPayment")
     status: Optional[StrictStr] = Field(default=None, description="Current lifecycle status of the investment. - `ACTIVE`: the investment is open and currently held by the owner. - `PENDING`: the operation has been requested but is not yet settled (e.g. a fund subscription within the settlement window). - `TOTAL_WITHDRAWAL`: the position has been fully redeemed/withdrawn; balance is zero.")
-    __properties: ClassVar[List[str]] = ["id", "itemId", "type", "subtype", "number", "balance", "name", "lastMonthRate", "lastTwelveMonthsRate", "annualRate", "currencyCode", "code", "isin", "value", "quantity", "amount", "taxes", "taxes2", "date", "owner", "amountProfit", "amountWithdrawal", "amountOriginal", "metadata", "dueDate", "issuer", "issuerCNPJ", "issueDate", "purchaseDate", "gracePeriodDate", "rate", "rateType", "fixedAnnualRate", "taxExempt", "ratePeriodicity", "indexerAdditionalInfo", "priceFactor", "debtor", "couponPayment", "status"]
+    created_at: Optional[datetime] = Field(default=None, description="Date when the investment was first ingested by Pluggy.", alias="createdAt")
+    updated_at: Optional[datetime] = Field(default=None, description="Date of the last update of the investment data.", alias="updatedAt")
+    institution: Optional[InvestmentInstitution] = Field(default=None, description="Financial institution holding the investment.")
+    transactions: Optional[List[InvestmentTransaction]] = Field(default=None, description="Movements of the investment. Only present on endpoints that return transactions inline; use `GET /investments/{id}/transactions` otherwise.")
+    __properties: ClassVar[List[str]] = ["id", "itemId", "type", "subtype", "number", "balance", "name", "lastMonthRate", "lastTwelveMonthsRate", "annualRate", "currencyCode", "code", "isin", "value", "quantity", "amount", "taxes", "taxes2", "date", "owner", "amountProfit", "amountWithdrawal", "amountOriginal", "metadata", "dueDate", "issuer", "issuerCNPJ", "issueDate", "purchaseDate", "gracePeriodDate", "rate", "rateType", "fixedAnnualRate", "taxExempt", "ratePeriodicity", "indexerAdditionalInfo", "priceFactor", "debtor", "couponPayment", "status", "createdAt", "updatedAt", "institution", "transactions"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -150,6 +156,15 @@ class Investment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of coupon_payment
         if self.coupon_payment:
             _dict['couponPayment'] = self.coupon_payment.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of institution
+        if self.institution:
+            _dict['institution'] = self.institution.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in transactions (list)
+        _items = []
+        if self.transactions:
+            for _item_transactions in self.transactions:
+                _items.append(_item_transactions.to_dict() if _item_transactions is not None else None)
+            _dict['transactions'] = _items
         # set to None if subtype (nullable) is None
         # and model_fields_set contains the field
         if self.subtype is None and "subtype" in self.model_fields_set:
@@ -315,6 +330,11 @@ class Investment(BaseModel):
         if self.status is None and "status" in self.model_fields_set:
             _dict['status'] = None
 
+        # set to None if institution (nullable) is None
+        # and model_fields_set contains the field
+        if self.institution is None and "institution" in self.model_fields_set:
+            _dict['institution'] = None
+
         return _dict
 
     @classmethod
@@ -366,7 +386,11 @@ class Investment(BaseModel):
             "priceFactor": obj.get("priceFactor"),
             "debtor": InvestmentDebtor.from_dict(obj["debtor"]) if obj.get("debtor") is not None else None,
             "couponPayment": InvestmentCouponPayment.from_dict(obj["couponPayment"]) if obj.get("couponPayment") is not None else None,
-            "status": obj.get("status")
+            "status": obj.get("status"),
+            "createdAt": obj.get("createdAt"),
+            "updatedAt": obj.get("updatedAt"),
+            "institution": InvestmentInstitution.from_dict(obj["institution"]) if obj.get("institution") is not None else None,
+            "transactions": [InvestmentTransaction.from_dict(_item) for _item in obj["transactions"]] if obj.get("transactions") is not None else None
         })
         return _obj
 

@@ -18,26 +18,22 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from pluggy_sdk.models.webhook_event_type import WebhookEventType
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Union
+from pluggy_sdk.models.category import Category
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class Webhook(BaseModel):
+class PageResponseCategories(BaseModel):
     """
-    
+    Paginated list of transaction categories
     """ # noqa: E501
-    id: StrictStr = Field(description="UUID identifier for the entity")
-    url: StrictStr = Field(description="Url to be notified of item changes")
-    event: WebhookEventType
-    disabled_at: Optional[datetime] = Field(default=None, description="Date when the webhook was disabled", alias="disabledAt")
-    created_at: Optional[datetime] = Field(default=None, description="Date when it was created", alias="createdAt")
-    updated_at: Optional[datetime] = Field(default=None, description="Date of the last update", alias="updatedAt")
-    headers: Dict[str, StrictStr] = Field(description="Custom headers sent with each webhook delivery. Always present; an empty object when none are configured")
-    __properties: ClassVar[List[str]] = ["id", "url", "event", "disabledAt", "createdAt", "updatedAt", "headers"]
+    results: List[Category] = Field(description="Categories for the current page")
+    page: Union[StrictFloat, StrictInt]
+    total: Union[StrictFloat, StrictInt]
+    total_pages: Union[StrictFloat, StrictInt] = Field(alias="totalPages")
+    __properties: ClassVar[List[str]] = ["results", "page", "total", "totalPages"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -57,7 +53,7 @@ class Webhook(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of Webhook from a JSON string"""
+        """Create an instance of PageResponseCategories from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -78,16 +74,17 @@ class Webhook(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if disabled_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.disabled_at is None and "disabled_at" in self.model_fields_set:
-            _dict['disabledAt'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in results (list)
+        _items = []
+        if self.results:
+            for _item_results in self.results:
+                _items.append(_item_results.to_dict() if _item_results is not None else None)
+            _dict['results'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of Webhook from a dict"""
+        """Create an instance of PageResponseCategories from a dict"""
         if obj is None:
             return None
 
@@ -95,13 +92,10 @@ class Webhook(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "url": obj.get("url"),
-            "event": obj.get("event"),
-            "disabledAt": obj.get("disabledAt"),
-            "createdAt": obj.get("createdAt"),
-            "updatedAt": obj.get("updatedAt"),
-            "headers": obj.get("headers")
+            "results": [Category.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None,
+            "page": obj.get("page"),
+            "total": obj.get("total"),
+            "totalPages": obj.get("totalPages")
         })
         return _obj
 

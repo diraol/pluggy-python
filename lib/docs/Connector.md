@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **reset_password_url** | **str** | URL to the financial institution to reset the password | [optional] 
 **health** | [**ConnectorHealth**](ConnectorHealth.md) |  | [optional] 
 **is_open_finance** | **bool** | Indicates if the connector uses the regulated Open Finance APIs | [optional] 
+**is_sandbox** | **bool** | Indicates if the connector is a sandbox connector, meant for testing rather than a real institution | [optional] 
 **supports_payment_initiation** | **bool** | Indicates if the connector supports the payment initiation API | [optional] 
 **supports_scheduled_payments** | **bool** | Indicates if the connector supports scheduled payments | [optional] 
 **supports_smart_transfers** | **bool** | Indicates if the connector supports smart transfers | [optional] 

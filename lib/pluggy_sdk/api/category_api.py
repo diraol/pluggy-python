@@ -23,6 +23,7 @@ from uuid import UUID
 from pluggy_sdk.models.category import Category
 from pluggy_sdk.models.client_category_rule import ClientCategoryRule
 from pluggy_sdk.models.create_client_category_rule import CreateClientCategoryRule
+from pluggy_sdk.models.page_response_categories import PageResponseCategories
 from pluggy_sdk.models.page_response_category_rules import PageResponseCategoryRules
 
 from pluggy_sdk.api_client import ApiClient, RequestSerialized
@@ -59,7 +60,7 @@ class CategoryApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[Category]:
+    ) -> PageResponseCategories:
         """List
 
         Recovers all categories active from the data categorization. Can be filtered by the parentId of the category.
@@ -97,7 +98,7 @@ class CategoryApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Category]",
+            '200': "PageResponseCategories",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -126,7 +127,7 @@ class CategoryApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[Category]]:
+    ) -> ApiResponse[PageResponseCategories]:
         """List
 
         Recovers all categories active from the data categorization. Can be filtered by the parentId of the category.
@@ -164,7 +165,7 @@ class CategoryApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Category]",
+            '200': "PageResponseCategories",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -231,7 +232,7 @@ class CategoryApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Category]",
+            '200': "PageResponseCategories",
         }
         response_data = self.api_client.call_api(
             *_param,

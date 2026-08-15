@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -32,7 +32,15 @@ class ConnectorUserAction(BaseModel):
     instructions: StrictStr = Field(description="Instructions related to the user action")
     attributes: Optional[Dict[str, Any]] = Field(default=None, description="'{ [key]:[value] }'. Additional information related to the user action, for exampke in some device authorization flow")
     expires_at: Optional[datetime] = Field(default=None, description="User action expiration date", alias="expiresAt")
-    __properties: ClassVar[List[str]] = ["instructions", "attributes", "expiresAt"]
+    type: StrictStr = Field(description="Kind of action the user has to take: scan a QR code, or authorize access in the institution's app")
+    __properties: ClassVar[List[str]] = ["instructions", "attributes", "expiresAt", "type"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['qr', 'authorize-access']):
+            raise ValueError("must be one of enum values ('qr', 'authorize-access')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -87,7 +95,8 @@ class ConnectorUserAction(BaseModel):
         _obj = cls.model_validate({
             "instructions": obj.get("instructions"),
             "attributes": obj.get("attributes"),
-            "expiresAt": obj.get("expiresAt")
+            "expiresAt": obj.get("expiresAt"),
+            "type": obj.get("type")
         })
         return _obj
 

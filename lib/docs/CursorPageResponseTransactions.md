@@ -7,7 +7,7 @@ Cursor-based paginated response for transactions
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **results** | [**List[Transaction]**](Transaction.md) | List of transactions for the current page | 
-**next** | **str** | Query string for the next page of results. Null if there are no more results. | 
+**next** | **str** | Ready-to-use query string for the next page: append it as-is to the endpoint path (GET /v2/transactions{next}). Null if there are no more results. | 
 
 ## Example
 

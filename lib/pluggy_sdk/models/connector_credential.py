@@ -18,6 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.credential_select_option import CredentialSelectOption
@@ -39,7 +40,10 @@ class ConnectorCredential(BaseModel):
     validation_message: Optional[StrictStr] = Field(default=None, description="Validation message when input doesn't match the regex", alias="validationMessage")
     mfa: Optional[StrictBool] = Field(default=None, description="Credential is an MFA parameter and must be refreshed on each execution")
     options: Optional[List[CredentialSelectOption]] = Field(default=None, description="List of possible values for the input")
-    __properties: ClassVar[List[str]] = ["name", "label", "type", "assistiveText", "data", "placeholder", "validation", "validationMessage", "mfa", "options"]
+    optional: StrictBool = Field(description="Whether the credential can be left empty. Always present; defaults to false")
+    instructions: Optional[StrictStr] = Field(default=None, description="Instructions to help the user obtain this credential")
+    expires_at: Optional[datetime] = Field(default=None, description="Expiration date of the credential value, when the institution sets one", alias="expiresAt")
+    __properties: ClassVar[List[str]] = ["name", "label", "type", "assistiveText", "data", "placeholder", "validation", "validationMessage", "mfa", "options", "optional", "instructions", "expiresAt"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -114,7 +118,10 @@ class ConnectorCredential(BaseModel):
             "validation": obj.get("validation"),
             "validationMessage": obj.get("validationMessage"),
             "mfa": obj.get("mfa"),
-            "options": [CredentialSelectOption.from_dict(_item) for _item in obj["options"]] if obj.get("options") is not None else None
+            "options": [CredentialSelectOption.from_dict(_item) for _item in obj["options"]] if obj.get("options") is not None else None,
+            "optional": obj.get("optional"),
+            "instructions": obj.get("instructions"),
+            "expiresAt": obj.get("expiresAt")
         })
         return _obj
 

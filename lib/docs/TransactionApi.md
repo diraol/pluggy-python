@@ -150,7 +150,7 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     date_from = '2020-10-13' # datetime | Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom. (optional)
     date_to = '2020-10-15' # datetime | Filter transactions with date less than or equal to the given date. Format (yyyy-mm-dd). (optional)
     created_at_from = '2020-10-13T03:00:00.000Z' # datetime | Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z) (optional)
-    after = 'MjAyMC0xMC0xNVQwMDowMDowMC4wMDBafGE4NTM0Yzg1LTUzY2UtNGYyMS05NGQ3LTUwZTlkMmVlNDk1Nw==' # str | Cursor for the next page of results. Obtained from the 'next' field of a previous response. (optional)
+    after = 'MjAyMC0xMC0xNVQwMDowMDowMC4wMDBafGE4NTM0Yzg1LTUzY2UtNGYyMS05NGQ3LTUwZTlkMmVlNDk1Nw==' # str | Cursor for the next page of results. To paginate, append the previous response's 'next' value to the endpoint path as the full query string (GET /v2/transactions{next}). If building the request manually, send here only the URL-decoded 'after' value contained in 'next' — never the whole 'next' string. (optional)
 
     try:
         # List
@@ -173,7 +173,7 @@ Name | Type | Description  | Notes
  **date_from** | **datetime**| Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom. | [optional] 
  **date_to** | **datetime**| Filter transactions with date less than or equal to the given date. Format (yyyy-mm-dd). | [optional] 
  **created_at_from** | **datetime**| Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z) | [optional] 
- **after** | **str**| Cursor for the next page of results. Obtained from the &#39;next&#39; field of a previous response. | [optional] 
+ **after** | **str**| Cursor for the next page of results. To paginate, append the previous response&#39;s &#39;next&#39; value to the endpoint path as the full query string (GET /v2/transactions{next}). If building the request manually, send here only the URL-decoded &#39;after&#39; value contained in &#39;next&#39; — never the whole &#39;next&#39; string. | [optional] 
 
 ### Return type
 

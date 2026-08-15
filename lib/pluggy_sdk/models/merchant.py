@@ -32,7 +32,8 @@ class Merchant(BaseModel):
     business_name: Optional[StrictStr] = Field(default=None, description="Merchant legal business name", alias="businessName")
     cnpj: Optional[StrictStr] = Field(default=None, description="Document number related to the merchant")
     cnae: Optional[StrictStr] = Field(default=None, description="Economic activity classification number related to the merchant")
-    __properties: ClassVar[List[str]] = ["name", "businessName", "cnpj", "cnae"]
+    category: Optional[StrictStr] = Field(default=None, description="Category derived from the merchant's CNAE, when one can be resolved")
+    __properties: ClassVar[List[str]] = ["name", "businessName", "cnpj", "cnae", "category"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -88,7 +89,8 @@ class Merchant(BaseModel):
             "name": obj.get("name"),
             "businessName": obj.get("businessName"),
             "cnpj": obj.get("cnpj"),
-            "cnae": obj.get("cnae")
+            "cnae": obj.get("cnae"),
+            "category": obj.get("category")
         })
         return _obj
 

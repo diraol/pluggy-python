@@ -18,26 +18,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pluggy_sdk.models.webhook_event_type import WebhookEventType
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class Webhook(BaseModel):
+class InvestmentInstitution(BaseModel):
     """
-    
+    Financial institution holding the investment
     """ # noqa: E501
-    id: StrictStr = Field(description="UUID identifier for the entity")
-    url: StrictStr = Field(description="Url to be notified of item changes")
-    event: WebhookEventType
-    disabled_at: Optional[datetime] = Field(default=None, description="Date when the webhook was disabled", alias="disabledAt")
-    created_at: Optional[datetime] = Field(default=None, description="Date when it was created", alias="createdAt")
-    updated_at: Optional[datetime] = Field(default=None, description="Date of the last update", alias="updatedAt")
-    headers: Dict[str, StrictStr] = Field(description="Custom headers sent with each webhook delivery. Always present; an empty object when none are configured")
-    __properties: ClassVar[List[str]] = ["id", "url", "event", "disabledAt", "createdAt", "updatedAt", "headers"]
+    name: Optional[StrictStr] = Field(description="Full name of the institution")
+    number: Optional[StrictStr] = Field(description="Identifier of the institution (CNPJ or other)")
+    __properties: ClassVar[List[str]] = ["name", "number"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -57,7 +50,7 @@ class Webhook(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of Webhook from a JSON string"""
+        """Create an instance of InvestmentInstitution from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -78,16 +71,21 @@ class Webhook(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if disabled_at (nullable) is None
+        # set to None if name (nullable) is None
         # and model_fields_set contains the field
-        if self.disabled_at is None and "disabled_at" in self.model_fields_set:
-            _dict['disabledAt'] = None
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
+        # set to None if number (nullable) is None
+        # and model_fields_set contains the field
+        if self.number is None and "number" in self.model_fields_set:
+            _dict['number'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of Webhook from a dict"""
+        """Create an instance of InvestmentInstitution from a dict"""
         if obj is None:
             return None
 
@@ -95,13 +93,8 @@ class Webhook(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "url": obj.get("url"),
-            "event": obj.get("event"),
-            "disabledAt": obj.get("disabledAt"),
-            "createdAt": obj.get("createdAt"),
-            "updatedAt": obj.get("updatedAt"),
-            "headers": obj.get("headers")
+            "name": obj.get("name"),
+            "number": obj.get("number")
         })
         return _obj
 

@@ -30,7 +30,7 @@ class CursorPageResponseTransactions(BaseModel):
     Cursor-based paginated response for transactions
     """ # noqa: E501
     results: List[Transaction] = Field(description="List of transactions for the current page")
-    next: Optional[StrictStr] = Field(description="Query string for the next page of results. Null if there are no more results.")
+    next: Optional[StrictStr] = Field(description="Ready-to-use query string for the next page: append it as-is to the endpoint path (GET /v2/transactions{next}). Null if there are no more results.")
     __properties: ClassVar[List[str]] = ["results", "next"]
 
     model_config = ConfigDict(

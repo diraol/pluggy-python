@@ -471,7 +471,7 @@ class TransactionApi:
         date_from: Annotated[Optional[datetime], Field(description="Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom.")] = None,
         date_to: Annotated[Optional[datetime], Field(description="Filter transactions with date less than or equal to the given date. Format (yyyy-mm-dd).")] = None,
         created_at_from: Annotated[Optional[datetime], Field(description="Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
-        after: Annotated[Optional[StrictStr], Field(description="Cursor for the next page of results. Obtained from the 'next' field of a previous response.")] = None,
+        after: Annotated[Optional[StrictStr], Field(description="Cursor for the next page of results. To paginate, append the previous response's 'next' value to the endpoint path as the full query string (GET /v2/transactions{next}). If building the request manually, send here only the URL-decoded 'after' value contained in 'next' — never the whole 'next' string.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -499,7 +499,7 @@ class TransactionApi:
         :type date_to: datetime
         :param created_at_from: Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)
         :type created_at_from: datetime
-        :param after: Cursor for the next page of results. Obtained from the 'next' field of a previous response.
+        :param after: Cursor for the next page of results. To paginate, append the previous response's 'next' value to the endpoint path as the full query string (GET /v2/transactions{next}). If building the request manually, send here only the URL-decoded 'after' value contained in 'next' — never the whole 'next' string.
         :type after: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -560,7 +560,7 @@ class TransactionApi:
         date_from: Annotated[Optional[datetime], Field(description="Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom.")] = None,
         date_to: Annotated[Optional[datetime], Field(description="Filter transactions with date less than or equal to the given date. Format (yyyy-mm-dd).")] = None,
         created_at_from: Annotated[Optional[datetime], Field(description="Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
-        after: Annotated[Optional[StrictStr], Field(description="Cursor for the next page of results. Obtained from the 'next' field of a previous response.")] = None,
+        after: Annotated[Optional[StrictStr], Field(description="Cursor for the next page of results. To paginate, append the previous response's 'next' value to the endpoint path as the full query string (GET /v2/transactions{next}). If building the request manually, send here only the URL-decoded 'after' value contained in 'next' — never the whole 'next' string.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -588,7 +588,7 @@ class TransactionApi:
         :type date_to: datetime
         :param created_at_from: Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)
         :type created_at_from: datetime
-        :param after: Cursor for the next page of results. Obtained from the 'next' field of a previous response.
+        :param after: Cursor for the next page of results. To paginate, append the previous response's 'next' value to the endpoint path as the full query string (GET /v2/transactions{next}). If building the request manually, send here only the URL-decoded 'after' value contained in 'next' — never the whole 'next' string.
         :type after: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -649,7 +649,7 @@ class TransactionApi:
         date_from: Annotated[Optional[datetime], Field(description="Filter transactions with date greater than or equal to the given date. Format (yyyy-mm-dd). Cannot be used together with createdAtFrom.")] = None,
         date_to: Annotated[Optional[datetime], Field(description="Filter transactions with date less than or equal to the given date. Format (yyyy-mm-dd).")] = None,
         created_at_from: Annotated[Optional[datetime], Field(description="Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
-        after: Annotated[Optional[StrictStr], Field(description="Cursor for the next page of results. Obtained from the 'next' field of a previous response.")] = None,
+        after: Annotated[Optional[StrictStr], Field(description="Cursor for the next page of results. To paginate, append the previous response's 'next' value to the endpoint path as the full query string (GET /v2/transactions{next}). If building the request manually, send here only the URL-decoded 'after' value contained in 'next' — never the whole 'next' string.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -677,7 +677,7 @@ class TransactionApi:
         :type date_to: datetime
         :param created_at_from: Filter transactions created at or after this date. Format (yyyy-mm-ddThh:mm:ss.000Z)
         :type created_at_from: datetime
-        :param after: Cursor for the next page of results. Obtained from the 'next' field of a previous response.
+        :param after: Cursor for the next page of results. To paginate, append the previous response's 'next' value to the endpoint path as the full query string (GET /v2/transactions{next}). If building the request manually, send here only the URL-decoded 'after' value contained in 'next' — never the whole 'next' string.
         :type after: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

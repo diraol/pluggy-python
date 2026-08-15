@@ -1,6 +1,6 @@
 # BoletoPayer
 
-Boleto payer information
+Payer of a boleto being paid. Only identity data — this is not the payer of an issued boleto, which carries the full address block under `IssuedBoleto.payer`.
 
 ## Properties
 

@@ -74,7 +74,6 @@ from pluggy_sdk.models.create_payment_customer_request_body import CreatePayment
 from pluggy_sdk.models.create_payment_intent import CreatePaymentIntent
 from pluggy_sdk.models.create_payment_recipient import CreatePaymentRecipient
 from pluggy_sdk.models.create_payment_request import CreatePaymentRequest
-from pluggy_sdk.models.create_payment_request_schedule import CreatePaymentRequestSchedule
 from pluggy_sdk.models.create_pix_qr_payment_request import CreatePixQrPaymentRequest
 from pluggy_sdk.models.create_smart_transfer_payment import CreateSmartTransferPayment
 from pluggy_sdk.models.create_smart_transfer_preauthorization import CreateSmartTransferPreauthorization
@@ -106,6 +105,7 @@ from pluggy_sdk.models.investment import Investment
 from pluggy_sdk.models.investment_coupon_payment import InvestmentCouponPayment
 from pluggy_sdk.models.investment_debtor import InvestmentDebtor
 from pluggy_sdk.models.investment_expenses import InvestmentExpenses
+from pluggy_sdk.models.investment_institution import InvestmentInstitution
 from pluggy_sdk.models.investment_metadata import InvestmentMetadata
 from pluggy_sdk.models.investment_transaction import InvestmentTransaction
 from pluggy_sdk.models.investments_list200_response import InvestmentsList200Response
@@ -140,6 +140,7 @@ from pluggy_sdk.models.nationality_document import NationalityDocument
 from pluggy_sdk.models.nationality_other_nationalities_inner import NationalityOtherNationalitiesInner
 from pluggy_sdk.models.not_authenticated_response import NotAuthenticatedResponse
 from pluggy_sdk.models.other_document import OtherDocument
+from pluggy_sdk.models.page_response_categories import PageResponseCategories
 from pluggy_sdk.models.page_response_category_rules import PageResponseCategoryRules
 from pluggy_sdk.models.page_response_consents import PageResponseConsents
 from pluggy_sdk.models.page_response_investment_transactions import PageResponseInvestmentTransactions

@@ -34,6 +34,8 @@ Name | Type | Description | Notes
 **parties** | [**List[BusinessParty]**](BusinessParty.md) | Partners and administrators of the business. PJ-only field | [optional] 
 **business_other_documents** | [**List[BusinessOtherDocument]**](BusinessOtherDocument.md) | List of additional documents for businesses headquartered abroad and not required to register a CNPJ. PJ-only field | [optional] 
 **companies_cnpj** | **List[str]** | CNPJs of the financial institutions responsible for the customer cadastro. Numbers only, no mask | [optional] 
+**created_at** | **datetime** | Date when the identity was first ingested by Pluggy. | [optional] 
+**updated_at** | **datetime** | Date of the last update of the identity data. | [optional] 
 
 ## Example
 

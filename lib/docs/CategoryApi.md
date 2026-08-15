@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **categories_list**
-> List[Category] categories_list(parent_id=parent_id)
+> PageResponseCategories categories_list(parent_id=parent_id)
 
 List
 
@@ -25,7 +25,7 @@ Can be filtered by the parentId of the category.
 
 ```python
 import pluggy_sdk
-from pluggy_sdk.models.category import Category
+from pluggy_sdk.models.page_response_categories import PageResponseCategories
 from pluggy_sdk.rest import ApiException
 from pprint import pprint
 
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[Category]**](Category.md)
+[**PageResponseCategories**](PageResponseCategories.md)
 
 ### Authorization
 

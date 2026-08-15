@@ -46,6 +46,7 @@ class Connector(BaseModel):
     reset_password_url: Optional[StrictStr] = Field(default=None, description="URL to the financial institution to reset the password", alias="resetPasswordUrl")
     health: Optional[ConnectorHealth] = None
     is_open_finance: Optional[StrictBool] = Field(default=None, description="Indicates if the connector uses the regulated Open Finance APIs", alias="isOpenFinance")
+    is_sandbox: Optional[StrictBool] = Field(default=None, description="Indicates if the connector is a sandbox connector, meant for testing rather than a real institution", alias="isSandbox")
     supports_payment_initiation: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports the payment initiation API", alias="supportsPaymentInitiation")
     supports_scheduled_payments: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports scheduled payments", alias="supportsScheduledPayments")
     supports_smart_transfers: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports smart transfers", alias="supportsSmartTransfers")
@@ -53,7 +54,7 @@ class Connector(BaseModel):
     supports_automatic_pix: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports automatic Pix", alias="supportsAutomaticPix")
     created_at: Optional[datetime] = Field(default=None, description="Date of creation", alias="createdAt")
     updated_at: Optional[datetime] = Field(default=None, description="Date of last modification", alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["id", "name", "institutionUrl", "imageUrl", "primaryColor", "type", "country", "credentials", "hasMFA", "products", "oauth", "oauthUrl", "resetPasswordUrl", "health", "isOpenFinance", "supportsPaymentInitiation", "supportsScheduledPayments", "supportsSmartTransfers", "supportsBoletoManagement", "supportsAutomaticPix", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "name", "institutionUrl", "imageUrl", "primaryColor", "type", "country", "credentials", "hasMFA", "products", "oauth", "oauthUrl", "resetPasswordUrl", "health", "isOpenFinance", "isSandbox", "supportsPaymentInitiation", "supportsScheduledPayments", "supportsSmartTransfers", "supportsBoletoManagement", "supportsAutomaticPix", "createdAt", "updatedAt"]
 
     @field_validator('products')
     def products_validate_enum(cls, value):
@@ -141,6 +142,7 @@ class Connector(BaseModel):
             "resetPasswordUrl": obj.get("resetPasswordUrl"),
             "health": ConnectorHealth.from_dict(obj["health"]) if obj.get("health") is not None else None,
             "isOpenFinance": obj.get("isOpenFinance"),
+            "isSandbox": obj.get("isSandbox"),
             "supportsPaymentInitiation": obj.get("supportsPaymentInitiation"),
             "supportsScheduledPayments": obj.get("supportsScheduledPayments"),
             "supportsSmartTransfers": obj.get("supportsSmartTransfers"),

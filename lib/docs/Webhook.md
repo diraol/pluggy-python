@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **disabled_at** | **datetime** | Date when the webhook was disabled | [optional] 
 **created_at** | **datetime** | Date when it was created | [optional] 
 **updated_at** | **datetime** | Date of the last update | [optional] 
+**headers** | **Dict[str, str]** | Custom headers sent with each webhook delivery. Always present; an empty object when none are configured | 
 
 ## Example
 

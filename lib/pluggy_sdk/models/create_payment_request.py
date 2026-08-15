@@ -21,7 +21,6 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
-from pluggy_sdk.models.create_payment_request_schedule import CreatePaymentRequestSchedule
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
 from typing import Optional, Set
 from typing_extensions import Self
@@ -37,7 +36,7 @@ class CreatePaymentRequest(BaseModel):
     recipient_id: Optional[UUID] = Field(default=None, description="Payment receiver identifier", alias="recipientId")
     customer_id: Optional[UUID] = Field(default=None, description="Customer identifier associated to the payment", alias="customerId")
     client_payment_id: Optional[StrictStr] = Field(default=None, description="Your payment identifier", alias="clientPaymentId")
-    schedule: Optional[CreatePaymentRequestSchedule] = None
+    schedule: Optional[StrictStr] = None
     is_sandbox: Optional[StrictBool] = Field(default=False, description="Indicates if this payment request should be created in sandbox mode. Default: false.", alias="isSandbox")
     __properties: ClassVar[List[str]] = ["amount", "description", "callbackUrls", "recipientId", "customerId", "clientPaymentId", "schedule", "isSandbox"]
 
@@ -83,13 +82,15 @@ class CreatePaymentRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of callback_urls
         if self.callback_urls:
             _dict['callbackUrls'] = self.callback_urls.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of schedule
-        if self.schedule:
-            _dict['schedule'] = self.schedule.to_dict()
         # set to None if callback_urls (nullable) is None
         # and model_fields_set contains the field
         if self.callback_urls is None and "callback_urls" in self.model_fields_set:
             _dict['callbackUrls'] = None
+
+        # set to None if schedule (nullable) is None
+        # and model_fields_set contains the field
+        if self.schedule is None and "schedule" in self.model_fields_set:
+            _dict['schedule'] = None
 
         return _dict
 
@@ -109,7 +110,7 @@ class CreatePaymentRequest(BaseModel):
             "recipientId": obj.get("recipientId"),
             "customerId": obj.get("customerId"),
             "clientPaymentId": obj.get("clientPaymentId"),
-            "schedule": CreatePaymentRequestSchedule.from_dict(obj["schedule"]) if obj.get("schedule") is not None else None,
+            "schedule": obj.get("schedule"),
             "isSandbox": obj.get("isSandbox") if obj.get("isSandbox") is not None else False
         })
         return _obj

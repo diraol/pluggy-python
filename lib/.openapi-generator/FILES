@@ -71,7 +71,6 @@ docs/CreatePaymentCustomerRequestBody.md
 docs/CreatePaymentIntent.md
 docs/CreatePaymentRecipient.md
 docs/CreatePaymentRequest.md
-docs/CreatePaymentRequestSchedule.md
 docs/CreatePixQrPaymentRequest.md
 docs/CreateSmartTransferPayment.md
 docs/CreateSmartTransferPreauthorization.md
@@ -105,6 +104,7 @@ docs/InvestmentApi.md
 docs/InvestmentCouponPayment.md
 docs/InvestmentDebtor.md
 docs/InvestmentExpenses.md
+docs/InvestmentInstitution.md
 docs/InvestmentMetadata.md
 docs/InvestmentTransaction.md
 docs/InvestmentsList200Response.md
@@ -142,6 +142,7 @@ docs/NationalityDocument.md
 docs/NationalityOtherNationalitiesInner.md
 docs/NotAuthenticatedResponse.md
 docs/OtherDocument.md
+docs/PageResponseCategories.md
 docs/PageResponseCategoryRules.md
 docs/PageResponseConsents.md
 docs/PageResponseInvestmentTransactions.md
@@ -311,7 +312,6 @@ pluggy_sdk/models/create_payment_customer_request_body.py
 pluggy_sdk/models/create_payment_intent.py
 pluggy_sdk/models/create_payment_recipient.py
 pluggy_sdk/models/create_payment_request.py
-pluggy_sdk/models/create_payment_request_schedule.py
 pluggy_sdk/models/create_pix_qr_payment_request.py
 pluggy_sdk/models/create_smart_transfer_payment.py
 pluggy_sdk/models/create_smart_transfer_preauthorization.py
@@ -344,6 +344,7 @@ pluggy_sdk/models/investment.py
 pluggy_sdk/models/investment_coupon_payment.py
 pluggy_sdk/models/investment_debtor.py
 pluggy_sdk/models/investment_expenses.py
+pluggy_sdk/models/investment_institution.py
 pluggy_sdk/models/investment_metadata.py
 pluggy_sdk/models/investment_transaction.py
 pluggy_sdk/models/investments_list200_response.py
@@ -378,6 +379,7 @@ pluggy_sdk/models/nationality_document.py
 pluggy_sdk/models/nationality_other_nationalities_inner.py
 pluggy_sdk/models/not_authenticated_response.py
 pluggy_sdk/models/other_document.py
+pluggy_sdk/models/page_response_categories.py
 pluggy_sdk/models/page_response_category_rules.py
 pluggy_sdk/models/page_response_consents.py
 pluggy_sdk/models/page_response_investment_transactions.py
@@ -459,4 +461,6 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_investment_institution.py
+test/test_page_response_categories.py
 tox.ini
