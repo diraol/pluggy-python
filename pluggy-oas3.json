@@ -1416,6 +1416,8 @@
                       "results": [
                         {
                           "id": "a658c848-e475-457b-8565-d1fffba127c4",
+                          "createdAt": "2020-06-24T21:29:40.300Z",
+                          "updatedAt": "2020-06-24T21:29:40.300Z",
                           "type": "BANK",
                           "subtype": "CHECKING_ACCOUNT",
                           "number": "0001/12345-0",
@@ -1538,6 +1540,8 @@
                   "bank": {
                     "value": {
                       "id": "a658c848-e475-457b-8565-d1fffba127c4",
+                      "createdAt": "2020-06-24T21:29:40.300Z",
+                      "updatedAt": "2020-06-24T21:29:40.300Z",
                       "type": "BANK",
                       "subtype": "CHECKING_ACCOUNT",
                       "number": "0001/12345-0",
@@ -1808,6 +1812,14 @@
                       "type": "number",
                       "description": "The available balance of the account, same as balance in the account resource."
                     },
+                    "blockedBalance": {
+                      "type": "number",
+                      "description": "Amount currently blocked or held on the account. Only present when the institution reports it."
+                    },
+                    "automaticallyInvestedBalance": {
+                      "type": "number",
+                      "description": "Amount held in the account's automatic investment facility. Only present when the institution reports it."
+                    },
                     "currencyCode": {
                       "type": "string",
                       "description": "The currency code of the balance amounts"
@@ -1978,6 +1990,8 @@
                       "results": [
                         {
                           "id": "a8534c85-53ce-4f21-94d7-50e9d2ee4957",
+                          "createdAt": "2020-06-24T21:29:40.300Z",
+                          "updatedAt": "2020-06-24T21:29:40.300Z",
                           "description": "* PROV * COMPRA TESOURO DIRETO CLIENTES",
                           "descriptionRaw": "* PROV * COMPRA TESOURO DIRETO CLIENTES",
                           "currencyCode": "BRL",
@@ -2315,6 +2329,8 @@
                       "results": [
                         {
                           "id": "a8534c85-53ce-4f21-94d7-50e9d2ee4957",
+                          "createdAt": "2020-06-24T21:29:40.300Z",
+                          "updatedAt": "2020-06-24T21:29:40.300Z",
                           "description": "* PROV * COMPRA TESOURO DIRETO CLIENTES",
                           "descriptionRaw": "* PROV * COMPRA TESOURO DIRETO CLIENTES",
                           "currencyCode": "BRL",
@@ -2450,7 +2466,7 @@
             "example": "2020-10-13T03:00:00.000Z"
           },
           {
-            "description": "Cursor for the next page of results. Obtained from the 'next' field of a previous response.",
+            "description": "Cursor for the next page of results. To paginate, append the previous response's 'next' value to the endpoint path as the full query string (GET /v2/transactions{next}). If building the request manually, send here only the URL-decoded 'after' value contained in 'next' — never the whole 'next' string.",
             "in": "query",
             "name": "after",
             "required": false,
@@ -2708,6 +2724,7 @@
                           "status": "ACTIVE",
                           "transactions": [
                             {
+                              "id": "b5e0f0b1-8a2c-4f4a-9d21-8f0f1e1a2b3c",
                               "tradeDate": "2020-10-01T00:00:00.000Z",
                               "date": "2020-10-01T00:00:00.000Z",
                               "description": "Aplicação Fondo de Investimento Premium",
@@ -3042,6 +3059,7 @@
                 },
                 "example": {
                   "id": "42888436-62f5-49d2-8cf9-e312c7939509",
+                  "itemId": "a0d4d1b0-1d1e-4f1a-9a1e-0f1c2d3e4f5a",
                   "fullName": "Francisco Sousa",
                   "companyName": "Pluggy Inc.",
                   "document": "076.630.975-48",
@@ -3185,6 +3203,7 @@
                 },
                 "example": {
                   "id": "42888436-62f5-49d2-8cf9-e312c7939509",
+                  "itemId": "a0d4d1b0-1d1e-4f1a-9a1e-0f1c2d3e4f5a",
                   "fullName": "Francisco Sousa",
                   "companyName": "Pluggy Inc.",
                   "document": "076.630.975-48",
@@ -3363,7 +3382,10 @@
                           "url": "https://www.myapi.com/notifications",
                           "disabledAt": "2020-06-24T21:29:40.300Z",
                           "createdAt": "2020-06-24T21:29:40.300Z",
-                          "updatedAt": "2020-06-24T21:29:40.300Z"
+                          "updatedAt": "2020-06-24T21:29:40.300Z",
+                          "headers": {
+                            "X-Signature": "my-secret"
+                          }
                         },
                         {
                           "id": "207f5bcd-312a-439c-abbe-166b6632c980",
@@ -3371,7 +3393,8 @@
                           "url": "https://www.myapi.com/notifications",
                           "disabledAt": null,
                           "createdAt": "2020-06-24T21:29:40.300Z",
-                          "updatedAt": "2020-06-24T21:29:40.300Z"
+                          "updatedAt": "2020-06-24T21:29:40.300Z",
+                          "headers": {}
                         }
                       ]
                     }
@@ -3870,10 +3893,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Category"
-                  }
+                  "$ref": "#/components/schemas/PageResponseCategories"
                 },
                 "example": {
                   "page": 1,
@@ -4222,6 +4242,7 @@
                       "results": [
                         {
                           "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "kind": "LOAN",
                           "itemId": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
                           "contractNumber": "000000721792794",
                           "ipocCode": "92792126019929279212650822221989319252576",
@@ -4270,8 +4291,8 @@
                           "contractedFinanceCharges": [
                             {
                               "type": "JUROS_REMUNERATORIOS_POR_ATRASO",
-                              "chargeAdditionalInfo": "",
-                              "chargeRate": 0.07
+                              "additionalInfo": "",
+                              "rate": 0.07
                             }
                           ],
                           "warranties": [
@@ -4376,6 +4397,7 @@
                   "response": {
                     "value": {
                       "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                      "kind": "LOAN",
                       "itemId": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
                       "contractNumber": "000000721792794",
                       "ipocCode": "92792126019929279212650822221989319252576",
@@ -4424,8 +4446,8 @@
                       "contractedFinanceCharges": [
                         {
                           "type": "JUROS_REMUNERATORIOS_POR_ATRASO",
-                          "chargeAdditionalInfo": "",
-                          "chargeRate": 0.07
+                          "additionalInfo": "",
+                          "rate": 0.07
                         }
                       ],
                       "warranties": [
@@ -4668,6 +4690,16 @@
                               "currencyCode": "BRL",
                               "additionalInfo": "NA"
                             }
+                          ],
+                          "payments": [
+                            {
+                              "id": "9f1c7b2e-5d3a-4c8b-a1e2-6f7d8c9b0a1b",
+                              "valueType": "FULL_PAYMENT",
+                              "paymentDate": "2023-07-20T00:00:00",
+                              "paymentMode": "DEBIT_ACCOUNT",
+                              "amount": 50000,
+                              "currencyCode": "BRL"
+                            }
                           ]
                         }
                       ]
@@ -4717,7 +4749,6 @@
                   "response": {
                     "value": {
                       "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                      "accountId": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
                       "dueDate": "2023-07-20T00:00:00",
                       "billClosingDate": "2023-07-13T00:00:00",
                       "totalAmount": 50000,
@@ -4727,11 +4758,20 @@
                       "financeCharges": [
                         {
                           "id": "123456bf-c196-47ea-a28c-8251d6bb8777",
-                          "creditCardBillId": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
                           "type": "IOF",
                           "amount": 20.51,
                           "currencyCode": "BRL",
                           "additionalInfo": "NA"
+                        }
+                      ],
+                      "payments": [
+                        {
+                          "id": "9f1c7b2e-5d3a-4c8b-a1e2-6f7d8c9b0a1b",
+                          "valueType": "FULL_PAYMENT",
+                          "paymentDate": "2023-07-20T00:00:00",
+                          "paymentMode": "DEBIT_ACCOUNT",
+                          "amount": 50000,
+                          "currencyCode": "BRL"
                         }
                       ]
                     }
@@ -4826,6 +4866,7 @@
                       "results": [
                         {
                           "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+                          "type": "INDIVIDUAL",
                           "name": "Marco Silva",
                           "email": "msilva@pluggy.ai",
                           "createdAt": "2023-11-06T13:03:45.689Z",
@@ -5909,6 +5950,7 @@
                   "response": {
                     "value": {
                       "id": "66d503f1-0cfa-4d64-9f87-0782d959eba7",
+                      "recipientId": "3b8f2f2a-0f6e-4a6a-9d8f-7c2e1b4a5d6e",
                       "status": "SCHEDULED",
                       "amount": 0.01,
                       "description": "Teste pagamento schedule",
@@ -5916,8 +5958,7 @@
                       "date": "2025-06-08",
                       "errorDetail": null,
                       "clientPaymentId": "external-ref-456",
-                      "isFirstPayment": false,
-                      "isSandbox": false
+                      "isFirstPayment": false
                     }
                   }
                 }
@@ -5946,8 +5987,7 @@
                     "amount": 100.5,
                     "date": "2025-06-10",
                     "description": "Transferência",
-                    "clientPaymentId": "external-ref-456",
-                    "isSandbox": false
+                    "clientPaymentId": "external-ref-456"
                   }
                 }
               }
@@ -6015,6 +6055,7 @@
                       "results": [
                         {
                           "id": "66d503f1-0cfa-4d64-9f87-0782d959eba7",
+                          "recipientId": "3b8f2f2a-0f6e-4a6a-9d8f-7c2e1b4a5d6e",
                           "status": "SCHEDULED",
                           "amount": 0.01,
                           "description": "Teste pagamento schedule",
@@ -6022,8 +6063,7 @@
                           "date": "2025-06-08",
                           "errorDetail": null,
                           "clientPaymentId": "external-ref-456",
-                          "isFirstPayment": false,
-                          "isSandbox": false
+                          "isFirstPayment": false
                         }
                       ]
                     }
@@ -6082,8 +6122,7 @@
                       "errorDetail": null,
                       "clientPaymentId": "external-ref-456",
                       "isFirstPayment": false,
-                      "scheduledStatusReached": false,
-                      "isSandbox": false
+                      "scheduledStatusReached": false
                     }
                   }
                 }
@@ -6451,7 +6490,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreatePaymentRequest"
+                  "$ref": "#/components/schemas/PaymentRequest"
                 },
                 "examples": {
                   "response": {
@@ -6568,8 +6607,7 @@
                             "code": "INSUFFICIENT_BALANCE",
                             "description": "The account doesn't have enough balance to perform the payment.",
                             "detail": "A conta selecionada não possui saldo suficiente para realizar o pagamento."
-                          },
-                          "isSandbox": false
+                          }
                         },
                         {
                           "id": "05c693bf-c196-47ea-a28c-8251d6bb8a05",
@@ -6577,16 +6615,14 @@
                           "description": "PAGAMENTO AGENDADO 2/3",
                           "status": "COMPLETED",
                           "errorDetail": null,
-                          "endToEndId": "E44471172202505141500U29c6ff88e3",
-                          "isSandbox": false
+                          "endToEndId": "E44471172202505141500U29c6ff88e3"
                         },
                         {
                           "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
                           "scheduledDate": "2024-07-04",
                           "description": "PAGAMENTO AGENDADO 3/3",
                           "status": "SCHEDULED",
-                          "errorDetail": null,
-                          "isSandbox": false
+                          "errorDetail": null
                         }
                       ]
                     }
@@ -7037,6 +7073,8 @@
                       "results": [
                         {
                           "id": "db97ad98-5b8f-4027-a248-6e112a73ced8",
+                          "createdAt": "2020-06-24T21:29:40.300Z",
+                          "updatedAt": "2020-06-24T21:29:40.300Z",
                           "status": "CREATED",
                           "consentUrl": "https://consenturl.com",
                           "clientPreauthorizationId": null,
@@ -7110,8 +7148,7 @@
                             "supportsSmartTransfers": true,
                             "supportsBoletoManagement": true,
                             "supportsAutomaticPix": true
-                          },
-                          "isSandbox": false
+                          }
                         }
                       ]
                     }
@@ -8276,13 +8313,27 @@
               "$ref": "#/components/schemas/CredentialSelectOption"
             },
             "description": "List of possible values for the input"
+          },
+          "optional": {
+            "type": "boolean",
+            "description": "Whether the credential can be left empty. Always present; defaults to false"
+          },
+          "instructions": {
+            "type": "string",
+            "description": "Instructions to help the user obtain this credential"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration date of the credential value, when the institution sets one"
           }
         },
         "type": "object",
         "required": [
           "name",
           "label",
-          "type"
+          "type",
+          "optional"
         ]
       },
       "ConnectorUserAction": {
@@ -8300,11 +8351,20 @@
             "type": "string",
             "format": "date-time",
             "description": "User action expiration date"
+          },
+          "type": {
+            "enum": [
+              "qr",
+              "authorize-access"
+            ],
+            "type": "string",
+            "description": "Kind of action the user has to take: scan a QR code, or authorize access in the institution's app"
           }
         },
         "type": "object",
         "required": [
-          "instructions"
+          "instructions",
+          "type"
         ]
       },
       "Connector": {
@@ -8387,6 +8447,10 @@
           "isOpenFinance": {
             "type": "boolean",
             "description": "Indicates if the connector uses the regulated Open Finance APIs"
+          },
+          "isSandbox": {
+            "type": "boolean",
+            "description": "Indicates if the connector is a sandbox connector, meant for testing rather than a real institution"
           },
           "supportsPaymentInitiation": {
             "type": "boolean",
@@ -9035,13 +9099,21 @@
             "type": "string",
             "format": "date-time",
             "description": "Date of the last update"
+          },
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Custom headers sent with each webhook delivery. Always present; an empty object when none are configured"
           }
         },
         "type": "object",
         "required": [
           "id",
           "url",
-          "event"
+          "event",
+          "headers"
         ]
       },
       "CreateWebhook": {
@@ -9288,6 +9360,10 @@
           "cnae": {
             "type": "string",
             "description": "Economic activity classification number related to the merchant"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category derived from the merchant's CNAE, when one can be resolved"
           }
         },
         "type": "object"
@@ -9597,7 +9673,7 @@
               "string",
               "null"
             ],
-            "description": "Query string for the next page of results. Null if there are no more results."
+            "description": "Ready-to-use query string for the next page: append it as-is to the endpoint path (GET /v2/transactions{next}). Null if there are no more results."
           }
         },
         "type": "object",
@@ -9807,6 +9883,30 @@
         },
         "type": "object"
       },
+      "InvestmentInstitution": {
+        "description": "Financial institution holding the investment",
+        "properties": {
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Full name of the institution"
+          },
+          "number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Identifier of the institution (CNPJ or other)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "number"
+        ]
+      },
       "InvestmentTransaction": {
         "description": "Movement of the investment",
         "properties": {
@@ -9908,6 +10008,28 @@
                 "type": "null"
               }
             ]
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Description of the transaction as reported by the institution"
+          },
+          "netAmount": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "format": "double",
+            "description": "Amount of the operation after expenses and taxes"
+          },
+          "brokerageNumber": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Brokerage note number the transaction belongs to"
           }
         },
         "type": "object",
@@ -9951,7 +10073,41 @@
           "totalPages"
         ]
       },
-      "PageResponseCategoryRules": {
+      "PageResponseCategories": {
+      "description": "Paginated list of transaction categories",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "description": "Categories for the current page"
+        },
+        "page": {
+          "type": "number",
+          "format": "double",
+          "description": ""
+        },
+        "total": {
+          "type": "number",
+          "format": "double",
+          "description": ""
+        },
+        "totalPages": {
+          "type": "number",
+          "format": "double",
+          "description": ""
+        }
+      },
+      "type": "object",
+      "required": [
+        "results",
+        "page",
+        "total",
+        "totalPages"
+      ]
+    },
+    "PageResponseCategoryRules": {
         "description": "",
         "properties": {
           "results": {
@@ -10042,405 +10198,436 @@
         "type": "object"
       },
       "Investment": {
-        "description": "Investment representing a specific asset",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Primary identifier"
-          },
-          "itemId": {
-            "type": "string",
-            "description": "Identifier of the item linked to the investment",
-            "format": "uuid"
-          },
-          "type": {
-            "enum": [
-              "COE",
-              "EQUITY",
-              "ETF",
-              "FIXED_INCOME",
-              "MUTUAL_FUND",
-              "SECURITY",
-              "OTHER"
-            ],
-            "type": "string",
-            "description": "Investment asset class.\n- `MUTUAL_FUND`: actively managed pooled investment funds (FIM, FIA, FIC).\n- `EQUITY`: stocks and equity-like assets traded on a stock exchange.\n- `ETF`: Exchange Traded Funds.\n- `FIXED_INCOME`: fixed income products such as CDB, LCI, LCA, debentures, Tesouro Direto.\n- `COE`: Certificado de Operações Estruturadas (structured notes).\n- `SECURITY`: private pension / previdência products (PGBL, VGBL).\n- `OTHER`: any asset not covered by the categories above."
-          },
-          "subtype": {
-            "enum": [
-              "STRUCTURED_NOTE",
-              "STOCK",
-              "ETF",
-              "REAL_ESTATE_FUND",
-              "BDR",
-              "DERIVATIVES",
-              "OPTION",
-              "TREASURY",
-              "LCI",
-              "LCA",
-              "LF",
-              "CDB",
-              "CRI",
-              "CRA",
-              "CORPORATE_DEBT",
-              "LC",
-              "DEBENTURES",
-              "INVESTMENT_FUND",
-              "MULTIMARKET_FUND",
-              "FIXED_INCOME_FUND",
-              "STOCK_FUND",
-              "ETF_FUND",
-              "OFFSHORE_FUND",
-              "FIP_FUND",
-              "EXCHANGE_FUND",
-              "FI_INFRA",
-              "FI_AGRO",
-              "RETIREMENT",
-              "OTHER",
-              null
-            ],
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Specific instrument within a `type`. Possible groupings:\n\n**EQUITY**: `STOCK` (ação), `BDR` (Brazilian Depositary Receipt), `REAL_ESTATE_FUND` (FII), `DERIVATIVES`, `OPTION`.\n\n**ETF**: `ETF`.\n\n**FIXED_INCOME**: `TREASURY` (Tesouro Direto), `CDB`, `LCI`, `LCA`, `LC`, `LF`, `CRI`, `CRA`, `DEBENTURES`, `CORPORATE_DEBT`.\n\n**MUTUAL_FUND**: `INVESTMENT_FUND`, `MULTIMARKET_FUND`, `FIXED_INCOME_FUND`, `STOCK_FUND`, `ETF_FUND`, `OFFSHORE_FUND`, `FIP_FUND`, `EXCHANGE_FUND`, `FI_INFRA`, `FI_AGRO`.\n\n**COE**: `STRUCTURED_NOTE`.\n\n**SECURITY**: `RETIREMENT` (PGBL/VGBL).\n\n**OTHER**: `OTHER`."
-          },
-          "number": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Reference number for this holder's asset"
-          },
-          "balance": {
-            "type": "number",
-            "format": "double",
-            "description": "The current net balance amount of the investment"
-          },
-          "name": {
-            "type": "string",
-            "description": "Name on the provider"
-          },
-          "lastMonthRate": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "The performance rate of the investment in the last month"
-          },
-          "lastTwelveMonthsRate": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "The performance rate of the investment in the last 12 months"
-          },
-          "annualRate": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "The performance rate of the investment in the last year"
-          },
-          "currencyCode": {
-            "type": "string",
-            "description": "Currency ISO code for the amounts"
-          },
-          "code": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Associated Code for the investment. For example, the code for a mutual fund is the CNPJ"
-          },
-          "isin": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "12-character ISIN, a globally unique identifier"
-          },
-          "value": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "Quota's current value at \"date\""
-          },
-          "quantity": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "Quantity of quota at disposal"
-          },
-          "amount": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "Gross amount of the investment"
-          },
-          "taxes": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "Income taxes applied to the investment"
-          },
-          "taxes2": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "Financial taxes applied to the investment"
-          },
-          "date": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Value's quota date"
-          },
-          "owner": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Owner/beneficiary associated with the investment"
-          },
-          "amountProfit": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "Profit/Loss to date over the investment"
-          },
-          "amountWithdrawal": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "The amount available to withdraw"
-          },
-          "amountOriginal": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "Amount originally invested"
-          },
-          "metadata": {
-            "description": "Security Portability details",
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/InvestmentMetadata"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "dueDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date-time",
-            "description": "Expiration Date"
-          },
-          "issuer": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The entity that issued the investment"
-          },
-          "issuerCNPJ": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The entity CNPJ that issued the investment"
-          },
-          "issueDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date-time",
-            "description": "The date that the investment was issued"
-          },
-          "purchaseDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date-time",
-            "description": "The date that the investment was purchased"
-          },
-          "gracePeriodDate": {
-            "type": ["string", "null"],
-            "format": "date-time",
-            "description": "The date when the grace period ends (fixed-income investments only)"
-          },
-          "rate": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "Fixed rate percentage applied to the investment"
-          },
-          "rateType": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Type of fixed-rate"
-          },
-          "fixedAnnualRate": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "Fixed income annual rate"
-          },
-          "taxExempt": {
-            "type": [
-              "boolean",
-              "null"
-            ],
-            "description": "Whether the product is tax-exempt (LCI, LCA, CRI, CRA, debêntures incentivadas)"
-          },
-          "ratePeriodicity": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Periodicity of the remuneration rate (DAILY, MONTHLY, SEMESTERLY, YEARLY)"
-          },
-          "indexerAdditionalInfo": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Free-text indexer description when the indexer is non-standard"
-          },
-          "priceFactor": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "format": "double",
-            "description": "B3 lot/price conversion factor (variable income)"
-          },
-          "debtor": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "description": "Underlying debtor of receivables-backed paper (CRI / CRA)",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "Name of the underlying debtor"
-              }
-            }
-          },
-          "couponPayment": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "description": "Coupon-payment schedule for coupon-bearing fixed income / Treasury bonds",
-            "properties": {
-              "hasCoupon": {
-                "type": "boolean",
-                "description": "Whether the paper pays periodic coupons"
-              },
-              "periodicity": {
-                "type": "string",
-                "description": "Frequency of coupon payments (MONTHLY, QUARTERLY, SEMESTERLY, YEARLY, IRREGULAR)"
-              },
-              "additionalInfo": {
-                "type": "string",
-                "description": "Free-text detail when periodicity is IRREGULAR"
-              }
-            }
-          },
-          "status": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Current lifecycle status of the investment.\n- `ACTIVE`: the investment is open and currently held by the owner.\n- `PENDING`: the operation has been requested but is not yet settled (e.g. a fund subscription within the settlement window).\n- `TOTAL_WITHDRAWAL`: the position has been fully redeemed/withdrawn; balance is zero.",
-            "enum": [
-              "ACTIVE",
-              "PENDING",
-              "TOTAL_WITHDRAWAL",
-              null
-            ]
-          }
+      "description": "Investment representing a specific asset",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Primary identifier"
         },
-        "type": "object",
-        "required": [
-          "id",
-          "itemId",
-          "type",
-          "balance",
-          "name",
-          "currencyCode",
-          "date"
-        ],
-        "example": {
-          "id": "f77eccf4-7714-498e-92a9-1bebe70335d9",
-          "code": "12.345.678/0001-00",
-          "name": "Bahia AM Advisory FIC de FIM",
-          "balance": 1359.39,
-          "currencyCode": "BRL",
-          "type": "MUTUAL_FUND",
-          "subtype": "MULTIMARKET_FUND",
-          "lastMonthRate": 0.24,
-          "annualRate": 3.24,
-          "lastTwelveMonthsRate": 3,
-          "itemId": "207f5bcd-312a-439c-abbe-166b6632c980",
-          "value": 500,
-          "quantity": 3,
-          "amount": 1500,
-          "taxes": 40.61,
-          "taxes2": 100,
-          "date": "2020-07-19T18:27:41.802Z",
-          "owner": "John Doe",
-          "number": null,
-          "amountProfit": 310.5,
-          "amountWithdrawal": 1310.5,
-          "amountOriginal": 1000,
-          "status": "ACTIVE",
-          "transactions": [
+        "itemId": {
+          "type": "string",
+          "description": "Identifier of the item linked to the investment",
+          "format": "uuid"
+        },
+        "type": {
+          "enum": [
+            "COE",
+            "EQUITY",
+            "ETF",
+            "FIXED_INCOME",
+            "MUTUAL_FUND",
+            "SECURITY",
+            "OTHER"
+          ],
+          "type": "string",
+          "description": "Investment asset class.\n- `MUTUAL_FUND`: actively managed pooled investment funds (FIM, FIA, FIC).\n- `EQUITY`: stocks and equity-like assets traded on a stock exchange.\n- `ETF`: Exchange Traded Funds.\n- `FIXED_INCOME`: fixed income products such as CDB, LCI, LCA, debentures, Tesouro Direto.\n- `COE`: Certificado de Operações Estruturadas (structured notes).\n- `SECURITY`: private pension / previdência products (PGBL, VGBL).\n- `OTHER`: any asset not covered by the categories above."
+        },
+        "subtype": {
+          "enum": [
+            "STRUCTURED_NOTE",
+            "STOCK",
+            "ETF",
+            "REAL_ESTATE_FUND",
+            "BDR",
+            "DERIVATIVES",
+            "OPTION",
+            "TREASURY",
+            "LCI",
+            "LCA",
+            "LF",
+            "CDB",
+            "CRI",
+            "CRA",
+            "CORPORATE_DEBT",
+            "LC",
+            "DEBENTURES",
+            "INVESTMENT_FUND",
+            "MULTIMARKET_FUND",
+            "FIXED_INCOME_FUND",
+            "STOCK_FUND",
+            "ETF_FUND",
+            "OFFSHORE_FUND",
+            "FIP_FUND",
+            "EXCHANGE_FUND",
+            "FI_INFRA",
+            "FI_AGRO",
+            "RETIREMENT",
+            "OTHER",
+            null
+          ],
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Specific instrument within a `type`. Possible groupings:\n\n**EQUITY**: `STOCK` (ação), `BDR` (Brazilian Depositary Receipt), `REAL_ESTATE_FUND` (FII), `DERIVATIVES`, `OPTION`.\n\n**ETF**: `ETF`.\n\n**FIXED_INCOME**: `TREASURY` (Tesouro Direto), `CDB`, `LCI`, `LCA`, `LC`, `LF`, `CRI`, `CRA`, `DEBENTURES`, `CORPORATE_DEBT`.\n\n**MUTUAL_FUND**: `INVESTMENT_FUND`, `MULTIMARKET_FUND`, `FIXED_INCOME_FUND`, `STOCK_FUND`, `ETF_FUND`, `OFFSHORE_FUND`, `FIP_FUND`, `EXCHANGE_FUND`, `FI_INFRA`, `FI_AGRO`.\n\n**COE**: `STRUCTURED_NOTE`.\n\n**SECURITY**: `RETIREMENT` (PGBL/VGBL).\n\n**OTHER**: `OTHER`."
+        },
+        "number": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Reference number for this holder's asset"
+        },
+        "balance": {
+          "type": "number",
+          "format": "double",
+          "description": "The current net balance amount of the investment"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name on the provider"
+        },
+        "lastMonthRate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "The performance rate of the investment in the last month"
+        },
+        "lastTwelveMonthsRate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "The performance rate of the investment in the last 12 months"
+        },
+        "annualRate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "The performance rate of the investment in the last year"
+        },
+        "currencyCode": {
+          "type": "string",
+          "description": "Currency ISO code for the amounts"
+        },
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Associated Code for the investment. For example, the code for a mutual fund is the CNPJ"
+        },
+        "isin": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "12-character ISIN, a globally unique identifier"
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "Quota's current value at \"date\""
+        },
+        "quantity": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "Quantity of quota at disposal"
+        },
+        "amount": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "Gross amount of the investment"
+        },
+        "taxes": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "Income taxes applied to the investment"
+        },
+        "taxes2": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "Financial taxes applied to the investment"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Value's quota date"
+        },
+        "owner": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Owner/beneficiary associated with the investment"
+        },
+        "amountProfit": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "Profit/Loss to date over the investment"
+        },
+        "amountWithdrawal": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "The amount available to withdraw"
+        },
+        "amountOriginal": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "Amount originally invested"
+        },
+        "metadata": {
+          "description": "Security Portability details",
+          "anyOf": [
             {
-              "tradeDate": "2020-10-01T00:00:00.000Z",
-              "date": "2020-10-01T00:00:00.000Z",
-              "description": "Aplicação Fondo de Investimento Premium",
-              "quantity": 1.25,
-              "value": 2,
-              "amount": 5,
-              "type": "BUY",
-              "movementType": "CREDIT"
+              "$ref": "#/components/schemas/InvestmentMetadata"
+            },
+            {
+              "type": "null"
             }
           ]
+        },
+        "dueDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "Expiration Date"
+        },
+        "issuer": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The entity that issued the investment"
+        },
+        "issuerCNPJ": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The entity CNPJ that issued the investment"
+        },
+        "issueDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "The date that the investment was issued"
+        },
+        "purchaseDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "The date that the investment was purchased"
+        },
+        "gracePeriodDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "The date when the grace period ends (fixed-income investments only)"
+        },
+        "rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "Fixed rate percentage applied to the investment"
+        },
+        "rateType": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Type of fixed-rate"
+        },
+        "fixedAnnualRate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "Fixed income annual rate"
+        },
+        "taxExempt": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Whether the product is tax-exempt (LCI, LCA, CRI, CRA, debêntures incentivadas)"
+        },
+        "ratePeriodicity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Periodicity of the remuneration rate (DAILY, MONTHLY, SEMESTERLY, YEARLY)"
+        },
+        "indexerAdditionalInfo": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Free-text indexer description when the indexer is non-standard"
+        },
+        "priceFactor": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double",
+          "description": "B3 lot/price conversion factor (variable income)"
+        },
+        "debtor": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Underlying debtor of receivables-backed paper (CRI / CRA)",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the underlying debtor"
+            }
+          }
+        },
+        "couponPayment": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Coupon-payment schedule for coupon-bearing fixed income / Treasury bonds",
+          "properties": {
+            "hasCoupon": {
+              "type": "boolean",
+              "description": "Whether the paper pays periodic coupons"
+            },
+            "periodicity": {
+              "type": "string",
+              "description": "Frequency of coupon payments (MONTHLY, QUARTERLY, SEMESTERLY, YEARLY, IRREGULAR)"
+            },
+            "additionalInfo": {
+              "type": "string",
+              "description": "Free-text detail when periodicity is IRREGULAR"
+            }
+          }
+        },
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Current lifecycle status of the investment.\n- `ACTIVE`: the investment is open and currently held by the owner.\n- `PENDING`: the operation has been requested but is not yet settled (e.g. a fund subscription within the settlement window).\n- `TOTAL_WITHDRAWAL`: the position has been fully redeemed/withdrawn; balance is zero.",
+          "enum": [
+            "ACTIVE",
+            "PENDING",
+            "TOTAL_WITHDRAWAL",
+            null
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date when the investment was first ingested by Pluggy."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of the last update of the investment data."
+        },
+        "institution": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/InvestmentInstitution"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Financial institution holding the investment."
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/InvestmentTransaction"
+          },
+          "description": "Movements of the investment. Only present on endpoints that return transactions inline; use `GET /investments/{id}/transactions` otherwise."
         }
       },
+      "type": "object",
+      "required": [
+        "id",
+        "itemId",
+        "type",
+        "balance",
+        "name",
+        "currencyCode",
+        "date"
+      ],
+      "example": {
+        "id": "f77eccf4-7714-498e-92a9-1bebe70335d9",
+        "code": "12.345.678/0001-00",
+        "name": "Bahia AM Advisory FIC de FIM",
+        "balance": 1359.39,
+        "currencyCode": "BRL",
+        "type": "MUTUAL_FUND",
+        "subtype": "MULTIMARKET_FUND",
+        "lastMonthRate": 0.24,
+        "annualRate": 3.24,
+        "lastTwelveMonthsRate": 3,
+        "itemId": "207f5bcd-312a-439c-abbe-166b6632c980",
+        "value": 500,
+        "quantity": 3,
+        "amount": 1500,
+        "taxes": 40.61,
+        "taxes2": 100,
+        "date": "2020-07-19T18:27:41.802Z",
+        "owner": "John Doe",
+        "number": null,
+        "amountProfit": 310.5,
+        "amountWithdrawal": 1310.5,
+        "amountOriginal": 1000,
+        "status": "ACTIVE",
+        "transactions": [
+          {
+            "tradeDate": "2020-10-01T00:00:00.000Z",
+            "date": "2020-10-01T00:00:00.000Z",
+            "description": "Aplicação Fondo de Investimento Premium",
+            "quantity": 1.25,
+            "value": 2,
+            "amount": 5,
+            "type": "BUY",
+            "movementType": "CREDIT"
+          }
+        ]
+      }
+    },
       "PhoneNumber": {
         "description": "The phone number object contains data related to contact information.",
         "properties": {
@@ -11003,470 +11190,480 @@
         }
       },
       "IdentityResponse": {
-        "description": "Response with details personal information related to the owner of the connection's account",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "The ID of the identity to retrieve"
+      "description": "Response with details personal information related to the owner of the connection's account",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The ID of the identity to retrieve"
+        },
+        "itemId": {
+          "type": "string",
+          "description": "Identifier of the item linked to the identity",
+          "format": "uuid"
+        },
+        "birthDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "Date of birth"
+        },
+        "taxNumber": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The tax ID (CNPJ) associated with the business account"
+        },
+        "document": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Primary document that identifies the owner"
+        },
+        "documentType": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Type of document collected"
+        },
+        "jobTitle": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Profession or Job information"
+        },
+        "fullName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the owner of the account"
+        },
+        "establishmentCode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Establishment code (only for PAYMENT_ACCOUNT connectors)"
+        },
+        "establishmentName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Name of the establishment (only for PAYMENT_ACCOUNT connectors)"
+        },
+        "companyName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "For business connector, the name of the business"
+        },
+        "phoneNumbers": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/PhoneNumber"
           },
-          "itemId": {
-            "type": "string",
-            "description": "Identifier of the item linked to the identity",
-            "format": "uuid"
+          "description": "List of phone numbers related to the account"
+        },
+        "emails": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/Email"
           },
-          "birthDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date-time",
-            "description": "Date of birth"
+          "description": "List of email addresses related to the account"
+        },
+        "addresses": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/Address"
           },
-          "taxNumber": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The tax ID (CNPJ) associated with the business account"
+          "description": "List of addresses related to the account"
+        },
+        "relations": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/components/schemas/IdentityRelation"
           },
-          "document": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Primary document that identifies the owner"
-          },
-          "documentType": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Type of document collected"
-          },
-          "jobTitle": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Profession or Job information"
-          },
-          "fullName": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Name of the owner of the account"
-          },
-          "establishmentCode": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Establishment code (only for PAYMENT_ACCOUNT connectors)"
-          },
-          "establishmentName": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Name of the establishment (only for PAYMENT_ACCOUNT connectors)"
-          },
-          "companyName": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "For business connector, the name of the business"
-          },
-          "phoneNumbers": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/PhoneNumber"
+          "description": "List of names related to the account"
+        },
+        "investorProfile": {
+          "enum": [
+            "Conservative",
+            "Moderate",
+            "Aggressive",
+            null
+          ],
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Is a rating that indicates the investor personality and motivation for investing"
+        },
+        "qualifications": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Information that allows understanding since when the consulted person has been a client of the institution, as well as an indicator of the products and services they currently consume and their representatives",
+          "required": [
+            "companyCnpj"
+          ],
+          "properties": {
+            "companyCnpj": {
+              "type": "string",
+              "description": "CNPJ of the company"
             },
-            "description": "List of phone numbers related to the account"
-          },
-          "emails": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/Email"
+            "occupationCode": {
+              "type": "string",
+              "enum": [
+                "RECEITA_FEDERAL",
+                "CBO",
+                "OUTRO"
+              ],
+              "description": "Occupation code"
             },
-            "description": "List of email addresses related to the account"
-          },
-          "addresses": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/Address"
+            "occupationDescription": {
+              "type": "string",
+              "description": "Free-text occupation description. When occupationCode is RECEITA_FEDERAL or CBO it holds the standardized list code; when OUTRO it describes the occupation in cases where the institution does not follow the Receita Federal nor the CBO list"
             },
-            "description": "List of addresses related to the account"
-          },
-          "relations": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/IdentityRelation"
-            },
-            "description": "List of names related to the account"
-          },
-          "investorProfile": {
-            "enum": [
-              "Conservative",
-              "Moderate",
-              "Aggressive",
-              null
-            ],
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Is a rating that indicates the investor personality and motivation for investing"
-          },
-          "qualifications": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "description": "Information that allows understanding since when the consulted person has been a client of the institution, as well as an indicator of the products and services they currently consume and their representatives",
-            "required": [
-              "companyCnpj"
-            ],
-            "properties": {
-              "companyCnpj": {
-                "type": "string",
-                "description": "CNPJ of the company"
-              },
-              "occupationCode": {
-                "type": "string",
-                "enum": [
-                  "RECEITA_FEDERAL",
-                  "CBO",
-                  "OUTRO"
-                ],
-                "description": "Occupation code"
-              },
-              "occupationDescription": {
-                "type": "string",
-                "description": "Free-text occupation description. When occupationCode is RECEITA_FEDERAL or CBO it holds the standardized list code; when OUTRO it describes the occupation in cases where the institution does not follow the Receita Federal nor the CBO list"
-              },
-              "informedIncome": {
-                "type": "object",
-                "description": "Informed income",
-                "required": [
-                  "frequency",
-                  "amount",
-                  "date"
-                ],
-                "properties": {
-                  "frequency": {
-                    "type": "string",
-                    "enum": [
-                      "DIARIA",
-                      "SEMANAL",
-                      "QUINZENAL",
-                      "MENSAL",
-                      "BIMESTRAL",
-                      "TRIMESTRAL",
-                      "SEMESTRAL",
-                      "ANUAL",
-                      "OUTROS"
-                    ],
-                    "description": "Frequency of the informed income"
-                  },
-                  "amount": {
-                    "type": "number",
-                    "description": "Amount of the informed income"
-                  },
-                  "date": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "Date when the income was informed"
-                  }
-                }
-              },
-              "informedPatrimony": {
-                "type": "object",
-                "description": "Informed patrimony",
-                "required": [
-                  "amount",
-                  "year"
-                ],
-                "properties": {
-                  "amount": {
-                    "type": "number",
-                    "description": "Amount of the informed patrimony"
-                  },
-                  "year": {
-                    "type": "number",
-                    "description": "Year of the patrimony"
-                  },
-                  "date": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "Reference date of the patrimony. Returned on the business path of Open Finance, where the source field is a full date rather than just a year"
-                  }
-                }
-              },
-              "economicActivities": {
-                "type": "array",
-                "description": "List of CNAE codes describing the economic activities of the business (Brazilian National Classification of Economic Activities). Only one entry per response should be marked as main",
-                "items": {
-                  "$ref": "#/components/schemas/EconomicActivity"
-                }
-              },
-              "informedRevenue": {
-                "$ref": "#/components/schemas/InformedRevenue"
-              }
-            }
-          },
-          "financialRelationships": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "required": [
-              "startDate",
-              "productsServicesType",
-              "procurators"
-            ],
-            "properties": {
-              "startDate": {
-                "type": "string",
-                "format": "date-time",
-                "description": "Date when the relationship with the institution started"
-              },
-              "productsServicesType": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "description": "List of products and services that the client consumes"
-              },
-              "productsServicesTypeAdditionalInfo": {
-                "type": "string",
-                "description": "Additional info about the products and services. Populated when productsServicesType includes 'OUTROS'"
-              },
-              "procurators": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "required": [
-                    "type",
-                    "cpfNumber",
-                    "civilName"
+            "informedIncome": {
+              "type": "object",
+              "description": "Informed income",
+              "required": [
+                "frequency",
+                "amount",
+                "date"
+              ],
+              "properties": {
+                "frequency": {
+                  "type": "string",
+                  "enum": [
+                    "DIARIA",
+                    "SEMANAL",
+                    "QUINZENAL",
+                    "MENSAL",
+                    "BIMESTRAL",
+                    "TRIMESTRAL",
+                    "SEMESTRAL",
+                    "ANUAL",
+                    "OUTROS"
                   ],
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "REPRESENTANTE_LEGAL",
-                        "PROCURADOR"
-                      ],
-                      "description": "Type of relationship with the client. Legal representative — natural person who represents the entity and is named in its incorporation document. Procurator — any person authorized in writing to represent the client in some business"
-                    },
-                    "cpfNumber": {
-                      "type": "string",
-                      "description": "CPF of the procurator. For business links this field may hold a CPF or a CNPJ (kept for backward compatibility — prefer documentNumber + documentType)"
-                    },
-                    "documentNumber": {
-                      "type": "string",
-                      "description": "Document number of the procurator (CPF or CNPJ). Mirrors cpfNumber and is the canonical value to read"
-                    },
-                    "documentType": {
-                      "type": "string",
-                      "enum": [
-                        "CPF",
-                        "CNPJ"
-                      ],
-                      "description": "Type of document carried by documentNumber"
-                    },
-                    "civilName": {
-                      "type": "string",
-                      "description": "Civil name of the procurator. For business procurators, may hold the company name"
-                    },
-                    "socialName": {
-                      "type": "string",
-                      "description": "Social name of the procurator, if any"
-                    }
-                  }
+                  "description": "Frequency of the informed income"
                 },
-                "description": "List of procurators of the client"
-              },
-              "accounts": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "required": [
-                    "compeCode",
-                    "branchCode",
-                    "number",
-                    "checkDigit",
-                    "type",
-                    "subtype"
-                  ],
-                  "properties": {
-                    "compeCode": {
-                      "type": "string",
-                      "description": "COMPE code of the account"
-                    },
-                    "branchCode": {
-                      "type": "string",
-                      "description": "Branch code of the account"
-                    },
-                    "number": {
-                      "type": "string",
-                      "description": "Number of the account"
-                    },
-                    "checkDigit": {
-                      "type": "string",
-                      "description": "Check digit of the account"
-                    },
-                    "type": {
-                      "type": "string",
-                      "description": "Type of the account"
-                    },
-                    "subtype": {
-                      "type": "string",
-                      "description": "Subtype of the account"
-                    }
-                  }
+                "amount": {
+                  "type": "number",
+                  "description": "Amount of the informed income"
                 },
-                "description": "List of accounts of the client with valid consent. Only accounts that have explicit user consent are returned."
-              },
-              "portabilitiesReceived": {
-                "type": "array",
-                "description": "Salary portabilities received by the institution from the client's previous paycheck banks (banco-folha). PF-only field",
-                "items": {
-                  "$ref": "#/components/schemas/PortabilityReceived"
-                }
-              },
-              "paychecksBankLink": {
-                "type": "array",
-                "description": "Paycheck-bank (banco-folha) links to employers, active or formerly active. PF-only field",
-                "items": {
-                  "$ref": "#/components/schemas/PaycheckBankLink"
+                "date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date when the income was informed"
                 }
               }
             },
-            "description": "Information that allows institutions to assess, evaluate, characterize, and classify the client with the purpose of understanding their risk profile and their economic-financial capacity"
-          },
-          "socialName": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Social name of the natural person, if any (the name by which travestis and transsexuals recognize themselves and are recognized in their community). PF-only field"
-          },
-          "sex": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "enum": [
-              "FEMALE",
-              "MALE",
-              "OTHER",
-              null
-            ],
-            "description": "Sex of the natural person. PF-only field"
-          },
-          "maritalStatus": {
-            "description": "Marital status of the natural person. PF-only field",
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/MaritalStatus"
-              },
-              {
-                "type": "null"
+            "informedPatrimony": {
+              "type": "object",
+              "description": "Informed patrimony",
+              "required": [
+                "amount",
+                "year"
+              ],
+              "properties": {
+                "amount": {
+                  "type": "number",
+                  "description": "Amount of the informed patrimony"
+                },
+                "year": {
+                  "type": "number",
+                  "description": "Year of the patrimony"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Reference date of the patrimony. Returned on the business path of Open Finance, where the source field is a full date rather than just a year"
+                }
               }
-            ]
-          },
-          "nationality": {
-            "description": "Nationality of the natural person. PF-only field",
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/Nationality"
-              },
-              {
-                "type": "null"
+            },
+            "economicActivities": {
+              "type": "array",
+              "description": "List of CNAE codes describing the economic activities of the business (Brazilian National Classification of Economic Activities). Only one entry per response should be marked as main",
+              "items": {
+                "$ref": "#/components/schemas/EconomicActivity"
               }
-            ]
-          },
-          "otherDocuments": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "List of other identification documents the natural person holds. PF-only field",
-            "items": {
-              "$ref": "#/components/schemas/OtherDocument"
-            }
-          },
-          "passport": {
-            "description": "Passport metadata for the natural person. PF-only field",
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/Passport"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "incorporationDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date-time",
-            "description": "Date the business was incorporated. PJ-only field"
-          },
-          "parties": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "Partners and administrators of the business. PJ-only field",
-            "items": {
-              "$ref": "#/components/schemas/BusinessParty"
-            }
-          },
-          "businessOtherDocuments": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "List of additional documents for businesses headquartered abroad and not required to register a CNPJ. PJ-only field",
-            "items": {
-              "$ref": "#/components/schemas/BusinessOtherDocument"
-            }
-          },
-          "companiesCnpj": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "description": "CNPJs of the financial institutions responsible for the customer cadastro. Numbers only, no mask",
-            "items": {
-              "type": "string"
+            },
+            "informedRevenue": {
+              "$ref": "#/components/schemas/InformedRevenue"
             }
           }
         },
-        "type": "object",
-        "required": [
-          "id",
-          "itemId"
-        ]
+        "financialRelationships": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "startDate",
+            "productsServicesType",
+            "procurators"
+          ],
+          "properties": {
+            "startDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date when the relationship with the institution started"
+            },
+            "productsServicesType": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of products and services that the client consumes"
+            },
+            "productsServicesTypeAdditionalInfo": {
+              "type": "string",
+              "description": "Additional info about the products and services. Populated when productsServicesType includes 'OUTROS'"
+            },
+            "procurators": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "cpfNumber",
+                  "civilName"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "REPRESENTANTE_LEGAL",
+                      "PROCURADOR"
+                    ],
+                    "description": "Type of relationship with the client. Legal representative — natural person who represents the entity and is named in its incorporation document. Procurator — any person authorized in writing to represent the client in some business"
+                  },
+                  "cpfNumber": {
+                    "type": "string",
+                    "description": "CPF of the procurator. For business links this field may hold a CPF or a CNPJ (kept for backward compatibility — prefer documentNumber + documentType)"
+                  },
+                  "documentNumber": {
+                    "type": "string",
+                    "description": "Document number of the procurator (CPF or CNPJ). Mirrors cpfNumber and is the canonical value to read"
+                  },
+                  "documentType": {
+                    "type": "string",
+                    "enum": [
+                      "CPF",
+                      "CNPJ"
+                    ],
+                    "description": "Type of document carried by documentNumber"
+                  },
+                  "civilName": {
+                    "type": "string",
+                    "description": "Civil name of the procurator. For business procurators, may hold the company name"
+                  },
+                  "socialName": {
+                    "type": "string",
+                    "description": "Social name of the procurator, if any"
+                  }
+                }
+              },
+              "description": "List of procurators of the client"
+            },
+            "accounts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "compeCode",
+                  "branchCode",
+                  "number",
+                  "checkDigit",
+                  "type",
+                  "subtype"
+                ],
+                "properties": {
+                  "compeCode": {
+                    "type": "string",
+                    "description": "COMPE code of the account"
+                  },
+                  "branchCode": {
+                    "type": "string",
+                    "description": "Branch code of the account"
+                  },
+                  "number": {
+                    "type": "string",
+                    "description": "Number of the account"
+                  },
+                  "checkDigit": {
+                    "type": "string",
+                    "description": "Check digit of the account"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type of the account"
+                  },
+                  "subtype": {
+                    "type": "string",
+                    "description": "Subtype of the account"
+                  }
+                }
+              },
+              "description": "List of accounts of the client with valid consent. Only accounts that have explicit user consent are returned."
+            },
+            "portabilitiesReceived": {
+              "type": "array",
+              "description": "Salary portabilities received by the institution from the client's previous paycheck banks (banco-folha). PF-only field",
+              "items": {
+                "$ref": "#/components/schemas/PortabilityReceived"
+              }
+            },
+            "paychecksBankLink": {
+              "type": "array",
+              "description": "Paycheck-bank (banco-folha) links to employers, active or formerly active. PF-only field",
+              "items": {
+                "$ref": "#/components/schemas/PaycheckBankLink"
+              }
+            }
+          },
+          "description": "Information that allows institutions to assess, evaluate, characterize, and classify the client with the purpose of understanding their risk profile and their economic-financial capacity"
+        },
+        "socialName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Social name of the natural person, if any (the name by which travestis and transsexuals recognize themselves and are recognized in their community). PF-only field"
+        },
+        "sex": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "FEMALE",
+            "MALE",
+            "OTHER",
+            null
+          ],
+          "description": "Sex of the natural person. PF-only field"
+        },
+        "maritalStatus": {
+          "description": "Marital status of the natural person. PF-only field",
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/MaritalStatus"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nationality": {
+          "description": "Nationality of the natural person. PF-only field",
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Nationality"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "otherDocuments": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "description": "List of other identification documents the natural person holds. PF-only field",
+          "items": {
+            "$ref": "#/components/schemas/OtherDocument"
+          }
+        },
+        "passport": {
+          "description": "Passport metadata for the natural person. PF-only field",
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Passport"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "incorporationDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "Date the business was incorporated. PJ-only field"
+        },
+        "parties": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "description": "Partners and administrators of the business. PJ-only field",
+          "items": {
+            "$ref": "#/components/schemas/BusinessParty"
+          }
+        },
+        "businessOtherDocuments": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "description": "List of additional documents for businesses headquartered abroad and not required to register a CNPJ. PJ-only field",
+          "items": {
+            "$ref": "#/components/schemas/BusinessOtherDocument"
+          }
+        },
+        "companiesCnpj": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "description": "CNPJs of the financial institutions responsible for the customer cadastro. Numbers only, no mask",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date when the identity was first ingested by Pluggy."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of the last update of the identity data."
+        }
       },
+      "type": "object",
+      "required": [
+        "id",
+        "itemId"
+      ]
+    },
       "ConnectTokenResponse": {
         "description": "Connect token response",
         "properties": {
@@ -11587,6 +11784,17 @@
             "items": {
               "$ref": "#/components/schemas/ParameterValidationError"
             }
+          },
+          "details": {
+            "description": "Parameter validation failures. This is the field the API actually populates for a 400; `errors` is kept for backwards compatibility.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ParameterValidationError"
+            }
+          },
+          "errorId": {
+            "type": "string",
+            "description": "Identifier of the request that produced the error. Quote it when contacting support."
           }
         }
       },
@@ -12186,7 +12394,6 @@
         "type": "object",
         "required": [
           "id",
-          "accountId",
           "dueDate",
           "totalAmount",
           "totalAmountCurrencyCode",
@@ -12285,7 +12492,6 @@
         "type": "object",
         "required": [
           "id",
-          "creditCardBillId",
           "type",
           "amount",
           "currencyCode"
@@ -13665,7 +13871,7 @@
         ]
       },
       "BoletoPayer": {
-        "description": "Boleto payer information",
+        "description": "Payer of a boleto being paid. Only identity data — this is not the payer of an issued boleto, which carries the full address block under `IssuedBoleto.payer`.",
         "properties": {
           "taxNumber": {
             "type": "string",
