@@ -81,6 +81,7 @@ from pluggy_sdk.models.create_webhook import CreateWebhook
 from pluggy_sdk.models.credential_select_option import CredentialSelectOption
 from pluggy_sdk.models.credit_card_metadata import CreditCardMetadata
 from pluggy_sdk.models.credit_data import CreditData
+from pluggy_sdk.models.cursor_page_response_items import CursorPageResponseItems
 from pluggy_sdk.models.cursor_page_response_transactions import CursorPageResponseTransactions
 from pluggy_sdk.models.daily import DAILY
 from pluggy_sdk.models.debtor import Debtor

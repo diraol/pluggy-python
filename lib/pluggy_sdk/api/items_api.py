@@ -21,6 +21,7 @@ from typing import Dict, Optional
 from typing_extensions import Annotated
 from uuid import UUID
 from pluggy_sdk.models.create_item import CreateItem
+from pluggy_sdk.models.cursor_page_response_items import CursorPageResponseItems
 from pluggy_sdk.models.i_count_response import ICountResponse
 from pluggy_sdk.models.item import Item
 from pluggy_sdk.models.update_item import UpdateItem
@@ -845,6 +846,312 @@ class ItemsApi:
         return self.api_client.param_serialize(
             method='PATCH',
             resource_path='/items/{id}/disable-auto-sync',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def items_list_by_cursor(
+        self,
+        client_user_id: Annotated[Optional[Annotated[str, Field(strict=True, max_length=255)]], Field(description="Filter by the identifier you assigned to the end user")] = None,
+        connector_id: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Filter by the institution (connector) identifier")] = None,
+        after: Annotated[Optional[StrictStr], Field(description="Cursor for the next page. Use the 'next' value of the previous response; do not build it yourself.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> CursorPageResponseItems:
+        """List
+
+        Recovers your items using cursor-based pagination, most recently created first.  This endpoint is opt-in: it is disabled by default and must be enabled for your team. Contact support if you want access.
+
+        :param client_user_id: Filter by the identifier you assigned to the end user
+        :type client_user_id: str
+        :param connector_id: Filter by the institution (connector) identifier
+        :type connector_id: int
+        :param after: Cursor for the next page. Use the 'next' value of the previous response; do not build it yourself.
+        :type after: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._items_list_by_cursor_serialize(
+            client_user_id=client_user_id,
+            connector_id=connector_id,
+            after=after,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CursorPageResponseItems",
+            '400': "GlobalErrorResponse",
+            '403': "GlobalErrorResponse",
+            '500': "GlobalErrorResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def items_list_by_cursor_with_http_info(
+        self,
+        client_user_id: Annotated[Optional[Annotated[str, Field(strict=True, max_length=255)]], Field(description="Filter by the identifier you assigned to the end user")] = None,
+        connector_id: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Filter by the institution (connector) identifier")] = None,
+        after: Annotated[Optional[StrictStr], Field(description="Cursor for the next page. Use the 'next' value of the previous response; do not build it yourself.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[CursorPageResponseItems]:
+        """List
+
+        Recovers your items using cursor-based pagination, most recently created first.  This endpoint is opt-in: it is disabled by default and must be enabled for your team. Contact support if you want access.
+
+        :param client_user_id: Filter by the identifier you assigned to the end user
+        :type client_user_id: str
+        :param connector_id: Filter by the institution (connector) identifier
+        :type connector_id: int
+        :param after: Cursor for the next page. Use the 'next' value of the previous response; do not build it yourself.
+        :type after: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._items_list_by_cursor_serialize(
+            client_user_id=client_user_id,
+            connector_id=connector_id,
+            after=after,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CursorPageResponseItems",
+            '400': "GlobalErrorResponse",
+            '403': "GlobalErrorResponse",
+            '500': "GlobalErrorResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def items_list_by_cursor_without_preload_content(
+        self,
+        client_user_id: Annotated[Optional[Annotated[str, Field(strict=True, max_length=255)]], Field(description="Filter by the identifier you assigned to the end user")] = None,
+        connector_id: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Filter by the institution (connector) identifier")] = None,
+        after: Annotated[Optional[StrictStr], Field(description="Cursor for the next page. Use the 'next' value of the previous response; do not build it yourself.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List
+
+        Recovers your items using cursor-based pagination, most recently created first.  This endpoint is opt-in: it is disabled by default and must be enabled for your team. Contact support if you want access.
+
+        :param client_user_id: Filter by the identifier you assigned to the end user
+        :type client_user_id: str
+        :param connector_id: Filter by the institution (connector) identifier
+        :type connector_id: int
+        :param after: Cursor for the next page. Use the 'next' value of the previous response; do not build it yourself.
+        :type after: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._items_list_by_cursor_serialize(
+            client_user_id=client_user_id,
+            connector_id=connector_id,
+            after=after,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CursorPageResponseItems",
+            '400': "GlobalErrorResponse",
+            '403': "GlobalErrorResponse",
+            '500': "GlobalErrorResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _items_list_by_cursor_serialize(
+        self,
+        client_user_id,
+        connector_id,
+        after,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if client_user_id is not None:
+            
+            _query_params.append(('clientUserId', client_user_id))
+            
+        if connector_id is not None:
+            
+            _query_params.append(('connectorId', connector_id))
+            
+        if after is not None:
+            
+            _query_params.append(('after', after))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'default'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v2/items',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

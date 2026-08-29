@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**items_create**](ItemsApi.md#items_create) | **POST** /items | Create
 [**items_delete**](ItemsApi.md#items_delete) | **DELETE** /items/{id} | Delete
 [**items_disable_autosync**](ItemsApi.md#items_disable_autosync) | **PATCH** /items/{id}/disable-auto-sync | Disable item auto sync
+[**items_list_by_cursor**](ItemsApi.md#items_list_by_cursor) | **GET** /v2/items | List
 [**items_retrieve**](ItemsApi.md#items_retrieve) | **GET** /items/{id} | Retrieve
 [**items_send_mfa**](ItemsApi.md#items_send_mfa) | **POST** /items/{id}/mfa | Send MFA
 [**items_update**](ItemsApi.md#items_update) | **PATCH** /items/{id} | Update
@@ -253,6 +254,94 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Item auto sync was disabled |  -  |
 **404** | Item not found |  -  |
+**500** | Server Internal Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **items_list_by_cursor**
+> CursorPageResponseItems items_list_by_cursor(client_user_id=client_user_id, connector_id=connector_id, after=after)
+
+List
+
+Recovers your items using cursor-based pagination, most recently created first.
+
+This endpoint is opt-in: it is disabled by default and must be enabled for your team. Contact support if you want access.
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.models.cursor_page_response_items import CursorPageResponseItems
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.ItemsApi(api_client)
+    client_user_id = 'user-1234' # str | Filter by the identifier you assigned to the end user (optional)
+    connector_id = 201 # int | Filter by the institution (connector) identifier (optional)
+    after = 'after_example' # str | Cursor for the next page. Use the 'next' value of the previous response; do not build it yourself. (optional)
+
+    try:
+        # List
+        api_response = api_instance.items_list_by_cursor(client_user_id=client_user_id, connector_id=connector_id, after=after)
+        print("The response of ItemsApi->items_list_by_cursor:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ItemsApi->items_list_by_cursor: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **client_user_id** | **str**| Filter by the identifier you assigned to the end user | [optional] 
+ **connector_id** | **int**| Filter by the institution (connector) identifier | [optional] 
+ **after** | **str**| Cursor for the next page. Use the &#39;next&#39; value of the previous response; do not build it yourself. | [optional] 
+
+### Return type
+
+[**CursorPageResponseItems**](CursorPageResponseItems.md)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Retrieve a list of your items using cursor-based pagination |  -  |
+**400** | Missing or invalid parameter |  -  |
+**403** | The feature is not enabled for this client |  -  |
 **500** | Server Internal Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post65"
+__version__ = "1.0.0.post66"
 
 # Define package exports
 __all__ = [
@@ -116,6 +116,7 @@ __all__ = [
     "CredentialSelectOption",
     "CreditCardMetadata",
     "CreditData",
+    "CursorPageResponseItems",
     "CursorPageResponseTransactions",
     "DAILY",
     "Debtor",
@@ -353,6 +354,7 @@ from pluggy_sdk.models.create_webhook import CreateWebhook as CreateWebhook
 from pluggy_sdk.models.credential_select_option import CredentialSelectOption as CredentialSelectOption
 from pluggy_sdk.models.credit_card_metadata import CreditCardMetadata as CreditCardMetadata
 from pluggy_sdk.models.credit_data import CreditData as CreditData
+from pluggy_sdk.models.cursor_page_response_items import CursorPageResponseItems as CursorPageResponseItems
 from pluggy_sdk.models.cursor_page_response_transactions import CursorPageResponseTransactions as CursorPageResponseTransactions
 from pluggy_sdk.models.daily import DAILY as DAILY
 from pluggy_sdk.models.debtor import Debtor as Debtor

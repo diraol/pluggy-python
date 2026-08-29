@@ -78,6 +78,7 @@ docs/CreateWebhook.md
 docs/CredentialSelectOption.md
 docs/CreditCardMetadata.md
 docs/CreditData.md
+docs/CursorPageResponseItems.md
 docs/CursorPageResponseTransactions.md
 docs/DAILY.md
 docs/Debtor.md
@@ -319,6 +320,7 @@ pluggy_sdk/models/create_webhook.py
 pluggy_sdk/models/credential_select_option.py
 pluggy_sdk/models/credit_card_metadata.py
 pluggy_sdk/models/credit_data.py
+pluggy_sdk/models/cursor_page_response_items.py
 pluggy_sdk/models/cursor_page_response_transactions.py
 pluggy_sdk/models/custom.py
 pluggy_sdk/models/daily.py
@@ -461,6 +463,5 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_investment_institution.py
-test/test_page_response_categories.py
+test/test_cursor_page_response_items.py
 tox.ini
