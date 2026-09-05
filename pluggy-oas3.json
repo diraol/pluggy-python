@@ -9650,7 +9650,7 @@
               "string",
               "null"
             ],
-            "description": "Type of operation classified by the institution. Only returned for Open Finance connectors."
+            "description": "Type of operation classified by the institution. For bank account transactions it carries values such as 'PIX' or 'TED'; for credit card transactions it carries the Open Finance transaction type ('PAGAMENTO', 'PAGAMENTO_FATURA' for a partial or full bill payment, 'TARIFA', 'OPERACOES_CREDITO_CONTRATADAS_CARTAO', 'ESTORNO', 'CASHBACK', 'OUTROS'). Only returned for Open Finance connectors."
           },
           "operationTypeAdditionalInfo": {
             "type": [
