@@ -49,7 +49,7 @@ class Transaction(BaseModel):
     payment_data: Optional[PaymentData] = Field(default=None, alias="paymentData")
     credit_card_metadata: Optional[CreditCardMetadata] = Field(default=None, alias="creditCardMetadata")
     merchant: Optional[Merchant] = None
-    operation_type: Optional[StrictStr] = Field(default=None, description="Type of operation classified by the institution. Only returned for Open Finance connectors.", alias="operationType")
+    operation_type: Optional[StrictStr] = Field(default=None, description="Type of operation classified by the institution. For bank account transactions it carries values such as 'PIX' or 'TED'; for credit card transactions it carries the Open Finance transaction type ('PAGAMENTO', 'PAGAMENTO_FATURA' for a partial or full bill payment, 'TARIFA', 'OPERACOES_CREDITO_CONTRATADAS_CARTAO', 'ESTORNO', 'CASHBACK', 'OUTROS'). Only returned for Open Finance connectors.", alias="operationType")
     operation_type_additional_info: Optional[StrictStr] = Field(default=None, description="Complementary, free-form information about the operation type, as provided by the institution. Varies by institution (a sub-type code or a description). Only returned for Open Finance connectors.", alias="operationTypeAdditionalInfo")
     provider_id: Optional[StrictStr] = Field(default=None, description="Provider's identifier for the transaction. Only returned for Open Finance connectors.", alias="providerId")
     account_id: UUID = Field(description="Identifier of the account this transaction belongs to.", alias="accountId")

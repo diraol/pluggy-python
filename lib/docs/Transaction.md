@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **payment_data** | [**PaymentData**](PaymentData.md) |  | [optional] 
 **credit_card_metadata** | [**CreditCardMetadata**](CreditCardMetadata.md) |  | [optional] 
 **merchant** | [**Merchant**](Merchant.md) |  | [optional] 
-**operation_type** | **str** | Type of operation classified by the institution. Only returned for Open Finance connectors. | [optional] 
+**operation_type** | **str** | Type of operation classified by the institution. For bank account transactions it carries values such as &#39;PIX&#39; or &#39;TED&#39;; for credit card transactions it carries the Open Finance transaction type (&#39;PAGAMENTO&#39;, &#39;PAGAMENTO_FATURA&#39; for a partial or full bill payment, &#39;TARIFA&#39;, &#39;OPERACOES_CREDITO_CONTRATADAS_CARTAO&#39;, &#39;ESTORNO&#39;, &#39;CASHBACK&#39;, &#39;OUTROS&#39;). Only returned for Open Finance connectors. | [optional] 
 **operation_type_additional_info** | **str** | Complementary, free-form information about the operation type, as provided by the institution. Varies by institution (a sub-type code or a description). Only returned for Open Finance connectors. | [optional] 
 **provider_id** | **str** | Provider&#39;s identifier for the transaction. Only returned for Open Finance connectors. | [optional] 
 **account_id** | **UUID** | Identifier of the account this transaction belongs to. | 

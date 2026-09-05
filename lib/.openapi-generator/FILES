@@ -463,5 +463,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_cursor_page_response_items.py
 tox.ini
