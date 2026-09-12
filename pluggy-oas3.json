@@ -59,6 +59,10 @@
       "description": "Loan information and management"
     },
     {
+      "name": "SCR",
+      "description": "Bacen's credit information system, consulted through a connected Open Finance item"
+    },
+    {
       "name": "Merchant",
       "description": "Merchant and company information by CNPJ"
     },
@@ -606,11 +610,14 @@
                     "summary": "Item user already exists, avoid duplicates detected.",
                     "value": {
                       "message": "There are other items with the same credentials, you can't create a new one",
+                      "code": 400,
                       "codeDescription": "ITEM_USER_ALREADY_EXISTS",
-                      "items": [
-                        "d0f8a8c0-e8e3-11e9-b210-d663bd873d93",
-                        "d0f8a8c0-e8e3-11e9-b210-d663bd873d94"
-                      ]
+                      "data": {
+                        "items": [
+                          "d0f8a8c0-e8e3-11e9-b210-d663bd873d93",
+                          "d0f8a8c0-e8e3-11e9-b210-d663bd873d94"
+                        ]
+                      }
                     }
                   }
                 }
@@ -1211,6 +1218,161 @@
               "format": "uuid"
             },
             "example": "d0e8448e-0156-4b4a-ae6c-3e2a6d9bff5c"
+          }
+        ]
+      }
+    },
+    "/items/{id}/scr": {
+      "get": {
+        "operationId": "items-retrieve-scr",
+        "summary": "Retrieve SCR",
+        "description": "Retrieves the SCR (Bacen's *Sistema de Informações de Crédito*) for the document behind a connected item.\n\nThe SCR is the Banco Central's official registry of credit operations: every loan, financing, limit and guarantee above R$200, reported by every financial institution. The response is Bacen's own payload, forwarded unchanged.\n\nThe item is not the source of the data — the SCR is keyed by the document alone. The item supplies the CPF/CNPJ and stands as the evidence of the account holder's consent, which is why this is only available for Open Finance items whose document is known.\n\nRequires the SCR feature on your subscription. Talk to us if you want it enabled.\n\nBase dates are months, not days, and Bacen consolidates each one with a few months of delay. When `from` and `to` are omitted the last 4 available base dates are consulted, ending 2 months back from today — asking for the current month returns nothing, because Bacen has not closed it yet.",
+        "responses": {
+          "200": {
+            "description": "SCR data for the item document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScrResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The SCR request was rejected as invalid. Check the databaseIni/databaseFim range.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 400,
+                  "codeDescription": "SCR_INVALID_REQUEST",
+                  "message": "The SCR request was rejected as invalid. Check the databaseIni/databaseFim range."
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "This client is not enabled to query SCR data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 403,
+                  "codeDescription": "SCR_FEATURE_NOT_ENABLED",
+                  "message": "This client is not enabled to query SCR data."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "item not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "ITEM_NOT_FOUND",
+                  "message": "item not found"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "SCR is only available for Open Finance items that have a known CPF or CNPJ.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 422,
+                  "codeDescription": "SCR_ITEM_NOT_SUPPORTED",
+                  "message": "SCR is only available for Open Finance items that have a known CPF or CNPJ."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while fetching the SCR data from the connector",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 500,
+                  "codeDescription": "SCR_FETCH_ERROR",
+                  "message": "An error occurred while fetching the SCR data from the connector"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bacen's SCR service is temporarily unavailable. Please try again later.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 502,
+                  "codeDescription": "SCR_SERVICE_UNAVAILABLE",
+                  "message": "Bacen's SCR service is temporarily unavailable. Please try again later.",
+                  "data": {
+                    "correlationId": "8047f6e9-bb9e-4b04-8515-e2210dc4c544"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "SCR"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Item primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8448e-0156-4b4a-ae6c-3e2a6d9bff5c"
+          },
+          {
+            "description": "First base date to consult, as YYYYMM. Defaults to 3 base dates before `to`",
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}(0[1-9]|1[0-2])$"
+            },
+            "example": "202604"
+          },
+          {
+            "description": "Last base date to consult, as YYYYMM. Defaults to 2 months before the current one, which is the most recent base date Bacen has consolidated",
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}(0[1-9]|1[0-2])$"
+            },
+            "example": "202607"
           }
         ]
       }
@@ -7881,6 +8043,285 @@
       }
     },
     "schemas": {
+      "ScrMaturityBalances": {
+        "title": "SCR Maturity Balances",
+        "type": "object",
+        "description": "Balance of the operation group split across Bacen's maturity vertices, in BRL. Each key is a vertex code and belongs to one of three families: amounts not yet due (a payment up to 14 days late still counts here), amounts overdue graded by how old the delay is, and a few categories that are not time windows at all. The window behind each individual code is defined by Bacen's DOC3040 reference — read it there rather than inferring it from the number. Only the vertices that carry a value are present.",
+        "properties": {
+          "v20": {
+            "type": "number"
+          },
+          "v40": {
+            "type": "number"
+          },
+          "v60": {
+            "type": "number"
+          },
+          "v80": {
+            "type": "number"
+          },
+          "v110": {
+            "type": "number"
+          },
+          "v120": {
+            "type": "number"
+          },
+          "v130": {
+            "type": "number"
+          },
+          "v140": {
+            "type": "number"
+          },
+          "v150": {
+            "type": "number"
+          },
+          "v160": {
+            "type": "number"
+          },
+          "v165": {
+            "type": "number"
+          },
+          "v170": {
+            "type": "number"
+          },
+          "v175": {
+            "type": "number"
+          },
+          "v180": {
+            "type": "number"
+          },
+          "v190": {
+            "type": "number"
+          },
+          "v199": {
+            "type": "number"
+          },
+          "v205": {
+            "type": "number"
+          },
+          "v210": {
+            "type": "number"
+          },
+          "v220": {
+            "type": "number"
+          },
+          "v230": {
+            "type": "number"
+          },
+          "v240": {
+            "type": "number"
+          },
+          "v245": {
+            "type": "number"
+          },
+          "v250": {
+            "type": "number"
+          },
+          "v255": {
+            "type": "number"
+          },
+          "v260": {
+            "type": "number"
+          },
+          "v270": {
+            "type": "number"
+          },
+          "v280": {
+            "type": "number"
+          },
+          "v290": {
+            "type": "number"
+          },
+          "v310": {
+            "type": "number"
+          },
+          "v320": {
+            "type": "number"
+          }
+        }
+      },
+      "ScrGuarantee": {
+        "title": "SCR Guarantee",
+        "type": "object",
+        "properties": {
+          "tp": {
+            "type": "string",
+            "description": "Bacen's code for the guarantee type"
+          },
+          "qtd": {
+            "type": "number",
+            "description": "Number of operations grouped under this type"
+          }
+        }
+      },
+      "ScrAdditionalInfo": {
+        "title": "SCR Additional Info",
+        "type": "object",
+        "properties": {
+          "tp": {
+            "type": "string",
+            "description": "Type of the complementary information"
+          },
+          "cd": {
+            "type": "string",
+            "description": "Code of the complementary information"
+          },
+          "qtd": {
+            "type": "number",
+            "description": "Number of operations grouped under this entry"
+          }
+        }
+      },
+      "ScrOperation": {
+        "title": "SCR Operation",
+        "type": "object",
+        "description": "A group of credit operations. The SCR does not return contracts one by one: it aggregates them by the combination of modality, source of funds, index and exchange variation.",
+        "properties": {
+          "mod": {
+            "type": "string",
+            "description": "Bacen's code for the operation modality"
+          },
+          "oriRec": {
+            "type": "string",
+            "description": "Bacen's code for the source of funds"
+          },
+          "indx": {
+            "type": "string",
+            "description": "Bacen's code for the reference rate or index"
+          },
+          "varCamb": {
+            "type": "string",
+            "description": "Bacen's code for the exchange rate variation"
+          },
+          "subJDisc": {
+            "type": "string",
+            "description": "Present when the operation is under dispute: \"D\" for disagreement, \"J\" for sub judice, \"JD\" for both"
+          },
+          "resVenc": {
+            "$ref": "#/components/schemas/ScrMaturityBalances"
+          },
+          "lsGar": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScrGuarantee"
+            },
+            "description": "Guarantees backing the operations in this group"
+          },
+          "lsInfAd": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScrAdditionalInfo"
+            },
+            "description": "Complementary information reported for this group"
+          }
+        }
+      },
+      "ScrDatabase": {
+        "title": "SCR Base Date",
+        "type": "object",
+        "description": "One consulted base date, and what the SCR holds for the client in it",
+        "properties": {
+          "dtb": {
+            "type": "number",
+            "description": "The base date, as YYYYMM. Numeric, not a string",
+            "example": 202607
+          },
+          "msg": {
+            "type": "string",
+            "description": "Bacen's message for this base date, when it has one — for example that the base date is not available for consultation"
+          },
+          "docProc": {
+            "type": "string",
+            "description": "Percentage of the expected 3040 documents already incorporated by Bacen for this base date. A low value means the picture is still partial"
+          },
+          "volProc": {
+            "type": "string",
+            "description": "Percentage of the expected operation volume already accepted for this base date"
+          },
+          "qtdIfs": {
+            "type": "number",
+            "description": "Number of financial institutions where the client has operations"
+          },
+          "qtdCongFinc": {
+            "type": "number",
+            "description": "Number of financial conglomerates where the client has operations"
+          },
+          "dtbIniRel": {
+            "type": "string",
+            "description": "Start of the client's relationship with the national financial system"
+          },
+          "coobAss": {
+            "type": "number",
+            "description": "Co-obligation assumed by the client in credit assignments, in BRL"
+          },
+          "coobRec": {
+            "type": "number",
+            "description": "Co-obligation received in credit assignments, in BRL"
+          },
+          "lsOp": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScrOperation"
+            },
+            "description": "Operation groups reported for this base date"
+          }
+        }
+      },
+      "ScrValidationMessage": {
+        "title": "SCR Validation Message",
+        "type": "object",
+        "properties": {
+          "codigo": {
+            "type": "string"
+          },
+          "mensagem": {
+            "type": "string"
+          }
+        }
+      },
+      "ScrResponse": {
+        "title": "SCR",
+        "type": "object",
+        "description": "Bacen's SCR response, forwarded exactly as the Banco Central returns it — field names, codes and all. Nothing is renamed or normalised, so a value read here is the same value an institution reads at the source.",
+        "required": [
+          "dtbConsult",
+          "cdCli",
+          "tpCli"
+        ],
+        "properties": {
+          "dtbConsult": {
+            "type": "string",
+            "description": "The base dates consulted",
+            "example": "202604 a 202607"
+          },
+          "cdCli": {
+            "type": "string",
+            "description": "The consulted document: the CPF for an individual, or the 8-digit CNPJ root for a company"
+          },
+          "tpCli": {
+            "type": "string",
+            "enum": [
+              "1",
+              "2"
+            ],
+            "description": "Type of client: \"1\" for an individual, \"2\" for a legal entity"
+          },
+          "lsDtb": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScrDatabase"
+            },
+            "description": "One entry per consulted base date. A base date with no data for the client is still listed, with no operations"
+          },
+          "listaDeMensagensDeValidacao": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScrValidationMessage"
+            },
+            "description": "Validation messages raised by Bacen for this request"
+          }
+        }
+      },
       "BankData": {
         "description": "Bank account additional fields",
         "properties": {
@@ -8740,6 +9181,13 @@
               "null"
             ]
           },
+          "incidents": {
+            "type": "array",
+            "description": "Incidents currently affecting this connector, as published on https://status.pluggy.ai. Absent when the connector has none, so a healthy connector's payload is unchanged. Ordered worst-first, so the first entry is the one to show if you only show one. Note this is about the institution, not about your own connections: use it to warn a user before they pick a bank that is known to be failing right now.",
+            "items": {
+              "$ref": "#/components/schemas/ConnectorIncident"
+            }
+          },
           "details": {
             "type": "object",
             "description": "Statistics about your recent connections on the connector and recent connection rate (percentage of healthy connections). This field is only present if you include the parameter healthDetails=true. This will be null if there was an error obtaining health details.",
@@ -8755,6 +9203,121 @@
             }
           }
         }
+      },
+      "ConnectorIncident": {
+        "description": "An incident affecting a connector right now, as published on the Pluggy status page. Only incidents active at this moment are listed: a scheduled maintenance appears once its window opens, not when it is announced, and disappears when the window closes.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Status page identifier of the incident"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short, customer-facing summary, for example 'XP Banking - Compras parceladas não sendo retornadas'"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Longer explanation, when there is one"
+          },
+          "type": {
+            "enum": [
+              "CONNECTOR_UNAVAILABLE",
+              "CONNECTOR_DEGRADED",
+              "INSTITUTION_OUTAGE",
+              "SCHEDULED_MAINTENANCE",
+              "CONSENT_ERROR",
+              "CONNECTION_NOT_UPDATING",
+              "PARTIAL_SUCCESS",
+              "ACCOUNTS_MISSING",
+              "BALANCE_INCORRECT",
+              "TRANSACTIONS_MISSING",
+              "TRANSACTIONS_INCORRECT",
+              "TRANSACTIONS_INSTALLMENTS_ISSUE",
+              "INVESTMENTS_MISSING",
+              "INVESTMENTS_INCORRECT",
+              "IDENTITY_MISSING",
+              "HISTORICAL_DATA_MISSING",
+              "WEBHOOK_DELAY",
+              "PAYMENT_FAILURE",
+              "OTHER"
+            ],
+            "type": "string",
+            "description": "What is broken, as opposed to how badly (severity) or how far along we are (state). Use it to group the same problem across institutions, and to decide which incidents are worth showing your own users: a SCHEDULED_MAINTENANCE and a TRANSACTIONS_MISSING both read as 'degraded' otherwise. OTHER means Pluggy has not classified it, not that nothing is wrong"
+          },
+          "product": {
+            "enum": [
+              "dados",
+              "pis",
+              "pis-agendado",
+              "pixauto",
+              "smart",
+              "infra"
+            ],
+            "type": "string",
+            "description": "Which Pluggy product line the incident affects"
+          },
+          "kind": {
+            "enum": [
+              "INCIDENT",
+              "MAINTENANCE"
+            ],
+            "type": "string",
+            "description": "Whether this is an unplanned incident or a planned maintenance window"
+          },
+          "severity": {
+            "enum": [
+              "DEGRADED",
+              "PARTIAL_OUTAGE",
+              "MAJOR_OUTAGE",
+              "MAINTENANCE"
+            ],
+            "type": "string",
+            "description": "How badly the institution is affected"
+          },
+          "state": {
+            "enum": [
+              "INVESTIGATING",
+              "IDENTIFIED",
+              "MONITORING",
+              "SCHEDULED"
+            ],
+            "type": "string",
+            "description": "Where the incident is in its lifecycle. Resolved incidents are not listed"
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the incident began"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "When the incident was last updated"
+          },
+          "url": {
+            "type": "string",
+            "description": "Permalink to the incident on the status page, with its full timeline and postmortem. Safe to show to your own users"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "type",
+          "product",
+          "kind",
+          "severity",
+          "state",
+          "startedAt",
+          "url"
+        ]
       },
       "Item": {
         "description": "Item object",
