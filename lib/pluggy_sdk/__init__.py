@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post67"
+__version__ = "1.0.0.post68"
 
 # Define package exports
 __all__ = [
@@ -37,6 +37,7 @@ __all__ = [
     "PaymentRecipientApi",
     "PaymentRequestApi",
     "PaymentScheduleApi",
+    "SCRApi",
     "SmartTransferApi",
     "TransactionApi",
     "WebhookApi",
@@ -90,6 +91,7 @@ __all__ = [
     "ConnectorCredential",
     "ConnectorHealth",
     "ConnectorHealthDetails",
+    "ConnectorIncident",
     "ConnectorListResponse",
     "ConnectorUserAction",
     "Consent",
@@ -222,6 +224,13 @@ __all__ = [
     "ScheduleAutomaticPixPaymentRequest",
     "SchedulePayment",
     "SchedulePaymentErrorDetail",
+    "ScrAdditionalInfo",
+    "ScrDatabase",
+    "ScrGuarantee",
+    "ScrMaturityBalances",
+    "ScrOperation",
+    "ScrResponse",
+    "ScrValidationMessage",
     "SmartAccount",
     "SmartTranfersPreauthorizationsList200Response",
     "SmartTransferCallbackUrls",
@@ -271,6 +280,7 @@ from pluggy_sdk.api.payment_intent_api import PaymentIntentApi as PaymentIntentA
 from pluggy_sdk.api.payment_recipient_api import PaymentRecipientApi as PaymentRecipientApi
 from pluggy_sdk.api.payment_request_api import PaymentRequestApi as PaymentRequestApi
 from pluggy_sdk.api.payment_schedule_api import PaymentScheduleApi as PaymentScheduleApi
+from pluggy_sdk.api.scr_api import SCRApi as SCRApi
 from pluggy_sdk.api.smart_transfer_api import SmartTransferApi as SmartTransferApi
 from pluggy_sdk.api.transaction_api import TransactionApi as TransactionApi
 from pluggy_sdk.api.webhook_api import WebhookApi as WebhookApi
@@ -328,6 +338,7 @@ from pluggy_sdk.models.connector import Connector as Connector
 from pluggy_sdk.models.connector_credential import ConnectorCredential as ConnectorCredential
 from pluggy_sdk.models.connector_health import ConnectorHealth as ConnectorHealth
 from pluggy_sdk.models.connector_health_details import ConnectorHealthDetails as ConnectorHealthDetails
+from pluggy_sdk.models.connector_incident import ConnectorIncident as ConnectorIncident
 from pluggy_sdk.models.connector_list_response import ConnectorListResponse as ConnectorListResponse
 from pluggy_sdk.models.connector_user_action import ConnectorUserAction as ConnectorUserAction
 from pluggy_sdk.models.consent import Consent as Consent
@@ -460,6 +471,13 @@ from pluggy_sdk.models.single import SINGLE as SINGLE
 from pluggy_sdk.models.schedule_automatic_pix_payment_request import ScheduleAutomaticPixPaymentRequest as ScheduleAutomaticPixPaymentRequest
 from pluggy_sdk.models.schedule_payment import SchedulePayment as SchedulePayment
 from pluggy_sdk.models.schedule_payment_error_detail import SchedulePaymentErrorDetail as SchedulePaymentErrorDetail
+from pluggy_sdk.models.scr_additional_info import ScrAdditionalInfo as ScrAdditionalInfo
+from pluggy_sdk.models.scr_database import ScrDatabase as ScrDatabase
+from pluggy_sdk.models.scr_guarantee import ScrGuarantee as ScrGuarantee
+from pluggy_sdk.models.scr_maturity_balances import ScrMaturityBalances as ScrMaturityBalances
+from pluggy_sdk.models.scr_operation import ScrOperation as ScrOperation
+from pluggy_sdk.models.scr_response import ScrResponse as ScrResponse
+from pluggy_sdk.models.scr_validation_message import ScrValidationMessage as ScrValidationMessage
 from pluggy_sdk.models.smart_account import SmartAccount as SmartAccount
 from pluggy_sdk.models.smart_tranfers_preauthorizations_list200_response import SmartTranfersPreauthorizationsList200Response as SmartTranfersPreauthorizationsList200Response
 from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls as SmartTransferCallbackUrls

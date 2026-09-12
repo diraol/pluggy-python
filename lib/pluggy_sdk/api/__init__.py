@@ -19,6 +19,7 @@ from pluggy_sdk.api.payment_intent_api import PaymentIntentApi
 from pluggy_sdk.api.payment_recipient_api import PaymentRecipientApi
 from pluggy_sdk.api.payment_request_api import PaymentRequestApi
 from pluggy_sdk.api.payment_schedule_api import PaymentScheduleApi
+from pluggy_sdk.api.scr_api import SCRApi
 from pluggy_sdk.api.smart_transfer_api import SmartTransferApi
 from pluggy_sdk.api.transaction_api import TransactionApi
 from pluggy_sdk.api.webhook_api import WebhookApi

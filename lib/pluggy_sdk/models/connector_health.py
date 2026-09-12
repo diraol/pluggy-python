@@ -21,6 +21,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.connector_health_details import ConnectorHealthDetails
+from pluggy_sdk.models.connector_incident import ConnectorIncident
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,8 +32,9 @@ class ConnectorHealth(BaseModel):
     """ # noqa: E501
     status: Optional[StrictStr] = Field(default=None, description="'ONLINE' | 'OFFLINE' | 'UNSTABLE'")
     stage: Optional[StrictStr] = None
+    incidents: Optional[List[ConnectorIncident]] = Field(default=None, description="Incidents currently affecting this connector, as published on https://status.pluggy.ai. Absent when the connector has none, so a healthy connector's payload is unchanged. Ordered worst-first, so the first entry is the one to show if you only show one. Note this is about the institution, not about your own connections: use it to warn a user before they pick a bank that is known to be failing right now.")
     details: Optional[ConnectorHealthDetails] = None
-    __properties: ClassVar[List[str]] = ["status", "stage", "details"]
+    __properties: ClassVar[List[str]] = ["status", "stage", "incidents", "details"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -73,6 +75,12 @@ class ConnectorHealth(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in incidents (list)
+        _items = []
+        if self.incidents:
+            for _item_incidents in self.incidents:
+                _items.append(_item_incidents.to_dict() if _item_incidents is not None else None)
+            _dict['incidents'] = _items
         # override the default output from pydantic by calling `to_dict()` of details
         if self.details:
             _dict['details'] = self.details.to_dict()
@@ -95,6 +103,7 @@ class ConnectorHealth(BaseModel):
         _obj = cls.model_validate({
             "status": obj.get("status"),
             "stage": obj.get("stage"),
+            "incidents": [ConnectorIncident.from_dict(_item) for _item in obj["incidents"]] if obj.get("incidents") is not None else None,
             "details": ConnectorHealthDetails.from_dict(obj["details"]) if obj.get("details") is not None else None
         })
         return _obj

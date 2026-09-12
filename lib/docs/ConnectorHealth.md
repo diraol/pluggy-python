@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | **str** | &#39;ONLINE&#39; | &#39;OFFLINE&#39; | &#39;UNSTABLE&#39; | [optional] 
 **stage** | **str** |  | [optional] 
+**incidents** | [**List[ConnectorIncident]**](ConnectorIncident.md) | Incidents currently affecting this connector, as published on https://status.pluggy.ai. Absent when the connector has none, so a healthy connector&#39;s payload is unchanged. Ordered worst-first, so the first entry is the one to show if you only show one. Note this is about the institution, not about your own connections: use it to warn a user before they pick a bank that is known to be failing right now. | [optional] 
 **details** | [**ConnectorHealthDetails**](ConnectorHealthDetails.md) |  | [optional] 
 
 ## Example

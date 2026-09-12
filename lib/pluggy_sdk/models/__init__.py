@@ -55,6 +55,7 @@ from pluggy_sdk.models.connector import Connector
 from pluggy_sdk.models.connector_credential import ConnectorCredential
 from pluggy_sdk.models.connector_health import ConnectorHealth
 from pluggy_sdk.models.connector_health_details import ConnectorHealthDetails
+from pluggy_sdk.models.connector_incident import ConnectorIncident
 from pluggy_sdk.models.connector_list_response import ConnectorListResponse
 from pluggy_sdk.models.connector_user_action import ConnectorUserAction
 from pluggy_sdk.models.consent import Consent
@@ -187,6 +188,13 @@ from pluggy_sdk.models.single import SINGLE
 from pluggy_sdk.models.schedule_automatic_pix_payment_request import ScheduleAutomaticPixPaymentRequest
 from pluggy_sdk.models.schedule_payment import SchedulePayment
 from pluggy_sdk.models.schedule_payment_error_detail import SchedulePaymentErrorDetail
+from pluggy_sdk.models.scr_additional_info import ScrAdditionalInfo
+from pluggy_sdk.models.scr_database import ScrDatabase
+from pluggy_sdk.models.scr_guarantee import ScrGuarantee
+from pluggy_sdk.models.scr_maturity_balances import ScrMaturityBalances
+from pluggy_sdk.models.scr_operation import ScrOperation
+from pluggy_sdk.models.scr_response import ScrResponse
+from pluggy_sdk.models.scr_validation_message import ScrValidationMessage
 from pluggy_sdk.models.smart_account import SmartAccount
 from pluggy_sdk.models.smart_tranfers_preauthorizations_list200_response import SmartTranfersPreauthorizationsList200Response
 from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls
