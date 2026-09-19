@@ -1061,6 +1061,143 @@
         }
       }
     },
+    "/items/{id}/resources": {
+    "get": {
+      "operationId": "items-resources",
+      "summary": "List Item resources",
+      "description": "Open Finance only. Lists the resources the financial institution declared for this item's consent, exactly as the institution reported them.\n\nUse it to answer what a consent actually covers, and what the institution says about each part of it. A resource reported as `PENDING_AUTHORISATION` or `UNAVAILABLE` explains an absent product, and is something the end user can act on at their bank.\n\nWhether Pluggy holds the matching record is a separate question: use the product endpoints (`/accounts`, `/investments`, `/loans`) and the Item's `statusDetail` for that.\n\nThe list is a snapshot from the last execution that reached the institution, so it can be older than the item itself. The Item's `resourcesCollectedAt` says when it was taken — and an empty list means the institution shared nothing only when that field is set; when it is `null`, the list was never obtained.\n\nItems on non Open Finance connectors return an empty page rather than an error.",
+      "responses": {
+        "200": {
+          "description": "The resources declared for the item's consent",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "number",
+                    "format": "double",
+                    "description": ""
+                  },
+                  "total": {
+                    "type": "number",
+                    "format": "double",
+                    "description": ""
+                  },
+                  "totalPages": {
+                    "type": "number",
+                    "format": "double",
+                    "description": ""
+                  },
+                  "results": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ItemResource"
+                    },
+                    "description": "List of declared resources"
+                  }
+                }
+              },
+              "examples": {
+                "response": {
+                  "value": {
+                    "page": 1,
+                    "total": 3,
+                    "totalPages": 1,
+                    "results": [
+                      {
+                        "resourceId": "1f9a5e0c-3d2b-4a1e-9c7f-2b8d6e4a1c30",
+                        "type": "ACCOUNT",
+                        "status": "AVAILABLE"
+                      },
+                      {
+                        "resourceId": "6c2d8b41-7e5a-4f03-b19d-8a4e2c7f5b60",
+                        "type": "CREDIT_CARD_ACCOUNT",
+                        "status": "PENDING_AUTHORISATION"
+                      },
+                      {
+                        "resourceId": "a3e71d92-5b48-4c6f-8e20-1d9c3b7a4e50",
+                        "type": "FUND",
+                        "status": "UNAVAILABLE"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Item not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GlobalErrorResponse"
+              },
+              "example": {
+                "code": 404,
+                "codeDescription": "ITEM_NOT_FOUND",
+                "message": "item not found"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server Internal Error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GlobalErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "Items"
+      ],
+      "security": [
+        {
+          "default": []
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Item primary identifier",
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "example": "d0e8448e-0156-4b4a-ae6c-3e2a6d9bff5c"
+        },
+        {
+          "description": "Page size for the paging request, default: 500",
+          "in": "query",
+          "name": "pageSize",
+          "required": false,
+          "schema": {
+            "type": "number",
+            "format": "double"
+          },
+          "example": "50"
+        },
+        {
+          "description": "Page number for the paging request, default: 1",
+          "in": "query",
+          "name": "page",
+          "required": false,
+          "schema": {
+            "type": "number",
+            "format": "double"
+          },
+          "example": "1"
+        }
+      ]
+    }
+    },
     "/items/{id}/mfa": {
       "post": {
         "operationId": "items-send-mfa",
@@ -3369,7 +3506,7 @@
                   "emails": [
                     {
                       "type": "Personal",
-                      "value": "myemail@pluggy.ai"
+                      "value": "myemail@example.com"
                     }
                   ],
                   "relations": [
@@ -3513,7 +3650,7 @@
                   "emails": [
                     {
                       "type": "Personal",
-                      "value": "myemail@pluggy.ai"
+                      "value": "myemail@example.com"
                     }
                   ],
                   "relations": [
@@ -5147,7 +5284,7 @@
                           "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
                           "type": "INDIVIDUAL",
                           "name": "Marco Silva",
-                          "email": "msilva@pluggy.ai",
+                          "email": "marco.silva@example.com",
                           "createdAt": "2023-11-06T13:03:45.689Z",
                           "updatedAt": "2023-11-06T13:03:45.689Z"
                         }
@@ -8987,6 +9124,13 @@
             },
             "description": "Products supported by the connector"
           },
+          "productCoverage": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Which sub-products the institution serves, in the Open Finance directory's own vocabulary (for example INVESTMENTS:TREASURE_TITLES, CREDIT_OPERATIONS:INVOICE_FINANCINGS). Where products says whether the connector serves investments at all, this says which ones: a connector listing INVESTMENTS may serve one of the five investment resources or all five. Absent for direct connectors, which have no Open Finance participant."
+          },
           "oauth": {
             "type": "boolean",
             "description": "If 'true', the connector requires an Oauth flow to execute"
@@ -9406,6 +9550,14 @@
             "format": "date-time",
             "description": "Consent expiration date"
           },
+          "resourcesCollectedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "Open Finance only. When the financial institution's resources list was last read for this Item, or `null` if it never was. Pairs with `GET /items/{id}/resources`: an empty list there means the institution shared nothing when this is set, and that the list was never obtained when this is `null`."
+          },
           "products": {
             "type": "array",
             "items": {
@@ -9475,13 +9627,14 @@
           "lastUpdatedAt": "2024-09-19T13:11:23.595Z",
           "webhookUrl": null,
           "error": null,
-          "clientUserId": "gabriel@pluggy.ai",
+          "clientUserId": "user@example.com",
           "consecutiveFailedLoginAttempts": 0,
           "statusDetail": null,
           "parameter": null,
           "userAction": null,
           "nextAutoSyncAt": null,
           "consentExpiresAt": null,
+          "resourcesCollectedAt": null,
           "products": [
             "ACCOUNTS",
             "CREDIT_CARDS",
@@ -10061,7 +10214,7 @@
           },
           "totalAmount": {
             "type": "number",
-            "description": "Total amount of the purchase"
+            "description": "Total amount of the purchase. Only available on direct connectors; Open Finance connectors do not return this field"
           },
           "feeType": {
             "enum": [
@@ -12951,6 +13104,43 @@
           }
         }
       },
+      "ItemResource": {
+        "type": "object",
+        "description": "One resource the financial institution declared for the item's Open Finance consent, reported verbatim.",
+        "properties": {
+          "resourceId": {
+            "type": "string",
+            "description": "The institution's identifier for the resource."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ACCOUNT",
+              "CREDIT_CARD_ACCOUNT",
+              "LOAN",
+              "FINANCING",
+              "UNARRANGED_ACCOUNT_OVERDRAFT",
+              "INVOICE_FINANCING",
+              "BANK_FIXED_INCOME",
+              "CREDIT_FIXED_INCOME",
+              "VARIABLE_INCOME",
+              "TREASURE_TITLE",
+              "FUND"
+            ],
+            "description": "Open Finance resource type."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "AVAILABLE",
+              "UNAVAILABLE",
+              "TEMPORARILY_UNAVAILABLE",
+              "PENDING_AUTHORISATION"
+            ],
+            "description": "What the institution reports about this resource. Note the British spelling of PENDING_AUTHORISATION: it is Open Finance's, kept verbatim."
+          }
+        }
+      },
       "LoanPayments": {
         "properties": {
           "contractOutstandingBalance": {
@@ -13268,7 +13458,7 @@
       },
       "PaymentIntentStatus": {
         "type": "string",
-        "description": "Lifecycle of a payment intent. The flow goes from consent collection (CONSENT_*) to payment execution (PAYMENT_*).\n\n**Consent phase**\n- `STARTED`: the consent process started at Pluggy.\n- `ENQUEUED`: the payment is enqueued waiting for the consent flow to be initiated.\n- `CONSENT_AWAITING_AUTHORIZATION`: the payer must complete the authorization at the institution (see `consentUrl`).\n- `CONSENT_AUTHORIZED`: the consent was granted by the payer.\n- `CONSENT_REJECTED`: the consent was rejected by the payer or the institution.\n\n**Payment phase**\n- `PAYMENT_PENDING`: the payment was submitted to the institution and is waiting confirmation.\n- `PAYMENT_PARTIALLY_ACCEPTED`: the payment was accepted but still needs an additional authorization (e.g. multi-signature accounts).\n- `PAYMENT_SETTLEMENT_PROCESSING`: the settlement is being processed.\n- `PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT`: the funds were debited from the payer account; awaiting clearing.\n- `PAYMENT_COMPLETED`: the payment was confirmed by the institution.\n- `PAYMENT_REJECTED`: the payment was rejected after consent was authorized.\n\n**Terminal / other**\n- `REJECTED`: generic rejected status (institution-specific reason in `errorDetail`).\n- `ERROR`: an unexpected error occurred during the flow.\n- `CANCELED`: the intent was canceled.\n- `REVOKED`: the consent was revoked after authorization (recurring payments only).\n- `CONSUMED`: the consent was fully consumed (recurring payments reached their end).",
+        "description": "Lifecycle of a payment intent. The flow goes from consent collection (CONSENT_*) to payment execution (PAYMENT_*).\n\n**Consent phase**\n- `STARTED`: the consent process started at Pluggy.\n- `ENQUEUED`: the payment is enqueued waiting for the consent flow to be initiated.\n- `CONSENT_AWAITING_AUTHORIZATION`: the payer must complete the authorization at the institution (see `consentUrl`).\n- `CONSENT_AUTHORIZED`: the consent was granted by the payer.\n- `CONSENT_REJECTED`: the consent was rejected by the payer or the institution.\n\n**Payment phase**\n- `PAYMENT_PENDING`: the payment was submitted to the institution and is waiting confirmation.\n- `PAYMENT_PARTIALLY_ACCEPTED`: the payment was accepted but still needs an additional authorization (e.g. multi-signature accounts).\n- `PAYMENT_SETTLEMENT_PROCESSING`: the settlement is being processed.\n- `PAYMENT_SETTLEMENT_DEBTOR_ACCOUNT`: the funds were debited from the payer account; awaiting clearing.\n- `PAYMENT_COMPLETED`: the payment was confirmed by the institution.\n- `PAYMENT_REJECTED`: the payment was rejected after consent was authorized.\n\n**Terminal / other**\n- `REJECTED`: generic rejected status (institution-specific reason in `errorDetail`).\n- `ERROR`: an unexpected error occurred during the flow.\n- `CANCELED`: the intent was canceled.\n- `REVOKED`: the consent was revoked after authorization (recurring payments only).\n- `CONSUMED`: the consent was fully consumed (recurring payments reached their end).\n- `PAYMENT_TIMEOUT`: the authorization attempt exceeded its timeout. Regular payment attempts time out after 30 minutes; Automatic PIX attempts time out after 60 minutes. The Payment Request returns to `CREATED`.",
         "enum": [
           "STARTED",
           "ENQUEUED",
@@ -13285,7 +13475,8 @@
           "ERROR",
           "CANCELED",
           "REVOKED",
-          "CONSUMED"
+          "CONSUMED",
+          "PAYMENT_TIMEOUT"
         ]
       },
       "WebhookEventType": {
@@ -14231,7 +14422,7 @@
           "id": "5e9f8f8f-f8f8-4f8f-8f8f-8f8f8f8f8f8f",
           "type": "INDIVIDUAL",
           "name": "Marco Silva",
-          "email": "msilva@pluggy.ai",
+          "email": "marco.silva@example.com",
           "cpf": "123.456.789-00",
           "cnpj": null,
           "connector": null,
@@ -14274,7 +14465,7 @@
         "example": {
           "type": "INDIVIDUAL",
           "name": "Marco Silva",
-          "email": "msilva@pluggy.ai",
+          "email": "marco.silva@example.com",
           "cpf": "12345678900"
         }
       },
@@ -14304,7 +14495,7 @@
         "type": "object",
         "example": {
           "name": "Marco Silva",
-          "email": "msilva@pluggy.ai"
+          "email": "marco.silva@example.com"
         }
       },
       "PaymentRecipient": {
