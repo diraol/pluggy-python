@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **next_auto_sync_at** | **datetime** | Date of next auto-sync, or null if auto-sync is disabled for this Item | [optional] 
 **consecutive_failed_login_attempts** | **float** | Consecutives execution that ends up with a LOGIN_ERROR status | [optional] 
 **consent_expires_at** | **datetime** | Consent expiration date | [optional] 
+**resources_collected_at** | **datetime** | Open Finance only. When the financial institution&#39;s resources list was last read for this Item, or &#x60;null&#x60; if it never was. Pairs with &#x60;GET /items/{id}/resources&#x60;: an empty list there means the institution shared nothing when this is set, and that the list was never obtained when this is &#x60;null&#x60;. | [optional] 
 **products** | **List[str]** | Products collected by the item | [optional] 
 
 ## Example

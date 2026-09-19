@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **installment_number** | **float** | Number of the current installment of the purchase | [optional] 
 **total_installments** | **float** | Total number of installments of the purchase | [optional] 
-**total_amount** | **float** | Total amount of the purchase | [optional] 
+**total_amount** | **float** | Total amount of the purchase. Only available on direct connectors; Open Finance connectors do not return this field | [optional] 
 **fee_type** | **str** | Type of fee charged. Present when the operation is a fee (TARIFA) | [optional] 
 **fee_type_additional_info** | **str** | Free text describing the fee type when feeType is &#39;OTHER&#39; | [optional] 
 **other_credits_type** | **str** | Other type of credit contracted on the card. Present when the operation is a contracted credit operation | [optional] 

@@ -49,8 +49,9 @@ class Item(BaseModel):
     next_auto_sync_at: Optional[datetime] = Field(default=None, description="Date of next auto-sync, or null if auto-sync is disabled for this Item", alias="nextAutoSyncAt")
     consecutive_failed_login_attempts: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Consecutives execution that ends up with a LOGIN_ERROR status", alias="consecutiveFailedLoginAttempts")
     consent_expires_at: Optional[datetime] = Field(default=None, description="Consent expiration date", alias="consentExpiresAt")
+    resources_collected_at: Optional[datetime] = Field(default=None, description="Open Finance only. When the financial institution's resources list was last read for this Item, or `null` if it never was. Pairs with `GET /items/{id}/resources`: an empty list there means the institution shared nothing when this is set, and that the list was never obtained when this is `null`.", alias="resourcesCollectedAt")
     products: Optional[List[StrictStr]] = Field(default=None, description="Products collected by the item")
-    __properties: ClassVar[List[str]] = ["id", "connector", "status", "executionStatus", "error", "parameter", "userAction", "webhookUrl", "createdAt", "updatedAt", "lastUpdatedAt", "statusDetail", "nextAutoSyncAt", "consecutiveFailedLoginAttempts", "consentExpiresAt", "products"]
+    __properties: ClassVar[List[str]] = ["id", "connector", "status", "executionStatus", "error", "parameter", "userAction", "webhookUrl", "createdAt", "updatedAt", "lastUpdatedAt", "statusDetail", "nextAutoSyncAt", "consecutiveFailedLoginAttempts", "consentExpiresAt", "resourcesCollectedAt", "products"]
 
     @field_validator('products')
     def products_validate_enum(cls, value):
@@ -117,6 +118,11 @@ class Item(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of status_detail
         if self.status_detail:
             _dict['statusDetail'] = self.status_detail.to_dict()
+        # set to None if resources_collected_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.resources_collected_at is None and "resources_collected_at" in self.model_fields_set:
+            _dict['resourcesCollectedAt'] = None
+
         return _dict
 
     @classmethod
@@ -144,6 +150,7 @@ class Item(BaseModel):
             "nextAutoSyncAt": obj.get("nextAutoSyncAt"),
             "consecutiveFailedLoginAttempts": obj.get("consecutiveFailedLoginAttempts"),
             "consentExpiresAt": obj.get("consentExpiresAt"),
+            "resourcesCollectedAt": obj.get("resourcesCollectedAt"),
             "products": obj.get("products")
         })
         return _obj

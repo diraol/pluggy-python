@@ -31,7 +31,7 @@ class CreditCardMetadata(BaseModel):
     """ # noqa: E501
     installment_number: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Number of the current installment of the purchase", alias="installmentNumber")
     total_installments: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total number of installments of the purchase", alias="totalInstallments")
-    total_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of the purchase", alias="totalAmount")
+    total_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total amount of the purchase. Only available on direct connectors; Open Finance connectors do not return this field", alias="totalAmount")
     fee_type: Optional[StrictStr] = Field(default=None, description="Type of fee charged. Present when the operation is a fee (TARIFA)", alias="feeType")
     fee_type_additional_info: Optional[StrictStr] = Field(default=None, description="Free text describing the fee type when feeType is 'OTHER'", alias="feeTypeAdditionalInfo")
     other_credits_type: Optional[StrictStr] = Field(default=None, description="Other type of credit contracted on the card. Present when the operation is a contracted credit operation", alias="otherCreditsType")

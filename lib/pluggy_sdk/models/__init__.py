@@ -119,6 +119,8 @@ from pluggy_sdk.models.item import Item
 from pluggy_sdk.models.item_creation_error_response import ItemCreationErrorResponse
 from pluggy_sdk.models.item_error import ItemError
 from pluggy_sdk.models.item_options import ItemOptions
+from pluggy_sdk.models.item_resource import ItemResource
+from pluggy_sdk.models.items_resources200_response import ItemsResources200Response
 from pluggy_sdk.models.loan import Loan
 from pluggy_sdk.models.loan_contracted_fee import LoanContractedFee
 from pluggy_sdk.models.loan_contracted_finance_charge import LoanContractedFinanceCharge

@@ -41,6 +41,7 @@ class Connector(BaseModel):
     credentials: Optional[List[ConnectorCredential]] = Field(default=None, description="Parameters required to start the connection")
     has_mfa: Optional[StrictBool] = Field(default=None, description="Does the connector require an MFA to execute?", alias="hasMFA")
     products: Optional[List[StrictStr]] = Field(default=None, description="Products supported by the connector")
+    product_coverage: Optional[List[StrictStr]] = Field(default=None, description="Which sub-products the institution serves, in the Open Finance directory's own vocabulary (for example INVESTMENTS:TREASURE_TITLES, CREDIT_OPERATIONS:INVOICE_FINANCINGS). Where products says whether the connector serves investments at all, this says which ones: a connector listing INVESTMENTS may serve one of the five investment resources or all five. Absent for direct connectors, which have no Open Finance participant.", alias="productCoverage")
     oauth: Optional[StrictBool] = Field(default=None, description="If 'true', the connector requires an Oauth flow to execute")
     oauth_url: Optional[StrictStr] = Field(default=None, description="URL to perform Oauth flow if needed", alias="oauthUrl")
     reset_password_url: Optional[StrictStr] = Field(default=None, description="URL to the financial institution to reset the password", alias="resetPasswordUrl")
@@ -54,7 +55,7 @@ class Connector(BaseModel):
     supports_automatic_pix: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports automatic Pix", alias="supportsAutomaticPix")
     created_at: Optional[datetime] = Field(default=None, description="Date of creation", alias="createdAt")
     updated_at: Optional[datetime] = Field(default=None, description="Date of last modification", alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["id", "name", "institutionUrl", "imageUrl", "primaryColor", "type", "country", "credentials", "hasMFA", "products", "oauth", "oauthUrl", "resetPasswordUrl", "health", "isOpenFinance", "isSandbox", "supportsPaymentInitiation", "supportsScheduledPayments", "supportsSmartTransfers", "supportsBoletoManagement", "supportsAutomaticPix", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "name", "institutionUrl", "imageUrl", "primaryColor", "type", "country", "credentials", "hasMFA", "products", "productCoverage", "oauth", "oauthUrl", "resetPasswordUrl", "health", "isOpenFinance", "isSandbox", "supportsPaymentInitiation", "supportsScheduledPayments", "supportsSmartTransfers", "supportsBoletoManagement", "supportsAutomaticPix", "createdAt", "updatedAt"]
 
     @field_validator('products')
     def products_validate_enum(cls, value):
@@ -137,6 +138,7 @@ class Connector(BaseModel):
             "credentials": [ConnectorCredential.from_dict(_item) for _item in obj["credentials"]] if obj.get("credentials") is not None else None,
             "hasMFA": obj.get("hasMFA"),
             "products": obj.get("products"),
+            "productCoverage": obj.get("productCoverage"),
             "oauth": obj.get("oauth"),
             "oauthUrl": obj.get("oauthUrl"),
             "resetPasswordUrl": obj.get("resetPasswordUrl"),

@@ -118,7 +118,9 @@ docs/Item.md
 docs/ItemCreationErrorResponse.md
 docs/ItemError.md
 docs/ItemOptions.md
+docs/ItemResource.md
 docs/ItemsApi.md
+docs/ItemsResources200Response.md
 docs/Loan.md
 docs/LoanApi.md
 docs/LoanContractedFee.md
@@ -369,6 +371,8 @@ pluggy_sdk/models/item.py
 pluggy_sdk/models/item_creation_error_response.py
 pluggy_sdk/models/item_error.py
 pluggy_sdk/models/item_options.py
+pluggy_sdk/models/item_resource.py
+pluggy_sdk/models/items_resources200_response.py
 pluggy_sdk/models/loan.py
 pluggy_sdk/models/loan_contracted_fee.py
 pluggy_sdk/models/loan_contracted_finance_charge.py
@@ -481,13 +485,6 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_connector_incident.py
-test/test_scr_additional_info.py
-test/test_scr_api.py
-test/test_scr_database.py
-test/test_scr_guarantee.py
-test/test_scr_maturity_balances.py
-test/test_scr_operation.py
-test/test_scr_response.py
-test/test_scr_validation_message.py
+test/test_item_resource.py
+test/test_items_resources200_response.py
 tox.ini

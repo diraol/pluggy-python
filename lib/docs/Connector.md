@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **credentials** | [**List[ConnectorCredential]**](ConnectorCredential.md) | Parameters required to start the connection | [optional] 
 **has_mfa** | **bool** | Does the connector require an MFA to execute? | [optional] 
 **products** | **List[str]** | Products supported by the connector | [optional] 
+**product_coverage** | **List[str]** | Which sub-products the institution serves, in the Open Finance directory&#39;s own vocabulary (for example INVESTMENTS:TREASURE_TITLES, CREDIT_OPERATIONS:INVOICE_FINANCINGS). Where products says whether the connector serves investments at all, this says which ones: a connector listing INVESTMENTS may serve one of the five investment resources or all five. Absent for direct connectors, which have no Open Finance participant. | [optional] 
 **oauth** | **bool** | If &#39;true&#39;, the connector requires an Oauth flow to execute | [optional] 
 **oauth_url** | **str** | URL to perform Oauth flow if needed | [optional] 
 **reset_password_url** | **str** | URL to the financial institution to reset the password | [optional] 

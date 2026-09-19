@@ -16,14 +16,15 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
-from typing import Dict, Optional
+from pydantic import Field, StrictFloat, StrictInt, StrictStr
+from typing import Dict, Optional, Union
 from typing_extensions import Annotated
 from uuid import UUID
 from pluggy_sdk.models.create_item import CreateItem
 from pluggy_sdk.models.cursor_page_response_items import CursorPageResponseItems
 from pluggy_sdk.models.i_count_response import ICountResponse
 from pluggy_sdk.models.item import Item
+from pluggy_sdk.models.items_resources200_response import ItemsResources200Response
 from pluggy_sdk.models.update_item import UpdateItem
 
 from pluggy_sdk.api_client import ApiClient, RequestSerialized
@@ -1152,6 +1153,307 @@ class ItemsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v2/items',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def items_resources(
+        self,
+        id: Annotated[UUID, Field(description="Item primary identifier")],
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
+        page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ItemsResources200Response:
+        """List Item resources
+
+        Open Finance only. Lists the resources the financial institution declared for this item's consent, exactly as the institution reported them.  Use it to answer what a consent actually covers, and what the institution says about each part of it. A resource reported as `PENDING_AUTHORISATION` or `UNAVAILABLE` explains an absent product, and is something the end user can act on at their bank.  Whether Pluggy holds the matching record is a separate question: use the product endpoints (`/accounts`, `/investments`, `/loans`) and the Item's `statusDetail` for that.  The list is a snapshot from the last execution that reached the institution, so it can be older than the item itself. The Item's `resourcesCollectedAt` says when it was taken — and an empty list means the institution shared nothing only when that field is set; when it is `null`, the list was never obtained.  Items on non Open Finance connectors return an empty page rather than an error.
+
+        :param id: Item primary identifier (required)
+        :type id: UUID
+        :param page_size: Page size for the paging request, default: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._items_resources_serialize(
+            id=id,
+            page_size=page_size,
+            page=page,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ItemsResources200Response",
+            '404': "GlobalErrorResponse",
+            '500': "GlobalErrorResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def items_resources_with_http_info(
+        self,
+        id: Annotated[UUID, Field(description="Item primary identifier")],
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
+        page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ItemsResources200Response]:
+        """List Item resources
+
+        Open Finance only. Lists the resources the financial institution declared for this item's consent, exactly as the institution reported them.  Use it to answer what a consent actually covers, and what the institution says about each part of it. A resource reported as `PENDING_AUTHORISATION` or `UNAVAILABLE` explains an absent product, and is something the end user can act on at their bank.  Whether Pluggy holds the matching record is a separate question: use the product endpoints (`/accounts`, `/investments`, `/loans`) and the Item's `statusDetail` for that.  The list is a snapshot from the last execution that reached the institution, so it can be older than the item itself. The Item's `resourcesCollectedAt` says when it was taken — and an empty list means the institution shared nothing only when that field is set; when it is `null`, the list was never obtained.  Items on non Open Finance connectors return an empty page rather than an error.
+
+        :param id: Item primary identifier (required)
+        :type id: UUID
+        :param page_size: Page size for the paging request, default: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._items_resources_serialize(
+            id=id,
+            page_size=page_size,
+            page=page,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ItemsResources200Response",
+            '404': "GlobalErrorResponse",
+            '500': "GlobalErrorResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def items_resources_without_preload_content(
+        self,
+        id: Annotated[UUID, Field(description="Item primary identifier")],
+        page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
+        page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List Item resources
+
+        Open Finance only. Lists the resources the financial institution declared for this item's consent, exactly as the institution reported them.  Use it to answer what a consent actually covers, and what the institution says about each part of it. A resource reported as `PENDING_AUTHORISATION` or `UNAVAILABLE` explains an absent product, and is something the end user can act on at their bank.  Whether Pluggy holds the matching record is a separate question: use the product endpoints (`/accounts`, `/investments`, `/loans`) and the Item's `statusDetail` for that.  The list is a snapshot from the last execution that reached the institution, so it can be older than the item itself. The Item's `resourcesCollectedAt` says when it was taken — and an empty list means the institution shared nothing only when that field is set; when it is `null`, the list was never obtained.  Items on non Open Finance connectors return an empty page rather than an error.
+
+        :param id: Item primary identifier (required)
+        :type id: UUID
+        :param page_size: Page size for the paging request, default: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._items_resources_serialize(
+            id=id,
+            page_size=page_size,
+            page=page,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ItemsResources200Response",
+            '404': "GlobalErrorResponse",
+            '500': "GlobalErrorResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _items_resources_serialize(
+        self,
+        id,
+        page_size,
+        page,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'default'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/items/{id}/resources',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

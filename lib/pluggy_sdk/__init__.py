@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post68"
+__version__ = "1.0.0.post69"
 
 # Define package exports
 __all__ = [
@@ -155,6 +155,8 @@ __all__ = [
     "ItemCreationErrorResponse",
     "ItemError",
     "ItemOptions",
+    "ItemResource",
+    "ItemsResources200Response",
     "Loan",
     "LoanContractedFee",
     "LoanContractedFinanceCharge",
@@ -402,6 +404,8 @@ from pluggy_sdk.models.item import Item as Item
 from pluggy_sdk.models.item_creation_error_response import ItemCreationErrorResponse as ItemCreationErrorResponse
 from pluggy_sdk.models.item_error import ItemError as ItemError
 from pluggy_sdk.models.item_options import ItemOptions as ItemOptions
+from pluggy_sdk.models.item_resource import ItemResource as ItemResource
+from pluggy_sdk.models.items_resources200_response import ItemsResources200Response as ItemsResources200Response
 from pluggy_sdk.models.loan import Loan as Loan
 from pluggy_sdk.models.loan_contracted_fee import LoanContractedFee as LoanContractedFee
 from pluggy_sdk.models.loan_contracted_finance_charge import LoanContractedFinanceCharge as LoanContractedFinanceCharge

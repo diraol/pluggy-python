@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**items_delete**](ItemsApi.md#items_delete) | **DELETE** /items/{id} | Delete
 [**items_disable_autosync**](ItemsApi.md#items_disable_autosync) | **PATCH** /items/{id}/disable-auto-sync | Disable item auto sync
 [**items_list_by_cursor**](ItemsApi.md#items_list_by_cursor) | **GET** /v2/items | List
+[**items_resources**](ItemsApi.md#items_resources) | **GET** /items/{id}/resources | List Item resources
 [**items_retrieve**](ItemsApi.md#items_retrieve) | **GET** /items/{id} | Retrieve
 [**items_send_mfa**](ItemsApi.md#items_send_mfa) | **POST** /items/{id}/mfa | Send MFA
 [**items_update**](ItemsApi.md#items_update) | **PATCH** /items/{id} | Update
@@ -342,6 +343,99 @@ Name | Type | Description  | Notes
 **200** | Retrieve a list of your items using cursor-based pagination |  -  |
 **400** | Missing or invalid parameter |  -  |
 **403** | The feature is not enabled for this client |  -  |
+**500** | Server Internal Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **items_resources**
+> ItemsResources200Response items_resources(id, page_size=page_size, page=page)
+
+List Item resources
+
+Open Finance only. Lists the resources the financial institution declared for this item's consent, exactly as the institution reported them.
+
+Use it to answer what a consent actually covers, and what the institution says about each part of it. A resource reported as `PENDING_AUTHORISATION` or `UNAVAILABLE` explains an absent product, and is something the end user can act on at their bank.
+
+Whether Pluggy holds the matching record is a separate question: use the product endpoints (`/accounts`, `/investments`, `/loans`) and the Item's `statusDetail` for that.
+
+The list is a snapshot from the last execution that reached the institution, so it can be older than the item itself. The Item's `resourcesCollectedAt` says when it was taken — and an empty list means the institution shared nothing only when that field is set; when it is `null`, the list was never obtained.
+
+Items on non Open Finance connectors return an empty page rather than an error.
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.models.items_resources200_response import ItemsResources200Response
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.ItemsApi(api_client)
+    id = UUID('d0e8448e-0156-4b4a-ae6c-3e2a6d9bff5c') # UUID | Item primary identifier
+    page_size = 50 # float | Page size for the paging request, default: 500 (optional)
+    page = 1 # float | Page number for the paging request, default: 1 (optional)
+
+    try:
+        # List Item resources
+        api_response = api_instance.items_resources(id, page_size=page_size, page=page)
+        print("The response of ItemsApi->items_resources:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ItemsApi->items_resources: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Item primary identifier | 
+ **page_size** | **float**| Page size for the paging request, default: 500 | [optional] 
+ **page** | **float**| Page number for the paging request, default: 1 | [optional] 
+
+### Return type
+
+[**ItemsResources200Response**](ItemsResources200Response.md)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The resources declared for the item&#39;s consent |  -  |
+**404** | Item not found |  -  |
 **500** | Server Internal Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
