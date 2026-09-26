@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **bills_list**
-> BillsList200Response bills_list(account_id)
+> BillsList200Response bills_list(account_id, page_size=page_size, page=page)
 
 List
 
@@ -47,10 +47,12 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.BillApi(api_client)
     account_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Account's primary identifier
+    page_size = 50 # float | Page size for the paging request, default: 500 (optional)
+    page = 1 # float | Page number for the paging request, default: 1 (optional)
 
     try:
         # List
-        api_response = api_instance.bills_list(account_id)
+        api_response = api_instance.bills_list(account_id, page_size=page_size, page=page)
         print("The response of BillApi->bills_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -65,6 +67,8 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **account_id** | **UUID**| Account&#39;s primary identifier | 
+ **page_size** | **float**| Page size for the paging request, default: 500 | [optional] 
+ **page** | **float**| Page number for the paging request, default: 1 | [optional] 
 
 ### Return type
 
