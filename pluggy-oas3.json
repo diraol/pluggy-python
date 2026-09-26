@@ -5145,6 +5145,30 @@
               "format": "uuid"
             },
             "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          },
+          {
+            "description": "Page size for the paging request, default: 500",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "example": "50"
+          },
+          {
+            "description": "Page number for the paging request, default: 1",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "example": "1"
           }
         ]
       }
@@ -10366,7 +10390,7 @@
               "string",
               "null"
             ],
-            "description": "Type of operation classified by the institution. For bank account transactions it carries values such as 'PIX' or 'TED'; for credit card transactions it carries the Open Finance transaction type ('PAGAMENTO', 'PAGAMENTO_FATURA' for a partial or full bill payment, 'TARIFA', 'OPERACOES_CREDITO_CONTRATADAS_CARTAO', 'ESTORNO', 'CASHBACK', 'OUTROS'). Only returned for Open Finance connectors."
+            "description": "Type of operation classified by the institution. For bank account transactions it carries values such as 'PIX' or 'TED'; for credit card transactions it carries the Open Finance transaction type ('PAGAMENTO', 'PAGAMENTO_FATURA' for a partial or full bill payment, 'TARIFA', 'OPERACOES_CREDITO_CONTRATADAS_CARTAO', 'ESTORNO', 'CASHBACK', 'OUTROS'). The one exception is the credit card bill payment Pluggy builds from the bill data when the institution does not report the payment as a transaction (described as 'Pagamento recebido'): it carries 'PAGAMENTO_FATURA', set by Pluggy rather than by the institution. Only returned for Open Finance connectors."
           },
           "operationTypeAdditionalInfo": {
             "type": [
