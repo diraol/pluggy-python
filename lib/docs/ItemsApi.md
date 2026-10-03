@@ -348,7 +348,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **items_resources**
-> ItemsResources200Response items_resources(id, page_size=page_size, page=page)
+> ItemsResources200Response items_resources(id, page_size=page_size, page=page, status=status)
 
 List Item resources
 
@@ -396,10 +396,11 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     id = UUID('d0e8448e-0156-4b4a-ae6c-3e2a6d9bff5c') # UUID | Item primary identifier
     page_size = 50 # float | Page size for the paging request, default: 500 (optional)
     page = 1 # float | Page number for the paging request, default: 1 (optional)
+    status = 'PENDING_AUTHORISATION' # str | Only resources with this status, spelled as Open Finance reports it. `PENDING_AUTHORISATION` lists what is still awaiting authorization at the institution. (optional)
 
     try:
         # List Item resources
-        api_response = api_instance.items_resources(id, page_size=page_size, page=page)
+        api_response = api_instance.items_resources(id, page_size=page_size, page=page, status=status)
         print("The response of ItemsApi->items_resources:\n")
         pprint(api_response)
     except Exception as e:
@@ -416,6 +417,7 @@ Name | Type | Description  | Notes
  **id** | **UUID**| Item primary identifier | 
  **page_size** | **float**| Page size for the paging request, default: 500 | [optional] 
  **page** | **float**| Page number for the paging request, default: 1 | [optional] 
+ **status** | **str**| Only resources with this status, spelled as Open Finance reports it. &#x60;PENDING_AUTHORISATION&#x60; lists what is still awaiting authorization at the institution. | [optional] 
 
 ### Return type
 

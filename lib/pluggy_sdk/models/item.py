@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.connector import Connector
 from pluggy_sdk.models.connector_credential import ConnectorCredential
@@ -50,8 +50,9 @@ class Item(BaseModel):
     consecutive_failed_login_attempts: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Consecutives execution that ends up with a LOGIN_ERROR status", alias="consecutiveFailedLoginAttempts")
     consent_expires_at: Optional[datetime] = Field(default=None, description="Consent expiration date", alias="consentExpiresAt")
     resources_collected_at: Optional[datetime] = Field(default=None, description="Open Finance only. When the financial institution's resources list was last read for this Item, or `null` if it never was. Pairs with `GET /items/{id}/resources`: an empty list there means the institution shared nothing when this is set, and that the list was never obtained when this is `null`.", alias="resourcesCollectedAt")
+    has_resources_pending_authorization: Optional[StrictBool] = Field(default=None, description="Open Finance only. Whether the financial institution declares any of this Item's resources pending authorization, meaning the user still has to approve them at their bank. Read from the same list as `GET /items/{id}/resources`, which returns them with `status=PENDING_AUTHORISATION`.  - `true`: at least one resource is pending authorization. - `false`: the resources list was read and none is pending. - `null`: always for connectors other than Open Finance. For an Open Finance Item, the resources list has not been read yet (`resourcesCollectedAt` is `null`), for example while its first execution is still running. Read this field once the execution finishes (`item/created` or `item/updated` webhook).", alias="hasResourcesPendingAuthorization")
     products: Optional[List[StrictStr]] = Field(default=None, description="Products collected by the item")
-    __properties: ClassVar[List[str]] = ["id", "connector", "status", "executionStatus", "error", "parameter", "userAction", "webhookUrl", "createdAt", "updatedAt", "lastUpdatedAt", "statusDetail", "nextAutoSyncAt", "consecutiveFailedLoginAttempts", "consentExpiresAt", "resourcesCollectedAt", "products"]
+    __properties: ClassVar[List[str]] = ["id", "connector", "status", "executionStatus", "error", "parameter", "userAction", "webhookUrl", "createdAt", "updatedAt", "lastUpdatedAt", "statusDetail", "nextAutoSyncAt", "consecutiveFailedLoginAttempts", "consentExpiresAt", "resourcesCollectedAt", "hasResourcesPendingAuthorization", "products"]
 
     @field_validator('products')
     def products_validate_enum(cls, value):
@@ -123,6 +124,11 @@ class Item(BaseModel):
         if self.resources_collected_at is None and "resources_collected_at" in self.model_fields_set:
             _dict['resourcesCollectedAt'] = None
 
+        # set to None if has_resources_pending_authorization (nullable) is None
+        # and model_fields_set contains the field
+        if self.has_resources_pending_authorization is None and "has_resources_pending_authorization" in self.model_fields_set:
+            _dict['hasResourcesPendingAuthorization'] = None
+
         return _dict
 
     @classmethod
@@ -151,6 +157,7 @@ class Item(BaseModel):
             "consecutiveFailedLoginAttempts": obj.get("consecutiveFailedLoginAttempts"),
             "consentExpiresAt": obj.get("consentExpiresAt"),
             "resourcesCollectedAt": obj.get("resourcesCollectedAt"),
+            "hasResourcesPendingAuthorization": obj.get("hasResourcesPendingAuthorization"),
             "products": obj.get("products")
         })
         return _obj

@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
+from datetime import date, datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
@@ -41,7 +41,10 @@ class CreditCardMetadata(BaseModel):
     card_number: Optional[StrictStr] = Field(default=None, description="Credit Card Number associated with transaction, can be different from the account if its done by an additional or virtual card.", alias="cardNumber")
     bill_id: Optional[StrictStr] = Field(default=None, description="Id of the bill associated to this transaction", alias="billId")
     bill_forecast_date: Optional[StrictStr] = Field(default=None, description="Forecasted bill period (formatted as YYYY-MM) in which this transaction is expected to be charged. Unlike billId, it is provided for pending and future transactions too. Only returned for Open Finance connectors", alias="billForecastDate")
-    __properties: ClassVar[List[str]] = ["installmentNumber", "totalInstallments", "totalAmount", "feeType", "feeTypeAdditionalInfo", "otherCreditsType", "otherCreditsAdditionalInfo", "purchaseDate", "payeeMCC", "cardNumber", "billId", "billForecastDate"]
+    payment_type: Optional[StrictStr] = Field(default=None, description="How the purchase is charged: 'SINGLE' when it is charged in full on one bill, 'INSTALLMENT' when it is split into installments. Only returned for Open Finance connectors. Populated from the release of this field onwards, not retroactively: transactions synced before it do not carry the key until they are synced again", alias="paymentType")
+    bill_post_date: Optional[date] = Field(default=None, description="Date (YYYY-MM-DD) the institution posted the transaction to a bill, exactly as the institution reports it. Unlike the transaction 'date', it is never adjusted by Pluggy. null when the transaction is not posted to a bill yet or the institution does not report it. A missing key means the same as null: the field is populated from its release onwards, not retroactively. Only returned for Open Finance connectors", alias="billPostDate")
+    transaction_date_time: Optional[datetime] = Field(default=None, description="Date and time of the transaction as reported by the institution. Normalized to a valid ISO-8601 string: some institutions append a zone id suffix (e.g. '2026-04-09T16:43:35.203Z[GMT]'), which Pluggy removes. Absent when the institution sends a placeholder. Only returned for Open Finance connectors. Populated from the release of this field onwards, not retroactively", alias="transactionDateTime")
+    __properties: ClassVar[List[str]] = ["installmentNumber", "totalInstallments", "totalAmount", "feeType", "feeTypeAdditionalInfo", "otherCreditsType", "otherCreditsAdditionalInfo", "purchaseDate", "payeeMCC", "cardNumber", "billId", "billForecastDate", "paymentType", "billPostDate", "transactionDateTime"]
 
     @field_validator('fee_type')
     def fee_type_validate_enum(cls, value):
@@ -61,6 +64,16 @@ class CreditCardMetadata(BaseModel):
 
         if value not in set(['REVOLVING_CREDIT', 'BILL_INSTALLMENT', 'LOAN', 'OTHER']):
             raise ValueError("must be one of enum values ('REVOLVING_CREDIT', 'BILL_INSTALLMENT', 'LOAN', 'OTHER')")
+        return value
+
+    @field_validator('payment_type')
+    def payment_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['SINGLE', 'INSTALLMENT']):
+            raise ValueError("must be one of enum values ('SINGLE', 'INSTALLMENT')")
         return value
 
     model_config = ConfigDict(
@@ -102,6 +115,11 @@ class CreditCardMetadata(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if bill_post_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.bill_post_date is None and "bill_post_date" in self.model_fields_set:
+            _dict['billPostDate'] = None
+
         return _dict
 
     @classmethod
@@ -125,7 +143,10 @@ class CreditCardMetadata(BaseModel):
             "payeeMCC": obj.get("payeeMCC"),
             "cardNumber": obj.get("cardNumber"),
             "billId": obj.get("billId"),
-            "billForecastDate": obj.get("billForecastDate")
+            "billForecastDate": obj.get("billForecastDate"),
+            "paymentType": obj.get("paymentType"),
+            "billPostDate": obj.get("billPostDate"),
+            "transactionDateTime": obj.get("transactionDateTime")
         })
         return _obj
 

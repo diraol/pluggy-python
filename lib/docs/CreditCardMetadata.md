@@ -18,6 +18,9 @@ Name | Type | Description | Notes
 **card_number** | **str** | Credit Card Number associated with transaction, can be different from the account if its done by an additional or virtual card. | [optional] 
 **bill_id** | **str** | Id of the bill associated to this transaction | [optional] 
 **bill_forecast_date** | **str** | Forecasted bill period (formatted as YYYY-MM) in which this transaction is expected to be charged. Unlike billId, it is provided for pending and future transactions too. Only returned for Open Finance connectors | [optional] 
+**payment_type** | **str** | How the purchase is charged: &#39;SINGLE&#39; when it is charged in full on one bill, &#39;INSTALLMENT&#39; when it is split into installments. Only returned for Open Finance connectors. Populated from the release of this field onwards, not retroactively: transactions synced before it do not carry the key until they are synced again | [optional] 
+**bill_post_date** | **date** | Date (YYYY-MM-DD) the institution posted the transaction to a bill, exactly as the institution reports it. Unlike the transaction &#39;date&#39;, it is never adjusted by Pluggy. null when the transaction is not posted to a bill yet or the institution does not report it. A missing key means the same as null: the field is populated from its release onwards, not retroactively. Only returned for Open Finance connectors | [optional] 
+**transaction_date_time** | **datetime** | Date and time of the transaction as reported by the institution. Normalized to a valid ISO-8601 string: some institutions append a zone id suffix (e.g. &#39;2026-04-09T16:43:35.203Z[GMT]&#39;), which Pluggy removes. Absent when the institution sends a placeholder. Only returned for Open Finance connectors. Populated from the release of this field onwards, not retroactively | [optional] 
 
 ## Example
 

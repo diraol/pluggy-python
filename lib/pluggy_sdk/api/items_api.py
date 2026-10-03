@@ -16,7 +16,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictFloat, StrictInt, StrictStr
+from pydantic import Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Dict, Optional, Union
 from typing_extensions import Annotated
 from uuid import UUID
@@ -1174,6 +1174,7 @@ class ItemsApi:
         id: Annotated[UUID, Field(description="Item primary identifier")],
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Only resources with this status, spelled as Open Finance reports it. `PENDING_AUTHORISATION` lists what is still awaiting authorization at the institution.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1197,6 +1198,8 @@ class ItemsApi:
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
+        :param status: Only resources with this status, spelled as Open Finance reports it. `PENDING_AUTHORISATION` lists what is still awaiting authorization at the institution.
+        :type status: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1223,6 +1226,7 @@ class ItemsApi:
             id=id,
             page_size=page_size,
             page=page,
+            status=status,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1251,6 +1255,7 @@ class ItemsApi:
         id: Annotated[UUID, Field(description="Item primary identifier")],
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Only resources with this status, spelled as Open Finance reports it. `PENDING_AUTHORISATION` lists what is still awaiting authorization at the institution.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1274,6 +1279,8 @@ class ItemsApi:
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
+        :param status: Only resources with this status, spelled as Open Finance reports it. `PENDING_AUTHORISATION` lists what is still awaiting authorization at the institution.
+        :type status: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1300,6 +1307,7 @@ class ItemsApi:
             id=id,
             page_size=page_size,
             page=page,
+            status=status,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1328,6 +1336,7 @@ class ItemsApi:
         id: Annotated[UUID, Field(description="Item primary identifier")],
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Only resources with this status, spelled as Open Finance reports it. `PENDING_AUTHORISATION` lists what is still awaiting authorization at the institution.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1351,6 +1360,8 @@ class ItemsApi:
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
+        :param status: Only resources with this status, spelled as Open Finance reports it. `PENDING_AUTHORISATION` lists what is still awaiting authorization at the institution.
+        :type status: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1377,6 +1388,7 @@ class ItemsApi:
             id=id,
             page_size=page_size,
             page=page,
+            status=status,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1400,6 +1412,7 @@ class ItemsApi:
         id,
         page_size,
         page,
+        status,
         _request_auth,
         _content_type,
         _headers,
@@ -1431,6 +1444,10 @@ class ItemsApi:
         if page is not None:
             
             _query_params.append(('page', page))
+            
+        if status is not None:
+            
+            _query_params.append(('status', status))
             
         # process the header parameters
         # process the form parameters
