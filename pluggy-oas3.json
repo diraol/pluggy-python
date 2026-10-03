@@ -1194,6 +1194,17 @@
             "format": "double"
           },
           "example": "1"
+        },
+        {
+          "description": "Only resources with this status, spelled as Open Finance reports it. `PENDING_AUTHORISATION` lists what is still awaiting authorization at the institution.",
+          "in": "query",
+          "name": "status",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": ["AVAILABLE", "UNAVAILABLE", "TEMPORARILY_UNAVAILABLE", "PENDING_AUTHORISATION"]
+          },
+          "example": "PENDING_AUTHORISATION"
         }
       ]
     }
@@ -2382,7 +2393,10 @@
                             "payeeMCC": 1234,
                             "cardNumber": "0597",
                             "billId": "abced929-edc4-408c-a959-d51f79ab1123",
-                            "billForecastDate": "2020-10"
+                            "billForecastDate": "2020-10",
+                            "paymentType": "INSTALLMENT",
+                            "billPostDate": "2020-10-05",
+                            "transactionDateTime": "2020-09-14T15:32:10.000Z"
                           },
                           "providerId": null
                         },
@@ -9582,6 +9596,13 @@
             "format": "date-time",
             "description": "Open Finance only. When the financial institution's resources list was last read for this Item, or `null` if it never was. Pairs with `GET /items/{id}/resources`: an empty list there means the institution shared nothing when this is set, and that the list was never obtained when this is `null`."
           },
+          "hasResourcesPendingAuthorization": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Open Finance only. Whether the financial institution declares any of this Item's resources pending authorization, meaning the user still has to approve them at their bank. Read from the same list as `GET /items/{id}/resources`, which returns them with `status=PENDING_AUTHORISATION`.\n\n- `true`: at least one resource is pending authorization.\n- `false`: the resources list was read and none is pending.\n- `null`: always for connectors other than Open Finance. For an Open Finance Item, the resources list has not been read yet (`resourcesCollectedAt` is `null`), for example while its first execution is still running. Read this field once the execution finishes (`item/created` or `item/updated` webhook)."
+          },
           "products": {
             "type": "array",
             "items": {
@@ -9659,6 +9680,7 @@
           "nextAutoSyncAt": null,
           "consentExpiresAt": null,
           "resourcesCollectedAt": null,
+          "hasResourcesPendingAuthorization": null,
           "products": [
             "ACCOUNTS",
             "CREDIT_CARDS",
@@ -10292,6 +10314,27 @@
           "billForecastDate": {
             "type": "string",
             "description": "Forecasted bill period (formatted as YYYY-MM) in which this transaction is expected to be charged. Unlike billId, it is provided for pending and future transactions too. Only returned for Open Finance connectors"
+          },
+          "paymentType": {
+            "enum": [
+              "SINGLE",
+              "INSTALLMENT"
+            ],
+            "type": "string",
+            "description": "How the purchase is charged: 'SINGLE' when it is charged in full on one bill, 'INSTALLMENT' when it is split into installments. Only returned for Open Finance connectors. Populated from the release of this field onwards, not retroactively: transactions synced before it do not carry the key until they are synced again"
+          },
+          "billPostDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date",
+            "description": "Date (YYYY-MM-DD) the institution posted the transaction to a bill, exactly as the institution reports it. Unlike the transaction 'date', it is never adjusted by Pluggy. null when the transaction is not posted to a bill yet or the institution does not report it. A missing key means the same as null: the field is populated from its release onwards, not retroactively. Only returned for Open Finance connectors"
+          },
+          "transactionDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time of the transaction as reported by the institution. Normalized to a valid ISO-8601 string: some institutions append a zone id suffix (e.g. '2026-04-09T16:43:35.203Z[GMT]'), which Pluggy removes. Absent when the institution sends a placeholder. Only returned for Open Finance connectors. Populated from the release of this field onwards, not retroactively"
           }
         },
         "type": "object"
@@ -10397,7 +10440,7 @@
               "string",
               "null"
             ],
-            "description": "Complementary, free-form information about the operation type, as provided by the institution. Varies by institution (a sub-type code or a description). Only returned for Open Finance connectors."
+            "description": "Complementary, free-form information about the operation type, as provided by the institution. Varies by institution (a sub-type code or a description). For credit card transactions it carries the Open Finance 'transactionalAdditionalInfo'. Open Finance requires it when operationType is 'OUTROS', but not every institution fills it. Only returned for Open Finance connectors."
           },
           "providerId": {
             "type": [
