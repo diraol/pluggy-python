@@ -209,10 +209,13 @@ docs/SmartAccount.md
 docs/SmartTranfersPreauthorizationsList200Response.md
 docs/SmartTransferApi.md
 docs/SmartTransferCallbackUrls.md
+docs/SmartTransferDataConsent.md
+docs/SmartTransferOverdraft.md
 docs/SmartTransferPayment.md
 docs/SmartTransferPaymentErrorDetail.md
 docs/SmartTransferPaymentStatus.md
 docs/SmartTransferPreauthorization.md
+docs/SmartTransferPreauthorizationBalance.md
 docs/SmartTransferPreauthorizationConfiguration.md
 docs/SmartTransferPreauthorizationConfigurationPeriodicLimit.md
 docs/SmartTransferPreauthorizationConfigurationPeriodicLimits.md
@@ -452,10 +455,13 @@ pluggy_sdk/models/single.py
 pluggy_sdk/models/smart_account.py
 pluggy_sdk/models/smart_tranfers_preauthorizations_list200_response.py
 pluggy_sdk/models/smart_transfer_callback_urls.py
+pluggy_sdk/models/smart_transfer_data_consent.py
+pluggy_sdk/models/smart_transfer_overdraft.py
 pluggy_sdk/models/smart_transfer_payment.py
 pluggy_sdk/models/smart_transfer_payment_error_detail.py
 pluggy_sdk/models/smart_transfer_payment_status.py
 pluggy_sdk/models/smart_transfer_preauthorization.py
+pluggy_sdk/models/smart_transfer_preauthorization_balance.py
 pluggy_sdk/models/smart_transfer_preauthorization_configuration.py
 pluggy_sdk/models/smart_transfer_preauthorization_configuration_periodic_limit.py
 pluggy_sdk/models/smart_transfer_preauthorization_configuration_periodic_limits.py
@@ -485,4 +491,7 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_smart_transfer_data_consent.py
+test/test_smart_transfer_overdraft.py
+test/test_smart_transfer_preauthorization_balance.py
 tox.ini

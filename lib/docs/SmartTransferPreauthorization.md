@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **updated_at** | **datetime** | Date when the preauthorization was updated | 
 **configuration** | [**SmartTransferPreauthorizationConfiguration**](SmartTransferPreauthorizationConfiguration.md) |  | [optional] 
 **error_detail** | [**SmartTransferPreauthorizationErrorDetail**](SmartTransferPreauthorizationErrorDetail.md) |  | [optional] 
+**data_consent** | [**SmartTransferDataConsent**](SmartTransferDataConsent.md) | Balance permission requested with &#x60;linkedJourney&#x60;. Null when it was not requested. Its status is refreshed from the institution when the preauthorization is retrieved by id; the list returns the last known status. | 
 
 ## Example
 

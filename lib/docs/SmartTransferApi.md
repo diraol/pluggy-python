@@ -7,7 +7,9 @@ Method | HTTP request | Description
 [**smart_tranfers_preauthorizations_list**](SmartTransferApi.md#smart_tranfers_preauthorizations_list) | **GET** /smart-transfers/preauthorizations | List preauthorizations
 [**smart_transfer_payment_create**](SmartTransferApi.md#smart_transfer_payment_create) | **POST** /smart-transfers/payments | Create payment
 [**smart_transfer_paymentretrieve**](SmartTransferApi.md#smart_transfer_paymentretrieve) | **GET** /smart-transfers/payments/{id} | Retrieve payment
+[**smart_transfer_preauthorization_balance_retrieve**](SmartTransferApi.md#smart_transfer_preauthorization_balance_retrieve) | **GET** /smart-transfers/preauthorizations/{id}/balance | Retrieve source account balance
 [**smart_transfer_preauthorization_create**](SmartTransferApi.md#smart_transfer_preauthorization_create) | **POST** /smart-transfers/preauthorizations | Create preauthorization
+[**smart_transfer_preauthorization_data_consent_delete**](SmartTransferApi.md#smart_transfer_preauthorization_data_consent_delete) | **DELETE** /smart-transfers/preauthorizations/{id}/data-consent | Cancel balance permission
 [**smart_transfer_preauthorization_payments_list**](SmartTransferApi.md#smart_transfer_preauthorization_payments_list) | **GET** /smart-transfers/preauthorizations/{id}/payments | List preauthorization payments
 [**smart_transfer_preauthorization_retrieve**](SmartTransferApi.md#smart_transfer_preauthorization_retrieve) | **GET** /smart-transfers/preauthorizations/{id} | Retrieve preauthorization
 
@@ -254,6 +256,89 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **smart_transfer_preauthorization_balance_retrieve**
+> SmartTransferPreauthorizationBalance smart_transfer_preauthorization_balance_retrieve(id)
+
+Retrieve source account balance
+
+Reads the source account balance in real time from the institution. Requires a preauthorization created with `linkedJourney` whose `dataConsent` is `AUTHORISED`. Every call counts toward the institution's monthly Open Finance quota for that account; see [Operational Rate Limits](https://docs.pluggy.ai/docs/open-finance/rate-limits).
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.models.smart_transfer_preauthorization_balance import SmartTransferPreauthorizationBalance
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.SmartTransferApi(api_client)
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Preauthorization primary identifier
+
+    try:
+        # Retrieve source account balance
+        api_response = api_instance.smart_transfer_preauthorization_balance_retrieve(id)
+        print("The response of SmartTransferApi->smart_transfer_preauthorization_balance_retrieve:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling SmartTransferApi->smart_transfer_preauthorization_balance_retrieve: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Preauthorization primary identifier | 
+
+### Return type
+
+[**SmartTransferPreauthorizationBalance**](SmartTransferPreauthorizationBalance.md)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Source account balance |  -  |
+**400** | The preauthorization was created without linkedJourney |  -  |
+**403** | The balance permission is pending, rejected or revoked |  -  |
+**404** | Smart Transfer Preauthorization not found |  -  |
+**429** | Rate limit reached. The account&#39;s monthly balance quota at the institution is the usual cause; try again later |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **smart_transfer_preauthorization_create**
 > SmartTransferPreauthorization smart_transfer_preauthorization_create(create_smart_transfer_preauthorization)
 
@@ -332,6 +417,89 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Create a Smart Transfer Preauthorization. |  -  |
 **400** | Preauthorization is Invalid |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **smart_transfer_preauthorization_data_consent_delete**
+> SmartTransferPreauthorization smart_transfer_preauthorization_data_consent_delete(id)
+
+Cancel balance permission
+
+Cancels only the balance permission. The preauthorization stays active and its transfers keep working. A permission that already ended (rejected, revoked, cancelled or expired), or one whose preauthorization is `REVOKED`, `REJECTED` or `ERROR`, answers 200 with `dataConsent.status` `REJECTED`, so retrying is safe.
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.models.smart_transfer_preauthorization import SmartTransferPreauthorization
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.SmartTransferApi(api_client)
+    id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Preauthorization primary identifier
+
+    try:
+        # Cancel balance permission
+        api_response = api_instance.smart_transfer_preauthorization_data_consent_delete(id)
+        print("The response of SmartTransferApi->smart_transfer_preauthorization_data_consent_delete:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling SmartTransferApi->smart_transfer_preauthorization_data_consent_delete: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Preauthorization primary identifier | 
+
+### Return type
+
+[**SmartTransferPreauthorization**](SmartTransferPreauthorization.md)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The preauthorization, with the cancelled permission |  -  |
+**400** | The preauthorization was created without linkedJourney |  -  |
+**403** | The institution did not accept the cancellation, for example because the user has not approved the balance permission yet |  -  |
+**404** | Smart Transfer Preauthorization not found |  -  |
+**429** | Rate limit reached; try again later |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -24,6 +24,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pluggy_sdk.models.connector import Connector
 from pluggy_sdk.models.payment_recipient import PaymentRecipient
 from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls
+from pluggy_sdk.models.smart_transfer_data_consent import SmartTransferDataConsent
 from pluggy_sdk.models.smart_transfer_preauthorization_configuration import SmartTransferPreauthorizationConfiguration
 from pluggy_sdk.models.smart_transfer_preauthorization_error_detail import SmartTransferPreauthorizationErrorDetail
 from typing import Optional, Set
@@ -45,7 +46,8 @@ class SmartTransferPreauthorization(BaseModel):
     updated_at: datetime = Field(description="Date when the preauthorization was updated", alias="updatedAt")
     configuration: Optional[SmartTransferPreauthorizationConfiguration] = None
     error_detail: Optional[SmartTransferPreauthorizationErrorDetail] = Field(default=None, alias="errorDetail")
-    __properties: ClassVar[List[str]] = ["id", "status", "consentUrl", "clientPreauthorizationId", "callbackUrls", "recipients", "connector", "createdAt", "updatedAt", "configuration", "errorDetail"]
+    data_consent: Optional[SmartTransferDataConsent] = Field(description="Balance permission requested with `linkedJourney`. Null when it was not requested. Its status is refreshed from the institution when the preauthorization is retrieved by id; the list returns the last known status.", alias="dataConsent")
+    __properties: ClassVar[List[str]] = ["id", "status", "consentUrl", "clientPreauthorizationId", "callbackUrls", "recipients", "connector", "createdAt", "updatedAt", "configuration", "errorDetail", "dataConsent"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -111,6 +113,9 @@ class SmartTransferPreauthorization(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of error_detail
         if self.error_detail:
             _dict['errorDetail'] = self.error_detail.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of data_consent
+        if self.data_consent:
+            _dict['dataConsent'] = self.data_consent.to_dict()
         # set to None if client_preauthorization_id (nullable) is None
         # and model_fields_set contains the field
         if self.client_preauthorization_id is None and "client_preauthorization_id" in self.model_fields_set:
@@ -120,6 +125,11 @@ class SmartTransferPreauthorization(BaseModel):
         # and model_fields_set contains the field
         if self.callback_urls is None and "callback_urls" in self.model_fields_set:
             _dict['callbackUrls'] = None
+
+        # set to None if data_consent (nullable) is None
+        # and model_fields_set contains the field
+        if self.data_consent is None and "data_consent" in self.model_fields_set:
+            _dict['dataConsent'] = None
 
         return _dict
 
@@ -143,7 +153,8 @@ class SmartTransferPreauthorization(BaseModel):
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt"),
             "configuration": SmartTransferPreauthorizationConfiguration.from_dict(obj["configuration"]) if obj.get("configuration") is not None else None,
-            "errorDetail": SmartTransferPreauthorizationErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None
+            "errorDetail": SmartTransferPreauthorizationErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None,
+            "dataConsent": SmartTransferDataConsent.from_dict(obj["dataConsent"]) if obj.get("dataConsent") is not None else None
         })
         return _obj
 

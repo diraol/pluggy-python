@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post71"
+__version__ = "1.0.0.post72"
 
 # Define package exports
 __all__ = [
@@ -236,10 +236,13 @@ __all__ = [
     "SmartAccount",
     "SmartTranfersPreauthorizationsList200Response",
     "SmartTransferCallbackUrls",
+    "SmartTransferDataConsent",
+    "SmartTransferOverdraft",
     "SmartTransferPayment",
     "SmartTransferPaymentErrorDetail",
     "SmartTransferPaymentStatus",
     "SmartTransferPreauthorization",
+    "SmartTransferPreauthorizationBalance",
     "SmartTransferPreauthorizationConfiguration",
     "SmartTransferPreauthorizationConfigurationPeriodicLimit",
     "SmartTransferPreauthorizationConfigurationPeriodicLimits",
@@ -485,10 +488,13 @@ from pluggy_sdk.models.scr_validation_message import ScrValidationMessage as Scr
 from pluggy_sdk.models.smart_account import SmartAccount as SmartAccount
 from pluggy_sdk.models.smart_tranfers_preauthorizations_list200_response import SmartTranfersPreauthorizationsList200Response as SmartTranfersPreauthorizationsList200Response
 from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls as SmartTransferCallbackUrls
+from pluggy_sdk.models.smart_transfer_data_consent import SmartTransferDataConsent as SmartTransferDataConsent
+from pluggy_sdk.models.smart_transfer_overdraft import SmartTransferOverdraft as SmartTransferOverdraft
 from pluggy_sdk.models.smart_transfer_payment import SmartTransferPayment as SmartTransferPayment
 from pluggy_sdk.models.smart_transfer_payment_error_detail import SmartTransferPaymentErrorDetail as SmartTransferPaymentErrorDetail
 from pluggy_sdk.models.smart_transfer_payment_status import SmartTransferPaymentStatus as SmartTransferPaymentStatus
 from pluggy_sdk.models.smart_transfer_preauthorization import SmartTransferPreauthorization as SmartTransferPreauthorization
+from pluggy_sdk.models.smart_transfer_preauthorization_balance import SmartTransferPreauthorizationBalance as SmartTransferPreauthorizationBalance
 from pluggy_sdk.models.smart_transfer_preauthorization_configuration import SmartTransferPreauthorizationConfiguration as SmartTransferPreauthorizationConfiguration
 from pluggy_sdk.models.smart_transfer_preauthorization_configuration_periodic_limit import SmartTransferPreauthorizationConfigurationPeriodicLimit as SmartTransferPreauthorizationConfigurationPeriodicLimit
 from pluggy_sdk.models.smart_transfer_preauthorization_configuration_periodic_limits import SmartTransferPreauthorizationConfigurationPeriodicLimits as SmartTransferPreauthorizationConfigurationPeriodicLimits

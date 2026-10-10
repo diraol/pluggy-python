@@ -686,7 +686,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Update the item was successful, new sync was triggered |  -  |
 **400** | Invalid parameters |  -  |
-**404** | Item not found |  -  |
+**404** | Item not found, or its connector was removed from Pluggy and the item can no longer be updated |  -  |
 **409** | There is a conflict updating the item |  -  |
 **500** | Server Internal Error |  -  |
 

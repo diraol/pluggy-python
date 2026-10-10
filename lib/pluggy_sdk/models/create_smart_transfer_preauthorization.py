@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls
 from pluggy_sdk.models.smart_transfer_preauthorization_configuration import SmartTransferPreauthorizationConfiguration
@@ -37,7 +37,8 @@ class CreateSmartTransferPreauthorization(BaseModel):
     callback_urls: Optional[SmartTransferCallbackUrls] = Field(default=None, alias="callbackUrls")
     client_preauthorization_id: Optional[StrictStr] = Field(default=None, description="Client preauthorization identifier", alias="clientPreauthorizationId")
     configuration: Optional[SmartTransferPreauthorizationConfiguration] = None
-    __properties: ClassVar[List[str]] = ["connectorId", "parameters", "recipientIds", "callbackUrls", "clientPreauthorizationId", "configuration"]
+    linked_journey: Optional[StrictBool] = Field(default=False, description="When true, the user is also asked, in the same approval at the bank, for a permission to read the source account balance. Check `dataConsent` on the preauthorization and use the balance endpoint once it is `AUTHORISED`.", alias="linkedJourney")
+    __properties: ClassVar[List[str]] = ["connectorId", "parameters", "recipientIds", "callbackUrls", "clientPreauthorizationId", "configuration", "linkedJourney"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -104,7 +105,8 @@ class CreateSmartTransferPreauthorization(BaseModel):
             "recipientIds": obj.get("recipientIds"),
             "callbackUrls": SmartTransferCallbackUrls.from_dict(obj["callbackUrls"]) if obj.get("callbackUrls") is not None else None,
             "clientPreauthorizationId": obj.get("clientPreauthorizationId"),
-            "configuration": SmartTransferPreauthorizationConfiguration.from_dict(obj["configuration"]) if obj.get("configuration") is not None else None
+            "configuration": SmartTransferPreauthorizationConfiguration.from_dict(obj["configuration"]) if obj.get("configuration") is not None else None,
+            "linkedJourney": obj.get("linkedJourney") if obj.get("linkedJourney") is not None else False
         })
         return _obj
 

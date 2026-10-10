@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **callback_urls** | [**SmartTransferCallbackUrls**](SmartTransferCallbackUrls.md) |  | [optional] 
 **client_preauthorization_id** | **str** | Client preauthorization identifier | [optional] 
 **configuration** | [**SmartTransferPreauthorizationConfiguration**](SmartTransferPreauthorizationConfiguration.md) |  | [optional] 
+**linked_journey** | **bool** | When true, the user is also asked, in the same approval at the bank, for a permission to read the source account balance. Check &#x60;dataConsent&#x60; on the preauthorization and use the balance endpoint once it is &#x60;AUTHORISED&#x60;. | [optional] [default to False]
 
 ## Example
 
