@@ -869,16 +869,29 @@
             }
           },
           "404": {
-            "description": "Item not found",
+            "description": "Item not found, or its connector was removed from Pluggy and the item can no longer be updated",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GlobalErrorResponse"
                 },
-                "example": {
-                  "code": 404,
-                  "codeDescription": "ITEM_NOT_FOUND",
-                  "message": "item not found"
+                "examples": {
+                  "itemNotFound": {
+                    "summary": "Item not found",
+                    "value": {
+                      "code": 404,
+                      "codeDescription": "ITEM_NOT_FOUND",
+                      "message": "item not found"
+                    }
+                  },
+                  "connectorRemoved": {
+                    "summary": "The item's connector was removed",
+                    "value": {
+                      "code": 404,
+                      "codeDescription": "CONNECTOR_NOT_FOUND",
+                      "message": "connector not found"
+                    }
+                  }
                 }
               }
             }
@@ -7748,6 +7761,214 @@
             "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
           }
         ]
+      }
+    },
+    "/smart-transfers/preauthorizations/{id}/balance": {
+      "get": {
+        "operationId": "smart-transfer-preauthorization-balance-retrieve",
+        "summary": "Retrieve source account balance",
+        "description": "Reads the source account balance in real time from the institution. Requires a preauthorization created with `linkedJourney` whose `dataConsent` is `AUTHORISED`. Every call counts toward the institution's monthly Open Finance quota for that account; see [Operational Rate Limits](https://docs.pluggy.ai/docs/open-finance/rate-limits).",
+        "tags": [
+          "Smart Transfer"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Preauthorization primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Source account balance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmartTransferPreauthorizationBalance"
+                },
+                "example": {
+                  "balance": 5.48,
+                  "overdraft": {
+                    "contracted": 1000,
+                    "used": 0,
+                    "available": 1000
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The preauthorization was created without linkedJourney",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 400,
+                  "codeDescription": "SMART_TRANSFER_DATA_CONSENT_NOT_REQUESTED",
+                  "message": "This Smart Transfer Preauthorization has no balance permission. Create it with linkedJourney to request one."
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The balance permission is pending, rejected or revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 403,
+                  "codeDescription": "SMART_TRANSFER_DATA_CONSENT_NOT_AVAILABLE",
+                  "message": "The balance permission of this Smart Transfer Preauthorization is not available. It may be pending, rejected or revoked."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Smart Transfer Preauthorization not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "SMART_TRANSFER_PREAUTHORIZATION_NOT_FOUND",
+                  "message": "Smart Transfer Preauthorization not found"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit reached. The account's monthly balance quota at the institution is the usual cause; try again later",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 429,
+                  "codeDescription": "BALANCE_OPEN_FINANCE_RATE_LIMIT",
+                  "message": "The financial institution rate-limited the balance request. Please try again later."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/smart-transfers/preauthorizations/{id}/data-consent": {
+      "delete": {
+        "operationId": "smart-transfer-preauthorization-data-consent-delete",
+        "summary": "Cancel balance permission",
+        "description": "Cancels only the balance permission. The preauthorization stays active and its transfers keep working. A permission that already ended (rejected, revoked, cancelled or expired), or one whose preauthorization is `REVOKED`, `REJECTED` or `ERROR`, answers 200 with `dataConsent.status` `REJECTED`, so retrying is safe.",
+        "tags": [
+          "Smart Transfer"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Preauthorization primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The preauthorization, with the cancelled permission",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmartTransferPreauthorization"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The preauthorization was created without linkedJourney",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 400,
+                  "codeDescription": "SMART_TRANSFER_DATA_CONSENT_NOT_REQUESTED",
+                  "message": "This Smart Transfer Preauthorization has no balance permission. Create it with linkedJourney to request one."
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The institution did not accept the cancellation, for example because the user has not approved the balance permission yet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 403,
+                  "codeDescription": "SMART_TRANSFER_DATA_CONSENT_NOT_AVAILABLE",
+                  "message": "The balance permission of this Smart Transfer Preauthorization is not available. It may be pending, rejected or revoked."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Smart Transfer Preauthorization not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "SMART_TRANSFER_PREAUTHORIZATION_NOT_FOUND",
+                  "message": "Smart Transfer Preauthorization not found"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit reached; try again later",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 429,
+                  "codeDescription": "BALANCE_OPEN_FINANCE_RATE_LIMIT",
+                  "message": "The financial institution rate-limited the balance request. Please try again later."
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/smart-transfers/preauthorizations/{id}/payments": {
@@ -15246,6 +15467,17 @@
                 "description": "Error detail"
               }
             }
+          },
+          "dataConsent": {
+            "description": "Balance permission requested with `linkedJourney`. Null when it was not requested. Its status is refreshed from the institution when the preauthorization is retrieved by id; the list returns the last known status.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SmartTransferDataConsent"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -15255,7 +15487,8 @@
           "recipients",
           "connector",
           "createdAt",
-          "updatedAt"
+          "updatedAt",
+          "dataConsent"
         ]
       },
       "SmartTransferPreauthorizationConfiguration": {
@@ -15350,6 +15583,11 @@
           },
           "configuration": {
             "$ref": "#/components/schemas/SmartTransferPreauthorizationConfiguration"
+          },
+          "linkedJourney": {
+            "type": "boolean",
+            "default": false,
+            "description": "When true, the user is also asked, in the same approval at the bank, for a permission to read the source account balance. Check `dataConsent` on the preauthorization and use the balance endpoint once it is `AUTHORISED`."
           }
         },
         "required": [
@@ -15357,6 +15595,84 @@
           "parameters",
           "recipientIds"
         ]
+      },
+      "SmartTransferDataConsent": {
+        "description": "Balance permission granted with the preauthorization. Its status is refreshed from the institution when the preauthorization is retrieved by id (`GET /smart-transfers/preauthorizations/{id}`); the list returns the last known status.",
+        "type": "object",
+        "required": [
+          "status",
+          "rejectionReason",
+          "updatedAt"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "AWAITING_AUTHORISATION",
+              "AUTHORISED",
+              "REJECTED"
+            ],
+            "description": "AWAITING_AUTHORISATION: the user has not approved yet. AUTHORISED: the balance can be read. REJECTED: the permission was rejected, revoked, cancelled or expired; it does not come back."
+          },
+          "rejectionReason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Why the permission is REJECTED, for example CUSTOMER_MANUALLY_REJECTED, CUSTOMER_MANUALLY_REVOKED, CONSENT_EXPIRED or CONSENT_MAX_DATE_REACHED. Null otherwise. New values may appear."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When Pluggy last saw the status change."
+          }
+        }
+      },
+      "SmartTransferPreauthorizationBalance": {
+        "type": "object",
+        "required": [
+          "balance",
+          "overdraft"
+        ],
+        "properties": {
+          "balance": {
+            "type": "number",
+            "description": "Source account balance in BRL."
+          },
+          "overdraft": {
+            "description": "Overdraft limit of the source account. Null when the institution does not share it.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SmartTransferOverdraft"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "SmartTransferOverdraft": {
+        "type": "object",
+        "required": [
+          "contracted",
+          "used",
+          "available"
+        ],
+        "properties": {
+          "contracted": {
+            "type": "number",
+            "description": "Overdraft limit contracted, in BRL."
+          },
+          "used": {
+            "type": "number",
+            "description": "Part of the overdraft limit in use, in BRL."
+          },
+          "available": {
+            "type": "number",
+            "description": "Part of the overdraft limit still available, in BRL."
+          }
+        }
       },
       "SmartTransferPreauthorizationParameter": {
         "description": "Credentials neccesary to create a smart transfer preauthorization",
