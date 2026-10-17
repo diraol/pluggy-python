@@ -412,7 +412,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payment_requests_list**
-> PaymentRequestsList200Response payment_requests_list(page_size=page_size, page=page, var_from=var_from, to=to, customer=customer, pix_key=pix_key, status=status)
+> PaymentRequestsList200Response payment_requests_list(page_size=page_size, page=page, var_from=var_from, to=to, customer=customer, pix_key=pix_key, status=status, client_payment_id=client_payment_id)
 
 List
 
@@ -456,10 +456,11 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     customer = 'John' # str | Filter payment requests with one customer attribute (name, email, CPF or CNPJ) (optional)
     pix_key = '11111111111' # str | Filter payment requests by Pix Key (optional)
     status = 'CREATED' # str | Filter payment requests by status (optional)
+    client_payment_id = 'my-internal-payment-id' # str | Filter payment requests by the clientPaymentId sent on creation (exact match) (optional)
 
     try:
         # List
-        api_response = api_instance.payment_requests_list(page_size=page_size, page=page, var_from=var_from, to=to, customer=customer, pix_key=pix_key, status=status)
+        api_response = api_instance.payment_requests_list(page_size=page_size, page=page, var_from=var_from, to=to, customer=customer, pix_key=pix_key, status=status, client_payment_id=client_payment_id)
         print("The response of PaymentRequestApi->payment_requests_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -480,6 +481,7 @@ Name | Type | Description  | Notes
  **customer** | **str**| Filter payment requests with one customer attribute (name, email, CPF or CNPJ) | [optional] 
  **pix_key** | **str**| Filter payment requests by Pix Key | [optional] 
  **status** | **str**| Filter payment requests by status | [optional] 
+ **client_payment_id** | **str**| Filter payment requests by the clientPaymentId sent on creation (exact match) | [optional] 
 
 ### Return type
 

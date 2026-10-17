@@ -491,7 +491,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_smart_transfer_data_consent.py
-test/test_smart_transfer_overdraft.py
-test/test_smart_transfer_preauthorization_balance.py
 tox.ini

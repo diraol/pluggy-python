@@ -1420,6 +1420,7 @@ class PaymentRequestApi:
         customer: Annotated[Optional[StrictStr], Field(description="Filter payment requests with one customer attribute (name, email, CPF or CNPJ)")] = None,
         pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment requests by Pix Key")] = None,
         status: Annotated[Optional[StrictStr], Field(description="Filter payment requests by status")] = None,
+        client_payment_id: Annotated[Optional[StrictStr], Field(description="Filter payment requests by the clientPaymentId sent on creation (exact match)")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1451,6 +1452,8 @@ class PaymentRequestApi:
         :type pix_key: str
         :param status: Filter payment requests by status
         :type status: str
+        :param client_payment_id: Filter payment requests by the clientPaymentId sent on creation (exact match)
+        :type client_payment_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1481,6 +1484,7 @@ class PaymentRequestApi:
             customer=customer,
             pix_key=pix_key,
             status=status,
+            client_payment_id=client_payment_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1511,6 +1515,7 @@ class PaymentRequestApi:
         customer: Annotated[Optional[StrictStr], Field(description="Filter payment requests with one customer attribute (name, email, CPF or CNPJ)")] = None,
         pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment requests by Pix Key")] = None,
         status: Annotated[Optional[StrictStr], Field(description="Filter payment requests by status")] = None,
+        client_payment_id: Annotated[Optional[StrictStr], Field(description="Filter payment requests by the clientPaymentId sent on creation (exact match)")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1542,6 +1547,8 @@ class PaymentRequestApi:
         :type pix_key: str
         :param status: Filter payment requests by status
         :type status: str
+        :param client_payment_id: Filter payment requests by the clientPaymentId sent on creation (exact match)
+        :type client_payment_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1572,6 +1579,7 @@ class PaymentRequestApi:
             customer=customer,
             pix_key=pix_key,
             status=status,
+            client_payment_id=client_payment_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1602,6 +1610,7 @@ class PaymentRequestApi:
         customer: Annotated[Optional[StrictStr], Field(description="Filter payment requests with one customer attribute (name, email, CPF or CNPJ)")] = None,
         pix_key: Annotated[Optional[StrictStr], Field(description="Filter payment requests by Pix Key")] = None,
         status: Annotated[Optional[StrictStr], Field(description="Filter payment requests by status")] = None,
+        client_payment_id: Annotated[Optional[StrictStr], Field(description="Filter payment requests by the clientPaymentId sent on creation (exact match)")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1633,6 +1642,8 @@ class PaymentRequestApi:
         :type pix_key: str
         :param status: Filter payment requests by status
         :type status: str
+        :param client_payment_id: Filter payment requests by the clientPaymentId sent on creation (exact match)
+        :type client_payment_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1663,6 +1674,7 @@ class PaymentRequestApi:
             customer=customer,
             pix_key=pix_key,
             status=status,
+            client_payment_id=client_payment_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1688,6 +1700,7 @@ class PaymentRequestApi:
         customer,
         pix_key,
         status,
+        client_payment_id,
         _request_auth,
         _content_type,
         _headers,
@@ -1755,6 +1768,10 @@ class PaymentRequestApi:
         if status is not None:
             
             _query_params.append(('status', status))
+            
+        if client_payment_id is not None:
+            
+            _query_params.append(('clientPaymentId', client_payment_id))
             
         # process the header parameters
         # process the form parameters

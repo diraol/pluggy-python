@@ -22,6 +22,8 @@ Requires the SCR feature on your subscription. Talk to us if you want it enabled
 
 Base dates are months, not days, and Bacen consolidates each one with a few months of delay. When `from` and `to` are omitted the last 4 available base dates are consulted, ending 2 months back from today — asking for the current month returns nothing, because Bacen has not closed it yet.
 
+**Sandbox.** An item created with the *Sandbox Open Finance* connector (`600`) returns a synthetic payload with exactly this schema, so you can integrate without connecting a real account. The values are deterministic — the same item and window always return the same response — no consultation reaches Bacen, and nothing is billed. The same checks apply as in production: the SCR feature must be enabled on your subscription, the item must be Open Finance, and `from`/`to` are validated; the sandbox additionally rejects windows longer than 60 base dates with `SCR_INVALID_REQUEST`.
+
 ### Example
 
 * Api Key Authentication (default):
