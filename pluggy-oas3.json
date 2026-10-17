@@ -1387,7 +1387,7 @@
       "get": {
         "operationId": "items-retrieve-scr",
         "summary": "Retrieve SCR",
-        "description": "Retrieves the SCR (Bacen's *Sistema de Informações de Crédito*) for the document behind a connected item.\n\nThe SCR is the Banco Central's official registry of credit operations: every loan, financing, limit and guarantee above R$200, reported by every financial institution. The response is Bacen's own payload, forwarded unchanged.\n\nThe item is not the source of the data — the SCR is keyed by the document alone. The item supplies the CPF/CNPJ and stands as the evidence of the account holder's consent, which is why this is only available for Open Finance items whose document is known.\n\nRequires the SCR feature on your subscription. Talk to us if you want it enabled.\n\nBase dates are months, not days, and Bacen consolidates each one with a few months of delay. When `from` and `to` are omitted the last 4 available base dates are consulted, ending 2 months back from today — asking for the current month returns nothing, because Bacen has not closed it yet.",
+        "description": "Retrieves the SCR (Bacen's *Sistema de Informações de Crédito*) for the document behind a connected item.\n\nThe SCR is the Banco Central's official registry of credit operations: every loan, financing, limit and guarantee above R$200, reported by every financial institution. The response is Bacen's own payload, forwarded unchanged.\n\nThe item is not the source of the data — the SCR is keyed by the document alone. The item supplies the CPF/CNPJ and stands as the evidence of the account holder's consent, which is why this is only available for Open Finance items whose document is known.\n\nRequires the SCR feature on your subscription. Talk to us if you want it enabled.\n\nBase dates are months, not days, and Bacen consolidates each one with a few months of delay. When `from` and `to` are omitted the last 4 available base dates are consulted, ending 2 months back from today — asking for the current month returns nothing, because Bacen has not closed it yet.\n\n**Sandbox.** An item created with the *Sandbox Open Finance* connector (`600`) returns a synthetic payload with exactly this schema, so you can integrate without connecting a real account. The values are deterministic — the same item and window always return the same response — no consultation reaches Bacen, and nothing is billed. The same checks apply as in production: the SCR feature must be enabled on your subscription, the item must be Open Finance, and `from`/`to` are validated; the sandbox additionally rejects windows longer than 60 base dates with `SCR_INVALID_REQUEST`.",
         "responses": {
           "200": {
             "description": "SCR data for the item document",
@@ -3407,7 +3407,21 @@
                           "netAmount": null,
                           "agreedRate": null,
                           "brokerageNumber": null,
-                          "expenses": {}
+                          "expenses": {
+                            "serviceTax": 0,
+                            "brokerageFee": 4.9,
+                            "incomeTax": 0,
+                            "tradingAssetsNoticeFee": 0,
+                            "maintenanceFee": 0,
+                            "settlementFee": 1.5,
+                            "clearingFee": 0.5,
+                            "stockExchangeFee": 1.86,
+                            "custodyFee": 0,
+                            "operatingFee": 0,
+                            "other": 0,
+                            "iof": 0,
+                            "iofProvision": 0
+                          }
                         },
                         {
                           "id": "f24f7eec-5a5b-4e54-8727-d40b0b91115a",
@@ -3422,7 +3436,21 @@
                           "netAmount": 10000,
                           "agreedRate": null,
                           "brokerageNumber": "1234",
-                          "expenses": {}
+                          "expenses": {
+                            "serviceTax": 0,
+                            "brokerageFee": 2.5,
+                            "incomeTax": 0,
+                            "tradingAssetsNoticeFee": 0,
+                            "maintenanceFee": 0,
+                            "settlementFee": 2.75,
+                            "clearingFee": 0.9,
+                            "stockExchangeFee": 3.41,
+                            "custodyFee": 0,
+                            "operatingFee": 0,
+                            "other": 0,
+                            "iof": 0,
+                            "iofProvision": 0
+                          }
                         }
                       ]
                     }
@@ -3837,7 +3865,9 @@
                           "disabledAt": null,
                           "createdAt": "2020-06-24T21:29:40.300Z",
                           "updatedAt": "2020-06-24T21:29:40.300Z",
-                          "headers": {}
+                          "headers": {
+                            "Authorization": "Bearer my-webhook-token"
+                          }
                         }
                       ]
                     }
@@ -6228,6 +6258,16 @@
               ]
             },
             "example": "CREATED"
+          },
+          {
+            "description": "Filter payment requests by the clientPaymentId sent on creation (exact match)",
+            "in": "query",
+            "name": "clientPaymentId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "my-internal-payment-id"
           }
         ]
       },
@@ -9859,7 +9899,22 @@
             "institutionUrl": "https://meu.pluggy.ai/",
             "country": "BR",
             "type": "PERSONAL_BANK",
-            "credentials": [],
+            "credentials": [
+              {
+                "label": "User",
+                "name": "user",
+                "type": "text",
+                "placeholder": "user-ok",
+                "optional": false
+              },
+              {
+                "label": "Password",
+                "name": "password",
+                "type": "password",
+                "placeholder": "password-ok",
+                "optional": false
+              }
+            ],
             "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/sandbox.svg",
             "hasMFA": false,
             "oauth": true,
@@ -10619,7 +10674,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Settlement status of the movement.\n- `POSTED`: the transaction is confirmed/settled at the institution.\n- `PENDING`: the transaction is authorized but not yet settled (typical for credit-card purchases not yet included in a closed bill).",
+            "description": "Settlement status of the movement.\n- `POSTED`: the transaction is confirmed/settled at the institution.\n- `PENDING`: the transaction is not settled yet. On credit cards, a purchase not yet included in a closed bill. On checking accounts, a transaction the institution is still processing or a scheduled payment: Open Finance institutions that expose scheduled payments (`LANCAMENTO_FUTURO`) return them as `PENDING` with a `date` in the future, up to the window each institution allows (90 days on Itaú). When the payment settles the transaction becomes `POSTED`; it keeps its `id` when the institution keeps the `providerId`, otherwise it is matched to the settled one by amount and date.",
             "enum": [
               "POSTED",
               "PENDING"
@@ -13178,7 +13233,101 @@
           "currencyCode",
           "kind"
         ],
-        "example": {}
+        "example": {
+          "id": "5b4f9f7e-0f22-4b0a-9c2e-0e3f1a2b3c4d",
+          "itemId": "e062ab2b-9006-45e8-b689-defabba53647",
+          "contractNumber": "1324926",
+          "ipocCode": "92792126019929279212650822221989319252576",
+          "productName": "Crédito Pessoal Consignado",
+          "type": "CREDITO_PESSOAL_COM_CONSIGNACAO_FOLHA_PAGAMENTO",
+          "kind": "LOAN",
+          "date": "2024-03-01T12:00:00.000Z",
+          "contractDate": "2023-11-15T00:00:00.000Z",
+          "disbursementDates": [
+            "2023-11-16"
+          ],
+          "settlementDate": "2026-11-15T00:00:00.000Z",
+          "contractAmount": 25000,
+          "currencyCode": "BRL",
+          "dueDate": "2026-11-15T00:00:00.000Z",
+          "installmentPeriodicity": "MONTHLY",
+          "firstInstallmentDueDate": "2023-12-15T00:00:00.000Z",
+          "CET": 0.2932,
+          "amortizationScheduled": "PRICE",
+          "cnpjConsignee": "12345678000199",
+          "interestRates": [
+            {
+              "taxType": "EFFECTIVE",
+              "interestRateType": "COMPOUND",
+              "taxPeriodicity": "MONTHLY",
+              "calculation": "21/252",
+              "referentialRateIndexerType": "SEM_TIPO_INDEXADOR",
+              "referentialRateIndexerSubType": "SEM_SUB_TIPO_INDEXADOR",
+              "preFixedRate": 0.0175,
+              "postFixedRate": 0,
+              "additionalInfo": "Taxa remuneratória pactuada no contrato"
+            }
+          ],
+          "contractedFees": [
+            {
+              "name": "Tarifa de cadastro",
+              "code": "CADASTRO",
+              "chargeType": "UNIQUE",
+              "charge": "FIXED",
+              "amount": 100,
+              "rate": 0
+            }
+          ],
+          "contractedFinanceCharges": [
+            {
+              "type": "JUROS_REMUNERATORIOS_POR_ATRASO",
+              "additionalInfo": "Encargo aplicado em caso de atraso",
+              "rate": 0.07
+            }
+          ],
+          "warranties": [
+            {
+              "currencyCode": "BRL",
+              "type": "GARANTIA_FIDEJUSSORIA",
+              "subtype": "AVAL",
+              "amount": 25000
+            }
+          ],
+          "installments": {
+            "typeNumberOfInstallments": "MONTH",
+            "totalNumberOfInstallments": 36,
+            "typeContractRemaining": "MONTH",
+            "contractRemainingNumber": 32,
+            "paidInstallments": 4,
+            "dueInstallments": 32,
+            "pastDueInstallments": 0,
+            "balloonPayments": [
+              {
+                "dueDate": "2024-12-15T00:00:00.000Z",
+                "amount": {
+                  "value": 1500,
+                  "currencyCode": "BRL"
+                }
+              }
+            ]
+          },
+          "payments": {
+            "contractOutstandingBalance": 22350.75,
+            "releases": [
+              {
+                "isOverParcelPayment": false,
+                "installmentId": "installment-04",
+                "paidDate": "2024-03-15T00:00:00.000Z",
+                "currencyCode": "BRL",
+                "paidAmount": 880.42,
+                "overParcel": {
+                  "fees": [],
+                  "charges": []
+                }
+              }
+            ]
+          }
+        }
       },
       "LoanInterestRate": {
         "description": "Object that brings the set of information necessary to demonstrate the composition of the remunerative interest rates of the Credit Type",
@@ -13582,7 +13731,33 @@
           "financeCharges",
           "payments"
         ],
-        "example": {}
+        "example": {
+          "id": "1f2e3d4c-5b6a-4798-8899-aabbccddeeff",
+          "dueDate": "2024-04-10T00:00:00.000Z",
+          "billClosingDate": "2024-04-03T00:00:00.000Z",
+          "totalAmount": 1250.35,
+          "totalAmountCurrencyCode": "BRL",
+          "minimumPaymentAmount": 187.55,
+          "allowsInstallments": true,
+          "financeCharges": [
+            {
+              "id": "0a1b2c3d-4e5f-4061-8283-a4b5c6d7e8f9",
+              "type": "LATE_PAYMENT_FEE",
+              "amount": 25.9,
+              "currencyCode": "BRL"
+            }
+          ],
+          "payments": [
+            {
+              "id": "9f8e7d6c-5b4a-4938-8271-6a5b4c3d2e1f",
+              "valueType": "FULL_PAYMENT",
+              "paymentDate": "2024-03-10T00:00:00.000Z",
+              "paymentMode": "DEBIT_ACCOUNT",
+              "amount": 1180.9,
+              "currencyCode": "BRL"
+            }
+          ]
+        }
       },
       "BillPayment": {
         "description": "Response with information related to a credit card bill payment",
@@ -13637,7 +13812,14 @@
           "amount",
           "currencyCode"
         ],
-        "example": {}
+        "example": {
+          "id": "9f8e7d6c-5b4a-4938-8271-6a5b4c3d2e1f",
+          "valueType": "FULL_PAYMENT",
+          "paymentDate": "2024-03-10T00:00:00.000Z",
+          "paymentMode": "DEBIT_ACCOUNT",
+          "amount": 1180.9,
+          "currencyCode": "BRL"
+        }
       },
       "BillFinanceCharge": {
         "description": "Response with information related to a credit card bill finance charge",
@@ -13678,7 +13860,13 @@
           "amount",
           "currencyCode"
         ],
-        "example": {}
+        "example": {
+          "id": "0a1b2c3d-4e5f-4061-8283-a4b5c6d7e8f9",
+          "type": "OTHER",
+          "amount": 25.9,
+          "currencyCode": "BRL",
+          "additionalInfo": "Tarifa de emissão de boleto"
+        }
       },
       "PaymentRequestStatus": {
         "type": "string",
@@ -14404,7 +14592,11 @@
           }
         },
         "type": "object",
-        "example": {}
+        "example": {
+          "success": "https://merchant.example.com/orders/4821/success",
+          "pending": "https://merchant.example.com/orders/4821/pending",
+          "error": "https://merchant.example.com/orders/4821/error"
+        }
       },
       "PaymentInstitution": {
         "description": "Response with information related to a payment institution",
@@ -14476,7 +14668,11 @@
           }
         },
         "type": "object",
-        "example": {},
+        "example": {
+          "branch": "0001",
+          "number": "123456",
+          "type": "CHECKING_ACCOUNT"
+        },
         "required": [
           "branch",
           "number",
@@ -14655,7 +14851,14 @@
           }
         },
         "type": "object",
-        "example": {}
+        "example": {
+          "paymentRequestId": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
+          "parameters": {
+            "cpf": "416.799.495-00"
+          },
+          "connectorId": 603,
+          "paymentMethod": "PIS"
+        }
       },
       "PaymentCustomer": {
         "description": "Response with information related to a payment customer",
@@ -15555,7 +15758,10 @@
           }
         },
         "type": "object",
-        "example": {}
+        "example": {
+          "success": "https://merchant.example.com/smart-transfers/4821/success",
+          "error": "https://merchant.example.com/smart-transfers/4821/error"
+        }
       },
       "CreateSmartTransferPreauthorization": {
         "description": "Create smart transfer preauthorization request data",
