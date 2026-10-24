@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **balance** | **float** | The available balance of the account, same as balance in the account resource. | 
 **blocked_balance** | **float** | Amount currently blocked or held on the account. Only present when the institution reports it. | [optional] 
 **automatically_invested_balance** | **float** | Amount held in the account&#39;s automatic investment facility. Only present when the institution reports it. | [optional] 
+**closing_balance** | **float** | Accounting balance of the account: &#x60;balance&#x60; plus &#x60;blockedBalance&#x60;. Same value as &#x60;bankData.closingBalance&#x60; in the account resource, which is updated with it. Only present when the institution reports it. | [optional] 
 **currency_code** | **str** | The currency code of the balance amounts | 
 **update_date_time** | **str** | The date and time when the balance was last updated | 
 

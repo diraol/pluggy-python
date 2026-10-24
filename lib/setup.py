@@ -20,8 +20,8 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "pluggy-sdk"
-VERSION = "1.0.0.post73"
-PYTHON_REQUIRES = ">= 3.10"
+VERSION = "1.0.0.post74"
+PYTHON_REQUIRES = ">= 3.11"
 REQUIRES = [
     "urllib3 >= 2.7.0, < 3.0.0",
     "python-dateutil >= 2.8.2",

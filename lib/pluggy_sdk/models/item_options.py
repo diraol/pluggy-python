@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -32,7 +32,19 @@ class ItemOptions(BaseModel):
     webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of this specific item changes", alias="webhookUrl")
     oauth_redirect_uri: Optional[StrictStr] = Field(default=None, description="Url to redirect the user after the connect flow", alias="oauthRedirectUri")
     avoid_duplicates: Optional[StrictBool] = Field(default=None, description="Avoids creating a new item if there is already one with the same credentials", alias="avoidDuplicates")
-    __properties: ClassVar[List[str]] = ["clientUserId", "webhookUrl", "oauthRedirectUri", "avoidDuplicates"]
+    products: Optional[List[StrictStr]] = Field(default=None, description="Products to be collected in items created or updated with this connect token. Used only when the item request doesn't send its own products.")
+    __properties: ClassVar[List[str]] = ["clientUserId", "webhookUrl", "oauthRedirectUri", "avoidDuplicates", "products"]
+
+    @field_validator('products')
+    def products_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        for i in value:
+            if i not in set(['ACCOUNTS', 'CREDIT_CARDS', 'TRANSACTIONS', 'PAYMENT_DATA', 'INVESTMENTS', 'INVESTMENTS_TRANSACTIONS', 'IDENTITY', 'BROKERAGE_NOTE', 'MOVE_SECURITY', 'LOANS']):
+                raise ValueError("each list item must be one of ('ACCOUNTS', 'CREDIT_CARDS', 'TRANSACTIONS', 'PAYMENT_DATA', 'INVESTMENTS', 'INVESTMENTS_TRANSACTIONS', 'IDENTITY', 'BROKERAGE_NOTE', 'MOVE_SECURITY', 'LOANS')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -88,7 +100,8 @@ class ItemOptions(BaseModel):
             "clientUserId": obj.get("clientUserId"),
             "webhookUrl": obj.get("webhookUrl"),
             "oauthRedirectUri": obj.get("oauthRedirectUri"),
-            "avoidDuplicates": obj.get("avoidDuplicates")
+            "avoidDuplicates": obj.get("avoidDuplicates"),
+            "products": obj.get("products")
         })
         return _obj
 

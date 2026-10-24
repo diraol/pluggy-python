@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **configuration** | [**SmartTransferPreauthorizationConfiguration**](SmartTransferPreauthorizationConfiguration.md) |  | [optional] 
 **error_detail** | [**SmartTransferPreauthorizationErrorDetail**](SmartTransferPreauthorizationErrorDetail.md) |  | [optional] 
 **data_consent** | [**SmartTransferDataConsent**](SmartTransferDataConsent.md) | Balance permission requested with &#x60;linkedJourney&#x60;. Null when it was not requested. Its status is refreshed from the institution when the preauthorization is retrieved by id; the list returns the last known status. | 
+**debtor** | [**Debtor**](Debtor.md) | The account the user selected at the institution to fund the payments of this preauthorization. Null until the preauthorization is &#x60;COMPLETED&#x60; and the institution reports the account; once known it does not change. | 
 
 ## Example
 

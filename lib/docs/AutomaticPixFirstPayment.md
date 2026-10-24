@@ -6,7 +6,7 @@ Definitions for the first payment. It is considered as the user's enrollment pay
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**var_date** | **datetime** | Defines the target settlement date of the first payment. If not provided, it will be settled immediately. Date format must be YYYY-MM-DD (for example: 2025-06-16) | [optional] 
+**var_date** | **datetime** | Defines the target settlement date of the first payment. Date format must be YYYY-MM-DD (for example: 2025-06-16). If not provided, the first payment is settled immediately, on the day the user authorizes the consent. The first payment must not be settled on the same day as &#x60;startDate&#x60;: if this field is provided it must be a different date, and if it is omitted the consent cannot be created or authorized on the &#x60;startDate&#x60; itself. Otherwise the request fails with &#x60;AUTOMATIC_PIX_INVALID_FIRST_PAYMENT_DATE&#x60;. | [optional] 
 **description** | **str** | Description for the first payment. If not provided, the description will be the same as the description of the payment request | [optional] 
 **amount** | **float** | Amount for the first payment. | 
 

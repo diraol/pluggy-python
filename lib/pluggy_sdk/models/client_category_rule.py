@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,13 +29,25 @@ class ClientCategoryRule(BaseModel):
     """
     Category rule by client id
     """ # noqa: E501
+    id: UUID = Field(description="Identifier of the rule. Use it to delete the rule with DELETE /categories/rules/{id}.")
     description: StrictStr = Field(description="Description of the transaction rule.")
     category_id: Optional[StrictStr] = Field(default=None, description="Identifier of the category", alias="categoryId")
     category: StrictStr = Field(description="Description of the category")
     client_id: Optional[StrictStr] = Field(default=None, description="Identifier of the client", alias="clientId")
     transaction_type: Optional[StrictStr] = Field(default=None, description="Transaction type (DEBIT/CREDIT)", alias="transactionType")
     account_type: Optional[StrictStr] = Field(default=None, description="Account type (CHECKING_ACCOUNT/CREDIT_CARD)", alias="accountType")
-    __properties: ClassVar[List[str]] = ["description", "categoryId", "category", "clientId", "transactionType", "accountType"]
+    match_type: Optional[StrictStr] = Field(default=None, description="How the rule description is matched against the transaction description. Defaults to 'exact'.", alias="matchType")
+    __properties: ClassVar[List[str]] = ["id", "description", "categoryId", "category", "clientId", "transactionType", "accountType", "matchType"]
+
+    @field_validator('match_type')
+    def match_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['exact', 'contains', 'startsWith', 'endsWith']):
+            raise ValueError("must be one of enum values ('exact', 'contains', 'startsWith', 'endsWith')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -87,12 +100,14 @@ class ClientCategoryRule(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "description": obj.get("description"),
             "categoryId": obj.get("categoryId"),
             "category": obj.get("category"),
             "clientId": obj.get("clientId"),
             "transactionType": obj.get("transactionType"),
-            "accountType": obj.get("accountType")
+            "accountType": obj.get("accountType"),
+            "matchType": obj.get("matchType")
         })
         return _obj
 

@@ -1,6 +1,6 @@
 [project]
 name = "pluggy_sdk"
-version = "1.0.0.post73"
+version = "1.0.0.post74"
 description = "Pluggy API"
 authors = [
   {name = "Pluggy",email = "hello@pluggy.ai"},
@@ -8,7 +8,7 @@ authors = [
 license = { text = "MIT" }
 readme = "README.md"
 keywords = ["OpenAPI", "OpenAPI-Generator", "Pluggy API"]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 
 dependencies = [
   "urllib3 (>=2.7.0,<3.0.0)",

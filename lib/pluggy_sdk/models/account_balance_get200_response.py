@@ -31,9 +31,10 @@ class AccountBalanceGet200Response(BaseModel):
     balance: Union[StrictFloat, StrictInt] = Field(description="The available balance of the account, same as balance in the account resource.")
     blocked_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount currently blocked or held on the account. Only present when the institution reports it.", alias="blockedBalance")
     automatically_invested_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount held in the account's automatic investment facility. Only present when the institution reports it.", alias="automaticallyInvestedBalance")
+    closing_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Accounting balance of the account: `balance` plus `blockedBalance`. Same value as `bankData.closingBalance` in the account resource, which is updated with it. Only present when the institution reports it.", alias="closingBalance")
     currency_code: StrictStr = Field(description="The currency code of the balance amounts", alias="currencyCode")
     update_date_time: StrictStr = Field(description="The date and time when the balance was last updated", alias="updateDateTime")
-    __properties: ClassVar[List[str]] = ["balance", "blockedBalance", "automaticallyInvestedBalance", "currencyCode", "updateDateTime"]
+    __properties: ClassVar[List[str]] = ["balance", "blockedBalance", "automaticallyInvestedBalance", "closingBalance", "currencyCode", "updateDateTime"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -89,6 +90,7 @@ class AccountBalanceGet200Response(BaseModel):
             "balance": obj.get("balance"),
             "blockedBalance": obj.get("blockedBalance"),
             "automaticallyInvestedBalance": obj.get("automaticallyInvestedBalance"),
+            "closingBalance": obj.get("closingBalance"),
             "currencyCode": obj.get("currencyCode"),
             "updateDateTime": obj.get("updateDateTime")
         })

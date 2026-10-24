@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **webhook_url** | **str** | Url to be notified of this specific item changes | [optional] 
 **oauth_redirect_uri** | **str** | Url to redirect the user after the connect flow | [optional] 
 **avoid_duplicates** | **bool** | Avoids creating a new item if there is already one with the same credentials | [optional] 
+**products** | **List[str]** | Products to be collected in items created or updated with this connect token. Used only when the item request doesn&#39;t send its own products. | [optional] 
 
 ## Example
 

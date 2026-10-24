@@ -96,6 +96,7 @@ class PaymentIntentApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PaymentIntent",
+            '400': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -163,6 +164,7 @@ class PaymentIntentApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PaymentIntent",
+            '400': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -230,6 +232,7 @@ class PaymentIntentApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PaymentIntent",
+            '400': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,

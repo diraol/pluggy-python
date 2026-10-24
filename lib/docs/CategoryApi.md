@@ -333,7 +333,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **client_category_rules_list**
-> List[PageResponseCategoryRules] client_category_rules_list()
+> PageResponseCategoryRules client_category_rules_list()
 
 List Category Rules
 
@@ -388,7 +388,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**List[PageResponseCategoryRules]**](PageResponseCategoryRules.md)
+[**PageResponseCategoryRules**](PageResponseCategoryRules.md)
 
 ### Authorization
 

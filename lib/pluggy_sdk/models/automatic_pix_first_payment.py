@@ -29,7 +29,7 @@ class AutomaticPixFirstPayment(BaseModel):
     """
     Definitions for the first payment. It is considered as the user's enrollment payment for the service.
     """ # noqa: E501
-    var_date: Optional[datetime] = Field(default=None, description="Defines the target settlement date of the first payment. If not provided, it will be settled immediately. Date format must be YYYY-MM-DD (for example: 2025-06-16)", alias="date")
+    var_date: Optional[datetime] = Field(default=None, description="Defines the target settlement date of the first payment. Date format must be YYYY-MM-DD (for example: 2025-06-16). If not provided, the first payment is settled immediately, on the day the user authorizes the consent. The first payment must not be settled on the same day as `startDate`: if this field is provided it must be a different date, and if it is omitted the consent cannot be created or authorized on the `startDate` itself. Otherwise the request fails with `AUTOMATIC_PIX_INVALID_FIRST_PAYMENT_DATE`.", alias="date")
     description: Optional[StrictStr] = Field(default=None, description="Description for the first payment. If not provided, the description will be the same as the description of the payment request")
     amount: Union[StrictFloat, StrictInt] = Field(description="Amount for the first payment.")
     __properties: ClassVar[List[str]] = ["date", "description", "amount"]
