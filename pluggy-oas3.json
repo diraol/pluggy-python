@@ -2143,6 +2143,10 @@
                       "type": "number",
                       "description": "Amount held in the account's automatic investment facility. Only present when the institution reports it."
                     },
+                    "closingBalance": {
+                      "type": "number",
+                      "description": "Accounting balance of the account: `balance` plus `blockedBalance`. Same value as `bankData.closingBalance` in the account resource, which is updated with it. Only present when the institution reports it."
+                    },
                     "currencyCode": {
                       "type": "string",
                       "description": "The currency code of the balance amounts"
@@ -2159,6 +2163,7 @@
                       "balance": 1500.50,
                       "blockedBalance": 0,
                       "automaticallyInvestedBalance": 200.00,
+                      "closingBalance": 1500.50,
                       "currencyCode": "BRL",
                       "updateDateTime": "2024-01-15T10:30:00Z"
                     }
@@ -4510,10 +4515,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/PageResponseCategoryRules"
-                  }
+                  "$ref": "#/components/schemas/PageResponseCategoryRules"
                 }
               }
             }
@@ -6399,6 +6401,26 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "examples": {
+                  "invalidFirstPaymentDate": {
+                    "summary": "First payment settled on the start date",
+                    "value": {
+                      "code": 400,
+                      "codeDescription": "AUTOMATIC_PIX_INVALID_FIRST_PAYMENT_DATE",
+                      "message": "The first payment date must be different from the start date. When firstPayment.date is not provided, the first payment is settled today."
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "description": "Creates a payment request where the payment is made using automatic PIX. Once consent is granted by the user, payments can be scheduled according to the rules defined in the request.",
@@ -6420,7 +6442,7 @@
                 "request": {
                   "value": {
                     "fixedAmount": 100.5,
-                    "startDate": "2025-06-10",
+                    "startDate": "2025-06-17",
                     "expiresAt": "2025-10-01",
                     "isRetryAccepted": true,
                     "firstPayment": {
@@ -7250,6 +7272,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PaymentIntent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "examples": {
+                  "invalidFirstPaymentDate": {
+                    "summary": "Automatic PIX first payment settled on the start date",
+                    "value": {
+                      "code": 400,
+                      "codeDescription": "AUTOMATIC_PIX_INVALID_FIRST_PAYMENT_DATE",
+                      "message": "The first payment date must be different from the start date. When firstPayment.date is not provided, the first payment is settled today."
+                    }
+                  }
                 }
               }
             }
@@ -10937,6 +10979,11 @@
       "ClientCategoryRule": {
         "description": "Category rule by client id",
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifier of the rule. Use it to delete the rule with DELETE /categories/rules/{id}."
+          },
           "description": {
             "type": "string",
             "description": "Description of the transaction rule."
@@ -10960,20 +11007,33 @@
           "accountType": {
             "type": "string",
             "description": "Account type (CHECKING_ACCOUNT/CREDIT_CARD)"
+          },
+          "matchType": {
+            "type": "string",
+            "enum": [
+              "exact",
+              "contains",
+              "startsWith",
+              "endsWith"
+            ],
+            "description": "How the rule description is matched against the transaction description. Defaults to 'exact'."
           }
         },
         "type": "object",
         "required": [
+          "id",
           "description",
           "category"
         ],
         "example": {
+          "id": "d5c3f6a2-7b1e-4f0c-9a8d-2e6b1c4f7a90",
           "description": "uber payment",
           "category": "Salary/pro-labore",
           "categoryId": "05000000",
           "clientId": "03cc0eff-4ec5-495c-adb3-1ef9611624fc",
           "transactionType": "DEBIT",
-          "accountType": "CHECKING_ACCOUNT"
+          "accountType": "CHECKING_ACCOUNT",
+          "matchType": "exact"
         }
       },
       "CreateClientCategoryRule": {
@@ -12960,6 +13020,25 @@
           "avoidDuplicates": {
             "type": "boolean",
             "description": "Avoids creating a new item if there is already one with the same credentials"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "ACCOUNTS",
+                "CREDIT_CARDS",
+                "TRANSACTIONS",
+                "PAYMENT_DATA",
+                "INVESTMENTS",
+                "INVESTMENTS_TRANSACTIONS",
+                "IDENTITY",
+                "BROKERAGE_NOTE",
+                "MOVE_SECURITY",
+                "LOANS"
+              ]
+            },
+            "description": "Products to be collected in items created or updated with this connect token. Used only when the item request doesn't send its own products."
           }
         },
         "type": "object"
@@ -15681,6 +15760,17 @@
                 "type": "null"
               }
             ]
+          },
+          "debtor": {
+            "description": "The account the user selected at the institution to fund the payments of this preauthorization. Null until the preauthorization is `COMPLETED` and the institution reports the account; once known it does not change.",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Debtor"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -15691,7 +15781,8 @@
           "connector",
           "createdAt",
           "updatedAt",
-          "dataConsent"
+          "dataConsent",
+          "debtor"
         ]
       },
       "SmartTransferPreauthorizationConfiguration": {
@@ -16476,7 +16567,7 @@
           "startDate": {
             "type": "string",
             "format": "date",
-            "description": "Represents the expected date for the first occurrence of a payment associated with the recurrence. Date format must be YYYY-MM-DD (for example: 2025-06-16)"
+            "description": "Represents the expected date for the first occurrence of a payment associated with the recurrence. Date format must be YYYY-MM-DD (for example: 2025-06-16). When `firstPayment` is provided, its settlement date must be a different day (see `firstPayment.date`)."
           },
           "expiresAt": {
             "type": "string",
@@ -16559,7 +16650,7 @@
           "date": {
             "type": "string",
             "format": "date-time",
-            "description": "Defines the target settlement date of the first payment. If not provided, it will be settled immediately. Date format must be YYYY-MM-DD (for example: 2025-06-16)"
+            "description": "Defines the target settlement date of the first payment. Date format must be YYYY-MM-DD (for example: 2025-06-16). If not provided, the first payment is settled immediately, on the day the user authorizes the consent. The first payment must not be settled on the same day as `startDate`: if this field is provided it must be a different date, and if it is omitted the consent cannot be created or authorized on the `startDate` itself. Otherwise the request fails with `AUTOMATIC_PIX_INVALID_FIRST_PAYMENT_DATE`."
           },
           "description": {
             "type": "string",
