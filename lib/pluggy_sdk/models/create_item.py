@@ -31,7 +31,7 @@ class CreateItem(BaseModel):
     """ # noqa: E501
     connector_id: Union[StrictFloat, StrictInt] = Field(description="Primary identifier of the connector", alias="connectorId")
     parameters: CreateItemParameters
-    webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of item changes", alias="webhookUrl")
+    webhook_url: Optional[StrictStr] = Field(default=None, description="Public https url to be notified of item changes. Same rules as the `url` of a webhook: default port (443) only, no username or password, at most 2048 characters, and a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses. Otherwise the request fails with 400.", alias="webhookUrl")
     client_user_id: Optional[StrictStr] = Field(default=None, description="Client's external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use.", alias="clientUserId")
     oauth_redirect_uri: Optional[StrictStr] = Field(default=None, description="Redirect URI required for the Oauth flow", alias="oauthRedirectUri")
     products: Optional[List[StrictStr]] = Field(default=None, description="Products to be collected in the connection")

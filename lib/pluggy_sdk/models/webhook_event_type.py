@@ -59,6 +59,9 @@ class WebhookEventType(str, Enum):
     SMART_TRANSFER_PREAUTHORIZATION_SLASH_ERROR = 'smart_transfer_preauthorization/error'
     SMART_TRANSFER_PAYMENT_SLASH_COMPLETED = 'smart_transfer_payment/completed'
     SMART_TRANSFER_PAYMENT_SLASH_ERROR = 'smart_transfer_payment/error'
+    PIX_BIOMETRIC_ENROLLMENT_SLASH_AUTHORIZED = 'pix_biometric_enrollment/authorized'
+    PIX_BIOMETRIC_ENROLLMENT_SLASH_REVOKED = 'pix_biometric_enrollment/revoked'
+    PIX_BIOMETRIC_ENROLLMENT_SLASH_ERROR = 'pix_biometric_enrollment/error'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

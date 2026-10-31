@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **connectors_list**
-> ConnectorListResponse connectors_list(countries=countries, types=types, name=name, sandbox=sandbox, health_details=health_details, is_open_finance=is_open_finance, supports_payment_initiation=supports_payment_initiation, supports_smart_transfers=supports_smart_transfers, supports_automatic_pix=supports_automatic_pix)
+> ConnectorListResponse connectors_list(countries=countries, types=types, name=name, sandbox=sandbox, health_details=health_details, is_open_finance=is_open_finance, supports_payment_initiation=supports_payment_initiation, supports_smart_transfers=supports_smart_transfers, supports_automatic_pix=supports_automatic_pix, supports_pix_biometric=supports_pix_biometric)
 
 List
 
@@ -138,10 +138,11 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     supports_payment_initiation = True # bool | Filter connectors by the `supportsPaymentInitiation` attribute. If not sent, it won't filter. (optional)
     supports_smart_transfers = True # bool | Filter connectors by the `supportsSmartTransfers` attribute. If not sent, it won't filter. (optional)
     supports_automatic_pix = True # bool | Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter. (optional)
+    supports_pix_biometric = True # bool | Filter connectors by the `supportsPixBiometric` attribute. If not sent, it won't filter. (optional)
 
     try:
         # List
-        api_response = api_instance.connectors_list(countries=countries, types=types, name=name, sandbox=sandbox, health_details=health_details, is_open_finance=is_open_finance, supports_payment_initiation=supports_payment_initiation, supports_smart_transfers=supports_smart_transfers, supports_automatic_pix=supports_automatic_pix)
+        api_response = api_instance.connectors_list(countries=countries, types=types, name=name, sandbox=sandbox, health_details=health_details, is_open_finance=is_open_finance, supports_payment_initiation=supports_payment_initiation, supports_smart_transfers=supports_smart_transfers, supports_automatic_pix=supports_automatic_pix, supports_pix_biometric=supports_pix_biometric)
         print("The response of ConnectorApi->connectors_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -164,6 +165,7 @@ Name | Type | Description  | Notes
  **supports_payment_initiation** | **bool**| Filter connectors by the &#x60;supportsPaymentInitiation&#x60; attribute. If not sent, it won&#39;t filter. | [optional] 
  **supports_smart_transfers** | **bool**| Filter connectors by the &#x60;supportsSmartTransfers&#x60; attribute. If not sent, it won&#39;t filter. | [optional] 
  **supports_automatic_pix** | **bool**| Filter connectors by the &#x60;supportsAutomaticPix&#x60; attribute. If not sent, it won&#39;t filter. | [optional] 
+ **supports_pix_biometric** | **bool**| Filter connectors by the &#x60;supportsPixBiometric&#x60; attribute. If not sent, it won&#39;t filter. | [optional] 
 
 ### Return type
 

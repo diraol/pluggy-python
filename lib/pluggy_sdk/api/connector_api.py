@@ -334,6 +334,7 @@ class ConnectorApi:
         supports_payment_initiation: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsPaymentInitiation` attribute. If not sent, it won't filter.")] = None,
         supports_smart_transfers: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsSmartTransfers` attribute. If not sent, it won't filter.")] = None,
         supports_automatic_pix: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.")] = None,
+        supports_pix_biometric: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsPixBiometric` attribute. If not sent, it won't filter.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -369,6 +370,8 @@ class ConnectorApi:
         :type supports_smart_transfers: bool
         :param supports_automatic_pix: Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.
         :type supports_automatic_pix: bool
+        :param supports_pix_biometric: Filter connectors by the `supportsPixBiometric` attribute. If not sent, it won't filter.
+        :type supports_pix_biometric: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -401,6 +404,7 @@ class ConnectorApi:
             supports_payment_initiation=supports_payment_initiation,
             supports_smart_transfers=supports_smart_transfers,
             supports_automatic_pix=supports_automatic_pix,
+            supports_pix_biometric=supports_pix_biometric,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -433,6 +437,7 @@ class ConnectorApi:
         supports_payment_initiation: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsPaymentInitiation` attribute. If not sent, it won't filter.")] = None,
         supports_smart_transfers: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsSmartTransfers` attribute. If not sent, it won't filter.")] = None,
         supports_automatic_pix: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.")] = None,
+        supports_pix_biometric: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsPixBiometric` attribute. If not sent, it won't filter.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -468,6 +473,8 @@ class ConnectorApi:
         :type supports_smart_transfers: bool
         :param supports_automatic_pix: Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.
         :type supports_automatic_pix: bool
+        :param supports_pix_biometric: Filter connectors by the `supportsPixBiometric` attribute. If not sent, it won't filter.
+        :type supports_pix_biometric: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -500,6 +507,7 @@ class ConnectorApi:
             supports_payment_initiation=supports_payment_initiation,
             supports_smart_transfers=supports_smart_transfers,
             supports_automatic_pix=supports_automatic_pix,
+            supports_pix_biometric=supports_pix_biometric,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -532,6 +540,7 @@ class ConnectorApi:
         supports_payment_initiation: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsPaymentInitiation` attribute. If not sent, it won't filter.")] = None,
         supports_smart_transfers: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsSmartTransfers` attribute. If not sent, it won't filter.")] = None,
         supports_automatic_pix: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.")] = None,
+        supports_pix_biometric: Annotated[Optional[StrictBool], Field(description="Filter connectors by the `supportsPixBiometric` attribute. If not sent, it won't filter.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -567,6 +576,8 @@ class ConnectorApi:
         :type supports_smart_transfers: bool
         :param supports_automatic_pix: Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.
         :type supports_automatic_pix: bool
+        :param supports_pix_biometric: Filter connectors by the `supportsPixBiometric` attribute. If not sent, it won't filter.
+        :type supports_pix_biometric: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -599,6 +610,7 @@ class ConnectorApi:
             supports_payment_initiation=supports_payment_initiation,
             supports_smart_transfers=supports_smart_transfers,
             supports_automatic_pix=supports_automatic_pix,
+            supports_pix_biometric=supports_pix_biometric,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -626,6 +638,7 @@ class ConnectorApi:
         supports_payment_initiation,
         supports_smart_transfers,
         supports_automatic_pix,
+        supports_pix_biometric,
         _request_auth,
         _content_type,
         _headers,
@@ -685,6 +698,10 @@ class ConnectorApi:
         if supports_automatic_pix is not None:
             
             _query_params.append(('supportsAutomaticPix', supports_automatic_pix))
+            
+        if supports_pix_biometric is not None:
+            
+            _query_params.append(('supportsPixBiometric', supports_pix_biometric))
             
         # process the header parameters
         # process the form parameters

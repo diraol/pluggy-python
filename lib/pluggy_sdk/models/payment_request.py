@@ -26,6 +26,7 @@ from pluggy_sdk.models.boleto import Boleto
 from pluggy_sdk.models.payment_customer import PaymentCustomer
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls
 from pluggy_sdk.models.payment_request_error_detail import PaymentRequestErrorDetail
+from pluggy_sdk.models.payment_request_pix_biometric import PaymentRequestPixBiometric
 from pluggy_sdk.models.payment_request_recipient import PaymentRequestRecipient
 from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule
 from pluggy_sdk.models.payment_request_status import PaymentRequestStatus
@@ -57,7 +58,8 @@ class PaymentRequest(BaseModel):
     schedule: Optional[PaymentRequestSchedule] = None
     error_detail: Optional[PaymentRequestErrorDetail] = Field(default=None, alias="errorDetail")
     is_sandbox: Optional[StrictBool] = Field(default=False, description="Indicates if this payment request is in sandbox mode. Default: false.", alias="isSandbox")
-    __properties: ClassVar[List[str]] = ["id", "amount", "fees", "description", "status", "clientPaymentId", "createdAt", "updatedAt", "callbackUrls", "recipient", "customer", "smartAccount", "paymentUrl", "pixQrCode", "boleto", "automaticPix", "schedule", "errorDetail", "isSandbox"]
+    pix_biometric: Optional[PaymentRequestPixBiometric] = Field(default=None, description="Pix por biometria details. Null for every other kind of payment request.", alias="pixBiometric")
+    __properties: ClassVar[List[str]] = ["id", "amount", "fees", "description", "status", "clientPaymentId", "createdAt", "updatedAt", "callbackUrls", "recipient", "customer", "smartAccount", "paymentUrl", "pixQrCode", "boleto", "automaticPix", "schedule", "errorDetail", "isSandbox", "pixBiometric"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -122,6 +124,9 @@ class PaymentRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of error_detail
         if self.error_detail:
             _dict['errorDetail'] = self.error_detail.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pix_biometric
+        if self.pix_biometric:
+            _dict['pixBiometric'] = self.pix_biometric.to_dict()
         # set to None if fees (nullable) is None
         # and model_fields_set contains the field
         if self.fees is None and "fees" in self.model_fields_set:
@@ -172,6 +177,11 @@ class PaymentRequest(BaseModel):
         if self.error_detail is None and "error_detail" in self.model_fields_set:
             _dict['errorDetail'] = None
 
+        # set to None if pix_biometric (nullable) is None
+        # and model_fields_set contains the field
+        if self.pix_biometric is None and "pix_biometric" in self.model_fields_set:
+            _dict['pixBiometric'] = None
+
         return _dict
 
     @classmethod
@@ -202,7 +212,8 @@ class PaymentRequest(BaseModel):
             "automaticPix": AutomaticPix.from_dict(obj["automaticPix"]) if obj.get("automaticPix") is not None else None,
             "schedule": PaymentRequestSchedule.from_dict(obj["schedule"]) if obj.get("schedule") is not None else None,
             "errorDetail": PaymentRequestErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None,
-            "isSandbox": obj.get("isSandbox") if obj.get("isSandbox") is not None else False
+            "isSandbox": obj.get("isSandbox") if obj.get("isSandbox") is not None else False,
+            "pixBiometric": PaymentRequestPixBiometric.from_dict(obj["pixBiometric"]) if obj.get("pixBiometric") is not None else None
         })
         return _obj
 

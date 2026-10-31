@@ -68,6 +68,12 @@ Event the webhook subscribes to. Use `all` to receive every event for the client
 
 * `SMART_TRANSFER_PAYMENT_SLASH_ERROR` (value: `'smart_transfer_payment/error'`)
 
+* `PIX_BIOMETRIC_ENROLLMENT_SLASH_AUTHORIZED` (value: `'pix_biometric_enrollment/authorized'`)
+
+* `PIX_BIOMETRIC_ENROLLMENT_SLASH_REVOKED` (value: `'pix_biometric_enrollment/revoked'`)
+
+* `PIX_BIOMETRIC_ENROLLMENT_SLASH_ERROR` (value: `'pix_biometric_enrollment/error'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

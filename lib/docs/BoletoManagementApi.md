@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**boleto_cancel**](BoletoManagementApi.md#boleto_cancel) | **POST** /boletos/{id}/cancel | Cancel Boleto
 [**boleto_connection_create**](BoletoManagementApi.md#boleto_connection_create) | **POST** /boleto-connections | Connect boleto credentials
 [**boleto_connection_create_from_item**](BoletoManagementApi.md#boleto_connection_create_from_item) | **POST** /boleto-connections/from-item | Create boleto connection from Item
+[**boleto_connection_delete**](BoletoManagementApi.md#boleto_connection_delete) | **DELETE** /boleto-connections/{id} | Delete boleto connection
 [**boleto_create**](BoletoManagementApi.md#boleto_create) | **POST** /boletos | Issue Boleto
 [**boleto_get**](BoletoManagementApi.md#boleto_get) | **GET** /boletos/{id} | Get Boleto
 
@@ -242,6 +243,86 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Boleto connection created successfully |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **boleto_connection_delete**
+> ICountResponse boleto_connection_delete(id)
+
+Delete boleto connection
+
+Deletes a boleto connection and the bank credentials stored with it. No new boletos can be issued with it, and boletos already issued on it can no longer be cancelled through the API. Boletos already issued can still be retrieved, and their status updates (for example, when they are paid) keep arriving through the `boleto/updated` webhook. Deleting the Item a connection was created from does not delete the connection.
+
+### Example
+
+* Api Key Authentication (default):
+
+```python
+import pluggy_sdk
+from pluggy_sdk.models.i_count_response import ICountResponse
+from pluggy_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pluggy.ai
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pluggy_sdk.Configuration(
+    host = "https://api.pluggy.ai"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: default
+configuration.api_key['default'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['default'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with pluggy_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pluggy_sdk.BoletoManagementApi(api_client)
+    id = UUID('b1d3c7a2-5f4e-4b8a-9c6d-2e1f0a9b8c7d') # UUID | Boleto connection primary identifier
+
+    try:
+        # Delete boleto connection
+        api_response = api_instance.boleto_connection_delete(id)
+        print("The response of BoletoManagementApi->boleto_connection_delete:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling BoletoManagementApi->boleto_connection_delete: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **UUID**| Boleto connection primary identifier | 
+
+### Return type
+
+[**ICountResponse**](ICountResponse.md)
+
+### Authorization
+
+[default](../README.md#default)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Boleto connection was deleted |  -  |
+**400** | Boleto connection not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0.post74"
+__version__ = "1.0.0.post75"
 
 # Define package exports
 __all__ = [
@@ -37,6 +37,7 @@ __all__ = [
     "PaymentRecipientApi",
     "PaymentRequestApi",
     "PaymentScheduleApi",
+    "PixPorBiometriaApi",
     "SCRApi",
     "SmartTransferApi",
     "TransactionApi",
@@ -52,8 +53,6 @@ __all__ = [
     "ApiException",
     "Account",
     "AccountBalanceGet200Response",
-    "AccountStatementsList200Response",
-    "AccountStatementsList200ResponseResultsInner",
     "AccountsList200Response",
     "AdditionalCard",
     "Address",
@@ -111,6 +110,7 @@ __all__ = [
     "CreatePaymentIntent",
     "CreatePaymentRecipient",
     "CreatePaymentRequest",
+    "CreatePixBiometricPaymentRequest",
     "CreatePixQrPaymentRequest",
     "CreateSmartTransferPayment",
     "CreateSmartTransferPreauthorization",
@@ -209,12 +209,23 @@ __all__ = [
     "PaymentRequestCallbackUrls",
     "PaymentRequestErrorDetail",
     "PaymentRequestGetAutomaticPixSchedules200Response",
+    "PaymentRequestPixBiometric",
     "PaymentRequestRecipient",
     "PaymentRequestSchedule",
     "PaymentRequestStatus",
     "PaymentRequestsList200Response",
     "PaymentSchedulesList200Response",
     "PhoneNumber",
+    "PixBiometricBalance",
+    "PixBiometricDebtor",
+    "PixBiometricDebtorBankAccount",
+    "PixBiometricEnrollment",
+    "PixBiometricEnrollmentConnector",
+    "PixBiometricEnrollmentDataConsent",
+    "PixBiometricEnrollmentErrorDetail",
+    "PixBiometricEnrollmentLimits",
+    "PixBiometricEnrollmentSummary",
+    "PixBiometricEnrollmentsList200Response",
     "PixData",
     "PixQrPaymentRecipient",
     "PortabilityReceived",
@@ -285,6 +296,7 @@ from pluggy_sdk.api.payment_intent_api import PaymentIntentApi as PaymentIntentA
 from pluggy_sdk.api.payment_recipient_api import PaymentRecipientApi as PaymentRecipientApi
 from pluggy_sdk.api.payment_request_api import PaymentRequestApi as PaymentRequestApi
 from pluggy_sdk.api.payment_schedule_api import PaymentScheduleApi as PaymentScheduleApi
+from pluggy_sdk.api.pix_por_biometria_api import PixPorBiometriaApi as PixPorBiometriaApi
 from pluggy_sdk.api.scr_api import SCRApi as SCRApi
 from pluggy_sdk.api.smart_transfer_api import SmartTransferApi as SmartTransferApi
 from pluggy_sdk.api.transaction_api import TransactionApi as TransactionApi
@@ -304,8 +316,6 @@ from pluggy_sdk.exceptions import ApiException as ApiException
 # import models into sdk package
 from pluggy_sdk.models.account import Account as Account
 from pluggy_sdk.models.account_balance_get200_response import AccountBalanceGet200Response as AccountBalanceGet200Response
-from pluggy_sdk.models.account_statements_list200_response import AccountStatementsList200Response as AccountStatementsList200Response
-from pluggy_sdk.models.account_statements_list200_response_results_inner import AccountStatementsList200ResponseResultsInner as AccountStatementsList200ResponseResultsInner
 from pluggy_sdk.models.accounts_list200_response import AccountsList200Response as AccountsList200Response
 from pluggy_sdk.models.additional_card import AdditionalCard as AdditionalCard
 from pluggy_sdk.models.address import Address as Address
@@ -363,6 +373,7 @@ from pluggy_sdk.models.create_payment_customer_request_body import CreatePayment
 from pluggy_sdk.models.create_payment_intent import CreatePaymentIntent as CreatePaymentIntent
 from pluggy_sdk.models.create_payment_recipient import CreatePaymentRecipient as CreatePaymentRecipient
 from pluggy_sdk.models.create_payment_request import CreatePaymentRequest as CreatePaymentRequest
+from pluggy_sdk.models.create_pix_biometric_payment_request import CreatePixBiometricPaymentRequest as CreatePixBiometricPaymentRequest
 from pluggy_sdk.models.create_pix_qr_payment_request import CreatePixQrPaymentRequest as CreatePixQrPaymentRequest
 from pluggy_sdk.models.create_smart_transfer_payment import CreateSmartTransferPayment as CreateSmartTransferPayment
 from pluggy_sdk.models.create_smart_transfer_preauthorization import CreateSmartTransferPreauthorization as CreateSmartTransferPreauthorization
@@ -461,12 +472,23 @@ from pluggy_sdk.models.payment_request import PaymentRequest as PaymentRequest
 from pluggy_sdk.models.payment_request_callback_urls import PaymentRequestCallbackUrls as PaymentRequestCallbackUrls
 from pluggy_sdk.models.payment_request_error_detail import PaymentRequestErrorDetail as PaymentRequestErrorDetail
 from pluggy_sdk.models.payment_request_get_automatic_pix_schedules200_response import PaymentRequestGetAutomaticPixSchedules200Response as PaymentRequestGetAutomaticPixSchedules200Response
+from pluggy_sdk.models.payment_request_pix_biometric import PaymentRequestPixBiometric as PaymentRequestPixBiometric
 from pluggy_sdk.models.payment_request_recipient import PaymentRequestRecipient as PaymentRequestRecipient
 from pluggy_sdk.models.payment_request_schedule import PaymentRequestSchedule as PaymentRequestSchedule
 from pluggy_sdk.models.payment_request_status import PaymentRequestStatus as PaymentRequestStatus
 from pluggy_sdk.models.payment_requests_list200_response import PaymentRequestsList200Response as PaymentRequestsList200Response
 from pluggy_sdk.models.payment_schedules_list200_response import PaymentSchedulesList200Response as PaymentSchedulesList200Response
 from pluggy_sdk.models.phone_number import PhoneNumber as PhoneNumber
+from pluggy_sdk.models.pix_biometric_balance import PixBiometricBalance as PixBiometricBalance
+from pluggy_sdk.models.pix_biometric_debtor import PixBiometricDebtor as PixBiometricDebtor
+from pluggy_sdk.models.pix_biometric_debtor_bank_account import PixBiometricDebtorBankAccount as PixBiometricDebtorBankAccount
+from pluggy_sdk.models.pix_biometric_enrollment import PixBiometricEnrollment as PixBiometricEnrollment
+from pluggy_sdk.models.pix_biometric_enrollment_connector import PixBiometricEnrollmentConnector as PixBiometricEnrollmentConnector
+from pluggy_sdk.models.pix_biometric_enrollment_data_consent import PixBiometricEnrollmentDataConsent as PixBiometricEnrollmentDataConsent
+from pluggy_sdk.models.pix_biometric_enrollment_error_detail import PixBiometricEnrollmentErrorDetail as PixBiometricEnrollmentErrorDetail
+from pluggy_sdk.models.pix_biometric_enrollment_limits import PixBiometricEnrollmentLimits as PixBiometricEnrollmentLimits
+from pluggy_sdk.models.pix_biometric_enrollment_summary import PixBiometricEnrollmentSummary as PixBiometricEnrollmentSummary
+from pluggy_sdk.models.pix_biometric_enrollments_list200_response import PixBiometricEnrollmentsList200Response as PixBiometricEnrollmentsList200Response
 from pluggy_sdk.models.pix_data import PixData as PixData
 from pluggy_sdk.models.pix_qr_payment_recipient import PixQrPaymentRecipient as PixQrPaymentRecipient
 from pluggy_sdk.models.portability_received import PortabilityReceived as PortabilityReceived

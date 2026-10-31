@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from pluggy_sdk.models.connector import Connector
 from pluggy_sdk.models.debtor import Debtor
 from pluggy_sdk.models.payment_intent_error_detail import PaymentIntentErrorDetail
@@ -43,11 +44,12 @@ class PaymentIntent(BaseModel):
     connector: Optional[Connector] = Field(default=None, description="Connector associated to the payment intent")
     consent_url: Optional[StrictStr] = Field(default=None, description="Url to authorize the payment intent", alias="consentUrl")
     reference_id: Optional[StrictStr] = Field(default=None, description="Pix id related to the payment intent", alias="referenceId")
-    payment_method: Optional[StrictStr] = Field(default='PIS', description="Payment method can be PIS (Payment Initiation) or PIX", alias="paymentMethod")
+    payment_method: Optional[StrictStr] = Field(default='PIS', description="Payment method can be PIS (Payment Initiation), PIX or PIX_BIOMETRIC (Pix por biometria, set by Pluggy)", alias="paymentMethod")
+    enrollment_id: Optional[UUID] = Field(default=None, description="Pix por biometria enrollment (linked account) the payment was made with. Null for other payment methods.", alias="enrollmentId")
     pix_data: Optional[PixData] = Field(default=None, description="Pix data related to the payment intent (only applies for PIX payment method)", alias="pixData")
     debtor: Optional[Debtor] = Field(default=None, description="Information about the payer's account, returned by the institution after the payment is completed. Null until the institution exposes it.")
     error_detail: Optional[PaymentIntentErrorDetail] = Field(default=None, description="Error details when payment intent fails", alias="errorDetail")
-    __properties: ClassVar[List[str]] = ["id", "status", "createdAt", "updatedAt", "paymentRequest", "connector", "consentUrl", "referenceId", "paymentMethod", "pixData", "debtor", "errorDetail"]
+    __properties: ClassVar[List[str]] = ["id", "status", "createdAt", "updatedAt", "paymentRequest", "connector", "consentUrl", "referenceId", "paymentMethod", "enrollmentId", "pixData", "debtor", "errorDetail"]
 
     @field_validator('payment_method')
     def payment_method_validate_enum(cls, value):
@@ -55,8 +57,8 @@ class PaymentIntent(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['PIS', 'PIX']):
-            raise ValueError("must be one of enum values ('PIS', 'PIX')")
+        if value not in set(['PIS', 'PIX', 'PIX_BIOMETRIC']):
+            raise ValueError("must be one of enum values ('PIS', 'PIX', 'PIX_BIOMETRIC')")
         return value
 
     model_config = ConfigDict(
@@ -113,6 +115,11 @@ class PaymentIntent(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of error_detail
         if self.error_detail:
             _dict['errorDetail'] = self.error_detail.to_dict()
+        # set to None if enrollment_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.enrollment_id is None and "enrollment_id" in self.model_fields_set:
+            _dict['enrollmentId'] = None
+
         # set to None if debtor (nullable) is None
         # and model_fields_set contains the field
         if self.debtor is None and "debtor" in self.model_fields_set:
@@ -139,6 +146,7 @@ class PaymentIntent(BaseModel):
             "consentUrl": obj.get("consentUrl"),
             "referenceId": obj.get("referenceId"),
             "paymentMethod": obj.get("paymentMethod") if obj.get("paymentMethod") is not None else 'PIS',
+            "enrollmentId": obj.get("enrollmentId"),
             "pixData": PixData.from_dict(obj["pixData"]) if obj.get("pixData") is not None else None,
             "debtor": Debtor.from_dict(obj["debtor"]) if obj.get("debtor") is not None else None,
             "errorDetail": PaymentIntentErrorDetail.from_dict(obj["errorDetail"]) if obj.get("errorDetail") is not None else None

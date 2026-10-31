@@ -87,6 +87,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Create a payment intent. |  -  |
 **400** | Invalid parameters |  -  |
+**403** | The payment request is Pix por biometria: its payment intents are created only by the Pluggy payment page |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -171,7 +172,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payment_intents_list**
-> PaymentIntentsList200Response payment_intents_list(payment_request_id)
+> PaymentIntentsList200Response payment_intents_list(payment_request_id=payment_request_id, enrollment_id=enrollment_id)
 
 List
 
@@ -208,11 +209,12 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentIntentApi(api_client)
-    payment_request_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
+    payment_request_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier. Filter by it, or by `enrollmentId`. (optional)
+    enrollment_id = UUID('c91a5e2b-7d0f-4f3e-9a51-2f6b8e1d4c77') # UUID | Pix por biometria enrollment: lists the payment intents made with that linked account (optional)
 
     try:
         # List
-        api_response = api_instance.payment_intents_list(payment_request_id)
+        api_response = api_instance.payment_intents_list(payment_request_id=payment_request_id, enrollment_id=enrollment_id)
         print("The response of PaymentIntentApi->payment_intents_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -226,7 +228,8 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **payment_request_id** | **UUID**| Payment request primary identifier | 
+ **payment_request_id** | **UUID**| Payment request primary identifier. Filter by it, or by &#x60;enrollmentId&#x60;. | [optional] 
+ **enrollment_id** | **UUID**| Pix por biometria enrollment: lists the payment intents made with that linked account | [optional] 
 
 ### Return type
 

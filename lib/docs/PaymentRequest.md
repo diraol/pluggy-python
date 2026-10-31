@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **schedule** | [**PaymentRequestSchedule**](PaymentRequestSchedule.md) |  | [optional] 
 **error_detail** | [**PaymentRequestErrorDetail**](PaymentRequestErrorDetail.md) |  | [optional] 
 **is_sandbox** | **bool** | Indicates if this payment request is in sandbox mode. Default: false. | [optional] [default to False]
+**pix_biometric** | [**PaymentRequestPixBiometric**](PaymentRequestPixBiometric.md) | Pix por biometria details. Null for every other kind of payment request. | [optional] 
 
 ## Example
 

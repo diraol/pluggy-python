@@ -53,9 +53,10 @@ class Connector(BaseModel):
     supports_smart_transfers: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports smart transfers", alias="supportsSmartTransfers")
     supports_boleto_management: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports boleto management", alias="supportsBoletoManagement")
     supports_automatic_pix: Optional[StrictBool] = Field(default=None, description="Indicates if the connector supports automatic Pix", alias="supportsAutomaticPix")
+    supports_pix_biometric: Optional[StrictBool] = Field(default=None, description="Indicates if payers can link an account at the institution for Pix por biometria", alias="supportsPixBiometric")
     created_at: Optional[datetime] = Field(default=None, description="Date of creation", alias="createdAt")
     updated_at: Optional[datetime] = Field(default=None, description="Date of last modification", alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["id", "name", "institutionUrl", "imageUrl", "primaryColor", "type", "country", "credentials", "hasMFA", "products", "productCoverage", "oauth", "oauthUrl", "resetPasswordUrl", "health", "isOpenFinance", "isSandbox", "supportsPaymentInitiation", "supportsScheduledPayments", "supportsSmartTransfers", "supportsBoletoManagement", "supportsAutomaticPix", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "name", "institutionUrl", "imageUrl", "primaryColor", "type", "country", "credentials", "hasMFA", "products", "productCoverage", "oauth", "oauthUrl", "resetPasswordUrl", "health", "isOpenFinance", "isSandbox", "supportsPaymentInitiation", "supportsScheduledPayments", "supportsSmartTransfers", "supportsBoletoManagement", "supportsAutomaticPix", "supportsPixBiometric", "createdAt", "updatedAt"]
 
     @field_validator('products')
     def products_validate_enum(cls, value):
@@ -150,6 +151,7 @@ class Connector(BaseModel):
             "supportsSmartTransfers": obj.get("supportsSmartTransfers"),
             "supportsBoletoManagement": obj.get("supportsBoletoManagement"),
             "supportsAutomaticPix": obj.get("supportsAutomaticPix"),
+            "supportsPixBiometric": obj.get("supportsPixBiometric"),
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt")
         })

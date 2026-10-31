@@ -29,7 +29,7 @@ class CreateWebhook(BaseModel):
     """
     
     """ # noqa: E501
-    url: StrictStr
+    url: StrictStr = Field(description="Public https url that will receive the POST of the event. It must use the default port (443), can't include a username or password, can't be longer than 2048 characters, and its host must be a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses.")
     event: WebhookEventType
     headers: Optional[Dict[str, Any]] = Field(default=None, description="HTTP headers that will be included in the webhook notifications (useful for things like authorization)")
     __properties: ClassVar[List[str]] = ["url", "event", "headers"]

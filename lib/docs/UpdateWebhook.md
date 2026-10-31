@@ -6,7 +6,7 @@ Partial update of a webhook. All fields are optional.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**url** | **str** | New https url that will receive the POST of the event | [optional] 
+**url** | **str** | New https url that will receive the POST of the event. Same rules as on creation. | [optional] 
 **event** | [**WebhookEventType**](WebhookEventType.md) | New event the webhook should listen to | [optional] 
 **headers** | **object** | HTTP headers to include in webhook notifications. Send null to clear the existing headers. | [optional] 
 **enabled** | **bool** | Re-enable a webhook that was previously disabled. When set to true, clears the disabledAt timestamp. | [optional] 

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **parameters** | [**UpdateItemParameters**](UpdateItemParameters.md) |  | [optional] 
 **client_user_id** | **str** | Client&#39;s external identifier for the user, it can be a ID, UUID or even an email. This is free for clients to use. | [optional] 
-**webhook_url** | **str** | Url to be notified of item changes | [optional] 
+**webhook_url** | **str** | Public https url to be notified of item changes. Same rules as the &#x60;url&#x60; of a webhook: default port (443) only, no username or password, at most 2048 characters, and a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses. Otherwise the request fails with 400. | [optional] 
 **products** | **List[str]** | Products to be collected in the connection | [optional] 
 
 ## Example

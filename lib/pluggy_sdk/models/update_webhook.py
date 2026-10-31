@@ -29,7 +29,7 @@ class UpdateWebhook(BaseModel):
     """
     Partial update of a webhook. All fields are optional.
     """ # noqa: E501
-    url: Optional[StrictStr] = Field(default=None, description="New https url that will receive the POST of the event")
+    url: Optional[StrictStr] = Field(default=None, description="New https url that will receive the POST of the event. Same rules as on creation.")
     event: Optional[WebhookEventType] = Field(default=None, description="New event the webhook should listen to")
     headers: Optional[Dict[str, Any]] = Field(default=None, description="HTTP headers to include in webhook notifications. Send null to clear the existing headers.")
     enabled: Optional[StrictBool] = Field(default=None, description="Re-enable a webhook that was previously disabled. When set to true, clears the disabledAt timestamp.")

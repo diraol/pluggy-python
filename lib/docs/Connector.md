@@ -28,6 +28,7 @@ Name | Type | Description | Notes
 **supports_smart_transfers** | **bool** | Indicates if the connector supports smart transfers | [optional] 
 **supports_boleto_management** | **bool** | Indicates if the connector supports boleto management | [optional] 
 **supports_automatic_pix** | **bool** | Indicates if the connector supports automatic Pix | [optional] 
+**supports_pix_biometric** | **bool** | Indicates if payers can link an account at the institution for Pix por biometria | [optional] 
 **created_at** | **datetime** | Date of creation | [optional] 
 **updated_at** | **datetime** | Date of last modification | [optional] 
 

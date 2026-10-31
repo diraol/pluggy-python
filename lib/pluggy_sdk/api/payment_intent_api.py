@@ -17,6 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field
+from typing import Optional
 from typing_extensions import Annotated
 from uuid import UUID
 from pluggy_sdk.models.create_payment_intent import CreatePaymentIntent
@@ -97,6 +98,7 @@ class PaymentIntentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PaymentIntent",
             '400': "GlobalErrorResponse",
+            '403': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -165,6 +167,7 @@ class PaymentIntentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PaymentIntent",
             '400': "GlobalErrorResponse",
+            '403': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -233,6 +236,7 @@ class PaymentIntentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PaymentIntent",
             '400': "GlobalErrorResponse",
+            '403': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -585,7 +589,8 @@ class PaymentIntentApi:
     @validate_call
     def payment_intents_list(
         self,
-        payment_request_id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        payment_request_id: Annotated[Optional[UUID], Field(description="Payment request primary identifier. Filter by it, or by `enrollmentId`.")] = None,
+        enrollment_id: Annotated[Optional[UUID], Field(description="Pix por biometria enrollment: lists the payment intents made with that linked account")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -603,8 +608,10 @@ class PaymentIntentApi:
 
         Recovers all created payment intents for the payment request provided
 
-        :param payment_request_id: Payment request primary identifier (required)
+        :param payment_request_id: Payment request primary identifier. Filter by it, or by `enrollmentId`.
         :type payment_request_id: UUID
+        :param enrollment_id: Pix por biometria enrollment: lists the payment intents made with that linked account
+        :type enrollment_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -629,6 +636,7 @@ class PaymentIntentApi:
 
         _param = self._payment_intents_list_serialize(
             payment_request_id=payment_request_id,
+            enrollment_id=enrollment_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -652,7 +660,8 @@ class PaymentIntentApi:
     @validate_call
     def payment_intents_list_with_http_info(
         self,
-        payment_request_id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        payment_request_id: Annotated[Optional[UUID], Field(description="Payment request primary identifier. Filter by it, or by `enrollmentId`.")] = None,
+        enrollment_id: Annotated[Optional[UUID], Field(description="Pix por biometria enrollment: lists the payment intents made with that linked account")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -670,8 +679,10 @@ class PaymentIntentApi:
 
         Recovers all created payment intents for the payment request provided
 
-        :param payment_request_id: Payment request primary identifier (required)
+        :param payment_request_id: Payment request primary identifier. Filter by it, or by `enrollmentId`.
         :type payment_request_id: UUID
+        :param enrollment_id: Pix por biometria enrollment: lists the payment intents made with that linked account
+        :type enrollment_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -696,6 +707,7 @@ class PaymentIntentApi:
 
         _param = self._payment_intents_list_serialize(
             payment_request_id=payment_request_id,
+            enrollment_id=enrollment_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -719,7 +731,8 @@ class PaymentIntentApi:
     @validate_call
     def payment_intents_list_without_preload_content(
         self,
-        payment_request_id: Annotated[UUID, Field(description="Payment request primary identifier")],
+        payment_request_id: Annotated[Optional[UUID], Field(description="Payment request primary identifier. Filter by it, or by `enrollmentId`.")] = None,
+        enrollment_id: Annotated[Optional[UUID], Field(description="Pix por biometria enrollment: lists the payment intents made with that linked account")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -737,8 +750,10 @@ class PaymentIntentApi:
 
         Recovers all created payment intents for the payment request provided
 
-        :param payment_request_id: Payment request primary identifier (required)
+        :param payment_request_id: Payment request primary identifier. Filter by it, or by `enrollmentId`.
         :type payment_request_id: UUID
+        :param enrollment_id: Pix por biometria enrollment: lists the payment intents made with that linked account
+        :type enrollment_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -763,6 +778,7 @@ class PaymentIntentApi:
 
         _param = self._payment_intents_list_serialize(
             payment_request_id=payment_request_id,
+            enrollment_id=enrollment_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -782,6 +798,7 @@ class PaymentIntentApi:
     def _payment_intents_list_serialize(
         self,
         payment_request_id,
+        enrollment_id,
         _request_auth,
         _content_type,
         _headers,
@@ -807,6 +824,10 @@ class PaymentIntentApi:
         if payment_request_id is not None:
             
             _query_params.append(('paymentRequestId', payment_request_id))
+            
+        if enrollment_id is not None:
+            
+            _query_params.append(('enrollmentId', enrollment_id))
             
         # process the header parameters
         # process the form parameters
