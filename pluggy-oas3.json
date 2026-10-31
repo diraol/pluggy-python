@@ -87,6 +87,10 @@
       "description": "Automatic PIX payment scheduling and management"
     },
     {
+      "name": "Pix por biometria",
+      "description": "Pix payments confirmed with the payer's biometrics, without a bank redirect (Open Finance JSR), and the linked accounts behind them"
+    },
+    {
       "name": "Payment Schedule",
       "description": "Payment scheduling operations"
     },
@@ -387,6 +391,15 @@
             "description": "Filter connectors by the `supportsAutomaticPix` attribute. If not sent, it won't filter.",
             "in": "query",
             "name": "supportsAutomaticPix",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filter connectors by the `supportsPixBiometric` attribute. If not sent, it won't filter.",
+            "in": "query",
+            "name": "supportsPixBiometric",
             "required": false,
             "schema": {
               "type": "boolean"
@@ -1975,139 +1988,6 @@
             {
               "language": "csharp",
               "code": "PluggyClient pluggyClient = new PluggyClient('YOUR_PLUGGY_API_KEY');\nAccount account = await pluggyClient.FetchAccount(\"ACCOUNT_ID\");"
-            }
-          ]
-        }
-      }
-    },
-    "/accounts/{id}/statements": {
-      "get": {
-        "operationId": "account-statements-list",
-        "summary": "List account statements",
-        "description": "Recovers all statements collected for the account provided",
-        "responses": {
-          "200": {
-            "description": "Retrieve a list of all statements for an account",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "total",
-                    "totalPages",
-                    "page",
-                    "results"
-                  ],
-                  "properties": {
-                    "total": {
-                      "type": "number"
-                    },
-                    "totalPages": {
-                      "type": "number"
-                    },
-                    "page": {
-                      "type": "number"
-                    },
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "id",
-                          "monthYear",
-                          "url"
-                        ],
-                        "properties": {
-                          "id": {
-                            "type": "string",
-                            "format": "uuid"
-                          },
-                          "monthYear": {
-                            "type": "string"
-                          },
-                          "url": {
-                            "type": "string",
-                            "description": "Signed URL to the statement file, this url is valid for 30 minutes"
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "examples": {
-                  "response": {
-                    "value": {
-                      "total": 2,
-                      "totalPages": 1,
-                      "page": 1,
-                      "results": [
-                        {
-                          "id": "a8534c85-53ce-4f21-94d7-50e9d2ee4957",
-                          "monthYear": "01-2025",
-                          "url": "signed-aws-url"
-                        },
-                        {
-                          "id": "05c693bf-c196-47ea-a28c-8251d6bb8a06",
-                          "monthYear": "02-2025",
-                          "url": "signed-aws-url"
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Missing parameter",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GlobalErrorResponse"
-                },
-                "example": {
-                  "message": "accountId should not be null or undefined,accountId must be a UUID",
-                  "code": 400
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Server Internal Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GlobalErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Account"
-        ],
-        "security": [
-          {
-            "default": []
-          }
-        ],
-        "parameters": [
-          {
-            "description": "Account primary identifier",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "example": "a658c848-e475-457b-8565-d1fffba127c4"
-          }
-        ],
-        "x-readme": {
-          "code-samples": [
-            {
-              "language": "node",
-              "code": "const pluggy = require('pluggy-sdk');\nconst client = new pluggy.PluggyClient({\n  clientId: 'YOUR_CLIENT_ID',\n  clientSecret: 'YOUR_CLIENT_SECRET',\n});\n\nclient\n  .fetchAccountStatements('ACCOUNT_ID')\n  .then(({ results: statements }) => {\n    console.log(statements);\n  });"
             }
           ]
         }
@@ -3992,6 +3872,27 @@
                       "code": 400
                     }
                   },
+                  "credentialsInUrl": {
+                    "summary": "Webhook URL includes a username or password",
+                    "value": {
+                      "message": "Webhook url can't include a username or password",
+                      "code": 400
+                    }
+                  },
+                  "nonDefaultPort": {
+                    "summary": "Webhook URL uses a port other than the default https port (443)",
+                    "value": {
+                      "message": "Webhook url must use the default https port",
+                      "code": 400
+                    }
+                  },
+                  "urlTooLong": {
+                    "summary": "Webhook URL is longer than 2048 characters",
+                    "value": {
+                      "message": "Webhook url can't be longer than 2048 characters",
+                      "code": 400
+                    }
+                  },
                   "alreadyExists": {
                     "summary": "Webhook event already created for the specified url",
                     "value": {
@@ -4192,6 +4093,27 @@
                     "summary": "Webhook URL host cannot be resolved via DNS",
                     "value": {
                       "message": "Webhook url host could not be resolved",
+                      "code": 400
+                    }
+                  },
+                  "credentialsInUrl": {
+                    "summary": "Webhook URL includes a username or password",
+                    "value": {
+                      "message": "Webhook url can't include a username or password",
+                      "code": 400
+                    }
+                  },
+                  "nonDefaultPort": {
+                    "summary": "Webhook URL uses a port other than the default https port (443)",
+                    "value": {
+                      "message": "Webhook url must use the default https port",
+                      "code": 400
+                    }
+                  },
+                  "urlTooLong": {
+                    "summary": "Webhook URL is longer than 2048 characters",
+                    "value": {
+                      "message": "Webhook url can't be longer than 2048 characters",
                       "code": 400
                     }
                   },
@@ -7295,6 +7217,21 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "The payment request is Pix por biometria: its payment intents are created only by the Pluggy payment page",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 403,
+                  "codeDescription": "PIX_BIOMETRIC_INTENT_INTERNAL_ONLY",
+                  "message": "Payment intents for Pix por biometria can only be created internally."
+                }
+              }
+            }
           }
         },
         "description": "Creates the payment intent resource",
@@ -7447,15 +7384,26 @@
         ],
         "parameters": [
           {
-            "description": "Payment request primary identifier",
+            "description": "Payment request primary identifier. Filter by it, or by `enrollmentId`.",
             "in": "query",
             "name": "paymentRequestId",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string",
               "format": "uuid"
             },
             "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          },
+          {
+            "description": "Pix por biometria enrollment: lists the payment intents made with that linked account",
+            "in": "query",
+            "name": "enrollmentId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "c91a5e2b-7d0f-4f3e-9a51-2f6b8e1d4c77"
           }
         ]
       }
@@ -7574,6 +7522,652 @@
             "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
           }
         ]
+      }
+    },
+    "/payments/requests/pix-biometric": {
+      "post": {
+        "operationId": "payment-request-create-pix-biometric",
+        "summary": "Create Pix por biometria payment request",
+        "description": "Creates a payment request paid with Pix por biometria. Send its `paymentUrl` to the payer: on the first payment on a device they link an account at their bank and create a passkey; later payments on that device are confirmed with biometrics, without a bank redirect. One payment request per purchase. Not available in sandbox.",
+        "tags": [
+          "Pix por biometria"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePixBiometricPaymentRequest"
+              },
+              "example": {
+                "amount": 149.9,
+                "recipientId": "ab276a3d-17ba-47eb-97bf-688475037ffe",
+                "description": "Order 4821",
+                "customerId": "a2d4c1e8-5b7f-4c3a-9e2d-1f6b8c0d7e55",
+                "clientPaymentId": "4821",
+                "linkedJourney": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The payment request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentRequest"
+                },
+                "example": {
+                  "id": "5b7e2c1d-3a4f-4e8b-9c6d-7f0a1b2c3d4e",
+                  "amount": 149.9,
+                  "description": "Order 4821",
+                  "status": "CREATED",
+                  "createdAt": "2026-10-28T13:00:00.000Z",
+                  "updatedAt": "2026-10-28T13:00:00.000Z",
+                  "callbackUrls": null,
+                  "paymentUrl": "https://pay.pluggy.ai/5b7e2c1d-3a4f-4e8b-9c6d-7f0a1b2c3d4e",
+                  "clientPaymentId": "4821",
+                  "customer": null,
+                  "fees": null,
+                  "pixQrCode": null,
+                  "boleto": null,
+                  "smartAccount": null,
+                  "schedule": null,
+                  "automaticPix": null,
+                  "errorDetail": null,
+                  "isSandbox": false,
+                  "pixBiometric": {
+                    "linkedJourney": false,
+                    "enrollment": null
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters, a sandbox request, or a smart account recipient",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "examples": {
+                  "sandbox": {
+                    "summary": "Sandbox requested",
+                    "value": {
+                      "code": 400,
+                      "codeDescription": "PIX_BIOMETRIC_SANDBOX_NOT_SUPPORTED",
+                      "message": "Pix por biometria is not available in sandbox."
+                    }
+                  },
+                  "smartAccount": {
+                    "summary": "Smart account recipient",
+                    "value": {
+                      "code": 400,
+                      "codeDescription": "PIX_BIOMETRIC_RECIPIENT_NOT_SUPPORTED",
+                      "message": "Pix por biometria payment requests cannot be paid to a smart account recipient."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Payment Initiation is not enabled for the client",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 403,
+                  "codeDescription": "PAYMENT_INITIATION_NOT_ALLOWED",
+                  "message": "Current client subscription level cannot use Payment Initiation API"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recipient or customer not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "examples": {
+                  "recipient": {
+                    "summary": "Recipient not found",
+                    "value": {
+                      "code": 404,
+                      "codeDescription": "PAYMENT_RECIPIENT_NOT_FOUND",
+                      "message": "Payment recipient not found"
+                    }
+                  },
+                  "customer": {
+                    "summary": "Customer not found",
+                    "value": {
+                      "code": 404,
+                      "codeDescription": "PAYMENT_CUSTOMER_NOT_FOUND",
+                      "message": "Payment customer not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pix-biometric/enrollments": {
+      "get": {
+        "operationId": "pix-biometric-enrollments-list",
+        "summary": "List enrollments",
+        "description": "Lists the accounts your payers linked for Pix por biometria. A payer can have several: one per device and browser, and one per institution.",
+        "tags": [
+          "Pix por biometria"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Enrollments created in payment requests for this Payment Customer",
+            "in": "query",
+            "name": "customerId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "description": "Payer's CPF, digits only",
+            "in": "query",
+            "name": "cpf",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d+$"
+            }
+          },
+          {
+            "description": "Payer's CNPJ, digits only",
+            "in": "query",
+            "name": "cnpj",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d+$"
+            }
+          },
+          {
+            "description": "Enrollment status",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CREATED",
+                "AUTHORIZED",
+                "REJECTED",
+                "REVOKED",
+                "EXPIRED"
+              ]
+            }
+          },
+          {
+            "description": "Page number",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "description": "Page size",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The enrollments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "total": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "totalPages": {
+                      "type": "number",
+                      "format": "double",
+                      "description": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PixBiometricEnrollment"
+                      },
+                      "description": "List of enrollments"
+                    }
+                  }
+                },
+                "example": {
+                  "page": 1,
+                  "total": 1,
+                  "totalPages": 1,
+                  "results": [
+                    {
+                      "id": "c91a5e2b-7d0f-4f3e-9a51-2f6b8e1d4c77",
+                      "status": "AUTHORIZED",
+                      "connector": {
+                        "id": 608,
+                        "name": "Santander",
+                        "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/208.svg"
+                      },
+                      "debtor": {
+                        "name": "John Doe",
+                        "taxNumber": "***.456.789-**",
+                        "bankAccount": {
+                          "agency": "1234",
+                          "account": "****4821",
+                          "name": "Santander"
+                        }
+                      },
+                      "cpf": "***.456.789-**",
+                      "cnpj": null,
+                      "customerId": "a2d4c1e8-5b7f-4c3a-9e2d-1f6b8c0d7e55",
+                      "limits": {
+                        "transaction": 1000,
+                        "daily": 3000,
+                        "dailyUsed": 149.9
+                      },
+                      "expiresAt": "2027-10-28T13:05:00.000Z",
+                      "dataConsent": null,
+                      "revokedBy": null,
+                      "errorDetail": null,
+                      "createdAt": "2026-10-28T13:02:00.000Z",
+                      "updatedAt": "2026-10-28T13:05:00.000Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Payment Initiation is not enabled for the client",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 403,
+                  "codeDescription": "PAYMENT_INITIATION_NOT_ALLOWED",
+                  "message": "Current client subscription level cannot use Payment Initiation API"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pix-biometric/enrollments/{id}": {
+      "get": {
+        "operationId": "pix-biometric-enrollment-retrieve",
+        "summary": "Retrieve enrollment",
+        "description": "Returns the enrollment, refreshed from the institution while it is not final, so a link revoked at the bank shows as REVOKED.",
+        "tags": [
+          "Pix por biometria"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Enrollment primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "c91a5e2b-7d0f-4f3e-9a51-2f6b8e1d4c77"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The enrollment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PixBiometricEnrollment"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Enrollment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "PIX_BIOMETRIC_ENROLLMENT_NOT_FOUND",
+                  "message": "Pix por biometria enrollment not found."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pix-biometric/enrollments/{id}/revoke": {
+      "post": {
+        "operationId": "pix-biometric-enrollment-revoke",
+        "summary": "Revoke enrollment",
+        "description": "Revokes the link at the institution. Returns the enrollment with status REVOKED and revokedBy CLIENT, and sends `pix_biometric_enrollment/revoked`. It cannot be undone: the payer links again to pay with biometrics. An enrollment already REJECTED, REVOKED or EXPIRED is returned unchanged, so retrying is safe.",
+        "tags": [
+          "Pix por biometria"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Enrollment primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "c91a5e2b-7d0f-4f3e-9a51-2f6b8e1d4c77"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The revoked enrollment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PixBiometricEnrollment"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Enrollment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "PIX_BIOMETRIC_ENROLLMENT_NOT_FOUND",
+                  "message": "Pix por biometria enrollment not found."
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The institution rejected the request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 422,
+                  "codeDescription": "PIX_BIOMETRIC_PROVIDER_REJECTED",
+                  "message": "The provider rejected the Pix por biometria request."
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "The institution could not be reached; try again later",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 502,
+                  "codeDescription": "PIX_BIOMETRIC_PROVIDER_UNAVAILABLE",
+                  "message": "The Pix por biometria provider is temporarily unavailable."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pix-biometric/enrollments/{id}/balance": {
+      "get": {
+        "operationId": "pix-biometric-enrollment-balance-retrieve",
+        "summary": "Retrieve account balance",
+        "description": "Reads the linked account balance in real time from the institution. Requires an AUTHORIZED enrollment created from a payment request with `linkedJourney`, whose `dataConsent` is `AUTHORISED`. Every call counts toward the institution's monthly Open Finance quota for that account; see [Operational Rate Limits](https://docs.pluggy.ai/docs/open-finance/rate-limits).",
+        "tags": [
+          "Pix por biometria"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Enrollment primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "c91a5e2b-7d0f-4f3e-9a51-2f6b8e1d4c77"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account balance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PixBiometricBalance"
+                },
+                "example": {
+                  "balance": 5.48,
+                  "overdraft": {
+                    "contracted": 1000,
+                    "used": 0,
+                    "available": 1000
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The enrollment is not AUTHORIZED, or the payer did not share the balance, or the permission ended",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 403,
+                  "codeDescription": "PIX_BIOMETRIC_DATA_CONSENT_NOT_AVAILABLE",
+                  "message": "Pix por biometria data consent is not available for this payment."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Enrollment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "PIX_BIOMETRIC_ENROLLMENT_NOT_FOUND",
+                  "message": "Pix por biometria enrollment not found."
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit reached. The account's monthly balance quota at the institution is the usual cause; try again later",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 429,
+                  "codeDescription": "PIX_BIOMETRIC_RATE_LIMITED",
+                  "message": "The bank rate-limited the Pix por biometria balance request. Try again later."
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "The institution could not be reached; try again later",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 502,
+                  "codeDescription": "PIX_BIOMETRIC_PROVIDER_UNAVAILABLE",
+                  "message": "The Pix por biometria provider is temporarily unavailable."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pix-biometric/enrollments/{id}/data-consent": {
+      "delete": {
+        "operationId": "pix-biometric-enrollment-data-consent-delete",
+        "summary": "Cancel balance permission",
+        "description": "Cancels only the balance permission: the enrollment stays AUTHORIZED and payments keep working. Returns the enrollment with `dataConsent.status` REVOKED. A permission that already ended answers 200 unchanged, so retrying is safe.",
+        "tags": [
+          "Pix por biometria"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Enrollment primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "c91a5e2b-7d0f-4f3e-9a51-2f6b8e1d4c77"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The enrollment, with the cancelled permission",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PixBiometricEnrollment"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The enrollment has no balance permission",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 403,
+                  "codeDescription": "PIX_BIOMETRIC_DATA_CONSENT_NOT_AVAILABLE",
+                  "message": "Pix por biometria data consent is not available for this payment."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Enrollment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 404,
+                  "codeDescription": "PIX_BIOMETRIC_ENROLLMENT_NOT_FOUND",
+                  "message": "Pix por biometria enrollment not found."
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "The institution could not be reached; try again later",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 502,
+                  "codeDescription": "PIX_BIOMETRIC_PROVIDER_UNAVAILABLE",
+                  "message": "The Pix por biometria provider is temporarily unavailable."
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/smart-transfers/preauthorizations": {
@@ -8352,6 +8946,60 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BoletoConnection"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Boleto Management"
+        ],
+        "security": [
+          {
+            "default": []
+          }
+        ]
+      }
+    },
+    "/boleto-connections/{id}": {
+      "delete": {
+        "operationId": "boleto-connection-delete",
+        "summary": "Delete boleto connection",
+        "description": "Deletes a boleto connection and the bank credentials stored with it. No new boletos can be issued with it, and boletos already issued on it can no longer be cancelled through the API. Boletos already issued can still be retrieved, and their status updates (for example, when they are paid) keep arriving through the `boleto/updated` webhook. Deleting the Item a connection was created from does not delete the connection.",
+        "parameters": [
+          {
+            "description": "Boleto connection primary identifier",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "b1d3c7a2-5f4e-4b8a-9c6d-2e1f0a9b8c7d"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Boleto connection was deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Boleto connection not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 400,
+                  "codeDescription": "BOLETO_CONNECTION_NOT_FOUND"
                 }
               }
             }
@@ -9515,6 +10163,10 @@
             "type": "boolean",
             "description": "Indicates if the connector supports automatic Pix"
           },
+          "supportsPixBiometric": {
+            "type": "boolean",
+            "description": "Indicates if payers can link an account at the institution for Pix por biometria"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -10036,7 +10688,7 @@
           "webhookUrl": {
             "type": "string",
             "format": "uri",
-            "description": "Url to be notified of item changes"
+            "description": "Public https url to be notified of item changes. Same rules as the `url` of a webhook: default port (443) only, no username or password, at most 2048 characters, and a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses. Otherwise the request fails with 400."
           },
           "clientUserId": {
             "type": "string",
@@ -10110,7 +10762,7 @@
           "webhookUrl": {
             "type": "string",
             "format": "uri",
-            "description": "Url to be notified of item changes"
+            "description": "Public https url to be notified of item changes. Same rules as the `url` of a webhook: default port (443) only, no username or password, at most 2048 characters, and a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses. Otherwise the request fails with 400."
           },
           "products": {
             "type": "array",
@@ -10169,9 +10821,6 @@
           },
           "loans": {
             "$ref": "#/components/schemas/StatusDetailProduct"
-          },
-          "accountStatements": {
-            "$ref": "#/components/schemas/StatusDetailProduct"
           }
         },
         "example": {
@@ -10195,11 +10844,7 @@
             "isUpdated": true,
             "lastUpdatedAt": "2022-03-08T22:43:04.796Z"
           },
-          "paymentData": null,
-          "accountStatements": {
-            "isUpdated": true,
-            "lastUpdatedAt": "2022-03-08T22:43:04.796Z"
-          }
+          "paymentData": null
         }
       },
       "StatusDetailProduct": {
@@ -10318,7 +10963,7 @@
         "properties": {
           "url": {
             "type": "string",
-            "description": ""
+            "description": "Public https url that will receive the POST of the event. It must use the default port (443), can't include a username or password, can't be longer than 2048 characters, and its host must be a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses."
           },
           "event": {
             "$ref": "#/components/schemas/WebhookEventType"
@@ -10339,7 +10984,7 @@
         "properties": {
           "url": {
             "type": "string",
-            "description": "New https url that will receive the POST of the event"
+            "description": "New https url that will receive the POST of the event. Same rules as on creation."
           },
           "event": {
             "allOf": [
@@ -13011,7 +13656,7 @@
           },
           "webhookUrl": {
             "type": "string",
-            "description": "Url to be notified of this specific item changes"
+            "description": "Public https url to be notified of this specific item changes. Same rules as the `url` of a webhook: default port (443) only, no username or password, at most 2048 characters, and a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses. Otherwise the request fails with 400."
           },
           "oauthRedirectUri": {
             "type": "string",
@@ -14068,7 +14713,10 @@
           "smart_transfer_preauthorization/completed",
           "smart_transfer_preauthorization/error",
           "smart_transfer_payment/completed",
-          "smart_transfer_payment/error"
+          "smart_transfer_payment/error",
+          "pix_biometric_enrollment/authorized",
+          "pix_biometric_enrollment/revoked",
+          "pix_biometric_enrollment/error"
         ],
         "description": "Event the webhook subscribes to. Use `all` to receive every event for the client. Events are grouped by topic:\n\n**item/** – Lifecycle of an item (a connection to a financial institution).\n- `item/created`: a new item was created.\n- `item/updated`: the item finished an execution with new data.\n- `item/error`: the execution finished with an error (see the payload's `error` field).\n- `item/deleted`: the item was deleted.\n- `item/waiting_user_input`: the item needs additional credentials/MFA from the end user.\n- `item/waiting_user_action`: the item needs the end user to perform an action on the institution side.\n- `item/login_succeeded`: the credentials were accepted by the institution (data may still be syncing).\n\n**connector/** – Connector-level events.\n- `connector/status_updated`: a connector's health status changed (ONLINE/OFFLINE/UNSTABLE).\n\n**transactions/** – Account transaction lifecycle.\n- `transactions/created` / `transactions/updated` / `transactions/deleted`: a transaction was inserted, modified or removed during an item execution.\n\n**payment_intent/** – Payment Initiation flow (single PIX).\n- `payment_intent/created`: a payment intent was created.\n- `payment_intent/completed`: the payment was confirmed by the institution.\n- `payment_intent/waiting_payer_authorization`: the payer still needs to authorize the payment.\n- `payment_intent/error`: the payment was rejected or failed.\n\n**payment_request/** – Aggregate payment request state.\n- `payment_request/updated`: the overall status of a payment request changed.\n\n**scheduled_payment/** – Scheduled (recurring or future) payments.\n- `scheduled_payment/created` / `completed` / `error` / `canceled`: lifecycle of a single scheduled payment.\n- `scheduled_payment/all_created` / `scheduled_payment/all_completed`: emitted once when every scheduled payment in a series reaches the same terminal state.\n\n**boleto/** – Boleto status updates.\n- `boleto/updated`: the boleto data was updated (e.g. paid, expired, amount changed).\n\n**automatic_pix_payment/** – Recurring PIX (PIX Automático) individual payments.\n- `automatic_pix_payment/created`: a new recurring payment was scheduled.\n- `automatic_pix_payment/completed`: the recurring payment was confirmed.\n- `automatic_pix_payment/error`: the recurring payment failed.\n- `automatic_pix_payment/canceled`: the recurring payment was canceled (by user, expiration or revoked consent).\n\n**smart_transfer_preauthorization/** – Smart Transfer pre-authorization (consent setup).\n- `smart_transfer_preauthorization/completed`: the pre-authorization was accepted.\n- `smart_transfer_preauthorization/error`: the pre-authorization failed.\n\n**smart_transfer_payment/** – Smart Transfer individual payments executed under an active pre-authorization.\n- `smart_transfer_payment/completed`: the transfer was successful.\n- `smart_transfer_payment/error`: the transfer failed."
       },
@@ -14382,6 +15030,17 @@
             "type": "boolean",
             "description": "Indicates if this payment request is in sandbox mode. Default: false.",
             "default": false
+          },
+          "pixBiometric": {
+            "description": "Pix por biometria details. Null for every other kind of payment request.",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PaymentRequestPixBiometric"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -14806,10 +15465,19 @@
             "type": "string",
             "enum": [
               "PIS",
-              "PIX"
+              "PIX",
+              "PIX_BIOMETRIC"
             ],
-            "description": "Payment method can be PIS (Payment Initiation) or PIX",
+            "description": "Payment method can be PIS (Payment Initiation), PIX or PIX_BIOMETRIC (Pix por biometria, set by Pluggy)",
             "default": "PIS"
+          },
+          "enrollmentId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "Pix por biometria enrollment (linked account) the payment was made with. Null for other payment methods."
           },
           "pixData": {
             "allOf": [
@@ -15922,6 +16590,493 @@
             "type": "string",
             "format": "date-time",
             "description": "When Pluggy last saw the status change."
+          }
+        }
+      },
+      "CreatePixBiometricPaymentRequest": {
+        "type": "object",
+        "required": [
+          "amount",
+          "recipientId"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "minimum": 0.01,
+            "description": "Amount in BRL, with up to two decimal places."
+          },
+          "recipientId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Recipient that receives the payment. Bank account recipients only: smart accounts are not supported."
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 140,
+            "description": "Shown to the payer."
+          },
+          "customerId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Payment Customer that identifies the payer. The payment page uses its CPF/CNPJ and does not ask for it; without it the payer types their CPF."
+          },
+          "clientPaymentId": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Your own identifier for the payment."
+          },
+          "callbackUrls": {
+            "$ref": "#/components/schemas/PaymentRequestCallbackUrls"
+          },
+          "linkedJourney": {
+            "type": "boolean",
+            "default": false,
+            "description": "Offer the payer to also share their account balance and overdraft limit while the link lasts (optional for the payer). Read it with the enrollment balance endpoint."
+          },
+          "isSandbox": {
+            "type": "boolean",
+            "description": "Pix por biometria has no sandbox: `true` is rejected with `PIX_BIOMETRIC_SANDBOX_NOT_SUPPORTED`."
+          }
+        }
+      },
+      "PaymentRequestPixBiometric": {
+        "type": "object",
+        "description": "Present on Pix por biometria payment requests; null on every other kind.",
+        "required": [
+          "linkedJourney",
+          "enrollment"
+        ],
+        "properties": {
+          "linkedJourney": {
+            "type": "boolean",
+            "description": "Whether the payer was offered balance sharing."
+          },
+          "enrollment": {
+            "description": "The linked account the request was paid with, with its current status. Null until the request is paid.",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PixBiometricEnrollmentSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "PixBiometricEnrollmentConnector": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "imageUrl"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Connector primary identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Institution name"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Institution logo"
+          }
+        }
+      },
+      "PixBiometricDebtor": {
+        "type": "object",
+        "description": "The linked account, as the institution reported it.",
+        "required": [
+          "name",
+          "taxNumber",
+          "bankAccount"
+        ],
+        "properties": {
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Account holder name"
+          },
+          "taxNumber": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Account holder CPF/CNPJ, masked"
+          },
+          "bankAccount": {
+            "type": "object",
+            "required": [
+              "agency",
+              "account",
+              "name"
+            ],
+            "properties": {
+              "agency": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Branch number"
+              },
+              "account": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Account number, masked"
+              },
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Institution name"
+              }
+            }
+          }
+        }
+      },
+      "PixBiometricEnrollmentSummary": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "connector",
+          "debtor"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Enrollment primary identifier"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "CREATED",
+              "AUTHORIZED",
+              "REJECTED",
+              "REVOKED",
+              "EXPIRED"
+            ],
+            "description": "CREATED: the payer started linking and has not finished. AUTHORIZED: the link is active. REJECTED: the link was not completed (rejected, or not finished in time). REVOKED: revoked at the bank or through the API. EXPIRED: the link reached its expiration date or became inactive at the institution. REJECTED, REVOKED and EXPIRED are final."
+          },
+          "connector": {
+            "description": "Institution where the account is held",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PixBiometricEnrollmentConnector"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "debtor": {
+            "description": "The linked account. Null until the institution reports it.",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PixBiometricDebtor"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "example": {
+          "id": "c91a5e2b-7d0f-4f3e-9a51-2f6b8e1d4c77",
+          "status": "AUTHORIZED",
+          "connector": {
+            "id": 608,
+            "name": "Santander",
+            "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/208.svg"
+          },
+          "debtor": {
+            "name": "John Doe",
+            "taxNumber": "***.456.789-**",
+            "bankAccount": {
+              "agency": "1234",
+              "account": "****4821",
+              "name": "Santander"
+            }
+          }
+        }
+      },
+      "PixBiometricEnrollment": {
+        "description": "A linked account (enrollment): the payer's account at one institution, linked to the device and browser where they created the passkey. Only the payer creates one, on the payment page.",
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "connector",
+          "debtor",
+          "cpf",
+          "cnpj",
+          "customerId",
+          "limits",
+          "expiresAt",
+          "dataConsent",
+          "revokedBy",
+          "errorDetail",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Enrollment primary identifier. Payment intents reference it as `enrollmentId`."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "CREATED",
+              "AUTHORIZED",
+              "REJECTED",
+              "REVOKED",
+              "EXPIRED"
+            ],
+            "description": "CREATED: the payer started linking and has not finished. AUTHORIZED: the link is active. REJECTED: the link was not completed (rejected, or not finished in time). REVOKED: revoked at the bank or through the API. EXPIRED: the link reached its expiration date or became inactive at the institution. REJECTED, REVOKED and EXPIRED are final."
+          },
+          "connector": {
+            "description": "Institution where the account is held",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PixBiometricEnrollmentConnector"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "debtor": {
+            "description": "The linked account. Null until the institution reports it.",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PixBiometricDebtor"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cpf": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Payer's CPF, masked"
+          },
+          "cnpj": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Payer's CNPJ, masked"
+          },
+          "customerId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "Payment Customer of the payment request where the link was created. Null when the payer typed their CPF."
+          },
+          "limits": {
+            "description": "Limits the payer set at the bank, in BRL. Null until the institution reports them.",
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "transaction",
+                  "daily",
+                  "dailyUsed"
+                ],
+                "properties": {
+                  "transaction": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "description": "Per-payment limit"
+                  },
+                  "daily": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "description": "Daily limit"
+                  },
+                  "dailyUsed": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "description": "How much of today's limit is used"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "expiresAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "When the link expires, as set by the institution"
+          },
+          "dataConsent": {
+            "description": "Balance-sharing permission. Null when the payment request did not offer it or the payer chose not to share.",
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "status",
+                  "rejectionReason",
+                  "updatedAt"
+                ],
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "AWAITING_AUTHORISATION",
+                      "AUTHORISED",
+                      "REJECTED",
+                      "REVOKED"
+                    ],
+                    "description": "AUTHORISED: the balance can be read."
+                  },
+                  "rejectionReason": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Why it was rejected"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "When Pluggy last saw the status change"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "revokedBy": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "BANK",
+              "CLIENT",
+              "PAYER",
+              null
+            ],
+            "description": "Who revoked the link: BANK (the payer or the institution, at the bank) or CLIENT (you, through the API). Null unless `status` is REVOKED."
+          },
+          "errorDetail": {
+            "description": "Reason the institution gave when the link was rejected",
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "code",
+                  "description"
+                ],
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date the enrollment was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date the enrollment was last updated"
+          }
+        },
+        "example": {
+          "id": "c91a5e2b-7d0f-4f3e-9a51-2f6b8e1d4c77",
+          "status": "AUTHORIZED",
+          "connector": {
+            "id": 608,
+            "name": "Santander",
+            "imageUrl": "https://cdn.pluggy.ai/assets/connector-icons/208.svg"
+          },
+          "debtor": {
+            "name": "John Doe",
+            "taxNumber": "***.456.789-**",
+            "bankAccount": {
+              "agency": "1234",
+              "account": "****4821",
+              "name": "Santander"
+            }
+          },
+          "cpf": "***.456.789-**",
+          "cnpj": null,
+          "customerId": "a2d4c1e8-5b7f-4c3a-9e2d-1f6b8c0d7e55",
+          "limits": {
+            "transaction": 1000,
+            "daily": 3000,
+            "dailyUsed": 149.9
+          },
+          "expiresAt": "2027-10-28T13:05:00.000Z",
+          "dataConsent": null,
+          "revokedBy": null,
+          "errorDetail": null,
+          "createdAt": "2026-10-28T13:02:00.000Z",
+          "updatedAt": "2026-10-28T13:05:00.000Z"
+        }
+      },
+      "PixBiometricBalance": {
+        "type": "object",
+        "required": [
+          "balance",
+          "overdraft"
+        ],
+        "properties": {
+          "balance": {
+            "type": "number",
+            "description": "Account balance in BRL."
+          },
+          "overdraft": {
+            "description": "Overdraft limit of the account. Null when the institution does not share it.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SmartTransferOverdraft"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         }
       },
