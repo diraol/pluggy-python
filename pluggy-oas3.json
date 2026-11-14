@@ -1997,7 +1997,7 @@
       "get": {
         "operationId": "account-balance-get",
         "summary": "Get real-time balance",
-        "description": "Fetches the real-time balance for the account directly from the financial institution connector, without requiring a full item sync.",
+        "description": "Fetches the real-time balance for the account directly from the financial institution connector, without requiring a full item sync. Requires the API key (`X-API-KEY`): a Connect Token `accessToken` is rejected with 403 `FORBIDDEN_INSUFFICIENT_PERMISSIONS`.",
         "responses": {
           "200": {
             "description": "Real-time account balance",
@@ -2068,16 +2068,29 @@
             }
           },
           "403": {
-            "description": "The financial institution denied access to the account balance (consent expired or missing the required permission)",
+            "description": "The financial institution denied access to the account balance (`BALANCE_CONSENT_ERROR`), or the request used a Connect Token instead of the API key (`FORBIDDEN_INSUFFICIENT_PERMISSIONS`)",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GlobalErrorResponse"
                 },
-                "example": {
-                  "message": "The financial institution denied access to the account balance. The consent may be expired or missing the required permission.",
-                  "code": 403,
-                  "codeDescription": "BALANCE_CONSENT_ERROR"
+                "examples": {
+                  "consentError": {
+                    "summary": "Consent expired or missing the required permission",
+                    "value": {
+                      "message": "The financial institution denied access to the account balance. The consent may be expired or missing the required permission.",
+                      "code": 403,
+                      "codeDescription": "BALANCE_CONSENT_ERROR"
+                    }
+                  },
+                  "connectToken": {
+                    "summary": "Called with a Connect Token",
+                    "value": {
+                      "message": "Access token without enough permissions. Make sure you're not mixing up your Connect Token and API Token.",
+                      "code": 403,
+                      "codeDescription": "FORBIDDEN_INSUFFICIENT_PERMISSIONS"
+                    }
+                  }
                 }
               }
             }
@@ -9078,6 +9091,20 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "The boleto id is not a valid UUID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 400,
+                  "message": "id must be a UUID"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -9114,6 +9141,20 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IssuedBoleto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The boleto id is not a valid UUID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "code": 400,
+                  "message": "id must be a UUID"
                 }
               }
             }
