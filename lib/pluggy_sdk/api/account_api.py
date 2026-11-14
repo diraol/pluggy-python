@@ -61,7 +61,7 @@ class AccountApi:
     ) -> AccountBalanceGet200Response:
         """Get real-time balance
 
-        Fetches the real-time balance for the account directly from the financial institution connector, without requiring a full item sync.
+        Fetches the real-time balance for the account directly from the financial institution connector, without requiring a full item sync. Requires the API key (`X-API-KEY`): a Connect Token `accessToken` is rejected with 403 `FORBIDDEN_INSUFFICIENT_PERMISSIONS`.
 
         :param id: Account primary identifier (required)
         :type id: str
@@ -134,7 +134,7 @@ class AccountApi:
     ) -> ApiResponse[AccountBalanceGet200Response]:
         """Get real-time balance
 
-        Fetches the real-time balance for the account directly from the financial institution connector, without requiring a full item sync.
+        Fetches the real-time balance for the account directly from the financial institution connector, without requiring a full item sync. Requires the API key (`X-API-KEY`): a Connect Token `accessToken` is rejected with 403 `FORBIDDEN_INSUFFICIENT_PERMISSIONS`.
 
         :param id: Account primary identifier (required)
         :type id: str
@@ -207,7 +207,7 @@ class AccountApi:
     ) -> RESTResponseType:
         """Get real-time balance
 
-        Fetches the real-time balance for the account directly from the financial institution connector, without requiring a full item sync.
+        Fetches the real-time balance for the account directly from the financial institution connector, without requiring a full item sync. Requires the API key (`X-API-KEY`): a Connect Token `accessToken` is rejected with 403 `FORBIDDEN_INSUFFICIENT_PERMISSIONS`.
 
         :param id: Account primary identifier (required)
         :type id: str

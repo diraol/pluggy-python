@@ -513,17 +513,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_create_pix_biometric_payment_request.py
-test/test_payment_request_pix_biometric.py
-test/test_pix_biometric_balance.py
-test/test_pix_biometric_debtor.py
-test/test_pix_biometric_debtor_bank_account.py
-test/test_pix_biometric_enrollment.py
-test/test_pix_biometric_enrollment_connector.py
-test/test_pix_biometric_enrollment_data_consent.py
-test/test_pix_biometric_enrollment_error_detail.py
-test/test_pix_biometric_enrollment_limits.py
-test/test_pix_biometric_enrollment_summary.py
-test/test_pix_biometric_enrollments_list200_response.py
-test/test_pix_por_biometria_api.py
 tox.ini

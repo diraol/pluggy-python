@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 Get real-time balance
 
-Fetches the real-time balance for the account directly from the financial institution connector, without requiring a full item sync.
+Fetches the real-time balance for the account directly from the financial institution connector, without requiring a full item sync. Requires the API key (`X-API-KEY`): a Connect Token `accessToken` is rejected with 403 `FORBIDDEN_INSUFFICIENT_PERMISSIONS`.
 
 ### Example
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Real-time account balance |  -  |
 **400** | The balance request was rejected as invalid by the financial institution |  -  |
-**403** | The financial institution denied access to the account balance (consent expired or missing the required permission) |  -  |
+**403** | The financial institution denied access to the account balance (&#x60;BALANCE_CONSENT_ERROR&#x60;), or the request used a Connect Token instead of the API key (&#x60;FORBIDDEN_INSUFFICIENT_PERMISSIONS&#x60;) |  -  |
 **404** | Account not found, or the balance was not found at the financial institution |  -  |
 **429** | Rate limited by the financial institution |  -  |
 **500** | Unexpected error fetching balance from connector |  -  |

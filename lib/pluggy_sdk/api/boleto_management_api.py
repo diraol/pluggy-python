@@ -98,6 +98,7 @@ class BoletoManagementApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IssuedBoleto",
+            '400': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -164,6 +165,7 @@ class BoletoManagementApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IssuedBoleto",
+            '400': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -230,6 +232,7 @@ class BoletoManagementApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IssuedBoleto",
+            '400': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1436,6 +1439,7 @@ class BoletoManagementApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IssuedBoleto",
+            '400': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1502,6 +1506,7 @@ class BoletoManagementApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IssuedBoleto",
+            '400': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1568,6 +1573,7 @@ class BoletoManagementApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IssuedBoleto",
+            '400': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
