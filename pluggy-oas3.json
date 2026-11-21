@@ -48,7 +48,7 @@
     },
     {
       "name": "Webhook",
-      "description": "Webhook configuration and management"
+      "description": "Webhook configuration and management.\n\nEvery notification is an HTTP POST to your url with a JSON body.\n\n**Signature.** If your application has a webhook signing secret (generated, regenerated or removed by the team Owner in the Dashboard, under Applications → Configure → Webhooks), every delivery carries an `X-Pluggy-Signature: t=<unix timestamp in seconds>,v1=<lowercase hex>` header, set by Pluggy. `v1` is the HMAC-SHA256 of `<t>.<raw request body>`, keyed with the full secret (`whsec_` plus 64 hex characters, prefix included). To verify, compute it over the raw body before any JSON parsing, compare it to `v1` in constant time, and reject a `t` more than 5 minutes away from your clock; every attempt, retries included, is signed again with a fresh `t`. Applications without a secret receive deliveries without the header, as before. A change to the secret takes a few seconds to take effect: right after regenerating, a delivery can still be signed with the previous secret (accept both for a while), and right after removing it, a delivery already on its way can arrive unsigned. See [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security)."
     },
     {
       "name": "Category",
@@ -159,6 +159,26 @@
                       "code": 401,
                       "codeDescription": "CLIENT_DISABLED",
                       "message": "Client is disabled"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The request comes from an IP address outside the allowed IPs configured for the application. Only applications with allowed IPs configured are restricted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "examples": {
+                  "clientIpNotAllowed": {
+                    "summary": "Request IP address is not allowed",
+                    "value": {
+                      "code": 403,
+                      "codeDescription": "CLIENT_IP_NOT_ALLOWED",
+                      "message": "The request IP address is not in the list of allowed IPs configured for this application."
                     }
                   }
                 }
@@ -1839,6 +1859,31 @@
               ]
             },
             "example": "BANK"
+          },
+          {
+            "description": "Page size for the paging request, default: 500. Maximum: 500",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "example": "50"
+          },
+          {
+            "description": "Page number for the paging request, default: 1",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1
+            },
+            "example": "1"
           }
         ],
         "x-readme": {
@@ -2068,7 +2113,7 @@
             }
           },
           "403": {
-            "description": "The financial institution denied access to the account balance (`BALANCE_CONSENT_ERROR`), or the request used a Connect Token instead of the API key (`FORBIDDEN_INSUFFICIENT_PERMISSIONS`)",
+            "description": "The financial institution rejected the consent's access token or denied access to the account balance (`BALANCE_CONSENT_ERROR`; the consent may be expired, revoked or missing the required permission, so the user may need to reconnect), or the request used a Connect Token instead of the API key (`FORBIDDEN_INSUFFICIENT_PERMISSIONS`)",
             "content": {
               "application/json": {
                 "schema": {
@@ -2161,6 +2206,21 @@
                   "message": "The financial institution is temporarily unavailable to provide the balance. Please try again later.",
                   "code": 502,
                   "codeDescription": "BALANCE_CONNECTOR_UNAVAILABLE"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The financial institution reached its global Open Finance request limit and is temporarily not answering balance requests (`BALANCE_INSTITUTION_RATE_LIMITED`). The limit covers all traffic the institution receives, not your application: nothing is wrong with the request or the consent. No `Retry-After` is sent because the institution does not provide one; retry later with backoff.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalErrorResponse"
+                },
+                "example": {
+                  "message": "The financial institution reached its global Open Finance request limit and is temporarily not answering. Please try again later.",
+                  "code": 503,
+                  "codeDescription": "BALANCE_INSTITUTION_RATE_LIMITED"
                 }
               }
             }
@@ -2438,6 +2498,8 @@
             "in": "query",
             "name": "ids",
             "required": false,
+            "style": "form",
+            "explode": false,
             "schema": {
               "type": "array",
               "items": {
@@ -3409,6 +3471,66 @@
               "format": "double"
             },
             "example": "1"
+          },
+          {
+            "description": "Investment primary identifier. Optional, and redundant with the path: if sent, it must be equal to the `id` in the path, otherwise the request fails with 400",
+            "in": "query",
+            "name": "investmentId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "562b795d-1653-429f-be86-74ead9502813"
+          },
+          {
+            "description": "Array of investment transaction identifiers, comma separated. If defined, 'from', 'to' and 'createdAtFrom' parameters will be discarded. Maximum of 500 ids per request.",
+            "in": "query",
+            "name": "ids",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "example": "a8534c85-53ce-4f21-94d7-50e9d2ee4957, 05c693bf-c196-47ea-a28c-8251d6bb8a06"
+          },
+          {
+            "description": "Filter transactions whose date is greater than or equal to this date. Format (yyyy-mm-dd)",
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-10-13"
+          },
+          {
+            "description": "Filter transactions whose date is lower than or equal to this date (the whole day is included). Format (yyyy-mm-dd)",
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-10-15"
+          },
+          {
+            "description": "Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)",
+            "in": "query",
+            "name": "createdAtFrom",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2020-10-13T03:00:00.000Z"
           }
         ]
       }
@@ -3706,6 +3828,33 @@
         "operationId": "webhooks-list",
         "summary": "List",
         "description": "Retrieves all Webhooks associated with your application",
+        "parameters": [
+          {
+            "description": "Page size for the paging request, default: 500. Maximum: 500",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "example": "50"
+          },
+          {
+            "description": "Page number for the paging request, default: 1",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1
+            },
+            "example": "1"
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of Webhooks",
@@ -3816,7 +3965,7 @@
       "post": {
         "operationId": "webhooks-create",
         "summary": "Create",
-        "description": "Creates a webhook attached to the specific event and provides the notification url",
+        "description": "Creates a webhook attached to the specific event and provides the notification url.\n\n**Signature.** If your application has a webhook signing secret (generated, regenerated or removed by the team Owner in the Dashboard, under Applications → Configure → Webhooks), every delivery carries an `X-Pluggy-Signature: t=<unix timestamp in seconds>,v1=<lowercase hex>` header, set by Pluggy. `v1` is the HMAC-SHA256 of `<t>.<raw request body>`, keyed with the full secret (`whsec_` plus 64 hex characters, prefix included). To verify, compute it over the raw body before any JSON parsing, compare it to `v1` in constant time, and reject a `t` more than 5 minutes away from your clock; every attempt, retries included, is signed again with a fresh `t`. Applications without a secret receive deliveries without the header, as before. A change to the secret takes a few seconds to take effect: right after regenerating, a delivery can still be signed with the previous secret (accept both for a while), and right after removing it, a delivery already on its way can arrive unsigned. See [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security).",
         "responses": {
           "201": {
             "description": "Created webhook",
@@ -4349,6 +4498,31 @@
               "type": "string"
             },
             "example": "01000000"
+          },
+          {
+            "description": "Page size for the paging request, default: 500. Maximum: 500",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "example": "50"
+          },
+          {
+            "description": "Page number for the paging request, default: 1",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1
+            },
+            "example": "1"
           }
         ],
         "x-readme": {
@@ -4444,6 +4618,33 @@
         "operationId": "client-category-rules-list",
         "summary": "List Category Rules",
         "description": "Recovers category rules",
+        "parameters": [
+          {
+            "description": "Page size for the paging request, default: 500. Maximum: 500",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "example": "50"
+          },
+          {
+            "description": "Page number for the paging request, default: 1",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1
+            },
+            "example": "1"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Retrieve a list of all client category rules.",
@@ -6557,6 +6758,31 @@
               "format": "uuid"
             },
             "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          },
+          {
+            "description": "Page size for the paging request, default: 500. Maximum: 500",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "example": "50"
+          },
+          {
+            "description": "Page number for the paging request, default: 1",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1
+            },
+            "example": "1"
           }
         ]
       }
@@ -7107,6 +7333,31 @@
               "format": "uuid"
             },
             "example": "d0e8a7f0-6d86-11ea-b77f-2e728ce88125"
+          },
+          {
+            "description": "Page size for the paging request, default: 500. Maximum: 500",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "example": "50"
+          },
+          {
+            "description": "Page number for the paging request, default: 1",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1
+            },
+            "example": "1"
           }
         ],
         "tags": [
@@ -7417,6 +7668,53 @@
               "format": "uuid"
             },
             "example": "c91a5e2b-7d0f-4f3e-9a51-2f6b8e1d4c77"
+          },
+          {
+            "description": "Returns only intents created **on or after** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day.",
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2023-01-01"
+          },
+          {
+            "description": "Returns only intents created **on or before** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day, so the day itself is not included. To include a whole day, send the next day or `YYYY-MM-DDT23:59:59.999Z`.",
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2024-01-01"
+          },
+          {
+            "description": "Page size for the paging request, default: 500",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "example": "50"
+          },
+          {
+            "description": "Page number for the paging request, default: 1",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 1
+            },
+            "example": "1"
           }
         ]
       }
@@ -7603,21 +7901,13 @@
             }
           },
           "400": {
-            "description": "Invalid parameters, a sandbox request, or a smart account recipient",
+            "description": "Invalid parameters or a smart account recipient",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GlobalErrorResponse"
                 },
                 "examples": {
-                  "sandbox": {
-                    "summary": "Sandbox requested",
-                    "value": {
-                      "code": 400,
-                      "codeDescription": "PIX_BIOMETRIC_SANDBOX_NOT_SUPPORTED",
-                      "message": "Pix por biometria is not available in sandbox."
-                    }
-                  },
                   "smartAccount": {
                     "summary": "Smart account recipient",
                     "value": {
@@ -7737,6 +8027,15 @@
             }
           },
           {
+            "description": "Only sandbox (`true`) or only production (`false`) enrollments. Both when omitted.",
+            "in": "query",
+            "name": "isSandbox",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
             "description": "Page number",
             "in": "query",
             "name": "page",
@@ -7815,6 +8114,7 @@
                       "cpf": "***.456.789-**",
                       "cnpj": null,
                       "customerId": "a2d4c1e8-5b7f-4c3a-9e2d-1f6b8c0d7e55",
+                      "isSandbox": false,
                       "limits": {
                         "transaction": 1000,
                         "daily": 3000,
@@ -9206,7 +9506,8 @@
       "default": {
         "type": "apiKey",
         "name": "X-API-KEY",
-        "in": "header"
+        "in": "header",
+        "description": "An API Key from `POST /auth`, or a Connect Token for the Connect widget. When an application has allowed IPs configured, `POST /auth` and every request made with its API Key from an IP address outside that list get a 403 with `codeDescription` `CLIENT_IP_NOT_ALLOWED`. Connect Token requests are not restricted by IP."
       }
     },
     "schemas": {
@@ -10549,7 +10850,7 @@
           },
           "webhookUrl": {
             "type": "string",
-            "description": "Url to be notified of item changes"
+            "description": "Url to be notified of item changes. Deliveries to this url are signed like any other webhook of the application: when the application has a webhook signing secret, each one carries the `X-Pluggy-Signature` header (see [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security))."
           },
           "createdAt": {
             "type": "string",
@@ -10729,7 +11030,7 @@
           "webhookUrl": {
             "type": "string",
             "format": "uri",
-            "description": "Public https url to be notified of item changes. Same rules as the `url` of a webhook: default port (443) only, no username or password, at most 2048 characters, and a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses. Otherwise the request fails with 400."
+            "description": "Public https url to be notified of item changes. Same rules as the `url` of a webhook: default port (443) only, no username or password, at most 2048 characters, and a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses. Otherwise the request fails with 400. Deliveries to this url are signed like any other webhook of the application: when the application has a webhook signing secret, each one carries the `X-Pluggy-Signature` header (see [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security))."
           },
           "clientUserId": {
             "type": "string",
@@ -10803,7 +11104,7 @@
           "webhookUrl": {
             "type": "string",
             "format": "uri",
-            "description": "Public https url to be notified of item changes. Same rules as the `url` of a webhook: default port (443) only, no username or password, at most 2048 characters, and a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses. Otherwise the request fails with 400."
+            "description": "Public https url to be notified of item changes. Same rules as the `url` of a webhook: default port (443) only, no username or password, at most 2048 characters, and a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses. Otherwise the request fails with 400. Deliveries to this url are signed like any other webhook of the application: when the application has a webhook signing secret, each one carries the `X-Pluggy-Signature` header (see [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security))."
           },
           "products": {
             "type": "array",
@@ -10952,7 +11253,7 @@
         }
       },
       "Webhook": {
-        "description": "",
+        "description": "A webhook subscription. Each delivery is an HTTP POST of the event to `url`, with the custom `headers` and, when the application has a webhook signing secret, the `X-Pluggy-Signature` header (see [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security)).",
         "properties": {
           "id": {
             "type": "string",
@@ -10988,7 +11289,7 @@
             "additionalProperties": {
               "type": "string"
             },
-            "description": "Custom headers sent with each webhook delivery. Always present; an empty object when none are configured"
+            "description": "Custom headers sent with each webhook delivery. Always present; an empty object when none are configured. A header named `X-Pluggy-Signature` here does not set or override the signature header Pluggy adds."
           }
         },
         "type": "object",
@@ -11011,7 +11312,7 @@
           },
           "headers": {
             "type": "object",
-            "description": "HTTP headers that will be included in the webhook notifications (useful for things like authorization)"
+            "description": "HTTP headers that will be included in the webhook notifications (useful for things like authorization). A header named `X-Pluggy-Signature` here does not set or override the signature header Pluggy adds."
           }
         },
         "type": "object",
@@ -11085,6 +11386,7 @@
         }
       },
       "PaymentIntentParameter": {
+        "additionalProperties": false,
         "description": "Credentials neccesary to create a payment intent",
         "properties": {
           "cpf": {
@@ -13697,7 +13999,7 @@
           },
           "webhookUrl": {
             "type": "string",
-            "description": "Public https url to be notified of this specific item changes. Same rules as the `url` of a webhook: default port (443) only, no username or password, at most 2048 characters, and a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses. Otherwise the request fails with 400."
+            "description": "Public https url to be notified of this specific item changes. Same rules as the `url` of a webhook: default port (443) only, no username or password, at most 2048 characters, and a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses. Otherwise the request fails with 400. Deliveries to this url are signed like any other webhook of the application: when the application has a webhook signing secret, each one carries the `X-Pluggy-Signature` header (see [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security))."
           },
           "oauthRedirectUri": {
             "type": "string",
@@ -15194,6 +15496,7 @@
             "description": "Requested amount"
           },
           "description": {
+            "maxLength": 140,
             "type": "string",
             "description": "Payment description"
           },
@@ -15218,6 +15521,7 @@
             "description": "Customer identifier associated to the payment"
           },
           "clientPaymentId": {
+            "maxLength": 200,
             "type": "string",
             "description": "Your payment identifier"
           },
@@ -15274,6 +15578,7 @@
         "description": "Request with information to create a PIX QR payment request",
         "properties": {
           "pixQrCode": {
+            "maxLength": 1024,
             "type": "string",
             "description": "Pix QR code"
           },
@@ -15317,6 +15622,7 @@
             "description": "Requested amount"
           },
           "description": {
+            "maxLength": 140,
             "type": "string",
             "description": "Payment description"
           },
@@ -15334,6 +15640,7 @@
             "description": "Customer identifier associated to the payment"
           },
           "clientPaymentId": {
+            "maxLength": 200,
             "type": "string",
             "description": "Your payment identifier"
           },
@@ -15358,14 +15665,17 @@
         "description": "Redirect urls after the payment was completed or ended in error status",
         "properties": {
           "success": {
+            "maxLength": 2048,
             "type": "string",
             "description": "Url to be redirected after the payment was completed"
           },
           "pending": {
+            "maxLength": 2048,
             "type": "string",
             "description": "Url to be redirected when the payment is pending (for example, when it has status WAITING_PAYER_AUTHORIZATION"
           },
           "error": {
+            "maxLength": 2048,
             "type": "string",
             "description": "Url to be redirected after the payment ended in error status"
           }
@@ -15434,10 +15744,12 @@
         "description": "Payment receiver bank account information",
         "properties": {
           "branch": {
+            "pattern": "^\\d{1,20}$",
             "type": "string",
             "description": "Receiver bank account branch (agency)"
           },
           "number": {
+            "pattern": "^\\d{1,20}$",
             "type": "string",
             "description": "Receiver bank account number"
           },
@@ -15716,10 +16028,13 @@
             "$ref": "#/components/schemas/PaymentCustomerType"
           },
           "name": {
+            "maxLength": 120,
+            "minLength": 1,
             "type": "string",
             "description": "Customer name"
           },
           "email": {
+            "maxLength": 320,
             "type": "string",
             "description": "Customer email"
           },
@@ -15732,7 +16047,8 @@
             "description": "Customer CNPJ. Required when `type=BUSINESS`."
           },
           "connectorId": {
-            "type": "number",
+            "type": "integer",
+            "minimum": 1,
             "description": "Default connector id to be used in the Pluggy's payment initiation flow (https://pay.pluggy.ai) by the payer."
           }
         },
@@ -15755,10 +16071,13 @@
             "$ref": "#/components/schemas/PaymentCustomerType"
           },
           "name": {
+            "maxLength": 120,
+            "minLength": 1,
             "type": "string",
             "description": "Customer name"
           },
           "email": {
+            "maxLength": 320,
             "type": "string",
             "description": "Customer email"
           },
@@ -16124,7 +16443,7 @@
             "example": "2024-06-11"
           },
           "occurrences": {
-            "type": "number",
+            "type": "integer",
             "description": "Under the specified schedule frequency, how many payments will be scheduled to occur.",
             "format": "integer",
             "minimum": 3,
@@ -16172,7 +16491,7 @@
             "example": "MONDAY"
           },
           "occurrences": {
-            "type": "number",
+            "type": "integer",
             "description": "Under the specified schedule frequency, how many payments will be scheduled to occur.",
             "format": "integer",
             "minimum": 3,
@@ -16207,14 +16526,14 @@
             "example": "2024-06-11"
           },
           "dayOfMonth": {
-            "type": "number",
+            "type": "integer",
             "description": "Day of the month on which each payment will occur. For example, if `10`, the first payment will occur on the next 10th day of the month after `startDate` (or the same day if it is already the 10th), and every 10th day after that.",
             "minimum": 1,
             "maximum": 30,
             "example": 3
           },
           "occurrences": {
-            "type": "number",
+            "type": "integer",
             "description": "Under the specified schedule frequency, how many payments will be scheduled to occur.",
             "format": "integer",
             "minimum": 3,
@@ -16243,6 +16562,7 @@
             "example": "CUSTOM"
           },
           "dates": {
+            "maxItems": 60,
             "type": "array",
             "description": "Explicit list of dates (YYYY-MM-DD) on which payments will be settled.",
             "items": {
@@ -16252,6 +16572,7 @@
             }
           },
           "additionalInformation": {
+            "maxLength": 140,
             "type": "string",
             "description": "Additional information about the custom schedule"
           }
@@ -16549,10 +16870,12 @@
         "description": "Redirect urls after the preauthorization flow was completed or ended in error status",
         "properties": {
           "success": {
+            "maxLength": 2048,
             "type": "string",
             "description": "Url to be redirected after the preauthorization was completed"
           },
           "error": {
+            "maxLength": 2048,
             "type": "string",
             "description": "Url to be redirected after the preauthorization ended in error status"
           }
@@ -16574,6 +16897,9 @@
             "$ref": "#/components/schemas/SmartTransferPreauthorizationParameter"
           },
           "recipientIds": {
+            "minItems": 1,
+            "maxItems": 100,
+            "uniqueItems": true,
             "type": "array",
             "items": {
               "type": "string",
@@ -16584,6 +16910,7 @@
             "$ref": "#/components/schemas/SmartTransferCallbackUrls"
           },
           "clientPreauthorizationId": {
+            "maxLength": 200,
             "type": "string",
             "description": "Client preauthorization identifier"
           },
@@ -16676,7 +17003,8 @@
           },
           "isSandbox": {
             "type": "boolean",
-            "description": "Pix por biometria has no sandbox: `true` is rejected with `PIX_BIOMETRIC_SANDBOX_NOT_SUPPORTED`."
+            "default": false,
+            "description": "Create a sandbox payment request: the payer links and pays with the Pluggy sandbox bank (connector 600) instead of a real institution, and no money moves. Sandbox requests only use sandbox enrollments, and production requests only production ones."
           }
         }
       },
@@ -16861,6 +17189,7 @@
           "cpf",
           "cnpj",
           "customerId",
+          "isSandbox",
           "limits",
           "expiresAt",
           "dataConsent",
@@ -16929,6 +17258,10 @@
             ],
             "format": "uuid",
             "description": "Payment Customer of the payment request where the link was created. Null when the payer typed their CPF."
+          },
+          "isSandbox": {
+            "type": "boolean",
+            "description": "Whether the link was created in a sandbox payment request, with the Pluggy sandbox bank. Only sandbox payment requests can pay with it."
           },
           "limits": {
             "description": "Limits the payer set at the bank, in BRL. Null until the institution reports them.",
@@ -17084,6 +17417,7 @@
           "cpf": "***.456.789-**",
           "cnpj": null,
           "customerId": "a2d4c1e8-5b7f-4c3a-9e2d-1f6b8c0d7e55",
+          "isSandbox": false,
           "limits": {
             "transaction": 1000,
             "daily": 3000,
@@ -17168,6 +17502,7 @@
         }
       },
       "SmartTransferPreauthorizationParameter": {
+        "additionalProperties": false,
         "description": "Credentials neccesary to create a smart transfer preauthorization",
         "properties": {
           "cpf": {
@@ -17288,10 +17623,12 @@
             "description": "Payment amount"
           },
           "description": {
+            "maxLength": 140,
             "type": "string",
             "description": "Payment description"
           },
           "clientPaymentId": {
+            "maxLength": 200,
             "type": "string",
             "description": "Client payment identifier"
           }
@@ -17447,28 +17784,34 @@
                 "type": "object",
                 "properties": {
                   "taxNumber": {
+                    "maxLength": 18,
                     "type": "string",
                     "description": "Payer tax number (CPF/CNPJ)",
                     "example": "41.679.495/0001-00"
                   },
                   "name": {
+                    "maxLength": 200,
                     "type": "string",
                     "description": "Payer name",
                     "example": "NOME LEGAL EMPRESA"
                   },
                   "addressStreet": {
+                    "maxLength": 200,
                     "type": "string",
                     "description": "Payer street address"
                   },
                   "addressCity": {
+                    "maxLength": 100,
                     "type": "string",
                     "description": "Payer city"
                   },
                   "addressState": {
+                    "maxLength": 50,
                     "type": "string",
                     "description": "Payer state"
                   },
                   "addressZipCode": {
+                    "maxLength": 10,
                     "type": "string",
                     "description": "Payer ZIP code"
                   }
