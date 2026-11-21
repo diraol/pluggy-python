@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **error** | [**ItemError**](ItemError.md) |  | [optional] 
 **parameter** | [**ConnectorCredential**](ConnectorCredential.md) |  | [optional] 
 **user_action** | [**ConnectorUserAction**](ConnectorUserAction.md) |  | [optional] 
-**webhook_url** | **str** | Url to be notified of item changes | [optional] 
+**webhook_url** | **str** | Url to be notified of item changes. Deliveries to this url are signed like any other webhook of the application: when the application has a webhook signing secret, each one carries the &#x60;X-Pluggy-Signature&#x60; header (see [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security)). | [optional] 
 **created_at** | **datetime** | Date of creation | [optional] 
 **updated_at** | **datetime** | Date of last modification | [optional] 
 **last_updated_at** | **datetime** | Date of last syncronization | [optional] 

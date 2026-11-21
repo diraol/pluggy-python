@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from pluggy_sdk.models.payment_customer_type import PaymentCustomerType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,11 +31,11 @@ class CreatePaymentCustomerRequestBody(BaseModel):
     Body to create a payment customer
     """ # noqa: E501
     type: PaymentCustomerType
-    name: StrictStr = Field(description="Customer name")
-    email: Optional[StrictStr] = Field(default=None, description="Customer email")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=120)] = Field(description="Customer name")
+    email: Optional[Annotated[str, Field(strict=True, max_length=320)]] = Field(default=None, description="Customer email")
     cpf: Optional[StrictStr] = Field(default=None, description="Customer CPF. Required when `type=INDIVIDUAL`.")
     cnpj: Optional[StrictStr] = Field(default=None, description="Customer CNPJ. Required when `type=BUSINESS`.")
-    connector_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Default connector id to be used in the Pluggy's payment initiation flow (https://pay.pluggy.ai) by the payer.", alias="connectorId")
+    connector_id: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Default connector id to be used in the Pluggy's payment initiation flow (https://pay.pluggy.ai) by the payer.", alias="connectorId")
     __properties: ClassVar[List[str]] = ["type", "name", "email", "cpf", "cnpj", "connectorId"]
 
     model_config = ConfigDict(

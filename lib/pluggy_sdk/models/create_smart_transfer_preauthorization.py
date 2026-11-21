@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing_extensions import Annotated
 from pluggy_sdk.models.smart_transfer_callback_urls import SmartTransferCallbackUrls
 from pluggy_sdk.models.smart_transfer_preauthorization_configuration import SmartTransferPreauthorizationConfiguration
 from pluggy_sdk.models.smart_transfer_preauthorization_parameter import SmartTransferPreauthorizationParameter
@@ -33,9 +34,9 @@ class CreateSmartTransferPreauthorization(BaseModel):
     """ # noqa: E501
     connector_id: Union[StrictFloat, StrictInt] = Field(description="Primary identifier of the connector", alias="connectorId")
     parameters: SmartTransferPreauthorizationParameter
-    recipient_ids: List[StrictStr] = Field(alias="recipientIds")
+    recipient_ids: Annotated[List[StrictStr], Field(min_length=1, max_length=100)] = Field(alias="recipientIds")
     callback_urls: Optional[SmartTransferCallbackUrls] = Field(default=None, alias="callbackUrls")
-    client_preauthorization_id: Optional[StrictStr] = Field(default=None, description="Client preauthorization identifier", alias="clientPreauthorizationId")
+    client_preauthorization_id: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Client preauthorization identifier", alias="clientPreauthorizationId")
     configuration: Optional[SmartTransferPreauthorizationConfiguration] = None
     linked_journey: Optional[StrictBool] = Field(default=False, description="When true, the user is also asked, in the same approval at the bank, for a permission to read the source account balance. Check `dataConsent` on the preauthorization and use the balance endpoint once it is `AUTHORISED`.", alias="linkedJourney")
     __properties: ClassVar[List[str]] = ["connectorId", "parameters", "recipientIds", "callbackUrls", "clientPreauthorizationId", "configuration", "linkedJourney"]

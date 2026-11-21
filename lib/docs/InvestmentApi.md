@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **investment_transactions_list**
-> PageResponseInvestmentTransactions investment_transactions_list(id, page_size=page_size, page=page)
+> PageResponseInvestmentTransactions investment_transactions_list(id, page_size=page_size, page=page, investment_id=investment_id, ids=ids, var_from=var_from, to=to, created_at_from=created_at_from)
 
 List investment transactions
 
@@ -50,10 +50,15 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     id = UUID('562b795d-1653-429f-be86-74ead9502813') # UUID | Investment primary identifier
     page_size = 50 # float | Page size for the paging request, default: 500 (optional)
     page = 1 # float | Page number for the paging request, default: 1 (optional)
+    investment_id = UUID('562b795d-1653-429f-be86-74ead9502813') # UUID | Investment primary identifier. Optional, and redundant with the path: if sent, it must be equal to the `id` in the path, otherwise the request fails with 400 (optional)
+    ids = [a8534c85-53ce-4f21-94d7-50e9d2ee4957, 05c693bf-c196-47ea-a28c-8251d6bb8a06] # List[UUID] | Array of investment transaction identifiers, comma separated. If defined, 'from', 'to' and 'createdAtFrom' parameters will be discarded. Maximum of 500 ids per request. (optional)
+    var_from = '2020-10-13' # datetime | Filter transactions whose date is greater than or equal to this date. Format (yyyy-mm-dd) (optional)
+    to = '2020-10-15' # datetime | Filter transactions whose date is lower than or equal to this date (the whole day is included). Format (yyyy-mm-dd) (optional)
+    created_at_from = '2020-10-13T03:00:00.000Z' # datetime | Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z) (optional)
 
     try:
         # List investment transactions
-        api_response = api_instance.investment_transactions_list(id, page_size=page_size, page=page)
+        api_response = api_instance.investment_transactions_list(id, page_size=page_size, page=page, investment_id=investment_id, ids=ids, var_from=var_from, to=to, created_at_from=created_at_from)
         print("The response of InvestmentApi->investment_transactions_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -70,6 +75,11 @@ Name | Type | Description  | Notes
  **id** | **UUID**| Investment primary identifier | 
  **page_size** | **float**| Page size for the paging request, default: 500 | [optional] 
  **page** | **float**| Page number for the paging request, default: 1 | [optional] 
+ **investment_id** | **UUID**| Investment primary identifier. Optional, and redundant with the path: if sent, it must be equal to the &#x60;id&#x60; in the path, otherwise the request fails with 400 | [optional] 
+ **ids** | [**List[UUID]**](UUID.md)| Array of investment transaction identifiers, comma separated. If defined, &#39;from&#39;, &#39;to&#39; and &#39;createdAtFrom&#39; parameters will be discarded. Maximum of 500 ids per request. | [optional] 
+ **var_from** | **datetime**| Filter transactions whose date is greater than or equal to this date. Format (yyyy-mm-dd) | [optional] 
+ **to** | **datetime**| Filter transactions whose date is lower than or equal to this date (the whole day is included). Format (yyyy-mm-dd) | [optional] 
+ **created_at_from** | **datetime**| Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z) | [optional] 
 
 ### Return type
 

@@ -75,6 +75,7 @@ No authorization required
 |-------------|-------------|------------------|
 **200** | API Key generated |  -  |
 **401** | Invalid credentials |  -  |
+**403** | The request comes from an IP address outside the allowed IPs configured for the application. Only applications with allowed IPs configured are restricted. |  -  |
 **500** | Server Internal Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from pluggy_sdk.models.payment_customer_type import PaymentCustomerType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,8 +31,8 @@ class CreateOrUpdatePaymentCustomer(BaseModel):
     Body to update a payment customer. All fields are optional.
     """ # noqa: E501
     type: Optional[PaymentCustomerType] = None
-    name: Optional[StrictStr] = Field(default=None, description="Customer name")
-    email: Optional[StrictStr] = Field(default=None, description="Customer email")
+    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=120)]] = Field(default=None, description="Customer name")
+    email: Optional[Annotated[str, Field(strict=True, max_length=320)]] = Field(default=None, description="Customer email")
     cpf: Optional[StrictStr] = Field(default=None, description="Customer CPF")
     cnpj: Optional[StrictStr] = Field(default=None, description="Customer CNPJ, if type is `BUSINESS`")
     __properties: ClassVar[List[str]] = ["type", "name", "email", "cpf", "cnpj"]

@@ -20,7 +20,7 @@ import json
 
 from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Union
+from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
@@ -33,7 +33,7 @@ class WEEKLY(BaseModel):
     type: StrictStr = Field(description="Schedule discriminator. Always `WEEKLY` for this variant.", json_schema_extra={"examples": ["WEEKLY"]})
     start_date: date = Field(description="The start date of the validity of the scheduled payment authorization.", alias="startDate", json_schema_extra={"examples": ["2024-06-11"]})
     day_of_week: StrictStr = Field(description="Day of the week on which each payment will occur. For instance, if set to `MONDAY`, the first payment will occur on the first Monday after `startDate` (or the same day, if it is already Monday), and every Monday after that.", alias="dayOfWeek", json_schema_extra={"examples": ["MONDAY"]})
-    occurrences: Union[Annotated[float, Field(le=59, strict=True, ge=3)], Annotated[int, Field(le=59, strict=True, ge=3)]] = Field(description="Under the specified schedule frequency, how many payments will be scheduled to occur.", json_schema_extra={"examples": [3]})
+    occurrences: Annotated[int, Field(le=59, strict=True, ge=3)] = Field(description="Under the specified schedule frequency, how many payments will be scheduled to occur.", json_schema_extra={"examples": [3]})
     __properties: ClassVar[List[str]] = ["type", "startDate", "dayOfWeek", "occurrences"]
 
     @field_validator('type')

@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from pluggy_sdk.models.pix_biometric_debtor import PixBiometricDebtor
@@ -42,6 +42,7 @@ class PixBiometricEnrollment(BaseModel):
     cpf: Optional[StrictStr] = Field(description="Payer's CPF, masked")
     cnpj: Optional[StrictStr] = Field(description="Payer's CNPJ, masked")
     customer_id: Optional[UUID] = Field(description="Payment Customer of the payment request where the link was created. Null when the payer typed their CPF.", alias="customerId")
+    is_sandbox: StrictBool = Field(description="Whether the link was created in a sandbox payment request, with the Pluggy sandbox bank. Only sandbox payment requests can pay with it.", alias="isSandbox")
     limits: Optional[PixBiometricEnrollmentLimits]
     expires_at: Optional[datetime] = Field(description="When the link expires, as set by the institution", alias="expiresAt")
     data_consent: Optional[PixBiometricEnrollmentDataConsent] = Field(alias="dataConsent")
@@ -49,7 +50,7 @@ class PixBiometricEnrollment(BaseModel):
     error_detail: Optional[PixBiometricEnrollmentErrorDetail] = Field(alias="errorDetail")
     created_at: datetime = Field(description="Date the enrollment was created", alias="createdAt")
     updated_at: datetime = Field(description="Date the enrollment was last updated", alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["id", "status", "connector", "debtor", "cpf", "cnpj", "customerId", "limits", "expiresAt", "dataConsent", "revokedBy", "errorDetail", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["id", "status", "connector", "debtor", "cpf", "cnpj", "customerId", "isSandbox", "limits", "expiresAt", "dataConsent", "revokedBy", "errorDetail", "createdAt", "updatedAt"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -191,6 +192,7 @@ class PixBiometricEnrollment(BaseModel):
             "cpf": obj.get("cpf"),
             "cnpj": obj.get("cnpj"),
             "customerId": obj.get("customerId"),
+            "isSandbox": obj.get("isSandbox"),
             "limits": PixBiometricEnrollmentLimits.from_dict(obj["limits"]) if obj.get("limits") is not None else None,
             "expiresAt": obj.get("expiresAt"),
             "dataConsent": PixBiometricEnrollmentDataConsent.from_dict(obj["dataConsent"]) if obj.get("dataConsent") is not None else None,

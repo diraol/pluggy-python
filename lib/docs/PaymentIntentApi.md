@@ -172,7 +172,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payment_intents_list**
-> PaymentIntentsList200Response payment_intents_list(payment_request_id=payment_request_id, enrollment_id=enrollment_id)
+> PaymentIntentsList200Response payment_intents_list(payment_request_id=payment_request_id, enrollment_id=enrollment_id, var_from=var_from, to=to, page_size=page_size, page=page)
 
 List
 
@@ -211,10 +211,14 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     api_instance = pluggy_sdk.PaymentIntentApi(api_client)
     payment_request_id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier. Filter by it, or by `enrollmentId`. (optional)
     enrollment_id = UUID('c91a5e2b-7d0f-4f3e-9a51-2f6b8e1d4c77') # UUID | Pix por biometria enrollment: lists the payment intents made with that linked account (optional)
+    var_from = '2023-01-01' # datetime | Returns only intents created **on or after** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day. (optional)
+    to = '2024-01-01' # datetime | Returns only intents created **on or before** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day, so the day itself is not included. To include a whole day, send the next day or `YYYY-MM-DDT23:59:59.999Z`. (optional)
+    page_size = 50 # float | Page size for the paging request, default: 500 (optional)
+    page = 1 # float | Page number for the paging request, default: 1 (optional)
 
     try:
         # List
-        api_response = api_instance.payment_intents_list(payment_request_id=payment_request_id, enrollment_id=enrollment_id)
+        api_response = api_instance.payment_intents_list(payment_request_id=payment_request_id, enrollment_id=enrollment_id, var_from=var_from, to=to, page_size=page_size, page=page)
         print("The response of PaymentIntentApi->payment_intents_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -230,6 +234,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **payment_request_id** | **UUID**| Payment request primary identifier. Filter by it, or by &#x60;enrollmentId&#x60;. | [optional] 
  **enrollment_id** | **UUID**| Pix por biometria enrollment: lists the payment intents made with that linked account | [optional] 
+ **var_from** | **datetime**| Returns only intents created **on or after** this value: an ISO 8601 date-time (that exact instant) or a date (&#x60;YYYY-MM-DD&#x60;), read as 00:00 UTC of that day. | [optional] 
+ **to** | **datetime**| Returns only intents created **on or before** this value: an ISO 8601 date-time (that exact instant) or a date (&#x60;YYYY-MM-DD&#x60;), read as 00:00 UTC of that day, so the day itself is not included. To include a whole day, send the next day or &#x60;YYYY-MM-DDT23:59:59.999Z&#x60;. | [optional] 
+ **page_size** | **float**| Page size for the paging request, default: 500 | [optional] 
+ **page** | **float**| Page number for the paging request, default: 1 | [optional] 
 
 ### Return type
 

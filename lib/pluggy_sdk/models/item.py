@@ -41,7 +41,7 @@ class Item(BaseModel):
     error: Optional[ItemError] = None
     parameter: Optional[ConnectorCredential] = None
     user_action: Optional[ConnectorUserAction] = Field(default=None, alias="userAction")
-    webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of item changes", alias="webhookUrl")
+    webhook_url: Optional[StrictStr] = Field(default=None, description="Url to be notified of item changes. Deliveries to this url are signed like any other webhook of the application: when the application has a webhook signing secret, each one carries the `X-Pluggy-Signature` header (see [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security)).", alias="webhookUrl")
     created_at: Optional[datetime] = Field(default=None, description="Date of creation", alias="createdAt")
     updated_at: Optional[datetime] = Field(default=None, description="Date of last modification", alias="updatedAt")
     last_updated_at: Optional[datetime] = Field(default=None, description="Date of last syncronization", alias="lastUpdatedAt")

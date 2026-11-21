@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **cpf** | **str** | Payer&#39;s CPF, masked | 
 **cnpj** | **str** | Payer&#39;s CNPJ, masked | 
 **customer_id** | **UUID** | Payment Customer of the payment request where the link was created. Null when the payer typed their CPF. | 
+**is_sandbox** | **bool** | Whether the link was created in a sandbox payment request, with the Pluggy sandbox bank. Only sandbox payment requests can pay with it. | 
 **limits** | [**PixBiometricEnrollmentLimits**](PixBiometricEnrollmentLimits.md) |  | 
 **expires_at** | **datetime** | When the link expires, as set by the institution | 
 **data_consent** | [**PixBiometricEnrollmentDataConsent**](PixBiometricEnrollmentDataConsent.md) |  | 

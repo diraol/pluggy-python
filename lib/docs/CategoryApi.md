@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **categories_list**
-> PageResponseCategories categories_list(parent_id=parent_id)
+> PageResponseCategories categories_list(parent_id=parent_id, page_size=page_size, page=page)
 
 List
 
@@ -51,10 +51,12 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.CategoryApi(api_client)
     parent_id = '01000000' # str | Parent's primary identifier (optional)
+    page_size = 50 # float | Page size for the paging request, default: 500. Maximum: 500 (optional)
+    page = 1 # float | Page number for the paging request, default: 1 (optional)
 
     try:
         # List
-        api_response = api_instance.categories_list(parent_id=parent_id)
+        api_response = api_instance.categories_list(parent_id=parent_id, page_size=page_size, page=page)
         print("The response of CategoryApi->categories_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -69,6 +71,8 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **str**| Parent&#39;s primary identifier | [optional] 
+ **page_size** | **float**| Page size for the paging request, default: 500. Maximum: 500 | [optional] 
+ **page** | **float**| Page number for the paging request, default: 1 | [optional] 
 
 ### Return type
 
@@ -333,7 +337,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **client_category_rules_list**
-> PageResponseCategoryRules client_category_rules_list()
+> PageResponseCategoryRules client_category_rules_list(page_size=page_size, page=page)
 
 List Category Rules
 
@@ -370,10 +374,12 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.CategoryApi(api_client)
+    page_size = 50 # float | Page size for the paging request, default: 500. Maximum: 500 (optional)
+    page = 1 # float | Page number for the paging request, default: 1 (optional)
 
     try:
         # List Category Rules
-        api_response = api_instance.client_category_rules_list()
+        api_response = api_instance.client_category_rules_list(page_size=page_size, page=page)
         print("The response of CategoryApi->client_category_rules_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -384,7 +390,11 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page_size** | **float**| Page size for the paging request, default: 500. Maximum: 500 | [optional] 
+ **page** | **float**| Page number for the paging request, default: 1 | [optional] 
 
 ### Return type
 

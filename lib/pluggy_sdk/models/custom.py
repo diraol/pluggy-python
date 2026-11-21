@@ -21,6 +21,7 @@ import json
 from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,8 +31,8 @@ class CUSTOM(BaseModel):
     Schedule attribute to generate payments on an explicit list of dates.
     """ # noqa: E501
     type: StrictStr = Field(description="Schedule discriminator. Always `CUSTOM` for this variant.", json_schema_extra={"examples": ["CUSTOM"]})
-    dates: List[date] = Field(description="Explicit list of dates (YYYY-MM-DD) on which payments will be settled.")
-    additional_information: Optional[StrictStr] = Field(default=None, description="Additional information about the custom schedule", alias="additionalInformation")
+    dates: Annotated[List[date], Field(max_length=60)] = Field(description="Explicit list of dates (YYYY-MM-DD) on which payments will be settled.")
+    additional_information: Optional[Annotated[str, Field(strict=True, max_length=140)]] = Field(default=None, description="Additional information about the custom schedule", alias="additionalInformation")
     __properties: ClassVar[List[str]] = ["type", "dates", "additionalInformation"]
 
     @field_validator('type')

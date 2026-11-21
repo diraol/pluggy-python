@@ -98,6 +98,7 @@ class AuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "AuthResponse",
             '401': "GlobalErrorResponse",
+            '403': "GlobalErrorResponse",
             '500': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
@@ -167,6 +168,7 @@ class AuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "AuthResponse",
             '401': "GlobalErrorResponse",
+            '403': "GlobalErrorResponse",
             '500': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
@@ -236,6 +238,7 @@ class AuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "AuthResponse",
             '401': "GlobalErrorResponse",
+            '403': "GlobalErrorResponse",
             '500': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(

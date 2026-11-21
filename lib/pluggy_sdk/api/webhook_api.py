@@ -17,6 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictStr
+from typing import Optional, Union
 from typing_extensions import Annotated
 from uuid import UUID
 from pluggy_sdk.models.create_webhook import CreateWebhook
@@ -62,7 +63,7 @@ class WebhookApi:
     ) -> Webhook:
         """Create
 
-        Creates a webhook attached to the specific event and provides the notification url
+        Creates a webhook attached to the specific event and provides the notification url.  **Signature.** If your application has a webhook signing secret (generated, regenerated or removed by the team Owner in the Dashboard, under Applications → Configure → Webhooks), every delivery carries an `X-Pluggy-Signature: t=<unix timestamp in seconds>,v1=<lowercase hex>` header, set by Pluggy. `v1` is the HMAC-SHA256 of `<t>.<raw request body>`, keyed with the full secret (`whsec_` plus 64 hex characters, prefix included). To verify, compute it over the raw body before any JSON parsing, compare it to `v1` in constant time, and reject a `t` more than 5 minutes away from your clock; every attempt, retries included, is signed again with a fresh `t`. Applications without a secret receive deliveries without the header, as before. A change to the secret takes a few seconds to take effect: right after regenerating, a delivery can still be signed with the previous secret (accept both for a while), and right after removing it, a delivery already on its way can arrive unsigned. See [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security).
 
         :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. (required)
         :type create_webhook: CreateWebhook
@@ -131,7 +132,7 @@ class WebhookApi:
     ) -> ApiResponse[Webhook]:
         """Create
 
-        Creates a webhook attached to the specific event and provides the notification url
+        Creates a webhook attached to the specific event and provides the notification url.  **Signature.** If your application has a webhook signing secret (generated, regenerated or removed by the team Owner in the Dashboard, under Applications → Configure → Webhooks), every delivery carries an `X-Pluggy-Signature: t=<unix timestamp in seconds>,v1=<lowercase hex>` header, set by Pluggy. `v1` is the HMAC-SHA256 of `<t>.<raw request body>`, keyed with the full secret (`whsec_` plus 64 hex characters, prefix included). To verify, compute it over the raw body before any JSON parsing, compare it to `v1` in constant time, and reject a `t` more than 5 minutes away from your clock; every attempt, retries included, is signed again with a fresh `t`. Applications without a secret receive deliveries without the header, as before. A change to the secret takes a few seconds to take effect: right after regenerating, a delivery can still be signed with the previous secret (accept both for a while), and right after removing it, a delivery already on its way can arrive unsigned. See [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security).
 
         :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. (required)
         :type create_webhook: CreateWebhook
@@ -200,7 +201,7 @@ class WebhookApi:
     ) -> RESTResponseType:
         """Create
 
-        Creates a webhook attached to the specific event and provides the notification url
+        Creates a webhook attached to the specific event and provides the notification url.  **Signature.** If your application has a webhook signing secret (generated, regenerated or removed by the team Owner in the Dashboard, under Applications → Configure → Webhooks), every delivery carries an `X-Pluggy-Signature: t=<unix timestamp in seconds>,v1=<lowercase hex>` header, set by Pluggy. `v1` is the HMAC-SHA256 of `<t>.<raw request body>`, keyed with the full secret (`whsec_` plus 64 hex characters, prefix included). To verify, compute it over the raw body before any JSON parsing, compare it to `v1` in constant time, and reject a `t` more than 5 minutes away from your clock; every attempt, retries included, is signed again with a fresh `t`. Applications without a secret receive deliveries without the header, as before. A change to the secret takes a few seconds to take effect: right after regenerating, a delivery can still be signed with the previous secret (accept both for a while), and right after removing it, a delivery already on its way can arrive unsigned. See [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security).
 
         :param create_webhook: Expects the following webhooks parameters: event: One of the event types that are supported. url: An https url that will receive the POST of the event. The host must be a publicly resolvable domain — IP literals, localhost, *.localhost, *.local, *.internal, and hostnames that resolve to a private/loopback/link-local/reserved range are rejected. headers: optional key-value pairs to send with the POST of the event. (required)
         :type create_webhook: CreateWebhook
@@ -593,6 +594,8 @@ class WebhookApi:
     @validate_call
     def webhooks_list(
         self,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500. Maximum: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -610,6 +613,10 @@ class WebhookApi:
 
         Retrieves all Webhooks associated with your application
 
+        :param page_size: Page size for the paging request, default: 500. Maximum: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -633,6 +640,8 @@ class WebhookApi:
         """ # noqa: E501
 
         _param = self._webhooks_list_serialize(
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -658,6 +667,8 @@ class WebhookApi:
     @validate_call
     def webhooks_list_with_http_info(
         self,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500. Maximum: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -675,6 +686,10 @@ class WebhookApi:
 
         Retrieves all Webhooks associated with your application
 
+        :param page_size: Page size for the paging request, default: 500. Maximum: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -698,6 +713,8 @@ class WebhookApi:
         """ # noqa: E501
 
         _param = self._webhooks_list_serialize(
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -723,6 +740,8 @@ class WebhookApi:
     @validate_call
     def webhooks_list_without_preload_content(
         self,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500. Maximum: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -740,6 +759,10 @@ class WebhookApi:
 
         Retrieves all Webhooks associated with your application
 
+        :param page_size: Page size for the paging request, default: 500. Maximum: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -763,6 +786,8 @@ class WebhookApi:
         """ # noqa: E501
 
         _param = self._webhooks_list_serialize(
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -783,6 +808,8 @@ class WebhookApi:
 
     def _webhooks_list_serialize(
         self,
+        page_size,
+        page,
         _request_auth,
         _content_type,
         _headers,
@@ -805,6 +832,14 @@ class WebhookApi:
 
         # process the path parameters
         # process the query parameters
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter

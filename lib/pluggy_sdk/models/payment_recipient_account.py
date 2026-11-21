@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,10 +29,24 @@ class PaymentRecipientAccount(BaseModel):
     """
     Payment receiver bank account information
     """ # noqa: E501
-    branch: StrictStr = Field(description="Receiver bank account branch (agency)")
-    number: StrictStr = Field(description="Receiver bank account number")
+    branch: Annotated[str, Field(strict=True)] = Field(description="Receiver bank account branch (agency)")
+    number: Annotated[str, Field(strict=True)] = Field(description="Receiver bank account number")
     type: StrictStr = Field(description="Receiver bank account type, could be: 'CHECKING_ACCOUNT', 'SAVINGS_ACCOUNT' or 'GUARANTEED_ACCOUNT'")
     __properties: ClassVar[List[str]] = ["branch", "number", "type"]
+
+    @field_validator('branch', mode="before")
+    def branch_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if isinstance(value, str) and not re.match(r"^\d{1,20}$", value):
+            raise ValueError(r"must validate the regular expression /^\d{1,20}$/")
+        return value
+
+    @field_validator('number', mode="before")
+    def number_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if isinstance(value, str) and not re.match(r"^\d{1,20}$", value):
+            raise ValueError(r"must validate the regular expression /^\d{1,20}$/")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

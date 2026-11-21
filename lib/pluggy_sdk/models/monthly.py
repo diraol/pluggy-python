@@ -20,7 +20,7 @@ import json
 
 from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Union
+from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
@@ -32,8 +32,8 @@ class MONTHLY(BaseModel):
     """ # noqa: E501
     type: StrictStr = Field(description="Schedule discriminator. Always `MONTHLY` for this variant.", json_schema_extra={"examples": ["MONTHLY"]})
     start_date: date = Field(description="The start date of the validity of the scheduled payment authorization.", alias="startDate", json_schema_extra={"examples": ["2024-06-11"]})
-    day_of_month: Union[Annotated[float, Field(le=30, strict=True, ge=1)], Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(description="Day of the month on which each payment will occur. For example, if `10`, the first payment will occur on the next 10th day of the month after `startDate` (or the same day if it is already the 10th), and every 10th day after that.", alias="dayOfMonth", json_schema_extra={"examples": [3]})
-    occurrences: Union[Annotated[float, Field(le=23, strict=True, ge=3)], Annotated[int, Field(le=23, strict=True, ge=3)]] = Field(description="Under the specified schedule frequency, how many payments will be scheduled to occur.", json_schema_extra={"examples": [3]})
+    day_of_month: Annotated[int, Field(le=30, strict=True, ge=1)] = Field(description="Day of the month on which each payment will occur. For example, if `10`, the first payment will occur on the next 10th day of the month after `startDate` (or the same day if it is already the 10th), and every 10th day after that.", alias="dayOfMonth", json_schema_extra={"examples": [3]})
+    occurrences: Annotated[int, Field(le=23, strict=True, ge=3)] = Field(description="Under the specified schedule frequency, how many payments will be scheduled to occur.", json_schema_extra={"examples": [3]})
     __properties: ClassVar[List[str]] = ["type", "startDate", "dayOfMonth", "occurrences"]
 
     @field_validator('type')

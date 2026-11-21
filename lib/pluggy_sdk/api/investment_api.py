@@ -16,8 +16,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from datetime import datetime
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, field_validator
-from typing import Optional, Union
+from typing import List, Optional, Union
 from typing_extensions import Annotated
 from uuid import UUID
 from pluggy_sdk.models.investment import Investment
@@ -48,6 +49,11 @@ class InvestmentApi:
         id: Annotated[UUID, Field(description="Investment primary identifier")],
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        investment_id: Annotated[Optional[UUID], Field(description="Investment primary identifier. Optional, and redundant with the path: if sent, it must be equal to the `id` in the path, otherwise the request fails with 400")] = None,
+        ids: Annotated[Optional[List[UUID]], Field(description="Array of investment transaction identifiers, comma separated. If defined, 'from', 'to' and 'createdAtFrom' parameters will be discarded. Maximum of 500 ids per request.")] = None,
+        var_from: Annotated[Optional[datetime], Field(description="Filter transactions whose date is greater than or equal to this date. Format (yyyy-mm-dd)")] = None,
+        to: Annotated[Optional[datetime], Field(description="Filter transactions whose date is lower than or equal to this date (the whole day is included). Format (yyyy-mm-dd)")] = None,
+        created_at_from: Annotated[Optional[datetime], Field(description="Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -71,6 +77,16 @@ class InvestmentApi:
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
+        :param investment_id: Investment primary identifier. Optional, and redundant with the path: if sent, it must be equal to the `id` in the path, otherwise the request fails with 400
+        :type investment_id: UUID
+        :param ids: Array of investment transaction identifiers, comma separated. If defined, 'from', 'to' and 'createdAtFrom' parameters will be discarded. Maximum of 500 ids per request.
+        :type ids: List[UUID]
+        :param var_from: Filter transactions whose date is greater than or equal to this date. Format (yyyy-mm-dd)
+        :type var_from: datetime
+        :param to: Filter transactions whose date is lower than or equal to this date (the whole day is included). Format (yyyy-mm-dd)
+        :type to: datetime
+        :param created_at_from: Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)
+        :type created_at_from: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -97,6 +113,11 @@ class InvestmentApi:
             id=id,
             page_size=page_size,
             page=page,
+            investment_id=investment_id,
+            ids=ids,
+            var_from=var_from,
+            to=to,
+            created_at_from=created_at_from,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -124,6 +145,11 @@ class InvestmentApi:
         id: Annotated[UUID, Field(description="Investment primary identifier")],
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        investment_id: Annotated[Optional[UUID], Field(description="Investment primary identifier. Optional, and redundant with the path: if sent, it must be equal to the `id` in the path, otherwise the request fails with 400")] = None,
+        ids: Annotated[Optional[List[UUID]], Field(description="Array of investment transaction identifiers, comma separated. If defined, 'from', 'to' and 'createdAtFrom' parameters will be discarded. Maximum of 500 ids per request.")] = None,
+        var_from: Annotated[Optional[datetime], Field(description="Filter transactions whose date is greater than or equal to this date. Format (yyyy-mm-dd)")] = None,
+        to: Annotated[Optional[datetime], Field(description="Filter transactions whose date is lower than or equal to this date (the whole day is included). Format (yyyy-mm-dd)")] = None,
+        created_at_from: Annotated[Optional[datetime], Field(description="Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -147,6 +173,16 @@ class InvestmentApi:
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
+        :param investment_id: Investment primary identifier. Optional, and redundant with the path: if sent, it must be equal to the `id` in the path, otherwise the request fails with 400
+        :type investment_id: UUID
+        :param ids: Array of investment transaction identifiers, comma separated. If defined, 'from', 'to' and 'createdAtFrom' parameters will be discarded. Maximum of 500 ids per request.
+        :type ids: List[UUID]
+        :param var_from: Filter transactions whose date is greater than or equal to this date. Format (yyyy-mm-dd)
+        :type var_from: datetime
+        :param to: Filter transactions whose date is lower than or equal to this date (the whole day is included). Format (yyyy-mm-dd)
+        :type to: datetime
+        :param created_at_from: Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)
+        :type created_at_from: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -173,6 +209,11 @@ class InvestmentApi:
             id=id,
             page_size=page_size,
             page=page,
+            investment_id=investment_id,
+            ids=ids,
+            var_from=var_from,
+            to=to,
+            created_at_from=created_at_from,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -200,6 +241,11 @@ class InvestmentApi:
         id: Annotated[UUID, Field(description="Investment primary identifier")],
         page_size: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page size for the paging request, default: 500")] = None,
         page: Annotated[Optional[Union[StrictFloat, StrictInt]], Field(description="Page number for the paging request, default: 1")] = None,
+        investment_id: Annotated[Optional[UUID], Field(description="Investment primary identifier. Optional, and redundant with the path: if sent, it must be equal to the `id` in the path, otherwise the request fails with 400")] = None,
+        ids: Annotated[Optional[List[UUID]], Field(description="Array of investment transaction identifiers, comma separated. If defined, 'from', 'to' and 'createdAtFrom' parameters will be discarded. Maximum of 500 ids per request.")] = None,
+        var_from: Annotated[Optional[datetime], Field(description="Filter transactions whose date is greater than or equal to this date. Format (yyyy-mm-dd)")] = None,
+        to: Annotated[Optional[datetime], Field(description="Filter transactions whose date is lower than or equal to this date (the whole day is included). Format (yyyy-mm-dd)")] = None,
+        created_at_from: Annotated[Optional[datetime], Field(description="Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -223,6 +269,16 @@ class InvestmentApi:
         :type page_size: float
         :param page: Page number for the paging request, default: 1
         :type page: float
+        :param investment_id: Investment primary identifier. Optional, and redundant with the path: if sent, it must be equal to the `id` in the path, otherwise the request fails with 400
+        :type investment_id: UUID
+        :param ids: Array of investment transaction identifiers, comma separated. If defined, 'from', 'to' and 'createdAtFrom' parameters will be discarded. Maximum of 500 ids per request.
+        :type ids: List[UUID]
+        :param var_from: Filter transactions whose date is greater than or equal to this date. Format (yyyy-mm-dd)
+        :type var_from: datetime
+        :param to: Filter transactions whose date is lower than or equal to this date (the whole day is included). Format (yyyy-mm-dd)
+        :type to: datetime
+        :param created_at_from: Filter greater than createdAt. Format (yyyy-mm-ddThh:mm:ss.000Z)
+        :type created_at_from: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -249,6 +305,11 @@ class InvestmentApi:
             id=id,
             page_size=page_size,
             page=page,
+            investment_id=investment_id,
+            ids=ids,
+            var_from=var_from,
+            to=to,
+            created_at_from=created_at_from,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -271,6 +332,11 @@ class InvestmentApi:
         id,
         page_size,
         page,
+        investment_id,
+        ids,
+        var_from,
+        to,
+        created_at_from,
         _request_auth,
         _content_type,
         _headers,
@@ -280,6 +346,7 @@ class InvestmentApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'ids': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -302,6 +369,53 @@ class InvestmentApi:
         if page is not None:
             
             _query_params.append(('page', page))
+            
+        if investment_id is not None:
+            
+            _query_params.append(('investmentId', investment_id))
+            
+        if ids is not None:
+            
+            _query_params.append(('ids', ids))
+            
+        if var_from is not None:
+            if isinstance(var_from, datetime):
+                _query_params.append(
+                    (
+                        'from',
+                        var_from.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('from', var_from))
+            
+        if to is not None:
+            if isinstance(to, datetime):
+                _query_params.append(
+                    (
+                        'to',
+                        to.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('to', to))
+            
+        if created_at_from is not None:
+            if isinstance(created_at_from, datetime):
+                _query_params.append(
+                    (
+                        'createdAtFrom',
+                        created_at_from.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('createdAtFrom', created_at_from))
             
         # process the header parameters
         # process the form parameters

@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,8 +29,8 @@ class SmartTransferCallbackUrls(BaseModel):
     """
     Redirect urls after the preauthorization flow was completed or ended in error status
     """ # noqa: E501
-    success: Optional[StrictStr] = Field(default=None, description="Url to be redirected after the preauthorization was completed")
-    error: Optional[StrictStr] = Field(default=None, description="Url to be redirected after the preauthorization ended in error status")
+    success: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Url to be redirected after the preauthorization was completed")
+    error: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Url to be redirected after the preauthorization ended in error status")
     __properties: ClassVar[List[str]] = ["success", "error"]
 
     model_config = ConfigDict(

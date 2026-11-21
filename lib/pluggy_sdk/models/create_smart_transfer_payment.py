@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,8 +32,8 @@ class CreateSmartTransferPayment(BaseModel):
     preauthorization_id: StrictStr = Field(description="Primary identifier of the preauthorization", alias="preauthorizationId")
     recipient_id: StrictStr = Field(description="Primary identifier of the paymen recipient", alias="recipientId")
     amount: Union[StrictFloat, StrictInt] = Field(description="Payment amount")
-    description: Optional[StrictStr] = Field(default=None, description="Payment description")
-    client_payment_id: Optional[StrictStr] = Field(default=None, description="Client payment identifier", alias="clientPaymentId")
+    description: Optional[Annotated[str, Field(strict=True, max_length=140)]] = Field(default=None, description="Payment description")
+    client_payment_id: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Client payment identifier", alias="clientPaymentId")
     __properties: ClassVar[List[str]] = ["preauthorizationId", "recipientId", "amount", "description", "clientPaymentId"]
 
     model_config = ConfigDict(

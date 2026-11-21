@@ -353,7 +353,7 @@ class TransactionApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'ids': 'multi',
+            'ids': 'csv',
         }
 
         _path_params: Dict[str, str] = {}

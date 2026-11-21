@@ -16,7 +16,9 @@ Method | HTTP request | Description
 
 Create
 
-Creates a webhook attached to the specific event and provides the notification url
+Creates a webhook attached to the specific event and provides the notification url.
+
+**Signature.** If your application has a webhook signing secret (generated, regenerated or removed by the team Owner in the Dashboard, under Applications → Configure → Webhooks), every delivery carries an `X-Pluggy-Signature: t=<unix timestamp in seconds>,v1=<lowercase hex>` header, set by Pluggy. `v1` is the HMAC-SHA256 of `<t>.<raw request body>`, keyed with the full secret (`whsec_` plus 64 hex characters, prefix included). To verify, compute it over the raw body before any JSON parsing, compare it to `v1` in constant time, and reject a `t` more than 5 minutes away from your clock; every attempt, retries included, is signed again with a fresh `t`. Applications without a secret receive deliveries without the header, as before. A change to the secret takes a few seconds to take effect: right after regenerating, a delivery can still be signed with the previous secret (accept both for a while), and right after removing it, a delivery already on its way can arrive unsigned. See [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security).
 
 ### Example
 
@@ -175,7 +177,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **webhooks_list**
-> WebhooksList200Response webhooks_list()
+> WebhooksList200Response webhooks_list(page_size=page_size, page=page)
 
 List
 
@@ -212,10 +214,12 @@ configuration.api_key['default'] = os.environ["API_KEY"]
 with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.WebhookApi(api_client)
+    page_size = 50 # float | Page size for the paging request, default: 500. Maximum: 500 (optional)
+    page = 1 # float | Page number for the paging request, default: 1 (optional)
 
     try:
         # List
-        api_response = api_instance.webhooks_list()
+        api_response = api_instance.webhooks_list(page_size=page_size, page=page)
         print("The response of WebhookApi->webhooks_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -226,7 +230,11 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page_size** | **float**| Page size for the paging request, default: 500. Maximum: 500 | [optional] 
+ **page** | **float**| Page number for the paging request, default: 1 | [optional] 
 
 ### Return type
 

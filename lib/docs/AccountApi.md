@@ -86,16 +86,17 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Real-time account balance |  -  |
 **400** | The balance request was rejected as invalid by the financial institution |  -  |
-**403** | The financial institution denied access to the account balance (&#x60;BALANCE_CONSENT_ERROR&#x60;), or the request used a Connect Token instead of the API key (&#x60;FORBIDDEN_INSUFFICIENT_PERMISSIONS&#x60;) |  -  |
+**403** | The financial institution rejected the consent&#39;s access token or denied access to the account balance (&#x60;BALANCE_CONSENT_ERROR&#x60;; the consent may be expired, revoked or missing the required permission, so the user may need to reconnect), or the request used a Connect Token instead of the API key (&#x60;FORBIDDEN_INSUFFICIENT_PERMISSIONS&#x60;) |  -  |
 **404** | Account not found, or the balance was not found at the financial institution |  -  |
 **429** | Rate limited by the financial institution |  -  |
 **500** | Unexpected error fetching balance from connector |  -  |
 **502** | The financial institution is temporarily unavailable to provide the balance |  -  |
+**503** | The financial institution reached its global Open Finance request limit and is temporarily not answering balance requests (&#x60;BALANCE_INSTITUTION_RATE_LIMITED&#x60;). The limit covers all traffic the institution receives, not your application: nothing is wrong with the request or the consent. No &#x60;Retry-After&#x60; is sent because the institution does not provide one; retry later with backoff. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **accounts_list**
-> AccountsList200Response accounts_list(item_id, type=type)
+> AccountsList200Response accounts_list(item_id, type=type, page_size=page_size, page=page)
 
 List
 
@@ -134,10 +135,12 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     api_instance = pluggy_sdk.AccountApi(api_client)
     item_id = UUID('d0f8a8c0-e8e3-11e9-b210-d663bd873d93') # UUID | Item primary identifier
     type = 'BANK' # str | Parameter to filter between bank accounts and credit accounts (optional)
+    page_size = 50 # float | Page size for the paging request, default: 500. Maximum: 500 (optional)
+    page = 1 # float | Page number for the paging request, default: 1 (optional)
 
     try:
         # List
-        api_response = api_instance.accounts_list(item_id, type=type)
+        api_response = api_instance.accounts_list(item_id, type=type, page_size=page_size, page=page)
         print("The response of AccountApi->accounts_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -153,6 +156,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **item_id** | **UUID**| Item primary identifier | 
  **type** | **str**| Parameter to filter between bank accounts and credit accounts | [optional] 
+ **page_size** | **float**| Page size for the paging request, default: 500. Maximum: 500 | [optional] 
+ **page** | **float**| Page number for the paging request, default: 1 | [optional] 
 
 ### Return type
 

@@ -38,7 +38,7 @@ class CreatePixBiometricPaymentRequest(BaseModel):
     client_payment_id: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Your own identifier for the payment.", alias="clientPaymentId")
     callback_urls: Optional[PaymentRequestCallbackUrls] = Field(default=None, alias="callbackUrls")
     linked_journey: Optional[StrictBool] = Field(default=False, description="Offer the payer to also share their account balance and overdraft limit while the link lasts (optional for the payer). Read it with the enrollment balance endpoint.", alias="linkedJourney")
-    is_sandbox: Optional[StrictBool] = Field(default=None, description="Pix por biometria has no sandbox: `true` is rejected with `PIX_BIOMETRIC_SANDBOX_NOT_SUPPORTED`.", alias="isSandbox")
+    is_sandbox: Optional[StrictBool] = Field(default=False, description="Create a sandbox payment request: the payer links and pays with the Pluggy sandbox bank (connector 600) instead of a real institution, and no money moves. Sandbox requests only use sandbox enrollments, and production requests only production ones.", alias="isSandbox")
     __properties: ClassVar[List[str]] = ["amount", "recipientId", "description", "customerId", "clientPaymentId", "callbackUrls", "linkedJourney", "isSandbox"]
 
     model_config = ConfigDict(
@@ -102,7 +102,7 @@ class CreatePixBiometricPaymentRequest(BaseModel):
             "clientPaymentId": obj.get("clientPaymentId"),
             "callbackUrls": PaymentRequestCallbackUrls.from_dict(obj["callbackUrls"]) if obj.get("callbackUrls") is not None else None,
             "linkedJourney": obj.get("linkedJourney") if obj.get("linkedJourney") is not None else False,
-            "isSandbox": obj.get("isSandbox")
+            "isSandbox": obj.get("isSandbox") if obj.get("isSandbox") is not None else False
         })
         return _obj
 

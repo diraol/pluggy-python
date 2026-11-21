@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **url** | **str** | Public https url that will receive the POST of the event. It must use the default port (443), can&#39;t include a username or password, can&#39;t be longer than 2048 characters, and its host must be a domain name (not an IP address, localhost or an internal name) that resolves only to public IP addresses. | 
 **event** | [**WebhookEventType**](WebhookEventType.md) |  | 
-**headers** | **object** | HTTP headers that will be included in the webhook notifications (useful for things like authorization) | [optional] 
+**headers** | **object** | HTTP headers that will be included in the webhook notifications (useful for things like authorization). A header named &#x60;X-Pluggy-Signature&#x60; here does not set or override the signature header Pluggy adds. | [optional] 
 
 ## Example
 

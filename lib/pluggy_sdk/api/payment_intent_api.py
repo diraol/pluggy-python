@@ -16,8 +16,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from datetime import datetime
 from pydantic import Field
-from typing import Optional
+from typing import Optional, Union
 from typing_extensions import Annotated
 from uuid import UUID
 from pluggy_sdk.models.create_payment_intent import CreatePaymentIntent
@@ -591,6 +592,10 @@ class PaymentIntentApi:
         self,
         payment_request_id: Annotated[Optional[UUID], Field(description="Payment request primary identifier. Filter by it, or by `enrollmentId`.")] = None,
         enrollment_id: Annotated[Optional[UUID], Field(description="Pix por biometria enrollment: lists the payment intents made with that linked account")] = None,
+        var_from: Annotated[Optional[datetime], Field(description="Returns only intents created **on or after** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day.")] = None,
+        to: Annotated[Optional[datetime], Field(description="Returns only intents created **on or before** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day, so the day itself is not included. To include a whole day, send the next day or `YYYY-MM-DDT23:59:59.999Z`.")] = None,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -612,6 +617,14 @@ class PaymentIntentApi:
         :type payment_request_id: UUID
         :param enrollment_id: Pix por biometria enrollment: lists the payment intents made with that linked account
         :type enrollment_id: UUID
+        :param var_from: Returns only intents created **on or after** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day.
+        :type var_from: datetime
+        :param to: Returns only intents created **on or before** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day, so the day itself is not included. To include a whole day, send the next day or `YYYY-MM-DDT23:59:59.999Z`.
+        :type to: datetime
+        :param page_size: Page size for the paging request, default: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -637,6 +650,10 @@ class PaymentIntentApi:
         _param = self._payment_intents_list_serialize(
             payment_request_id=payment_request_id,
             enrollment_id=enrollment_id,
+            var_from=var_from,
+            to=to,
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -662,6 +679,10 @@ class PaymentIntentApi:
         self,
         payment_request_id: Annotated[Optional[UUID], Field(description="Payment request primary identifier. Filter by it, or by `enrollmentId`.")] = None,
         enrollment_id: Annotated[Optional[UUID], Field(description="Pix por biometria enrollment: lists the payment intents made with that linked account")] = None,
+        var_from: Annotated[Optional[datetime], Field(description="Returns only intents created **on or after** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day.")] = None,
+        to: Annotated[Optional[datetime], Field(description="Returns only intents created **on or before** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day, so the day itself is not included. To include a whole day, send the next day or `YYYY-MM-DDT23:59:59.999Z`.")] = None,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -683,6 +704,14 @@ class PaymentIntentApi:
         :type payment_request_id: UUID
         :param enrollment_id: Pix por biometria enrollment: lists the payment intents made with that linked account
         :type enrollment_id: UUID
+        :param var_from: Returns only intents created **on or after** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day.
+        :type var_from: datetime
+        :param to: Returns only intents created **on or before** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day, so the day itself is not included. To include a whole day, send the next day or `YYYY-MM-DDT23:59:59.999Z`.
+        :type to: datetime
+        :param page_size: Page size for the paging request, default: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -708,6 +737,10 @@ class PaymentIntentApi:
         _param = self._payment_intents_list_serialize(
             payment_request_id=payment_request_id,
             enrollment_id=enrollment_id,
+            var_from=var_from,
+            to=to,
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -733,6 +766,10 @@ class PaymentIntentApi:
         self,
         payment_request_id: Annotated[Optional[UUID], Field(description="Payment request primary identifier. Filter by it, or by `enrollmentId`.")] = None,
         enrollment_id: Annotated[Optional[UUID], Field(description="Pix por biometria enrollment: lists the payment intents made with that linked account")] = None,
+        var_from: Annotated[Optional[datetime], Field(description="Returns only intents created **on or after** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day.")] = None,
+        to: Annotated[Optional[datetime], Field(description="Returns only intents created **on or before** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day, so the day itself is not included. To include a whole day, send the next day or `YYYY-MM-DDT23:59:59.999Z`.")] = None,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -754,6 +791,14 @@ class PaymentIntentApi:
         :type payment_request_id: UUID
         :param enrollment_id: Pix por biometria enrollment: lists the payment intents made with that linked account
         :type enrollment_id: UUID
+        :param var_from: Returns only intents created **on or after** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day.
+        :type var_from: datetime
+        :param to: Returns only intents created **on or before** this value: an ISO 8601 date-time (that exact instant) or a date (`YYYY-MM-DD`), read as 00:00 UTC of that day, so the day itself is not included. To include a whole day, send the next day or `YYYY-MM-DDT23:59:59.999Z`.
+        :type to: datetime
+        :param page_size: Page size for the paging request, default: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -779,6 +824,10 @@ class PaymentIntentApi:
         _param = self._payment_intents_list_serialize(
             payment_request_id=payment_request_id,
             enrollment_id=enrollment_id,
+            var_from=var_from,
+            to=to,
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -799,6 +848,10 @@ class PaymentIntentApi:
         self,
         payment_request_id,
         enrollment_id,
+        var_from,
+        to,
+        page_size,
+        page,
         _request_auth,
         _content_type,
         _headers,
@@ -828,6 +881,40 @@ class PaymentIntentApi:
         if enrollment_id is not None:
             
             _query_params.append(('enrollmentId', enrollment_id))
+            
+        if var_from is not None:
+            if isinstance(var_from, datetime):
+                _query_params.append(
+                    (
+                        'from',
+                        var_from.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('from', var_from))
+            
+        if to is not None:
+            if isinstance(to, datetime):
+                _query_params.append(
+                    (
+                        'to',
+                        to.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('to', to))
+            
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
             
         # process the header parameters
         # process the form parameters

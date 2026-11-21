@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **client_payment_id** | **str** | Your own identifier for the payment. | [optional] 
 **callback_urls** | [**PaymentRequestCallbackUrls**](PaymentRequestCallbackUrls.md) |  | [optional] 
 **linked_journey** | **bool** | Offer the payer to also share their account balance and overdraft limit while the link lasts (optional for the payer). Read it with the enrollment balance endpoint. | [optional] [default to False]
-**is_sandbox** | **bool** | Pix por biometria has no sandbox: &#x60;true&#x60; is rejected with &#x60;PIX_BIOMETRIC_SANDBOX_NOT_SUPPORTED&#x60;. | [optional] 
+**is_sandbox** | **bool** | Create a sandbox payment request: the payer links and pays with the Pluggy sandbox bank (connector 600) instead of a real institution, and no money moves. Sandbox requests only use sandbox enrollments, and production requests only production ones. | [optional] [default to False]
 
 ## Example
 

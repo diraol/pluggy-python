@@ -16,7 +16,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr, field_validator
+from pydantic import Field, StrictBool, StrictStr, field_validator
 from typing import Optional
 from typing_extensions import Annotated
 from uuid import UUID
@@ -1411,6 +1411,7 @@ class PixPorBiometriaApi:
         cpf: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="Payer's CPF, digits only")] = None,
         cnpj: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="Payer's CNPJ, digits only")] = None,
         status: Annotated[Optional[StrictStr], Field(description="Enrollment status")] = None,
+        is_sandbox: Annotated[Optional[StrictBool], Field(description="Only sandbox (`true`) or only production (`false`) enrollments. Both when omitted.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=500, strict=True, ge=1)]], Field(description="Page size")] = None,
         _request_timeout: Union[
@@ -1438,6 +1439,8 @@ class PixPorBiometriaApi:
         :type cnpj: str
         :param status: Enrollment status
         :type status: str
+        :param is_sandbox: Only sandbox (`true`) or only production (`false`) enrollments. Both when omitted.
+        :type is_sandbox: bool
         :param page: Page number
         :type page: int
         :param page_size: Page size
@@ -1469,6 +1472,7 @@ class PixPorBiometriaApi:
             cpf=cpf,
             cnpj=cnpj,
             status=status,
+            is_sandbox=is_sandbox,
             page=page,
             page_size=page_size,
             _request_auth=_request_auth,
@@ -1499,6 +1503,7 @@ class PixPorBiometriaApi:
         cpf: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="Payer's CPF, digits only")] = None,
         cnpj: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="Payer's CNPJ, digits only")] = None,
         status: Annotated[Optional[StrictStr], Field(description="Enrollment status")] = None,
+        is_sandbox: Annotated[Optional[StrictBool], Field(description="Only sandbox (`true`) or only production (`false`) enrollments. Both when omitted.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=500, strict=True, ge=1)]], Field(description="Page size")] = None,
         _request_timeout: Union[
@@ -1526,6 +1531,8 @@ class PixPorBiometriaApi:
         :type cnpj: str
         :param status: Enrollment status
         :type status: str
+        :param is_sandbox: Only sandbox (`true`) or only production (`false`) enrollments. Both when omitted.
+        :type is_sandbox: bool
         :param page: Page number
         :type page: int
         :param page_size: Page size
@@ -1557,6 +1564,7 @@ class PixPorBiometriaApi:
             cpf=cpf,
             cnpj=cnpj,
             status=status,
+            is_sandbox=is_sandbox,
             page=page,
             page_size=page_size,
             _request_auth=_request_auth,
@@ -1587,6 +1595,7 @@ class PixPorBiometriaApi:
         cpf: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="Payer's CPF, digits only")] = None,
         cnpj: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="Payer's CNPJ, digits only")] = None,
         status: Annotated[Optional[StrictStr], Field(description="Enrollment status")] = None,
+        is_sandbox: Annotated[Optional[StrictBool], Field(description="Only sandbox (`true`) or only production (`false`) enrollments. Both when omitted.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=500, strict=True, ge=1)]], Field(description="Page size")] = None,
         _request_timeout: Union[
@@ -1614,6 +1623,8 @@ class PixPorBiometriaApi:
         :type cnpj: str
         :param status: Enrollment status
         :type status: str
+        :param is_sandbox: Only sandbox (`true`) or only production (`false`) enrollments. Both when omitted.
+        :type is_sandbox: bool
         :param page: Page number
         :type page: int
         :param page_size: Page size
@@ -1645,6 +1656,7 @@ class PixPorBiometriaApi:
             cpf=cpf,
             cnpj=cnpj,
             status=status,
+            is_sandbox=is_sandbox,
             page=page,
             page_size=page_size,
             _request_auth=_request_auth,
@@ -1670,6 +1682,7 @@ class PixPorBiometriaApi:
         cpf,
         cnpj,
         status,
+        is_sandbox,
         page,
         page_size,
         _request_auth,
@@ -1709,6 +1722,10 @@ class PixPorBiometriaApi:
         if status is not None:
             
             _query_params.append(('status', status))
+            
+        if is_sandbox is not None:
+            
+            _query_params.append(('isSandbox', is_sandbox))
             
         if page is not None:
             

@@ -164,7 +164,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payment_schedules_list**
-> PaymentSchedulesList200Response payment_schedules_list(id)
+> PaymentSchedulesList200Response payment_schedules_list(id, page_size=page_size, page=page)
 
 List Schedules
 
@@ -202,10 +202,12 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pluggy_sdk.PaymentScheduleApi(api_client)
     id = UUID('d0e8a7f0-6d86-11ea-b77f-2e728ce88125') # UUID | Payment request primary identifier
+    page_size = 50 # float | Page size for the paging request, default: 500. Maximum: 500 (optional)
+    page = 1 # float | Page number for the paging request, default: 1 (optional)
 
     try:
         # List Schedules
-        api_response = api_instance.payment_schedules_list(id)
+        api_response = api_instance.payment_schedules_list(id, page_size=page_size, page=page)
         print("The response of PaymentScheduleApi->payment_schedules_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -220,6 +222,8 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **UUID**| Payment request primary identifier | 
+ **page_size** | **float**| Page size for the paging request, default: 500. Maximum: 500 | [optional] 
+ **page** | **float**| Page number for the paging request, default: 1 | [optional] 
 
 ### Return type
 

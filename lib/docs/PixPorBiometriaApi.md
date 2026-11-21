@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The payment request |  -  |
-**400** | Invalid parameters, a sandbox request, or a smart account recipient |  -  |
+**400** | Invalid parameters or a smart account recipient |  -  |
 **403** | Payment Initiation is not enabled for the client |  -  |
 **404** | Recipient or customer not found |  -  |
 
@@ -423,7 +423,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **pix_biometric_enrollments_list**
-> PixBiometricEnrollmentsList200Response pix_biometric_enrollments_list(customer_id=customer_id, cpf=cpf, cnpj=cnpj, status=status, page=page, page_size=page_size)
+> PixBiometricEnrollmentsList200Response pix_biometric_enrollments_list(customer_id=customer_id, cpf=cpf, cnpj=cnpj, status=status, is_sandbox=is_sandbox, page=page, page_size=page_size)
 
 List enrollments
 
@@ -464,12 +464,13 @@ with pluggy_sdk.ApiClient(configuration) as api_client:
     cpf = 'cpf_example' # str | Payer's CPF, digits only (optional)
     cnpj = 'cnpj_example' # str | Payer's CNPJ, digits only (optional)
     status = 'status_example' # str | Enrollment status (optional)
+    is_sandbox = True # bool | Only sandbox (`true`) or only production (`false`) enrollments. Both when omitted. (optional)
     page = 56 # int | Page number (optional)
     page_size = 56 # int | Page size (optional)
 
     try:
         # List enrollments
-        api_response = api_instance.pix_biometric_enrollments_list(customer_id=customer_id, cpf=cpf, cnpj=cnpj, status=status, page=page, page_size=page_size)
+        api_response = api_instance.pix_biometric_enrollments_list(customer_id=customer_id, cpf=cpf, cnpj=cnpj, status=status, is_sandbox=is_sandbox, page=page, page_size=page_size)
         print("The response of PixPorBiometriaApi->pix_biometric_enrollments_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -487,6 +488,7 @@ Name | Type | Description  | Notes
  **cpf** | **str**| Payer&#39;s CPF, digits only | [optional] 
  **cnpj** | **str**| Payer&#39;s CNPJ, digits only | [optional] 
  **status** | **str**| Enrollment status | [optional] 
+ **is_sandbox** | **bool**| Only sandbox (&#x60;true&#x60;) or only production (&#x60;false&#x60;) enrollments. Both when omitted. | [optional] 
  **page** | **int**| Page number | [optional] 
  **page_size** | **int**| Page size | [optional] 
 

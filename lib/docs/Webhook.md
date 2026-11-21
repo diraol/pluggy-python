@@ -1,6 +1,6 @@
 # Webhook
 
-
+A webhook subscription. Each delivery is an HTTP POST of the event to `url`, with the custom `headers` and, when the application has a webhook signing secret, the `X-Pluggy-Signature` header (see [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security)).
 
 ## Properties
 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **disabled_at** | **datetime** | Date when the webhook was disabled | [optional] 
 **created_at** | **datetime** | Date when it was created | [optional] 
 **updated_at** | **datetime** | Date of the last update | [optional] 
-**headers** | **Dict[str, str]** | Custom headers sent with each webhook delivery. Always present; an empty object when none are configured | 
+**headers** | **Dict[str, str]** | Custom headers sent with each webhook delivery. Always present; an empty object when none are configured. A header named &#x60;X-Pluggy-Signature&#x60; here does not set or override the signature header Pluggy adds. | 
 
 ## Example
 

@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictStr
-from typing import Optional
+from typing import Optional, Union
 from typing_extensions import Annotated
 from uuid import UUID
 from pluggy_sdk.models.category import Category
@@ -48,6 +48,8 @@ class CategoryApi:
     def categories_list(
         self,
         parent_id: Annotated[Optional[StrictStr], Field(description="Parent's primary identifier")] = None,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500. Maximum: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -67,6 +69,10 @@ class CategoryApi:
 
         :param parent_id: Parent's primary identifier
         :type parent_id: str
+        :param page_size: Page size for the paging request, default: 500. Maximum: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -91,6 +97,8 @@ class CategoryApi:
 
         _param = self._categories_list_serialize(
             parent_id=parent_id,
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -115,6 +123,8 @@ class CategoryApi:
     def categories_list_with_http_info(
         self,
         parent_id: Annotated[Optional[StrictStr], Field(description="Parent's primary identifier")] = None,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500. Maximum: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -134,6 +144,10 @@ class CategoryApi:
 
         :param parent_id: Parent's primary identifier
         :type parent_id: str
+        :param page_size: Page size for the paging request, default: 500. Maximum: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -158,6 +172,8 @@ class CategoryApi:
 
         _param = self._categories_list_serialize(
             parent_id=parent_id,
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -182,6 +198,8 @@ class CategoryApi:
     def categories_list_without_preload_content(
         self,
         parent_id: Annotated[Optional[StrictStr], Field(description="Parent's primary identifier")] = None,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500. Maximum: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -201,6 +219,10 @@ class CategoryApi:
 
         :param parent_id: Parent's primary identifier
         :type parent_id: str
+        :param page_size: Page size for the paging request, default: 500. Maximum: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -225,6 +247,8 @@ class CategoryApi:
 
         _param = self._categories_list_serialize(
             parent_id=parent_id,
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -244,6 +268,8 @@ class CategoryApi:
     def _categories_list_serialize(
         self,
         parent_id,
+        page_size,
+        page,
         _request_auth,
         _content_type,
         _headers,
@@ -269,6 +295,14 @@ class CategoryApi:
         if parent_id is not None:
             
             _query_params.append(('parentId', parent_id))
+            
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
             
         # process the header parameters
         # process the form parameters
@@ -1124,6 +1158,8 @@ class CategoryApi:
     @validate_call
     def client_category_rules_list(
         self,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500. Maximum: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1141,6 +1177,10 @@ class CategoryApi:
 
         Recovers category rules
 
+        :param page_size: Page size for the paging request, default: 500. Maximum: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1164,6 +1204,8 @@ class CategoryApi:
         """ # noqa: E501
 
         _param = self._client_category_rules_list_serialize(
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1187,6 +1229,8 @@ class CategoryApi:
     @validate_call
     def client_category_rules_list_with_http_info(
         self,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500. Maximum: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1204,6 +1248,10 @@ class CategoryApi:
 
         Recovers category rules
 
+        :param page_size: Page size for the paging request, default: 500. Maximum: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1227,6 +1275,8 @@ class CategoryApi:
         """ # noqa: E501
 
         _param = self._client_category_rules_list_serialize(
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1250,6 +1300,8 @@ class CategoryApi:
     @validate_call
     def client_category_rules_list_without_preload_content(
         self,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500. Maximum: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1267,6 +1319,10 @@ class CategoryApi:
 
         Recovers category rules
 
+        :param page_size: Page size for the paging request, default: 500. Maximum: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1290,6 +1346,8 @@ class CategoryApi:
         """ # noqa: E501
 
         _param = self._client_category_rules_list_serialize(
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1308,6 +1366,8 @@ class CategoryApi:
 
     def _client_category_rules_list_serialize(
         self,
+        page_size,
+        page,
         _request_auth,
         _content_type,
         _headers,
@@ -1330,6 +1390,14 @@ class CategoryApi:
 
         # process the path parameters
         # process the query parameters
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter

@@ -28,7 +28,7 @@ from pydantic_core import to_jsonable_python
 
 class Webhook(BaseModel):
     """
-    
+    A webhook subscription. Each delivery is an HTTP POST of the event to `url`, with the custom `headers` and, when the application has a webhook signing secret, the `X-Pluggy-Signature` header (see [Webhook security](https://docs.pluggy.ai/docs/developer-tools/webhook-security)).
     """ # noqa: E501
     id: StrictStr = Field(description="UUID identifier for the entity")
     url: StrictStr = Field(description="Url to be notified of item changes")
@@ -36,7 +36,7 @@ class Webhook(BaseModel):
     disabled_at: Optional[datetime] = Field(default=None, description="Date when the webhook was disabled", alias="disabledAt")
     created_at: Optional[datetime] = Field(default=None, description="Date when it was created", alias="createdAt")
     updated_at: Optional[datetime] = Field(default=None, description="Date of the last update", alias="updatedAt")
-    headers: Dict[str, StrictStr] = Field(description="Custom headers sent with each webhook delivery. Always present; an empty object when none are configured")
+    headers: Dict[str, StrictStr] = Field(description="Custom headers sent with each webhook delivery. Always present; an empty object when none are configured. A header named `X-Pluggy-Signature` here does not set or override the signature header Pluggy adds.")
     __properties: ClassVar[List[str]] = ["id", "url", "event", "disabledAt", "createdAt", "updatedAt", "headers"]
 
     model_config = ConfigDict(

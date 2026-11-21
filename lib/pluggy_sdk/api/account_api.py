@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictStr, field_validator
-from typing import Optional
+from typing import Optional, Union
 from typing_extensions import Annotated
 from uuid import UUID
 from pluggy_sdk.models.account import Account
@@ -103,6 +103,7 @@ class AccountApi:
             '429': "GlobalErrorResponse",
             '500': "GlobalErrorResponse",
             '502': "GlobalErrorResponse",
+            '503': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -176,6 +177,7 @@ class AccountApi:
             '429': "GlobalErrorResponse",
             '500': "GlobalErrorResponse",
             '502': "GlobalErrorResponse",
+            '503': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -249,6 +251,7 @@ class AccountApi:
             '429': "GlobalErrorResponse",
             '500': "GlobalErrorResponse",
             '502': "GlobalErrorResponse",
+            '503': "GlobalErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -326,6 +329,8 @@ class AccountApi:
         self,
         item_id: Annotated[UUID, Field(description="Item primary identifier")],
         type: Annotated[Optional[StrictStr], Field(description="Parameter to filter between bank accounts and credit accounts")] = None,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500. Maximum: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -347,6 +352,10 @@ class AccountApi:
         :type item_id: UUID
         :param type: Parameter to filter between bank accounts and credit accounts
         :type type: str
+        :param page_size: Page size for the paging request, default: 500. Maximum: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -372,6 +381,8 @@ class AccountApi:
         _param = self._accounts_list_serialize(
             item_id=item_id,
             type=type,
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -397,6 +408,8 @@ class AccountApi:
         self,
         item_id: Annotated[UUID, Field(description="Item primary identifier")],
         type: Annotated[Optional[StrictStr], Field(description="Parameter to filter between bank accounts and credit accounts")] = None,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500. Maximum: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -418,6 +431,10 @@ class AccountApi:
         :type item_id: UUID
         :param type: Parameter to filter between bank accounts and credit accounts
         :type type: str
+        :param page_size: Page size for the paging request, default: 500. Maximum: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -443,6 +460,8 @@ class AccountApi:
         _param = self._accounts_list_serialize(
             item_id=item_id,
             type=type,
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -468,6 +487,8 @@ class AccountApi:
         self,
         item_id: Annotated[UUID, Field(description="Item primary identifier")],
         type: Annotated[Optional[StrictStr], Field(description="Parameter to filter between bank accounts and credit accounts")] = None,
+        page_size: Annotated[Optional[Union[Annotated[float, Field(le=500, strict=True, ge=1)], Annotated[int, Field(le=500, strict=True, ge=1)]]], Field(description="Page size for the paging request, default: 500. Maximum: 500")] = None,
+        page: Annotated[Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]], Field(description="Page number for the paging request, default: 1")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -489,6 +510,10 @@ class AccountApi:
         :type item_id: UUID
         :param type: Parameter to filter between bank accounts and credit accounts
         :type type: str
+        :param page_size: Page size for the paging request, default: 500. Maximum: 500
+        :type page_size: float
+        :param page: Page number for the paging request, default: 1
+        :type page: float
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -514,6 +539,8 @@ class AccountApi:
         _param = self._accounts_list_serialize(
             item_id=item_id,
             type=type,
+            page_size=page_size,
+            page=page,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -534,6 +561,8 @@ class AccountApi:
         self,
         item_id,
         type,
+        page_size,
+        page,
         _request_auth,
         _content_type,
         _headers,
@@ -563,6 +592,14 @@ class AccountApi:
         if type is not None:
             
             _query_params.append(('type', type))
+            
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
             
         # process the header parameters
         # process the form parameters

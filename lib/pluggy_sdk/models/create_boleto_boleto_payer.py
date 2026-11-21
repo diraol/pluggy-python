@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,12 +29,12 @@ class CreateBoletoBoletoPayer(BaseModel):
     """
     CreateBoletoBoletoPayer
     """ # noqa: E501
-    tax_number: StrictStr = Field(description="Payer tax number (CPF/CNPJ)", alias="taxNumber", json_schema_extra={"examples": ["41.679.495/0001-00"]})
-    name: StrictStr = Field(description="Payer name", json_schema_extra={"examples": ["NOME LEGAL EMPRESA"]})
-    address_street: Optional[StrictStr] = Field(default=None, description="Payer street address", alias="addressStreet")
-    address_city: Optional[StrictStr] = Field(default=None, description="Payer city", alias="addressCity")
-    address_state: StrictStr = Field(description="Payer state", alias="addressState")
-    address_zip_code: StrictStr = Field(description="Payer ZIP code", alias="addressZipCode")
+    tax_number: Annotated[str, Field(strict=True, max_length=18)] = Field(description="Payer tax number (CPF/CNPJ)", alias="taxNumber", json_schema_extra={"examples": ["41.679.495/0001-00"]})
+    name: Annotated[str, Field(strict=True, max_length=200)] = Field(description="Payer name", json_schema_extra={"examples": ["NOME LEGAL EMPRESA"]})
+    address_street: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Payer street address", alias="addressStreet")
+    address_city: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Payer city", alias="addressCity")
+    address_state: Annotated[str, Field(strict=True, max_length=50)] = Field(description="Payer state", alias="addressState")
+    address_zip_code: Annotated[str, Field(strict=True, max_length=10)] = Field(description="Payer ZIP code", alias="addressZipCode")
     __properties: ClassVar[List[str]] = ["taxNumber", "name", "addressStreet", "addressCity", "addressState", "addressZipCode"]
 
     model_config = ConfigDict(
